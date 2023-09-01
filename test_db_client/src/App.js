@@ -9,7 +9,7 @@ import InsertPage from "./component/InsertPage";
 import NewPageTest from "./component/NewPageTest";
 
 // Insert new import statement here
-
+import NewPage2 from "./component/NewPage2";
 
 
 // Ignore this function for now 
@@ -58,7 +58,7 @@ function App() {
           <Route path="/newpagetest" element={<NewPageTest />} />
 
           {/* Add new route here */}
-          
+          <Route path="/newpage2" element={<NewPage2 />} />
 
         </Routes>
       </div>
