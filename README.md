@@ -26,11 +26,12 @@ A simple guide, for you.
 ### Step 1 (React Front-end)
 ```bash
   cd test_db_client
-  npm run start
+  npm start
 ```
 ### Step 2 (Node Js Back-end)
 ```bash
-  node app.js
+  cd test_db_server
+  node run dev
 ```
 ### Step 3 (MySQL Database)
 
