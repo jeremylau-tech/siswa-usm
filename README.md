@@ -27,6 +27,11 @@ A simple guide, for you.
 ```bash
   cd test_db_client
   npm start
+
+  # If on mac/linux
+  # Before running npm start
+  # Run additional command to allow permisssion
+  chmod +x node_modules/.bin/react-scripts
 ```
 ### Step 2 (Node Js Back-end)
 ```bash
