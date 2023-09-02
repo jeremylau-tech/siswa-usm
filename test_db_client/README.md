@@ -1,70 +1,88 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Siswa USM
 
-## Available Scripts
+A platform to digitalise the welfare mechanism for the community of Universiti Sains Malaysia. 
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+Install siswa-usm with Github Desktop
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+  gh repo clone jeremylau-tech/siswa-usm
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+or 
 
-### `npm test`
+Install using terminal or command prompt
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+  git clone https://github.com/jeremylau-tech/siswa-usm.git
+```
+    
+## 🛠 Deployment
 
-### `npm run build`
+A simple guide, for you. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Step 1 (React Front-end)
+```bash
+  cd test_db_client
+  npm run start
+```
+### Step 2 (Node Js Back-end)
+```bash
+  node app.js
+```
+### Step 3 (MySQL Database)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+  pending
+```
+## Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Tech            | Version                                                          |
+| ----------------- | ------------------------------------------------------------------ |
+| React | 18.2.0 | npm -v |
+| Bootstrap| 5.3.1  | 
+| Node | 16.15.0 | node -v|
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### React Bootstrap : 5.3.1 | [References](https://getbootstrap.com/docs/5.3/getting-started/download/)
+```bash
+  npm install bootstrap@5.3.1
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Coding Standards
 
-## Learn More
+* camelCase: Capitalizing the first letter of the second word in a variable
+Example : testPage.js
+* Page Naming Consistency: The page title should be **consistent** with the function name itself
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Example : **testPage**.js 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Code : 
+function **testPage**() { }
 
-### Code Splitting
+export default **testPage**;
+## Color Standards
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+| Color             | Codes                                                            |
+| ----------------- | ------------------------------------------------------------------ |
+| Orange | ![#FFFFFF](https://via.placeholder.com/10/0a192f?text=+) #0a192f |
+| Purple | ![#491E6E](https://via.placeholder.com/10/f8f8f8?text=+) #491E6E |
+| Black| ![#1E1F1C](https://via.placeholder.com/10/00b48a?text=+) #1E1F1C |
 
-### Analyzing the Bundle Size
+## Font Standard
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+| Font        | Ref                                                            |
+| ----------------- | ------------------------------------------------------------------ |
+| Crypter NFT |  |
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Authors
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [@imjeremylau](https://github.com/jeremylau-tech/siswa-usm)
+- [@hakidon](https://github.com/hakidon)
