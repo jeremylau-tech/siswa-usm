@@ -11,6 +11,7 @@ import NewPageTest from "./component/NewPageTest";
 // Insert new import statement here
 import NewPage2 from "./component/NewPage2";
 import TestPage from "./component/testpage";
+import LandingPage from "./component/LandingPage";
 
 
 // Ignore this function for now 
@@ -61,6 +62,9 @@ function App() {
 
           {/* Add new route here */}
           <Route path="/newpage2" element={<NewPage2 />} />
+
+          {/* Add new Landing Page route */}
+          <Route path="/LandingPage" element={<LandingPage />} />
 
         </Routes>
       </div>
