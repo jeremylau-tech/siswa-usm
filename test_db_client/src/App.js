@@ -10,6 +10,7 @@ import NewPageTest from "./component/NewPageTest";
 
 // Insert new import statement here
 import NewPage2 from "./component/NewPage2";
+import TestPage from "./component/testpage";
 
 
 // Ignore this function for now 
@@ -53,6 +54,7 @@ function App() {
           <Route path="/message" element={<MessagePage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/insert" element={<InsertPage />} />
+          <Route path="/testpage" element={<TestPage />} />
 
            {/* Add new page down here as new route (Use the below format) */}
           <Route path="/newpagetest" element={<NewPageTest />} />
