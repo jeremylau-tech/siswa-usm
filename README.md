@@ -59,16 +59,16 @@ A simple guide, for you.
 
 ## Coding Standards
 
-* camelCase: Capitalizing the first letter of the second word in a variable
-Example : testPage.js
+* PascalCase: Capitalizing the first letter of the each word in a variable
+Example : TestPage.js
 * Page Naming Consistency: The page title should be **consistent** with the function name itself
 
-Example : **testPage**.js 
+Example : **TestPage**.js 
 
 Code : 
-function **testPage**() { }
+function **TestPage**() { }
 
-export default **testPage**;
+export default **TestPage**;
 ## Color Standards
 
 | Color             | Codes                                                            |
@@ -81,7 +81,7 @@ export default **testPage**;
 
 | Font        | Ref                                                            |
 | ----------------- | ------------------------------------------------------------------ |
-| Crypter NFT |  |
+| Crypter NFT  |  |
 
 
 ## Authors
