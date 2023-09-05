@@ -1,6 +1,6 @@
 .hero {
     width: 100%;
-    height: 75vh;
+    height: 90vh;
     background-size: cover;
     position: relative;
     color: #fff;
@@ -26,13 +26,18 @@
 }
 
 .hero-content {
-    padding-left: 60px; /* Add padding to align text away from the left edge */
+    padding-left: 10px; /* Add padding to align text away from the left edge */
     /* margin-top: 180px; */
-    width: 50%;
+    width: 60%;
 }
 
 .hero span {
-    color: #4795fa;
+    color: #fca31e;
+    font-weight: bold;
+}
+
+.hero h1 {
+  font-weight: bold;
 }
 
 .hero p {
@@ -54,16 +59,16 @@
     letter-spacing: 1px;
     display: inline-block;
     padding: 10px 28px;
-    border-radius: 4px;
+    border-radius: 10px;
     transition: 0.5s;
-    color: #fff;
-    background: #106eea;
+    color: #000000;
+    background: #fca31e;
     margin-top: 20px;
     text-decoration: none;
 }
 
 .hero .btn-get-started:hover {
-    background: #7cb4fc;
+    background: #fdbe5e;
 }
 
 .hero .btn-watch-video {
@@ -112,3 +117,355 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Styles for medium-sized screens */
+@media (max-width: 768px) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 60px 0;
+        align-items: center;
+    }
+
+    .hero-content {
+        padding-left: 0;
+        width: 80%;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+}
+
+/* Styles for smaller screens */
+@media (max-width: 576px) {
+    .hero {
+        padding: 40px 0;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+}
+
+.status-title::before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  top: calc(-0.15 * 1em); /* Adjusted for a higher position */
+  vertical-align: middle;
+  height: calc(6px + 0.7em); /* Increased height */
+  margin-right: calc(7px + 0.3em); /* Increased gap */
+  border-left: calc(5px + 0.1em) solid #fca31e;
+}
+
+.services-section {
+  background-color: #ffffff;
+  margin-top: 20px;
+  padding: 40px 20px;
+}
+
+.services-section h2 {
+  margin-top: 0;
+  margin-bottom: 40px;
+  font-weight: 600; /* bold weight for the section title */
+}
+
+.services-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.service-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s; /* smoother transition */
+  flex: 0 1 calc(33.33% - 20px);
+  max-width: 300px;
+  overflow: hidden; /* Ensure content doesn't spill outside the card */
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* deeper shadow on hover */
+}
+
+.service-card img {
+  max-width: 100%;
+  transition: transform 0.3s; /* zoom effect on hover */
+}
+
+.service-card:hover img {
+  transform: scale(1.05); /* zoom effect on hover */
+}
+
+.text-container {
+  padding: 20px;
+}
+
+.service-card h3 {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px; /* reduced margin */
+  font-weight: 600; /* bold weight for card title */
+}
+
+.service-card p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  text-align: justify;
+  line-height: 1.5; /* improved readability */
+}
+
+.service-card a {
+  display: inline-block;
+  padding: 10px 15px;
+  text-decoration: none;
+  background-color: #491E6E;
+  color: #fff;
+  border-radius: 4px; /* button-like appearance */
+  transition: background-color 0.3s;
+}
+
+.service-card a:hover {
+  background-color: #8945c5; /* darker shade on hover */
+}
+
+
+@media (max-width: 768px) {
+  .services-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .service-card {
+    flex: 0 1 100%;
+    margin-bottom: 20px; /* space between cards on smaller screens */
+  }
+}
+
+.services-section {
+  background-color: #ffffff;
+  margin-top: 20px;
+  padding: 40px 20px;
+}
+
+.services-section h2 {
+  margin-top: 0;
+  margin-bottom: 40px;
+  font-weight: 600; /* bold weight for the section title */
+}
+
+.services-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.service-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s; /* smoother transition */
+  flex: 0 1 calc(33.33% - 20px);
+  max-width: 300px;
+  overflow: hidden; /* Ensure content doesn't spill outside the card */
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* deeper shadow on hover */
+}
+
+.service-card img {
+  max-width: 100%;
+  transition: transform 0.3s; /* zoom effect on hover */
+}
+
+.service-card:hover img {
+  transform: scale(1.05); /* zoom effect on hover */
+}
+
+.text-container {
+  padding: 20px;
+}
+
+.service-card h3 {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px; /* reduced margin */
+  font-weight: 600; /* bold weight for card title */
+}
+
+.service-card p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  text-align: justify;
+  line-height: 1.5; /* improved readability */
+}
+
+.service-card a {
+  display: inline-block;
+  padding: 10px 15px;
+  text-decoration: none;
+  background-color: #491E6E;
+  color: #fff;
+  border-radius: 4px; /* button-like appearance */
+  transition: background-color 0.3s;
+}
+
+.service-card a:hover {
+  background-color: #8945c5; /* darker shade on hover */
+}
+
+@media (max-width: 768px) {
+  .services-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .service-card {
+    flex: 0 1 100%;
+    margin-bottom: 20px; /* space between cards on smaller screens */
+  }
+}
+
+.footer-logo-small {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  .footer-text {
+    text-align: center;
+    margin-left: 10px;
+  }
+  
+  .footer-text p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .copyright {
+    background-color: #491E6E; /* Set the background color */
+    padding: 20px; /* Add padding to create space between sections */
+  }
+  
+  .white-text p {
+    color: white;
+  }
+  
+  /* Add margin between sections */
+  .status-permohonan {
+    margin-bottom: 50px;
+    margin-top: 20px;
+  }
+
+  .status-permohonan h2 {
+    margin-bottom: 30px;
+  }
+
+  /* Add subtle shadow effect to the table */
+  .table {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  /* Style the table header */
+  .table th {
+    background-color: #f2f2f2;
+    padding: 12px;
+    text-align: left;
+  }
+
+  /* Style the table rows */
+  .table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* Style the "Approved" status */
+.approved {
+    background-color: #ec921c;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Style the "Rejected" status */
+  .rejected {
+    background-color: #f44336;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Style the "Ongoing" status */
+  .ongoing {
+    background-color: rgb(17, 17, 17);
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Style the "Complete" status */
+  .complete {
+    background-color: #46ce4a;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  /* Darker title text */
+  h2 {
+    color: #333;
+  }
+
+  /* Responsive styles for smaller screens */
+  @media screen and (max-width: 600px) {
+    .table {
+      box-shadow: none;
+      border: 1px solid #ddd;
+    }
+
+    .table th,
+    .table td {
+      padding: 6px;
+    }
+  }

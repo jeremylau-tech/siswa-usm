@@ -1,0 +1,22 @@
+/* NavBar.css */
+
+/* Style the background color and text color */
+.navbar {
+    background-color: #491E6E;
+    color: white;
+  }
+  
+  /* Style the brand/logo link */
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 24px;
+  }
+  
+  /* Style the navigation links */
+  .navbar-nav .nav-item {
+    padding: 10px 20px;
+    font-size: 18px;
+  }
+  
+  /* Add any additional styles you want */
+  
