@@ -1,95 +1,87 @@
+.form-page {
+  display: flex;
+  height: 100vh;
+}
+
+.form-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background-color: #f0f0f0; /* Optional background color */
+}
+
+.left {
+  background-color: #383c44; /* Optional background color for left column */
+}
+
+.right {
+  background-color: #ffffff; /* Optional background color for right column */
+}
+
 /* FormPage.css */
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+.left-header {
+    color: white;
+    text-align: left;
   }
   
-  .form-page {
-    display: flex;
-    height: 100vh;
+  .left-header-para {
+    color: white;
+    text-align: left;
+    padding-top: 30px;
+  }
+
+  .right-header-para {
+    text-align: left;
+    padding-bottom: 20px;
   }
   
-  .form-column {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    background-color: #f0f0f0; /* Optional background color */
+
+  .right-header {
+    text-align: left;
   }
   
-  .left {
-    background-color: #383c44; /* Optional background color for left column */
+ /* Style for the form */
+.form-group {
+    margin-bottom: 10px; /* Add some spacing between form fields */
   }
   
-  .right {
-    background-color: #ffffff; /* Optional background color for right column */
+  /* Style for labels */
+  .form-group label {
+    display: block; /* Display each label on a new line */
+    text-align: left; /* Align labels to the left */
+    color: #425466;
   }
   
-  /* FormPage.css */
-  .left-header {
-      color: white;
-      text-align: left;
-    }
-    
-    .left-header-para {
-      color: white;
-      text-align: left;
-      padding-top: 30px;
-    }
+/* Style for input fields */
+.form-group input[type="text"],
+.form-group input[type="email"] {
+  width: 30%; /* Make input fields fill the width of their container */
+  padding: 5px; /* Add some padding for better visual appearance */
+  border-radius: 5px; /* Add rounded corners to the input fields */
+  background-color: #edf2f7; /* Set the background color to #edf2f7 */
+  border: 1px solid #ccc; /* Add a border for better visibility */
+  color: #7a828a; /* Set the text color to #7a828a */
+  text-align: left; /* Align the text to the left */
+  padding-right: 350px;
+}
   
-    .right-header-para {
-      text-align: left;
-      padding-top: 5px;
-      padding-bottom: 20px;
-    }
-    
-  
-    .right-header {
-      text-align: left;
-    }
-    
-   /* Style for the form */
-  .form-group {
-      margin-bottom: 10px; /* Add some spacing between form fields */
-    }
-    
-    /* Style for labels */
-    .form-group label {
-      display: block; /* Display each label on a new line */
-      text-align: left; /* Align labels to the left */
-      color: #425466;
-    }
-    
-  /* Style for input fields */
-  .form-group input[type="text"],
-  .form-group input[type="email"] {
-    width: 30%; /* Make input fields fill the width of their container */
-    padding: 5px; /* Add some padding for better visual appearance */
-    border-radius: 5px; /* Add rounded corners to the input fields */
-    background-color: #edf2f7; /* Set the background color to #edf2f7 */
-    border: 1px solid #ccc; /* Add a border for better visibility */
-    color: #7a828a; /* Set the text color to #7a828a */
-    text-align: left; /* Align the text to the left */
-    padding-right: 350px;
+/* Style for the submit button */
+button[type="submit"] {
+    margin-top: 10px; /* Add some spacing above the submit button */
+    border-radius: 25px; /* Add rounded corners to the button */
+    background-color: #141416; /* Set the background color to #141416 */
+    color: white; /* Set the text color to white */
+    padding: 10px 20px; /* Add padding to the button for better visual appearance */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    border: none; /* Remove the button border */
+    width: 100%; /* Make the button width match the input fields */
+
   }
-    
-  /* Style for the submit button */
-  button[type="submit"] {
-      margin-top: 10px; /* Add some spacing above the submit button */
-      border-radius: 25px; /* Add rounded corners to the button */
-      background-color: #141416; /* Set the background color to #141416 */
-      color: white; /* Set the text color to white */
-      padding: 10px 20px; /* Add padding to the button for better visual appearance */
-      cursor: pointer; /* Change cursor to pointer on hover */
-      border: none; /* Remove the button border */
-      width: 100%; /* Make the button width match the input fields */
   
-    }
-    
-    /* Hover effect for the submit button */
-    button[type="submit"]:hover {
-      background-color: #807e7e; /* Change the background color on hover */
-    }  
+  /* Hover effect for the submit button */
+  button[type="submit"]:hover {
+    background-color: #807e7e; /* Change the background color on hover */
+  }  
