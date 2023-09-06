@@ -5,13 +5,14 @@ import HomePage from "./component/HomePage";
 import MessagePage from "./component/MessagePage";
 import UsersPage from "./component/UsersPage";
 import InsertPage from "./component/InsertPage";
-
+import Login from "./component/Login";
 // Import new page down here (Follow this format to import new page)
 import NewPageTest from "./component/NewPageTest";
 
 // Insert new import statement here
 import LandingPage from "./component/LandingPage";
 import FormPage from "./component/FormPage";
+import NavBar from "./component/NavBar";
 
 
 // Pay attention to this function
@@ -19,8 +20,9 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <NavBar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/message" element={<MessagePage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/insert" element={<InsertPage />} />
@@ -33,7 +35,7 @@ function App() {
 
           {/* Add new Landing Page route */}
           <Route path="/FormPage" element={<FormPage />} />
-
+          <Route path="/Login" element={<Login />} />
         </Routes>
       </div>
     </Router>

@@ -2,6 +2,7 @@ import React from "react";
 import './LandingPage.css';
 import NavBar from './NavBar';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import { Link } from "react-router-dom";
 
 import footerLogo from '../img/footer_logo.jpg';
 
@@ -18,7 +19,7 @@ function LandingPage() {
         <div className="container">
           <div className="hero-content">
             <h1>Selamat <span>Datang!</span></h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapien, est felis, sagittis viverra nulla mattis scelerisque. Eget cras integer.</p>
+            <p>A leading university, in Malaysia.</p>
             <div className="d-flex">
               <a href="#about" className="btn-get-started scrollto">Buat Permohonan Sekarang</a>
             </div>
@@ -35,8 +36,8 @@ function LandingPage() {
             <img src="banner.jpg" alt="Service 1 Banner" />
             <div className="text-container">
               <h3>Wang Ihsan/Makanan</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapien, est felis, sagittis viverra nulla mattis scelerisque. Eget cras integer.</p>
-              <a href="#service1">Mohon</a>
+              <p>Maklumat Lanjutan... </p>
+              <a className="nav-item nav-link"><Link to='/FormPage' className='p-4'>Mohon</Link></a>
             </div>
           </div>
 
@@ -45,8 +46,8 @@ function LandingPage() {
             <img src="banner.jpg" alt="Service 2 Banner" />
             <div className="text-container">
               <h3>Khairat Kematian</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapien, est felis, sagittis viverra nulla mattis scelerisque. Eget cras integer.</p>
-              <a href="#service2">Mohon</a>
+              <p>Maklumat Lanjutan... </p>
+              <a className="nav-item nav-link"><Link to='/FormPage' className='p-4'>Mohon</Link></a>
             </div>
           </div>
 
@@ -55,8 +56,18 @@ function LandingPage() {
             <img src="banner.jpg" alt="Service 3 Banner" />
             <div className="text-container">
               <h3>Kerosakan Peranti</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapien, est felis, sagittis viverra nulla mattis scelerisque. Eget cras integer.</p>
-              <a href="#service3">Mohon</a>
+              <p>Maklumat Lanjutan... </p>
+              <a className="nav-item"><Link to='/FormPage' className='p-4'>Mohon</Link></a>
+            </div>
+          </div>
+
+          {/* Service Card 4 */}
+          <div className="service-card">
+            <img src="banner.jpg" alt="Service 3 Banner" />
+            <div className="text-container">
+              <h3>Kerosakan Peranti</h3>
+              <p>Maklumat Lanjutan... </p>
+              <a className="nav-item"><Link to='/FormPage' className='p-4'>Mohon</Link></a>
             </div>
           </div>
         </div>
