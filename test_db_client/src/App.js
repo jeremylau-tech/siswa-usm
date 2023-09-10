@@ -13,6 +13,7 @@ import NewPageTest from "./component/NewPageTest";
 import LandingPage from "./component/LandingPage";
 import FormPage from "./component/FormPage";
 import NavBar from "./component/NavBar";
+import TermsConditions from "./component/TermsCondition";
 
 
 // Pay attention to this function
@@ -32,6 +33,7 @@ function App() {
 
           {/* Add new Landing Page route */}
           <Route path="/LandingPage" element={<LandingPage />} />
+          <Route path="/TermsConditions" element={<TermsConditions />} />
 
           {/* Add new Landing Page route */}
           <Route path="/FormPage" element={<FormPage />} />
