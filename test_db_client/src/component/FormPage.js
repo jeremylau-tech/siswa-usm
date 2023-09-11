@@ -21,23 +21,24 @@ function FormPage() {
         </p>
         <form >
           <div className="form-group">
-            <label htmlFor="email2">Nama:</label>
+            <label htmlFor="email2">Nama
+            <input type="email" id="email2" name="email2" />
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="email2">Emel</label>
             <input type="email" id="email2" name="email2" />
           </div>
           <div className="form-group">
-            <label htmlFor="email2">Emel:</label>
+            <label htmlFor="email2">Matric Num</label>
             <input type="email" id="email2" name="email2" />
           </div>
           <div className="form-group">
-            <label htmlFor="email2">Matric Num:</label>
+            <label htmlFor="email2">IC Num</label>
             <input type="email" id="email2" name="email2" />
           </div>
           <div className="form-group">
-            <label htmlFor="email2">IC Num:</label>
-            <input type="email" id="email2" name="email2" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email2">Year:</label>
+            <label htmlFor="email2">Year</label>
             <input type="email" id="email2" name="email2" />
           </div>
           {/* Add more form fields as needed */}
