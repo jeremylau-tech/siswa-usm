@@ -3,8 +3,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import React from "react";
 
-import 'C:/Users/Jeremy/siswa-usm/test_db_client/src/App.css';
-
 function Login() {
 
     const buttonStyle = {
