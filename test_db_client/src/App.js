@@ -14,6 +14,7 @@ import FormPage from "./component/FormPage";
 import NavBar from "./component/NavBar";
 import TermsConditions from "./component/TermsCondition";
 import ApplicationListPage from "./component/ApplicationListPage";
+import EvaluationPage from "./component/evaluation/EvaluationPage";
 
 
 // Pay attention to this function
@@ -32,6 +33,7 @@ function App() {
           <Route path="/newpagetest" element={<NewPageTest />} />
           <Route path="/ApplicationListPage" element={<ApplicationListPage />} />
           <Route path="/TermsConditions" element={<TermsConditions />} />
+          <Route path="/EvaluationPage" element={<EvaluationPage />} />
 
 
           {/* Add new Landing Page route */}
