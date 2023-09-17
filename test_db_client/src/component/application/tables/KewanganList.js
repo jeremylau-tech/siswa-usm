@@ -1,7 +1,18 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import { saveAs } from 'file-saver';
+import Container from "@mui/material/Container";
+import { Typography } from "@mui/material";
+import Icon from '@mui/material/Icon';
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
+
+const downloadDataAsCSV = () => {
+  const csvData = rows.map((row) => `${row.id},${row.referenceNumber},${row.name},${row.dateOfApplication},${row.status},${row.amountOfMoney}`).join('\n');
+  const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
+  saveAs(blob, 'data.csv');
+};
 
 const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -52,8 +63,8 @@ const columns = [
     },
   ];
   
-
-const rows = [
+  
+  const rows = [
     {
       id: 1,
       referenceNumber: "REF12345",
@@ -136,9 +147,9 @@ const rows = [
     },
     // Add more rows with new sample data as needed
   ];
-
-// Function to determine the button color based on the status
-const getStatusButtonColor = (status) => {
+  
+  // Function to determine the button color based on the status
+  const getStatusButtonColor = (status) => {
     switch (status) {
       case "Pending":
       case "Rejected":
@@ -165,43 +176,49 @@ const getStatusButtonColor = (status) => {
         return "Unknown";
     }
   };
-
-const handleButtonClick = (rowId) => {
+  
+  const handleButtonClick = (rowId) => {
   // Add your logic here to handle the button click for the row with the given ID
   console.log(`Button clicked for row with ID: ${rowId}`);
-};
-
-function ApplicationListPage() {
+  };
+  
+  
+  function KewanganList(){
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">Senarai Permohonan</h1>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "80vh",
-        }}
-      >
-        <Box sx={{ height: 400, width: "80%" }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 5,
-                },
-              },
-            }}
-            pageSizeOptions={[5]}
-            checkboxSelection
-            disableRowSelectionOnClick
-          />
+      <Box sx={{ height: 400, width: "80%" }}>
+        <Box sx={{ flexGrow: 1,}}
+        margin={1}
+        align={"right"}
+        >
+          <Button variant="contained" color="primary" onClick={downloadDataAsCSV}>
+            MUAT TURUN
+            <DownloadRoundedIcon
+              sx={{ ml: 1 }}
+            />
+          </Button>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            fontStyle={"italic"}
+            fontSize={12}
+          >  format .CSV </Typography>
         </Box>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
       </Box>
-    </div>
   );
-}
+  }
 
-export default ApplicationListPage;
+  export default KewanganList;
