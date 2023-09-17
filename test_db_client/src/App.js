@@ -13,7 +13,7 @@ import LandingPage from "./component/LandingPage";
 import FormPage from "./component/FormPage";
 import NavBar from "./component/NavBar";
 import TermsConditions from "./component/TermsCondition";
-import ApplicationListPage from "./component/ApplicationListPage";
+import ApplicationListPage from "./component/application/ApplicationListPage";
 import EvaluationPage from "./component/evaluation/EvaluationPage";
 
 
