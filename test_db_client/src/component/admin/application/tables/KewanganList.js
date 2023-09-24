@@ -4,10 +4,12 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { saveAs } from 'file-saver';
 import Container from "@mui/material/Container";
-import { Typography } from "@mui/material";
-import Icon from '@mui/material/Icon';
+import Typography from "@mui/material/Typography";
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
-
+import Paper from '@mui/material/Paper';
+import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
+import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
+import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
 const downloadDataAsCSV = () => {
   const csvData = rows.map((row) => `${row.id},${row.referenceNumber},${row.name},${row.dateOfApplication},${row.status},${row.amountOfMoney}`).join('\n');
   const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
@@ -15,7 +17,6 @@ const downloadDataAsCSV = () => {
 };
 
 const columns = [
-    { field: "id", headerName: "ID", width: 90 },
     {
       field: "referenceNumber",
       headerName: "No Rujukan",
@@ -25,26 +26,76 @@ const columns = [
     {
       field: "name",
       headerName: "Nama Pelajar",
-      width: 150,
+      width: 250,
       editable: false,
     },
     {
       field: "dateOfApplication",
       headerName: "Tarikh Permohonan",
+      width: 200,
+      editable: false,
+    },
+    {
+      field: "amountOfMoney",
+      headerName: "Amaun",
       width: 150,
       editable: false,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 100,
+      width: 200,
       editable: false,
-    },
-    {
-      field: "amountOfMoney",
-      headerName: "Amaun Wang (RM)",
-      width: 150,
-      editable: false,
+      renderCell: (params) => {
+        const status = params.value;
+        let textColor = "white"; // You can change the text color as needed
+        let backgroundColor = ""; // You can change the background color as needed
+  
+        switch (status) {
+          case "New":
+            textColor = "#ff8f00"
+            backgroundColor = "#ffecb3"
+            break;
+          case "Pending":
+            textColor = "#757575"
+            backgroundColor = "#eeeeee"
+            break;
+          case "Approved":
+            textColor = "#558b2f"
+            backgroundColor = "#dcedc8"
+            break;
+          case "Rejected":
+            textColor = "#e53935"
+            backgroundColor = "#ffcdd2"
+            break;
+          default:
+            break;
+        }
+
+        const cellStyle = {
+          color: textColor,
+          padding : 2,
+          fontSize: 12,
+          fontWeight: "bold",
+          width: 90,
+        };
+
+        const paperStyle = {
+          backgroundColor: backgroundColor,
+          borderRadius: 25,
+        };
+  
+        return (
+          <Paper
+            square={false}
+            elevation={0}
+            style={paperStyle}
+          >
+          <div style={cellStyle}>
+            {params.value}
+          </div>
+          </Paper>
+        );},
     },
     {
       field: "actions",
@@ -53,11 +104,23 @@ const columns = [
       sortable: false,
       renderCell: (params) => (
         <Button
+          style = {{
+            backgroundColor: "#fafafa", 
+            color: "black", 
+            fontWeight: "bold", 
+            boxShadow: "none",
+            outlineColor: "lightgrey",
+            outlineStyle: "solid",
+            outlineWidth: "1.5px",
+            width: 150,
+            textTransform: "none",
+            padding: "3px",
+          }}
           variant="contained"
-          color={getStatusButtonColor(params.row.status)}
           onClick={() => handleButtonClick(params.row.id)}
         >
-          {getStatusButtonText(params.row.status)}
+          <span style={{ marginRight: "20px" }}>{getStatusButtonText(params.row.status).icon}</span>
+            {getStatusButtonText(params.row.status).text}
         </Button>
       ),
     },
@@ -70,111 +133,112 @@ const columns = [
       referenceNumber: "REF12345",
       name: "John Doe",
       dateOfApplication: "2023-09-13",
-      status: "Pending",
       amountOfMoney: "1000",
+      status: "Pending",
     },
     {
       id: 2,
       referenceNumber: "REF54321",
       name: "Jane Doe",
       dateOfApplication: "2023-09-15",
-      status: "New",
       amountOfMoney: "1500",
+      status: "New",
     },
     {
       id: 3,
       referenceNumber: "REF98765",
       name: "Alice Smith",
       dateOfApplication: "2023-09-18",
-      status: "Rejected",
       amountOfMoney: "800",
+      status: "Rejected",
     },
     {
       id: 4,
       referenceNumber: "REF24680",
       name: "Bob Johnson",
       dateOfApplication: "2023-09-20",
-      status: "Approved",
       amountOfMoney: "2000",
+      status: "Approved",
     },
     {
       id: 5,
       referenceNumber: "REF13579",
       name: "Eve Brown",
       dateOfApplication: "2023-09-22",
-      status: "Pending",
       amountOfMoney: "1200",
+      status: "Pending",
     },
     {
       id: 6,
       referenceNumber: "REF88888",
       name: "Charlie Wilson",
       dateOfApplication: "2023-09-24",
-      status: "New",
       amountOfMoney: "1800",
+      status: "New",
     },
     {
       id: 7,
       referenceNumber: "REF77777",
       name: "David Davis",
       dateOfApplication: "2023-09-26",
-      status: "Approved",
       amountOfMoney: "2500",
+      status: "Approved",
     },
     {
       id: 8,
       referenceNumber: "REF66666",
       name: "Emily White",
       dateOfApplication: "2023-09-28",
-      status: "Pending",
       amountOfMoney: "1300",
+      status: "Pending",
     },
     {
       id: 9,
       referenceNumber: "REF55555",
       name: "Fiona Green",
       dateOfApplication: "2023-09-30",
-      status: "New",
       amountOfMoney: "1600",
+      status: "New",
     },
     {
       id: 10,
       referenceNumber: "REF44444",
       name: "George Adams",
       dateOfApplication: "2023-10-02",
-      status: "Rejected",
       amountOfMoney: "900",
+      status: "Rejected",
     },
     // Add more rows with new sample data as needed
   ];
   
-  // Function to determine the button color based on the status
-  const getStatusButtonColor = (status) => {
-    switch (status) {
-      case "Pending":
-      case "Rejected":
-        return "info"; // Use your preferred shade of grey
-      case "New":
-      case "Approved":
-        return "success";
-      default:
-        return "default";
-    }
-  };
   
   const getStatusButtonText = (status) => {
+    let buttonText = "";
+    let icon = null;
+  
     switch (status) {
       case "Pending":
-        return "Lihat";
+        buttonText = "Lihat";
+        icon = <RemoveRedEyeRoundedIcon />;
+        break;
       case "New":
-        return "Semak";
+        buttonText = "Semak";
+        icon = <RuleRoundedIcon />;
+        break;
       case "Approved":
-        return "Lihat";
+        buttonText = "Lihat";
+        icon = <RemoveRedEyeRoundedIcon />;
+        break;
       case "Rejected":
-        return "Semak Semula";
+        buttonText = "Teliti";
+        icon = <QuizRoundedIcon />;
+        break;
       default:
-        return "Unknown";
+        buttonText = "Unknown";
+        break;
     }
+  
+    return { text: buttonText, icon: icon };
   };
   
   const handleButtonClick = (rowId) => {
@@ -184,14 +248,24 @@ const columns = [
   
   
   function KewanganList(){
+    const filteredRows = rows.filter((row) => row.status != "New");
+
   return (
-      <Box sx={{ height: 400, width: "80%" }}>
+    <Box sx={{ height: 400, width: "100%" }}>
         <Box sx={{ flexGrow: 1,}}
         margin={1}
         align={"right"}
         >
-          <Button variant="contained" color="primary" onClick={downloadDataAsCSV}>
-            MUAT TURUN
+          <Button variant="contained" 
+          style={{
+            color: "#424242",
+            textTransform: "none",
+            backgroundColor: "#eeeeee",
+            boxShadow: "none",
+          }
+          }
+           onClick={downloadDataAsCSV}>
+            Muat Turun
             <DownloadRoundedIcon
               sx={{ ml: 1 }}
             />
@@ -204,7 +278,7 @@ const columns = [
           >  format .CSV </Typography>
         </Box>
         <DataGrid
-          rows={rows}
+      rows={filteredRows}
           columns={columns}
           initialState={{
             pagination: {

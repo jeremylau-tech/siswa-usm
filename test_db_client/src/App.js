@@ -13,9 +13,10 @@ import LandingPage from "./component/LandingPage";
 import FormPage from "./component/FormPage";
 import NavBar from "./component/NavBar";
 import TermsConditions from "./component/TermsCondition";
-import ApplicationListPage from "./component/application/ApplicationListPage";
-import EvaluationPage from "./component/evaluation/EvaluationPage";
-import AnalyticDashboard from "./component/AnalyticDashboard";
+import ApplicationListPage from "./component/admin/application/ApplicationListPage";
+import EvaluationPage from "./component/admin/evaluation/EvaluationPage";
+import AnalyticDashboard from "./component/admin/AnalyticDashboard";
+import AdminDashboard from "./component/admin/AdminDashboard";
 
 
 // Pay attention to this function
@@ -36,6 +37,7 @@ function App() {
           <Route path="/TermsConditions" element={<TermsConditions />} />
           <Route path="/EvaluationPage" element={<EvaluationPage />} />
           <Route path="/AnalyticDashboard" element={<AnalyticDashboard />} />
+          <Route path="/AdminDashboard" element={<AdminDashboard />} />
 
 
           {/* Add new Landing Page route */}

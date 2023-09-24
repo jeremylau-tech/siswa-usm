@@ -20,6 +20,12 @@ function AnalyticDashboard() {
   return (
     <div className="analyticDashboard pb pt pt-md">
       <Container maxWidth="xl">
+        <Typography variant="h3" gutterBottom textAlign={"Center"} 
+        style={{
+          fontWeight: "bold",
+        }}>
+          Paparan Keseluruhan 
+        </Typography>
         <div className="analyticDashboard-body">
           <Grid container spacing={3}>
 
