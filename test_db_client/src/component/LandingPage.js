@@ -3,8 +3,9 @@ import './LandingPage.css';
 import NavBar from './NavBar';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
-
+import ApplicationStatus from "./student/ApplicationStatus";
 import footerLogo from '../img/footer_logo.jpg';
+import { Box } from "@mui/system";
 
 function LandingPage() {
   return (
@@ -75,53 +76,17 @@ function LandingPage() {
 
       {/* Status Permohonan Section */}
       <section className="status-permohonan">
-        <div className="container">
+        <div className="container" >
         <h2 className="status-title">Status Permohonan</h2>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Rujukan</th>
-                <th>Jenis Permohonan</th>
-                <th>Tarikh Dimohon</th>
-                <th>Catatan</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Add your table rows here */}
-              <tr>
-                <td>12345</td>
-                <td>Permohonan A</td>
-                <td>2023-09-03</td>
-                <td>Lorem ipsum</td>
-                <td><button className="approved">Diterima</button></td>
-              </tr>
-              {/* Add more rows as needed */}
-              <tr>
-                <td>67890</td>
-                <td>Permohonan B</td>
-                <td>2023-10-01</td>
-                <td>Lorem ipsum</td>
-                <td><button className="ongoing">Dalam Proses</button></td>
-              </tr>
-              {/* Add more rows as needed */}
-              <tr>
-                <td>67890</td>
-                <td>Permohonan C</td>
-                <td>2023-03-12</td>
-                <td>Lorem ipsum</td>
-                <td><button className="rejected">Ditolak</button></td>
-              </tr>
-              {/* Add more rows as needed */}
-              <tr>
-                <td>67890</td>
-                <td>Permohonan D</td>
-                <td>2023-04-28</td>
-                <td>Lorem ipsum</td>
-                <td><button className="complete">Selesai</button></td>
-              </tr>
-            </tbody>
-          </table>
+        <section>
+        <Box 
+        style={{
+          paddingBottom: '50px',
+        }}
+        >
+          <ApplicationStatus></ApplicationStatus>
+        </Box>
+      </section>
         </div>
       </section>
 
