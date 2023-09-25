@@ -14,50 +14,6 @@ function ResultStep() {
     <Container>
       <Box>
         <h2>Keputusan Semakan</h2>
-        <FormControl>
-          <RadioGroup
-            row
-            aria-labelledby="demo-row-radio-buttons-group-label"
-            name="row-radio-buttons-group"
-            style={{ fontWeight: "bold" }}
-          >
-            <Paper 
-            elevation={0}
-            variant="outlined"
-            style={
-              {
-                outlineColor: "#424242",
-                outlineStyle: "solid",
-                outlineWidth: "1px",   
-              }
-            }
-            sx={{ paddingLeft: "16px" }}  > {/* Encapsulate in Paper with elevation */}
-              <FormControlLabel
-                value="approved"
-                control={<Radio />}
-                label="Permohonan Diluluskan"
-              />
-            </Paper>
-            <Box sx={{ m: 1 }} />
-            <Paper sx={{ paddingLeft: "16px" }} 
-                        elevation={0}
-                        variant="outlined"
-                        style={
-                          {
-                            outlineColor: "#424242",
-                            outlineStyle: "solid",
-                            outlineWidth: "1px",   
-                          }
-                        }
-            > {/* Encapsulate in Paper with elevation */}
-              <FormControlLabel
-                value="rejected"
-                control={<Radio />}
-                label="Permohonan Ditolak"
-              />
-            </Paper>
-          </RadioGroup>
-        </FormControl>
       </Box>
       <Box
         paddingTop={3}
@@ -68,14 +24,6 @@ function ResultStep() {
         noValidate
         autoComplete="off"
       >
-        <div>
-          <TextField
-            id="outlined-multiline-static"
-            label="Catatan"
-            multiline
-            rows={6}
-          />
-        </div>
       </Box>
     </Container>
   );

@@ -6,6 +6,8 @@ import StepContent from "@mui/material/StepContent";
 import StudentInfoStep from "./StudentInfoStep";
 import ResultStep from "./ResultStep";
 import DocumentationStep from "./DocumentationStep";
+import ApprovedDialog from "./ApprovedDialog";
+import RejectDialog from "./RejectDialog";
 
 const steps = [
   {
@@ -56,16 +58,14 @@ function StepperComponent() {
               <Box sx={{ mb: 2 }}>
                 <div>
                   {index === steps.length - 1 ? (
-                    <a href="http://localhost:3000/AdminDashboard" style={{ textDecoration: 'none' }}>
-                      <Button
-                        variant="contained"
-                        disableElevation={true}
-                        style={{ backgroundColor: "#424242", color: "#fff", fontWeight: "bold", width: "30%" }}
-                        sx={{ mt: 1, mr: 1 }}
-                      >
-                        Hantar untuk Pengesahan
-                      </Button>
-                    </a>
+                    <>
+                    <Box sx={{m:3}}>
+                      <ApprovedDialog></ApprovedDialog>
+                    </Box>
+                    <Box sx={{mb:2}}> 
+                      <RejectDialog> </RejectDialog> 
+                      </Box>
+                    </>
                   ) : (
                     <Button
                       variant="contained"
