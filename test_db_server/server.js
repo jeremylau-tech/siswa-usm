@@ -6,8 +6,11 @@ const multer = require("multer"); // For handling file uploads
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
-
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // MySQL connection configuration
@@ -42,6 +45,29 @@ if (err) {
 
 app.get("/message", (req, res) => {
     res.json({ message: 'If you\'re seeing this, connection is working! ' });
+});
+
+// Define a route to handle user login
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+
+  // Implement your login logic here, e.g., query the database to verify credentials
+  const query = "SELECT * FROM users WHERE email = ? AND password = ?";
+  db.query(query, [email, password], (err, results) => {
+    if (err) {
+      console.error("Error executing MySQL query:", err);
+      res.status(500).json({ message: "Internal server error" });
+      return;
+    }
+
+    if (results.length === 0) {
+      // User not found or incorrect credentials
+      res.status(401).json({ message: "Invalid email or password" });
+    } else {
+      // User successfully authenticated
+      res.status(200).json({ message: "Login successful" });
+    }
+  });
 });
 
 

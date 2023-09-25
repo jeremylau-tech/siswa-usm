@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './UploadPage.css';
+import DragDrop from "./functions/DragDrop"; // Import the DragAndDrop component
 
 function UploadPage() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -60,32 +61,8 @@ function UploadPage() {
           
           <div className="form-group">
           <label htmlFor="email2">Salinan Penyata Bank:</label>
-          <div className={`container-file-upload ${isActive ? "is-active" : ""}`}>
-            <div
-              className={`file-drop-area ${selectedFile ? "file-selected" : ""}`}
-              onDrop={handleFileDrop}
-              onDragOver={(e) => {
-                e.preventDefault();
-                setIsActive(true);
-              }}
-              onDragLeave={() => setIsActive(false)}
-            >
-              <span className="fake-btn">Choose files</span>
-              <span className="file-msg">or drop files here</span>
-              <input
-                className="file-input"
-                type="file"
-                multiple
-                onChange={handleFileInputChange}
-              />
-              {selectedFile && (
-                <div
-                  className="item-delete"
-                  onClick={() => setSelectedFile(null)}
-                ></div>
-              )}
-            </div>
-          </div>
+                <DragDrop /> {/* Render the DragAndDrop component */}
+
           </div>
 
           <button type="submit" style={buttonStyle}>Submit</button>
@@ -93,6 +70,6 @@ function UploadPage() {
       </div>
     </div>
   );
-}
+} 
 
 export default UploadPage;
