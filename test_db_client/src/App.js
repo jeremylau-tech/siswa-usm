@@ -18,6 +18,7 @@ import EvaluationPage from "./component/admin/evaluation/EvaluationPage";
 import AnalyticDashboard from "./component/admin/AnalyticDashboard";
 import AdminDashboard from "./component/admin/AdminDashboard";
 import UploadPage from "./component/UploadPage";
+import AnalyticGraph from "./component/admin/AnalyticGraph";
 
 
 // Pay attention to this function
@@ -40,6 +41,7 @@ function App() {
           <Route path="/AnalyticDashboard" element={<AnalyticDashboard />} />
           <Route path="/AdminDashboard" element={<AdminDashboard />} />
           <Route path="/UploadPage" element={<UploadPage />} />
+          <Route path="/AnalyticGraph" element={<AnalyticGraph />} />
 
           {/* Add new Landing Page route */}
           <Route path="/LandingPage" element={<LandingPage />} />
