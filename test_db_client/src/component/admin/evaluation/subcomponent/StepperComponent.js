@@ -59,10 +59,10 @@ function StepperComponent() {
                 <div>
                   {index === steps.length - 1 ? (
                     <>
-                    <Box sx={{m:2}}>
+                    <Box sx={{m:3}}>
                       <ApprovedDialog></ApprovedDialog>
                     </Box>
-                    <Box> 
+                    <Box sx={{mb:2}}> 
                       <RejectDialog> </RejectDialog> 
                       </Box>
                     </>
