@@ -51,12 +51,8 @@ function ApplicationListPage() {
   };
   return (
     <div className="container mt-5">
-      <Typography variant="h4" gutterBottom textAlign={"left"} 
-      style={{
-        fontWeight: "bold",
-      }}>
-        Senarai Permohonan 
-      </Typography>
+
+        <h2 className="status-title">Senarai Permohonan</h2>
       <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">

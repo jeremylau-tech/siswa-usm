@@ -41,19 +41,25 @@ const columns = [
   {
     field: "name",
     headerName: "Nama Pelajar",
-    width: 250,
+    width: 150,
+    editable: false,
+  },
+  {
+    field: "assistanceType",
+    headerName: "Jenis Bantuan",
+    width: 200,
     editable: false,
   },
   {
     field: "dateOfApplication",
     headerName: "Tarikh Permohonan",
-    width: 200,
+    width: 150,
     editable: false,
   },
   {
     field: "amountOfMoney",
     headerName: "Amaun",
-    width: 150,
+    width: 100,
     editable: false,
   },
   {
@@ -151,6 +157,7 @@ const columns = [
       dateOfApplication: "2023-09-13",
       status: "Pengesahan",
       amountOfMoney: "1000",
+      assistanceType: "Khairat Kematian"
     },
     {
       id: 2,
@@ -159,6 +166,7 @@ const columns = [
       dateOfApplication: "2023-09-15",
       status: "Baharu",
       amountOfMoney: "1500",
+      assistanceType: "Khairat Kematian"
     },
     {
       id: 3,
@@ -167,6 +175,8 @@ const columns = [
       dateOfApplication: "2023-09-18",
       status: "Ditolak",
       amountOfMoney: "800",
+      assistanceType: "Penyelenggaran Peranti"
+
     },
     {
       id: 4,
@@ -175,6 +185,7 @@ const columns = [
       dateOfApplication: "2023-09-20",
       status: "Diluluskan",
       amountOfMoney: "2000",
+      assistanceType: "Bantuan Kewangan"
     },
     {
       id: 5,
@@ -183,6 +194,7 @@ const columns = [
       dateOfApplication: "2023-09-22",
       status: "Pengesahan",
       amountOfMoney: "1200",
+      assistanceType: "Bantuan Kewangan"
     },
     {
       id: 6,
@@ -191,6 +203,7 @@ const columns = [
       dateOfApplication: "2023-09-24",
       status: "Baharu",
       amountOfMoney: "1800",
+      assistanceType: "Bantuan Kewangan"
     },
     {
       id: 7,
@@ -199,6 +212,7 @@ const columns = [
       dateOfApplication: "2023-09-26",
       status: "Diluluskan",
       amountOfMoney: "2500",
+      assistanceType: "Bantuan Kewangan"
     },
     {
       id: 8,
@@ -207,6 +221,8 @@ const columns = [
       dateOfApplication: "2023-09-28",
       status: "Pengesahan",
       amountOfMoney: "1300",
+      assistanceType: "Khairat Kematian"
+
     },
     {
       id: 9,
@@ -215,6 +231,7 @@ const columns = [
       dateOfApplication: "2023-09-30",
       status: "Baharu",
       amountOfMoney: "1600",
+      assistanceType: "Khairat Kematian"
     },
     {
       id: 10,
@@ -223,6 +240,7 @@ const columns = [
       dateOfApplication: "2023-10-02",
       status: "Ditolak",
       amountOfMoney: "900",
+      assistanceType: "Penyelenggaraan Peranti"
     },
     // Add more rows with new sample data as needed
   ];
@@ -246,8 +264,8 @@ const columns = [
         icon = <RemoveRedEyeRoundedIcon />;
         break;
       case "Ditolak":
-        buttonText = "Teliti";
-        icon = <QuizRoundedIcon />;
+        buttonText = "Lihat";
+        icon = <RemoveRedEyeRoundedIcon />;
         break;
       default:
         buttonText = "Unknown";
