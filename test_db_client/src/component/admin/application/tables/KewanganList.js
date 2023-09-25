@@ -10,9 +10,23 @@ import Paper from '@mui/material/Paper';
 import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
+
 const downloadDataAsCSV = () => {
-  const csvData = rows.map((row) => `${row.id},${row.referenceNumber},${row.name},${row.dateOfApplication},${row.status},${row.amountOfMoney}`).join('\n');
+  // Create a header row with column names
+  const header = 'ID,Reference Number,Name,Date of Application,Status,Amount of Money';
+
+  // Create a CSV content string by combining the header and data
+  const csvData = [header].concat(
+    rows.map((row) =>
+      `${row.id},${row.referenceNumber},${row.name},${row.dateOfApplication},${row.status},${row.amountOfMoney}`
+    )
+  ).join('\n');
+
+  // Create a Blob with the CSV content
   const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
+
+  // Use a library like FileSaver.js or implement the saveAs function
+  // to trigger the download. Here's how you can use FileSaver.js:
   saveAs(blob, 'data.csv');
 };
 
