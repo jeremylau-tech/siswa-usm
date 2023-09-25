@@ -1,0 +1,11 @@
+ID,Reference Number,Name,Date of Application,Status,Amount of Money
+1,REF12345,Aiman Doe,2023-09-13,Pending,1000
+2,REF54321,Jane Doe,2023-09-15,New,1500
+3,REF98765,Alice Smith,2023-09-18,Rejected,800
+4,REF24680,Bob Johnson,2023-09-20,Approved,2000
+5,REF13579,Eve Brown,2023-09-22,Pending,1200
+6,REF88888,Charlie Wilson,2023-09-24,New,1800
+7,REF77777,David Davis,2023-09-26,Approved,2500
+8,REF66666,Emily White,2023-09-28,Pending,1300
+9,REF55555,Fiona Green,2023-09-30,New,1600
+10,REF44444,George Adams,2023-10-02,Rejected,900

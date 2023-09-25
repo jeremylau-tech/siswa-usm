@@ -50,15 +50,14 @@ function DragDrop() {
   };
 
   const boxStyle = {
-    width: "200px",
-    height: "200px",
+    width: "100%",
+    height: "150px",
     border: isDragging ? "2px solid green" : "2px dashed gray",
     backgroundColor: isDragging ? "lightgreen" : "lightgray",
   };
 
   return (
     <div className="drag-and-drop-container">
-      <h2>Drag and Drop Box</h2>
       <div
         className="drag-and-drop-box"
         style={boxStyle}
@@ -72,7 +71,7 @@ function DragDrop() {
           fileInputRef.current.click(); // Trigger the file input's click event
         }}
       >
-        {isDragging ? "Release to Drop" : "Drag Me"}
+      {isDragging ? "Release to Drop" : <strong>Click&nbsp;</strong>} {isDragging ? "" : "or Drop file here"}
       </div>
       <input
         type="file"
