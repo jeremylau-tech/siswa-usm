@@ -39,7 +39,7 @@ function StepperComponent() {
 
   return (
     <Box sx={{ width: '80%' }}>
-      <Stepper activeStep={activeStep} orientation="vertical">
+      <Stepper activeStep={activeStep} orientation="vertical" >
         {steps.map((step, index) => (
           <Step key={step.label}>
             <StepLabel
@@ -55,17 +55,33 @@ function StepperComponent() {
               {step.content} {/* Render the appropriate content */}
               <Box sx={{ mb: 2 }}>
                 <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    {index === steps.length - 1 ? 'Hantar' : 'Lulus'}
-                  </Button>
+                  {index === steps.length - 1 ? (
+                    <a href="http://localhost:3000/AdminDashboard" style={{ textDecoration: 'none' }}>
+                      <Button
+                        variant="contained"
+                        disableElevation={true}
+                        style={{ backgroundColor: "#424242", color: "#fff", fontWeight: "bold", width: "30%" }}
+                        sx={{ mt: 1, mr: 1 }}
+                      >
+                        Hantar untuk Pengesahan
+                      </Button>
+                    </a>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      disableElevation={true}
+                      style={{ backgroundColor: "#424242", color: "#fff", fontWeight: "bold", width: "30%" }}
+                      sx={{ mt: 1, mr: 1 }}
+                    >
+                      Seterusnya
+                    </Button>
+                  )}
                   <Button
                     disabled={index === 0}
                     onClick={handleBack}
                     sx={{ mt: 1, mr: 1 }}
+                    style={{ color: "#424242" }}
                   >
                     Kembali
                   </Button>

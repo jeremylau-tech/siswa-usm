@@ -8,6 +8,7 @@ import KhairatKematianList from "./tables/KhairatKematianList";
 import PerantiList from "./tables/PerantiList";
 import KewanganList from "./tables/KewanganList";
 import NewApplication from "./tables/NewApplication";
+import PendingList from "./tables/PendingApplication";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,9 +61,10 @@ function ApplicationListPage() {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Permohonan Baharu" {...a11yProps(0)} />
-          <Tab label="Khairat Kematian" {...a11yProps(1)} />
-          <Tab label="Penyelenggaraan Peranti" {...a11yProps(2)} />
-          <Tab label="Bantuan Kewangan" {...a11yProps(3)} />
+          <Tab label="Pengesahan " {...a11yProps(1)} />
+          <Tab label="Khairat Kematian" {...a11yProps(2)} />
+          <Tab label="Penyelenggaraan Peranti" {...a11yProps(3)} />
+          <Tab label="Bantuan Kewangan" {...a11yProps(4)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -84,10 +86,21 @@ function ApplicationListPage() {
             alignItems: "center",
           }}
         >
-          <KhairatKematianList />
+          <PendingList />
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <KhairatKematianList />
+        </Box>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={3}>
         <Box
             sx={{
               display: "flex",
@@ -98,7 +111,7 @@ function ApplicationListPage() {
             <PerantiList />
           </Box>    
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
+      <CustomTabPanel value={value} index={4}>
         <Box
             sx={{
               display: "flex",

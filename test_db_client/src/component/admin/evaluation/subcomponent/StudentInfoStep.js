@@ -1,4 +1,4 @@
-import { Container, colors } from "@mui/material";
+import { Container, Typography, colors } from "@mui/material";
 import React from "react";
 
 const gridContainerStyle = {
@@ -27,27 +27,25 @@ function StudentInfoStep() {
         <br></br>
         <div style={gridContainerStyle}>
           <div>
-            <span style={labelStyle}>Name:</span>
+            <Typography textAlign={"right"} padding={1}>Nama:</Typography>
           </div>
           <input style={inputStyle} type="text" value="John Doe" readOnly />
 
           <div>
-            <span style={labelStyle}>Matric Number:</span>
+          <Typography textAlign={"right"} padding={1}> No Matric:</Typography>
           </div>
           <input style={inputStyle} type="text" value="123456" readOnly />
 
           <div>
-            <span style={labelStyle}>IC Number:</span>
+          <Typography textAlign={"right"} padding={1}> No Kad Pengenalan:</Typography>
           </div>
           <input style={inputStyle} type="text" value="123456-78-9012" readOnly />
-
           <div>
-            <span style={labelStyle}>Year of Study:</span>
+          <Typography textAlign={"right"} padding={1}> Tahun Pengajian:</Typography>
           </div>
           <input style={inputStyle} type="text" value="3rd Year" readOnly />
-
           <div>
-            <span style={labelStyle}>Phone Number:</span>
+          <Typography textAlign={"right"} padding={1}> No Telefon:</Typography>
           </div>
           <input style={inputStyle} type="text" value="+1 113-456-7890" readOnly />
         </div>

@@ -3,13 +3,15 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { saveAs } from 'file-saver';
+import Container from "@mui/material/Container";
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
+import Typography from "@mui/material/Typography";
 import Paper from '@mui/material/Paper';
 import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
-import Typography from "@mui/material/Typography";
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
+
 
 
 const downloadDataAsCSV = () => {
@@ -132,7 +134,6 @@ const columns = [
           padding: "3px",
         }}
         variant="contained"
-        href="http://localhost:3000/EvaluationPage"
         onClick={() => handleButtonClick(params.row.id)}
       >
         <span style={{ marginRight: "20px" }}>{getStatusButtonText(params.row.status).icon}</span>
@@ -226,8 +227,8 @@ const columns = [
     },
     // Add more rows with new sample data as needed
   ];
-
-
+  
+  
   const getStatusButtonText = (status) => {
     let buttonText = "";
     let icon = null;
@@ -263,15 +264,15 @@ const columns = [
   };
   
   
-  function NewApplication(){
-  const filteredRows = rows.filter(row => row.status === "Baharu");
+  function PendingList(){
+    const filteredRows = rows.filter(row => row.status === "Pengesahan");
   return (
-      <Box sx={{ height: 400, width: "100%" }}>
+     <Box sx={{ height: 400, width: "100%" }}>
         <Box sx={{ flexGrow: 1,}}
         margin={1}
         align={"right"}
         >
-         <Button variant="contained" 
+          <Button variant="contained" 
           style={{
             color: "#424242",
             textTransform: "none",
@@ -310,4 +311,4 @@ const columns = [
   );
   }
 
-  export default NewApplication;
+  export default PendingList;

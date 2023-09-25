@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
+import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
 
 const downloadDataAsCSV = () => {
   // Create a header row with column names
@@ -66,19 +67,19 @@ const columns = [
         let backgroundColor = ""; // You can change the background color as needed
   
         switch (status) {
-          case "New":
+          case "Baharu":
             textColor = "#ff8f00"
             backgroundColor = "#ffecb3"
             break;
-          case "Pending":
+          case "Pengesahan":
             textColor = "#757575"
             backgroundColor = "#eeeeee"
             break;
-          case "Approved":
+          case "Diluluskan":
             textColor = "#558b2f"
             backgroundColor = "#dcedc8"
             break;
-          case "Rejected":
+          case "Ditolak":
             textColor = "#e53935"
             backgroundColor = "#ffcdd2"
             break;
@@ -148,7 +149,7 @@ const columns = [
       name: "John Doe",
       dateOfApplication: "2023-09-13",
       amountOfMoney: "1000",
-      status: "Pending",
+      status: "Pengesahan",
     },
     {
       id: 2,
@@ -156,7 +157,7 @@ const columns = [
       name: "Jane Doe",
       dateOfApplication: "2023-09-15",
       amountOfMoney: "1500",
-      status: "New",
+      status: "Baharu",
     },
     {
       id: 3,
@@ -164,7 +165,7 @@ const columns = [
       name: "Alice Smith",
       dateOfApplication: "2023-09-18",
       amountOfMoney: "800",
-      status: "Rejected",
+      status: "Ditolak",
     },
     {
       id: 4,
@@ -172,7 +173,7 @@ const columns = [
       name: "Bob Johnson",
       dateOfApplication: "2023-09-20",
       amountOfMoney: "2000",
-      status: "Approved",
+      status: "Diluluskan",
     },
     {
       id: 5,
@@ -180,7 +181,7 @@ const columns = [
       name: "Eve Brown",
       dateOfApplication: "2023-09-22",
       amountOfMoney: "1200",
-      status: "Pending",
+      status: "Pengesahan",
     },
     {
       id: 6,
@@ -188,7 +189,7 @@ const columns = [
       name: "Charlie Wilson",
       dateOfApplication: "2023-09-24",
       amountOfMoney: "1800",
-      status: "New",
+      status: "Baharu",
     },
     {
       id: 7,
@@ -196,7 +197,7 @@ const columns = [
       name: "David Davis",
       dateOfApplication: "2023-09-26",
       amountOfMoney: "2500",
-      status: "Approved",
+      status: "Diluluskan",
     },
     {
       id: 8,
@@ -204,7 +205,7 @@ const columns = [
       name: "Emily White",
       dateOfApplication: "2023-09-28",
       amountOfMoney: "1300",
-      status: "Pending",
+      status: "Pengesahan",
     },
     {
       id: 9,
@@ -212,7 +213,7 @@ const columns = [
       name: "Fiona Green",
       dateOfApplication: "2023-09-30",
       amountOfMoney: "1600",
-      status: "New",
+      status: "Baharu",
     },
     {
       id: 10,
@@ -220,7 +221,7 @@ const columns = [
       name: "George Adams",
       dateOfApplication: "2023-10-02",
       amountOfMoney: "900",
-      status: "Rejected",
+      status: "Ditolak",
     },
     // Add more rows with new sample data as needed
   ];
@@ -231,19 +232,19 @@ const columns = [
     let icon = null;
   
     switch (status) {
-      case "Pending":
-        buttonText = "Lihat";
-        icon = <RemoveRedEyeRoundedIcon />;
+      case "Pengesahan":
+        buttonText = "Sahkan";
+        icon = <CheckCircleRounded />;
         break;
-      case "New":
+      case "Baharu":
         buttonText = "Semak";
         icon = <RuleRoundedIcon />;
         break;
-      case "Approved":
+      case "Diluluskan":
         buttonText = "Lihat";
         icon = <RemoveRedEyeRoundedIcon />;
         break;
-      case "Rejected":
+      case "Ditolak":
         buttonText = "Teliti";
         icon = <QuizRoundedIcon />;
         break;
@@ -262,7 +263,7 @@ const columns = [
   
   
   function KewanganList(){
-    const filteredRows = rows.filter((row) => row.status != "New");
+    const filteredRows = rows.filter((row) => row.status != "Baharu");
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>

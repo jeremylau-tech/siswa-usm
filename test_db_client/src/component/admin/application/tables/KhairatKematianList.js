@@ -9,6 +9,7 @@ import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import Typography from "@mui/material/Typography";
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 
 const downloadDataAsCSV = () => {
   // Create a header row with column names
@@ -69,15 +70,15 @@ const columns = [
           textColor = "#ff8f00"
           backgroundColor = "#ffecb3"
           break;
-        case "Pending":
+        case "Pengesahan":
           textColor = "#757575"
           backgroundColor = "#eeeeee"
           break;
-        case "Approved":
+        case "Diluluskan":
           textColor = "#558b2f"
           backgroundColor = "#dcedc8"
           break;
-        case "Rejected":
+        case "Ditolak":
           textColor = "#e53935"
           backgroundColor = "#ffcdd2"
           break;
@@ -146,7 +147,7 @@ const columns = [
       referenceNumber: "REF12345",
       name: "Aiman Doe",
       dateOfApplication: "2023-09-13",
-      status: "Pending",
+      status: "Pengesahan",
       amountOfMoney: "1000",
     },
     {
@@ -162,7 +163,7 @@ const columns = [
       referenceNumber: "REF98765",
       name: "Alice Smith",
       dateOfApplication: "2023-09-18",
-      status: "Rejected",
+      status: "Ditolak",
       amountOfMoney: "800",
     },
     {
@@ -170,7 +171,7 @@ const columns = [
       referenceNumber: "REF24680",
       name: "Bob Johnson",
       dateOfApplication: "2023-09-20",
-      status: "Approved",
+      status: "Diluluskan",
       amountOfMoney: "2000",
     },
     {
@@ -178,7 +179,7 @@ const columns = [
       referenceNumber: "REF13579",
       name: "Eve Brown",
       dateOfApplication: "2023-09-22",
-      status: "Pending",
+      status: "Pengesahan",
       amountOfMoney: "1200",
     },
     {
@@ -194,7 +195,7 @@ const columns = [
       referenceNumber: "REF77777",
       name: "David Davis",
       dateOfApplication: "2023-09-26",
-      status: "Approved",
+      status: "Diluluskan",
       amountOfMoney: "2500",
     },
     {
@@ -202,7 +203,7 @@ const columns = [
       referenceNumber: "REF66666",
       name: "Emily White",
       dateOfApplication: "2023-09-28",
-      status: "Pending",
+      status: "Pengesahan",
       amountOfMoney: "1300",
     },
     {
@@ -218,7 +219,7 @@ const columns = [
       referenceNumber: "REF44444",
       name: "George Adams",
       dateOfApplication: "2023-10-02",
-      status: "Rejected",
+      status: "Ditolak",
       amountOfMoney: "900",
     },
     // Add more rows with new sample data as needed
@@ -228,19 +229,19 @@ const columns = [
     let icon = null;
   
     switch (status) {
-      case "Pending":
-        buttonText = "Lihat";
-        icon = <RemoveRedEyeRoundedIcon />;
+      case "Pengesahan":
+        buttonText = "Sahkan";
+        icon = <CheckCircleRoundedIcon />;
         break;
       case "New":
         buttonText = "Semak";
         icon = <RuleRoundedIcon />;
         break;
-      case "Approved":
+      case "Diluluskan":
         buttonText = "Lihat";
         icon = <RemoveRedEyeRoundedIcon />;
         break;
-      case "Rejected":
+      case "Ditolak":
         buttonText = "Teliti";
         icon = <QuizRoundedIcon />;
         break;
