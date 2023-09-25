@@ -89,7 +89,7 @@ function AnalyticDashboard() {
                         <span className="text-warning mr-2">
                           <ArrowDownwardIcon /> 3.48%
                         </span>{" "}
-                        Sejak minggu lepas
+                        Sejak bulan lepas
                       </Typography>
                     </div>
                   </div>
