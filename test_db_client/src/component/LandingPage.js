@@ -40,7 +40,7 @@ function LandingPage() {
             <div className="text-container">
               <h3>Wang Ihsan/Makanan</h3>
               <p>Maklumat Lanjutan... </p>
-              <a className="nav-item nav-link"><Link to='/FormPage' className='p-4'>Mohon</Link></a>
+              <a className="nav-item nav-link"><Link to='/FormPage' className='p-2'>Mohon</Link></a>
             </div>
           </div>
 
@@ -50,7 +50,7 @@ function LandingPage() {
             <div className="text-container">
               <h3>Khairat Kematian</h3>
               <p>Maklumat Lanjutan... </p>
-              <a className="nav-item nav-link"><Link to='/FormPage' className='p-4'>Mohon</Link></a>
+              <a className="nav-item nav-link"><Link to='/FormPage' className='p-2'>Mohon</Link></a>
             </div>
           </div>
 
@@ -60,7 +60,7 @@ function LandingPage() {
             <div className="text-container">
               <h3>Kerosakan Peranti</h3>
               <p>Maklumat Lanjutan... </p>
-              <a className="nav-item"><Link to='/FormPage' className='p-4'>Mohon</Link></a>
+              <a className="nav-item"><Link to='/FormPage' className='p-2'>Mohon</Link></a>
             </div>
           </div>
 
@@ -70,7 +70,7 @@ function LandingPage() {
             <div className="text-container">
               <h3>Kerosakan Peranti</h3>
               <p>Maklumat Lanjutan... </p>
-              <a className="nav-item"><Link to='/FormPage' className='p-4'>Mohon</Link></a>
+              <a className="nav-item"><Link to='/FormPage' className='p-2'>Mohon</Link></a>
             </div>
           </div>
         </div>

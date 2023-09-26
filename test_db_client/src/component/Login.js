@@ -87,7 +87,7 @@ function Login() {
               onChange={handleEmailChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="sign-in-password">
+          <Form.Group className="mb-3 mt-3" controlId="sign-in-password">
             <Form.Control
               type="password"
               size="lg"
@@ -98,7 +98,7 @@ function Login() {
               onChange={handlePasswordChange}
             />
           </Form.Group>
-          <Form.Group className="d-flex justify-content-center mb-4 #FFFFFF" controlId="remember-me">
+          <Form.Group className="d-flex justify-content-center mb-3 #FFFFFF" controlId="remember-me">
             <Form.Check label="Ingat Kata Laluan" />
           </Form.Group>
           <div className="d-grid">
@@ -107,7 +107,7 @@ function Login() {
             </Button>
           </div>
           {errorMessage && <div className="text-danger mt-3">{errorMessage}</div>}
-          <p className="mt-5 text-muted">&copy; Developed by xxx xxxxx xx</p>
+          <p className="mt-5 text-muted">&copy; Developed by USM Tech Team</p>
         </Form>
       </Container>
     </div>
