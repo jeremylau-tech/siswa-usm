@@ -8,6 +8,8 @@ import footerLogo from '../img/footer_logo.jpg';
 import { Box } from "@mui/system";
 
 function LandingPage() {
+
+
   return (
     <div className="landing-page">
 
