@@ -3,12 +3,16 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from "react";
 import { useNavigate  } from "react-router-dom"; // Import useHistory from react-router-dom
+import Cookies from 'js-cookie'; // Import the js-cookie library
+import { useEffect } from 'react'; // Import useEffect
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
+  
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -34,7 +38,11 @@ function Login() {
       if (response.status === 200) {
         // Authentication successful, show an alert message
         alert("Login successful");
-        navigate('/LandingPage');
+        // Save credentials as secure cookies
+        Cookies.set('email', email, { secure: true });
+        Cookies.set('password', password, { secure: true });
+
+        window.location.href = '/AdminDashboard';
 
       } else if (response.status === 401) {
         // Handle authentication failure, show an error message in an alert
@@ -49,6 +57,8 @@ function Login() {
       alert("An error occurred while logging in.");
     }
   };
+
+
 
   const buttonStyle = {
     backgroundColor: '#491E6E',

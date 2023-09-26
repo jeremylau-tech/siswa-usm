@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import footerLogo from '../img/footer_logo.jpg';
 
 function LandingPage() {
+
+
   return (
     <div className="landing-page">
 
