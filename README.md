@@ -48,6 +48,7 @@ A simple guide, for you.
 | Tech            | Version                                                          |
 | ----------------- | ------------------------------------------------------------------ |
 | React | 18.2.0 | npm -v |
+| Material UI | -  | 
 | Bootstrap| 5.3.1  | 
 | Node | 16.15.0 | node -v|
 
