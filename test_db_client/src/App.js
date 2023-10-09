@@ -20,7 +20,7 @@ import AdminDashboard from "./component/admin/AdminDashboard";
 import UploadPage from "./component/UploadPage";
 import AnalyticGraph from "./component/admin/AnalyticGraph";
 import TestAllFunction from "./component/TestAllFunction";
-
+import WelcomePage from "./component/WelcomePage";
 
 // Pay attention to this function
 function App() {
@@ -29,7 +29,7 @@ function App() {
       <div className="App">
         <NavBar />
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<WelcomePage />} />
           <Route path="/message" element={<MessagePage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/insert" element={<InsertPage />} />
@@ -47,6 +47,7 @@ function App() {
 
           {/* Add new Landing Page route */}
           <Route path="/LandingPage" element={<LandingPage />} />
+          <Route path="/WelcomePage" element={<WelcomePage />} />
 
           {/* Add new Landing Page route */}
           <Route path="/FormPage" element={<FormPage />} />

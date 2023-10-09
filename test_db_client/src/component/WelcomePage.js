@@ -1,5 +1,5 @@
 import React from "react";
-import './LandingPage.css';
+import './WelcomePage.css';
 import NavBar from './NavBar';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
@@ -7,19 +7,32 @@ import ApplicationStatus from "./student/ApplicationStatus";
 import footerLogo from '../img/footer_logo.jpg';
 import { Box, Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
 
-function LandingPage() {
+function WelcomePage() {
   return (
-    <div className="landing-page">
-
+    <div className="welcome-page">
       {/* Navigation Bar */}
       <NavBar />
 
+      {/* Hero Banner Section */}
+      <section className="hero" style={{ backgroundImage: 'url("banner2.jpg")' }}>
+        <div className="overlay"></div>
+        <div className="container">
+          <div className="hero-content">
+            <h1>Selamat <span>Datang!</span></h1>
+            <p>A leading university, in Malaysia.</p>
+            <div className="d-flex">
+              <a href="#about" className="btn-get-started scrollto">Buat Permohonan Sekarang</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
-      <section className="services-section">
-        <h2 className="status-title">Buat Permohonan Disini</h2>
-        <div className="services-container">
+      <section className="new-services-section">
+        <h2 className="section-title">Buat Permohonan Disini</h2>
+        <div className="new-services-container">
           {/* New Service Card 1 */}
-          <Card className="service-card">
+          <Card className="new-service-card">
             <CardMedia component="img" alt="Service 1 Banner" height="140" image="banner.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
@@ -35,7 +48,7 @@ function LandingPage() {
           </Card>
 
           {/* New Service Card 2 */}
-          <Card className="service-card">
+          <Card className="new-service-card">
             <CardMedia component="img" alt="Service 2 Banner" height="140" image="banner.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
@@ -51,7 +64,7 @@ function LandingPage() {
           </Card>
 
           {/* New Service Card 3 */}
-          <Card className="service-card">
+          <Card className="new-service-card">
             <CardMedia component="img" alt="Service 3 Banner" height="140" image="banner.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
@@ -67,7 +80,7 @@ function LandingPage() {
           </Card>
 
           {/* New Service Card 4 */}
-          <Card className="service-card">
+          <Card className="new-service-card">
             <CardMedia component="img" alt="Service 4 Banner" height="140" image="banner.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
@@ -84,22 +97,6 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* Status Permohonan Section */}
-      <section className="status-permohonan">
-        <div className="container" >
-        <h2 className="status-title">Status Permohonan</h2>
-        <section>
-        <Box 
-        style={{
-          paddingBottom: '50px',
-        }}
-        >
-          <ApplicationStatus></ApplicationStatus>
-        </Box>
-      </section>
-        </div>
-      </section>
-
       {/* Copyright Footnote Section */}
       <footer className="copyright">
         <div className="container">
@@ -112,9 +109,8 @@ function LandingPage() {
           </div>
         </div>
       </footer>
-
     </div>
   );
 }
 
-export default LandingPage;
+export default WelcomePage;
