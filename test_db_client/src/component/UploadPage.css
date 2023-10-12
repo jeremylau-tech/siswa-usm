@@ -1,0 +1,23 @@
+  .select-container {
+    margin-bottom: 10px; /* Add spacing below the selector */
+    text-align: center; /* Center-align the contents */
+  }
+  
+  .select-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .select {
+    width: 65%; /* Reduce the width of the selector */
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 16px;
+    margin: 0 auto; /* Center-align the selector */
+  }
+
+  
+  

@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import KhairatKematianList from "./tables/KhairatKematianList";
 import PerantiList from "./tables/PerantiList";
 import KewanganList from "./tables/KewanganList";
+import NewApplication from "./tables/NewApplication";
+import PendingList from "./tables/PendingApplication";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,13 +51,16 @@ function ApplicationListPage() {
   };
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Senarai Permohonan</h1>
+
+        <h2 className="status-title">Senarai Permohonan</h2>
       <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Khairat Kematian" {...a11yProps(0)} />
-          <Tab label="Penyelenggaraan Peranti" {...a11yProps(1)} />
-          <Tab label="Bantuan Kewangan" {...a11yProps(2)} />
+          <Tab label="Permohonan Baharu" {...a11yProps(0)} />
+          <Tab label="Pengesahan " {...a11yProps(1)} />
+          <Tab label="Khairat Kematian" {...a11yProps(2)} />
+          <Tab label="Penyelenggaraan Peranti" {...a11yProps(3)} />
+          <Tab label="Bantuan Kewangan" {...a11yProps(4)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -66,10 +71,32 @@ function ApplicationListPage() {
             alignItems: "center",
           }}
         >
-          <KhairatKematianList />
+          <NewApplication />
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <PendingList />
+        </Box>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <KhairatKematianList />
+        </Box>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={3}>
         <Box
             sx={{
               display: "flex",
@@ -80,7 +107,7 @@ function ApplicationListPage() {
             <PerantiList />
           </Box>    
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      <CustomTabPanel value={value} index={4}>
         <Box
             sx={{
               display: "flex",

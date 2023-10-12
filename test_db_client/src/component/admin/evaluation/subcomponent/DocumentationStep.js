@@ -1,5 +1,6 @@
 import React from "react";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
+
 
 const gridContainerStyle = {
   display: "grid",
@@ -25,22 +26,21 @@ function DocumentationStep() {
         <h2>Semakan Dokumen</h2>
         <div style={gridContainerStyle}>
           <div>
-            <span style={labelStyle}>Jenis Tajaan</span>
+          <Typography textAlign={"right"} padding={1}>Jenis Tajaan:</Typography>
           </div>
           <input style={inputStyle} type="text" value="Full Scholarship" readOnly />
 
           <div>
-            <span style={labelStyle}>Jenis Bantuan Dipohon:</span>
+          <Typography textAlign={"right"} padding={1}>Jenis Bantuan Diperlukan:</Typography>
           </div>
           <input style={inputStyle} type="text" value="Living Expenses" readOnly />
 
           <div>
-            <span style={labelStyle}>Amaun Diperlukan</span>
+          <Typography textAlign={"right"} padding={1}>Amaun Diperlukan:</Typography>
           </div>
           <input style={inputStyle} type="text" value="$10,000" readOnly />
-
           <div>
-            <span style={labelStyle}>Justifikasi:</span>
+          <Typography textAlign={"right"} padding={1}>Justifikasi:</Typography>
           </div>
           <input
             style={inputStyle}
@@ -50,7 +50,7 @@ function DocumentationStep() {
           />
 
           <div>
-            <span style={labelStyle}>Salinan Slip Gaji</span>
+          <Typography textAlign={"right"} padding={1}>Salinan Slip Gaji:</Typography>
           </div>
           <iframe
             title="Wage Certificate"

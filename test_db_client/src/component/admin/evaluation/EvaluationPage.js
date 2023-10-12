@@ -25,14 +25,27 @@ const centerStyle = {
 };
 
 function EvaluationPage() {
+  
+  
+
   return (
     <Box sx={{ flexGrow: 1,}}>
         <Grid item xs={12}> {/* Full-width for the main content */}
-              <Typography variant="h3" component="div" marginTop={10}>
-                Semak Kelayakan
-              </Typography>
+              <Box>
+              <Typography 
+              variant="h4" 
+              component="div"
+              textAlign={"left"} 
+              marginTop={5}
+              marginLeft={15}
+              fontWeight={"semiBold"}
+              >
+                Semak Kelayakan 
+                </Typography>
+              </Box>
               <Box sx={centerStyle}> {/* Center the content */}
                 {/* Include the StepperComponent here */}
+
                 <StepperComponent />
               </Box>
         </Grid>

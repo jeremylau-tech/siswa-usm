@@ -20,9 +20,10 @@ function AnalyticDashboard() {
   return (
     <div className="analyticDashboard pb pt pt-md">
       <Container maxWidth="xl">
+        <h2 className="status-title">Dashboard BHEPA</h2>
+        <br></br>
         <div className="analyticDashboard-body">
           <Grid container spacing={3}>
-
           <Grid item lg={3} xl={3}>
               <Card className="card card-lift--hover">
                 <CardContent className="card-body">
@@ -83,7 +84,7 @@ function AnalyticDashboard() {
                         <span className="text-warning mr-2">
                           <ArrowDownwardIcon /> 3.48%
                         </span>{" "}
-                        Sejak minggu lepas
+                        Sejak bulan lepas
                       </Typography>
                     </div>
                   </div>
