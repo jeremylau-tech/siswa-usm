@@ -13,7 +13,6 @@ import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
 import {rows} from "./Data.js";
 
-
 const downloadDataAsCSV = () => {
   // Create a header row with column names
   const header = 'ID,Reference Number,Name,Date of Application,Status,Amount of Money';
@@ -179,7 +178,7 @@ const columns = [
   };
   
   
-  function KewanganList(){
+  function MakananList(){
     const filteredRows = rows.filter((row) => row.status != "Baharu" && row.status != "Pengesahan" );
 
   return (
@@ -227,4 +226,4 @@ const columns = [
   );
   }
 
-  export default KewanganList;
+  export default MakananList;

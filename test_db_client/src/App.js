@@ -24,6 +24,7 @@ import UploadPage from "./component/UploadPage";
 import AnalyticGraph from "./component/admin/AnalyticGraph";
 import TestAllFunction from "./component/TestAllFunction";
 import WelcomePage from "./component/WelcomePage";
+import VendorListPage from "./component/admin/vendor/VendorListPage";
 import CouponPage from "./component/CouponPage";
 import FoodApplication from "./component/FoodApplication";
 import HistoryFood from "./component/HistoryFood";
@@ -50,6 +51,7 @@ function App() {
           <Route path="/UploadPage" element={<UploadPage />} />
           <Route path="/AnalyticGraph" element={<AnalyticGraph />} />
           <Route path="/TestAllFunction" element={<TestAllFunction />} />
+          <Route path="/VendorListPage" element={<VendorListPage />} />
           <Route path="/CouponPage" element={<CouponPage />} />
           <Route path="/FoodApplication" element={<FoodApplication />} />
           <Route path="/HistoryFood" element={<HistoryFood />} />
