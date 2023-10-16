@@ -7,6 +7,7 @@ import InsertPage from "./component/InsertPage";
 import Login from "./component/Login";
 // Import new page down here (Follow this format to import new page)
 import NewPageTest from "./component/NewPageTest";
+import Makanan from "./component/MakananPage";
 
 // Insert new import statement here
 import LandingPage from "./component/LandingPage";
@@ -34,6 +35,7 @@ function App() {
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/message" element={<MessagePage />} />
+          <Route path="/makanan" element={<Makanan />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/insert" element={<InsertPage />} />
 
