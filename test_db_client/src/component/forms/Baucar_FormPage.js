@@ -1,7 +1,7 @@
 import React from "react";
 import './FormPage.css';
 
-function FormPage() {
+function Baucar_FormPage() {
   const buttonStyle = {
     backgroundColor: '#491E6E',
     borderColor: '#491E6E',
@@ -11,7 +11,7 @@ function FormPage() {
   return (
     <div className="mt-5 form-page">
       <div className="form-column form-column-left">
-        <h2 className="left-header">Borang Permohonan<br />Bantuan Khairat<br />Kematian</h2>
+        <h2 className="left-header">Borang Permohonan<br />Baucar</h2>
         <p className="left-header-para">#USMCares</p>
       </div>
       <div className="form-column form-column-right">
@@ -48,4 +48,4 @@ function FormPage() {
   );
 }
 
-export default FormPage;
+export default Baucar_FormPage;

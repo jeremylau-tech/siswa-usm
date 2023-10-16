@@ -41,7 +41,7 @@ function WelcomePage() {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                   Keupayaan pelajar untuk menerusi pemebelajaran.
               </Typography>
-              <Button component={Link} to='/FormPage' variant="contained" color="primary">
+              <Button component={Link} to='/Wang_FormPage' variant="contained" color="primary">
                 Mohon
               </Button>
             </CardContent>
@@ -57,9 +57,26 @@ function WelcomePage() {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                  Keperluan asas dalam rutin seharian.
               </Typography>
-              <Button component={Link} to='/FormPage' variant="contained" color="primary">
+              <Button
+                component={Link}
+                to="/Baucar_FormPage"
+                variant="contained"
+                color="primary"
+                style={{ marginRight: '10px' }} // Add margin to the right side of the button
+              >
                 Mohon
               </Button>
+
+              <Button
+                component={Link}
+                to="/CouponPage"
+                variant="contained"
+                color="primary"
+                style={{ marginLeft: '10px' }} // Add margin to the left side of the button
+              >
+                Guna
+              </Button>
+
             </CardContent>
           </Card>
 
@@ -73,7 +90,7 @@ function WelcomePage() {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Keprihatinan terhadap setiap keluarga USM. 
               </Typography>
-              <Button component={Link} to='/FormPage' variant="contained" color="primary">
+              <Button component={Link} to='/Khairat_FormPage' variant="contained" color="primary">
                 Mohon
               </Button>
             </CardContent>
@@ -89,7 +106,7 @@ function WelcomePage() {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Kesediaan untuk cemerlang dalam pembelajaran.
               </Typography>
-              <Button component={Link} to='/FormPage' variant="contained" color="primary">
+              <Button component={Link} to='/Peranti_FormPage' variant="contained" color="primary">
                 Mohon
               </Button>
             </CardContent>
