@@ -21,6 +21,7 @@ import UploadPage from "./component/UploadPage";
 import AnalyticGraph from "./component/admin/AnalyticGraph";
 import TestAllFunction from "./component/TestAllFunction";
 import WelcomePage from "./component/WelcomePage";
+import VendorListPage from "./component/admin/vendor/VendorListPage";
 
 // Pay attention to this function
 function App() {
@@ -44,6 +45,8 @@ function App() {
           <Route path="/UploadPage" element={<UploadPage />} />
           <Route path="/AnalyticGraph" element={<AnalyticGraph />} />
           <Route path="/TestAllFunction" element={<TestAllFunction />} />
+          <Route path="/VendorListPage" element={<VendorListPage />} />
+
 
           {/* Add new Landing Page route */}
           <Route path="/LandingPage" element={<LandingPage />} />

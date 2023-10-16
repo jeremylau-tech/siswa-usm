@@ -9,6 +9,7 @@ import PerantiList from "./tables/PerantiList";
 import KewanganList from "./tables/KewanganList";
 import NewApplication from "./tables/NewApplication";
 import PendingList from "./tables/PendingApplication";
+import MakananList from "./tables/MakananList";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,7 +61,8 @@ function ApplicationListPage() {
           <Tab label="Pengesahan " {...a11yProps(1)} />
           <Tab label="Khairat Kematian" {...a11yProps(2)} />
           <Tab label="Penyelenggaraan Peranti" {...a11yProps(3)} />
-          <Tab label="Bantuan Kewangan" {...a11yProps(4)} />
+          <Tab label="Wang Ihsan" {...a11yProps(4)} />
+          <Tab label="Makanan" {...a11yProps(5)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -116,6 +118,17 @@ function ApplicationListPage() {
             }}
           >
             <KewanganList />
+          </Box>    
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={5}>
+        <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <MakananList />
           </Box>    
       </CustomTabPanel>
     </Box>
