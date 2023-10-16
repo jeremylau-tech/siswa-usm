@@ -48,7 +48,7 @@ function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={navStyle}>
       <div className="container">
         <a className="navbar-brand">
-          <Link to='/LandingPage' className='p-4'><img src="/navBar_Logo.png" alt="Your Logo" style={{ width: "200px" }} /></Link>
+          <Link to='/' className='p-4'><img src="/navBar_Logo.png" alt="Your Logo" style={{ width: "200px" }} /></Link>
         </a>
 
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
