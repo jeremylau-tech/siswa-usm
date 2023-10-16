@@ -180,7 +180,7 @@ const columns = [
   
   
   function KewanganList(){
-    const filteredRows = rows.filter((row) => row.status != "Baharu" && row.status != "Pengesahan" );
+    const filteredRows = rows.filter((row) => row.status !== "Baharu" && row.status !== "Pengesahan" );
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>

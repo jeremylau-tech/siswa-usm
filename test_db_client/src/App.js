@@ -10,10 +10,10 @@ import NewPageTest from "./component/NewPageTest";
 
 // Insert new import statement here
 import LandingPage from "./component/LandingPage";
-import Baucar_FormPage from './component/forms/Baucar_FormPage'; 
-import Wang_FormPage from './component/forms/Wang_FormPage'; 
-import Khairat_FormPage from './component/forms/Khairat_FormPage'; 
-import Peranti_FormPage from './component/forms/Peranti_FormPage'; 
+import BaucarFormPage from './component/forms/BaucarFormPage'; 
+import WangFormPage from './component/forms/WangFormPage'; 
+import KhairatFormPage from './component/forms/KhairatFormPage'; 
+import PerantiFormPage from './component/forms/PerantiFormPage'; 
 import NavBar from "./component/NavBar";
 import TermsConditions from "./component/TermsCondition";
 import ApplicationListPage from "./component/admin/application/ApplicationListPage";
@@ -61,10 +61,10 @@ function App() {
           <Route path="/WelcomePage" element={<WelcomePage />} />
 
           {/* Add new Landing Page route */}
-          <Route path="/Baucar_FormPage" element={<Baucar_FormPage />} />
-          <Route path="/Khairat_FormPage" element={<Khairat_FormPage />} />
-          <Route path="/Wang_FormPage" element={<Wang_FormPage />} />
-          <Route path="/Peranti_FormPage" element={<Peranti_FormPage />} />
+          <Route path="/BaucarFormPage" element={<BaucarFormPage />} />
+          <Route path="/KhairatFormPage" element={<KhairatFormPage />} />
+          <Route path="/WangFormPage" element={<WangFormPage />} />
+          <Route path="/PerantiFormPage" element={<PerantiFormPage />} />
           <Route path="/Login" element={<Login />} />
         </Routes>
       </div>
