@@ -133,33 +133,58 @@ function CouponPage() {
             </Typography>
           </div>
           <FormControl component="fieldset" style={{ marginTop: "16px" }}>
-            <FormLabel component="legend">Pilih vendor</FormLabel>
-            <RadioGroup
-              value={selectedVendor}
-              onChange={(event) => setSelectedVendor(event.target.value)}
-            >
-              <FormControlLabel
-                value="Vendor A"
-                control={<Radio />}
-                label="Vendor A"
-              />
-              <FormControlLabel
-                value="Vendor B"
-                control={<Radio />}
-                label="Vendor B"
-              />
-              <FormControlLabel
-                value="Vendor C"
-                control={<Radio />}
-                label="Vendor C"
-              />
-              <FormControlLabel
-                value="Vendor D"
-                control={<Radio />}
-                label="Vendor D"
-              />
-            </RadioGroup>
-          </FormControl>
+          <FormLabel component="legend">Pilih vendor</FormLabel>
+          <RadioGroup
+            value={selectedVendor}
+            onChange={(event) => setSelectedVendor(event.target.value)}
+          >
+            <FormControlLabel
+              value="Aman (Yacob)"
+              control={<Radio />}
+              label="Aman (Yacob)"
+            />
+            <FormControlLabel
+              value="Bakti Permai (Abdul Hamid)"
+              control={<Radio />}
+              label="Bakti Permai (Abdul Hamid)"
+            />
+            <FormControlLabel
+              value="Bakti Permai (Rohani)"
+              control={<Radio />}
+              label="Bakti Permai (Rohani)"
+            />
+            <FormControlLabel
+              value="Cahaya Gemilang (Zulkifli)"
+              control={<Radio />}
+              label="Cahaya Gemilang (Zulkifli)"
+            />
+            <FormControlLabel
+              value="Fajar Harapan (Anamary)"
+              control={<Radio />}
+              label="Fajar Harapan (Anamary)"
+            />
+            <FormControlLabel
+              value="Indah Kembara (Suraini)"
+              control={<Radio />}
+              label="Indah Kembara (Suraini)"
+            />
+            <FormControlLabel
+              value="Restu (Yusrina)"
+              control={<Radio />}
+              label="Restu (Yusrina)"
+            />
+            <FormControlLabel
+              value="Saujana (Ashraf)"
+              control={<Radio />}
+              label="Saujana (Ashraf)"
+            />
+            <FormControlLabel
+              value="Tekun (Erma)"
+              control={<Radio />}
+              label="Tekun (Erma)"
+            />
+          </RadioGroup>
+        </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleUseBack} color="primary">
@@ -179,7 +204,7 @@ function CouponPage() {
             <strong>Vendor Yang Dipilih:</strong> {selectedVendor}
             </Typography>
             <Typography variant="body1">
-            <strong>Jumlah Kupon:</strong> {coupons[redeemIndex] && coupons[redeemIndex].price}
+            <strong>Kupon Makanan:</strong> {coupons[redeemIndex] && coupons[redeemIndex].price}
             </Typography>
         </DialogContent>
         <DialogActions>
