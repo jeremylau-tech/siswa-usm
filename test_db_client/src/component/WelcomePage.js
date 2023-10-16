@@ -33,13 +33,13 @@ function WelcomePage() {
         <div className="new-services-container">
           {/* New Service Card 1 */}
           <Card className="new-service-card">
-            <CardMedia component="img" alt="Service 1 Banner" height="140" image="banner.jpg" />
+            <CardMedia component="img" alt="Service 1 Banner" height="140" image="wang-pic.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Wang Ihsan
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Maklumat Lanjutan...
+              <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
+                  Keupayaan pelajar untuk menerusi pemebelajaran.
               </Typography>
               <Button component={Link} to='/FormPage' variant="contained" color="primary">
                 Mohon
@@ -49,13 +49,13 @@ function WelcomePage() {
 
           {/* New Service Card 2 */}
           <Card className="new-service-card">
-            <CardMedia component="img" alt="Service 2 Banner" height="140" image="banner.jpg" />
+            <CardMedia component="img" alt="Service 2 Banner" height="140" image="kupon-pic.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                Makanan
+                Baucar Makanan
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Maklumat Lanjutan...
+              <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
+                 Keperluan asas dalam rutin seharian.
               </Typography>
               <Button component={Link} to='/FormPage' variant="contained" color="primary">
                 Mohon
@@ -65,13 +65,13 @@ function WelcomePage() {
 
           {/* New Service Card 3 */}
           <Card className="new-service-card">
-            <CardMedia component="img" alt="Service 3 Banner" height="140" image="banner.jpg" />
+            <CardMedia component="img" alt="Service 3 Banner" height="140" image="death-pic.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Khairat Kematian
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Maklumat Lanjutan...
+              <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
+                Keprihatinan terhadap setiap keluarga USM. 
               </Typography>
               <Button component={Link} to='/FormPage' variant="contained" color="primary">
                 Mohon
@@ -81,13 +81,13 @@ function WelcomePage() {
 
           {/* New Service Card 4 */}
           <Card className="new-service-card">
-            <CardMedia component="img" alt="Service 4 Banner" height="140" image="banner.jpg" />
+            <CardMedia component="img" alt="Service 4 Banner" height="140" image="laptop-pic.jpg" />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h5" component="div">
                 Kerosakan Peranti
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Maklumat Lanjutan...
+              <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
+                Kesediaan untuk cemerlang dalam pembelajaran.
               </Typography>
               <Button component={Link} to='/FormPage' variant="contained" color="primary">
                 Mohon
