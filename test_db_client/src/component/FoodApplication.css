@@ -1,0 +1,19 @@
+.select-food-wrapper {
+    display: flex;
+    align-items: center; /* Vertically center the label and select element */
+  }
+
+  .select-food-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+.select-food {
+    width: 500px; /* Adjust the width as needed */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 16px;
+    padding: 10px;
+  }
+  

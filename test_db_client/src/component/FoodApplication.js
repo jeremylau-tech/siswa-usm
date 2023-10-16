@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import './UploadPage.css';
+import './FoodApplication.css';
 import DragDrop from "./functions/DragDrop"; // Import the DragAndDrop component
 
-function UploadPage() {
+function FoodApplication() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isActive, setIsActive] = useState(false);
   const [selectedOption, setSelectedOption] = useState(""); // Add state for the selected option
@@ -36,30 +36,45 @@ function UploadPage() {
   return (
     <div className="mt-5 form-page">
       <div className="form-column form-column-left">
-        <h2 className="left-header">Borang Permohonan<br />Bantuan Khairat<br />Kematian</h2>
+        <h2 className="left-header">Borang Permohonan<br />Makanan</h2>
         <p className="left-header-para">#USMCares</p>
       </div>
       <div className="form-column form-column-right">
-        <h2 className="right-header">Sila Isi Borang Permohonan</h2>
+        <h2 className="right-header">Maklumat Kupon Makanan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
         <form>
-          <div className="form-group">
-            <label htmlFor="relationship">Hubungan:</label>
-            <input type="text" id="relationship" name="relationship" />
+          <div className="form-group select-food-container">
+            <label htmlFor="options-food" className="select-food-label">Jenis Tajaan:</label>
+            <div className="select-food-wrapper">
+              <select id="options-food" name="options-food" className="select-food" onChange={handleOptionChange}>
+                <option value="">Jenis Tajaan</option>
+                <option value="Option 1">Option 1</option>
+                <option value="Option 2">Option 2</option>
+                <option value="Option 3">Option 3</option>
+              </select>
+            </div>
           </div>
-          <div className="form-group select-container">
-            <label htmlFor="options" className="select-label">Jenis Tajaan:</label>
-            <select id="options" name="options" className="select" onChange={handleOptionChange}>
-              <option value="">Jenis Tajaan</option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
-              <option value="Option 3">Option 3</option>
-            </select>
-          </div>
+
           <div className="form-group">
-            <label htmlFor="email2">Salinan Penyata Bank:</label>
+            <label htmlFor="email2">Salinan Kad Pengenalan:</label>
             <DragDrop /> {/* Render the DragAndDrop component */}
           </div>
+
+          <div className="form-group">
+            <label htmlFor="email2">Salinan Penyata Bank Pelajar:</label>
+            <DragDrop /> {/* Render the DragAndDrop component */}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa:</label>
+            <DragDrop /> {/* Render the DragAndDrop component */}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email2">Dokumen Sokongan:</label>
+            <DragDrop /> {/* Render the DragAndDrop component */}
+          </div>
+
           <button type="submit" style={buttonStyle}>Submit</button>
         </form>
       </div>
@@ -67,4 +82,4 @@ function UploadPage() {
   );
 }
 
-export default UploadPage;
+export default FoodApplication;

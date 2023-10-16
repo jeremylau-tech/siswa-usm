@@ -2,19 +2,19 @@ import React from "react";
 import './FormPage.css';
 
 function FormPage() {
-
   const buttonStyle = {
     backgroundColor: '#491E6E',
     borderColor: '#491E6E',
     color: 'white',
   };
+
   return (
     <div className="mt-5 form-page">
-      <div className="form-column left">
+      <div className="form-column form-column-left">
         <h2 className="left-header">Borang Permohonan<br />Bantuan Khairat<br />Kematian</h2>
         <p className="left-header-para">#USMCares</p>
       </div>
-      <div className="form-column right">
+      <div className="form-column form-column-right">
         <h2 className="right-header">Sila Isi Borang Permohonan</h2>
         <p className="right-header-para">
           Pastikan maklumat yang diisi tepat & sahih
