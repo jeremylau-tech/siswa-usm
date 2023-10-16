@@ -61,10 +61,10 @@ function App() {
           <Route path="/WelcomePage" element={<WelcomePage />} />
 
           {/* Add new Landing Page route */}
-          <Route path="/BaucarFormPage" element={<BaucarFormPage />} />
-          <Route path="/KhairatFormPage" element={<KhairatFormPage />} />
-          <Route path="/WangFormPage" element={<WangFormPage />} />
-          <Route path="/PerantiFormPage" element={<PerantiFormPage />} />
+          <Route path="/Baucar_FormPage" element={<BaucarFormPage />} />
+          <Route path="/Khairat_FormPage" element={<KhairatFormPage />} />
+          <Route path="/Wang_FormPage" element={<WangFormPage />} />
+          <Route path="/Peranti_FormPage" element={<PerantiFormPage />} />
           <Route path="/Login" element={<Login />} />
         </Routes>
       </div>
