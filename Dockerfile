@@ -14,7 +14,7 @@ RUN npm install
 COPY /test_db_client ./
 
 # Build the React app
-RUN npm run build
+RUN CI= npm run build
 
 # Expose the port the app will run on
 EXPOSE 80
