@@ -5,7 +5,7 @@ FROM node:14
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY siswa-usm/test_db_client/package*.json ./
+COPY siswa-usm/test_db_client/package.json ./
 
 # Install project dependencies
 RUN npm install
