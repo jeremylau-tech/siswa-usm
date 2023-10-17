@@ -19,7 +19,7 @@ function PerantiFormPage() {
         <p className="right-header-para">
           Pastikan maklumat yang diisi tepat & sahih
         </p>
-        <form>
+        <form class="form-style">
           <div className="form-group">
             <label htmlFor="nama">Nama:</label>
             <input type="text" id="nama" name="nama" />
