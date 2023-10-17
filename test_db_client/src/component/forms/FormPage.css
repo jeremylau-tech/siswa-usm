@@ -66,19 +66,26 @@
   
  /* Style for the form */
 .form-group {
-    margin-bottom: 10px; /* Add some spacing between form fields */
+    margin-bottom: 15px; /* Add some spacing between form fields */
   }
   
   /* Style for labels */
   .form-group label {
-    display: block; /* Display each label on a new line */
+    display: block;  /*Display each label on a new line */
     text-align: left; /* Align labels to the left */
     color: #425466;
   }
   
 /* Style for input fields */
 .form-group input[type="text"],
+<<<<<<< HEAD
 .form-group input[type="email"] {
+=======
+.form-group input[type="email"],
+.form-group input[type="email2"]
+ {
+  display: block; 
+>>>>>>> 9d8f2bdf24d71ebd8c1b747c8f72c9dd4f87e664
   width: 100%; /* Make input fields fill the width of their container */
   padding: 5px; /* Add some padding for better visual appearance */
   border-radius: 5px; /* Add rounded corners to the input fields */
@@ -86,8 +93,14 @@
   border: 1px solid #ccc; /* Add a border for better visibility */
   color: #7a828a; /* Set the text color to #7a828a */
   text-align: left; /* Align the text to the left */
+<<<<<<< HEAD
+=======
+  padding-right: 400px;
+>>>>>>> main
 }
   
+
+
 /* Style for the submit button */
 button[type="submit"] {
     margin-top: 10px; /* Add some spacing above the submit button */
