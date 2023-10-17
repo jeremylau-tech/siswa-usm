@@ -1,0 +1,19 @@
+name: Welfare App
+
+on: push
+
+jobs:
+  build-container:
+    name: Build Docker Container Image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Publish to Github Packages
+      uses: docker/build-push-action@v1
+      with: 
+        username: ${{github.actor}}
+        password: ${{secrets.DOCKERHUB_PASSWORD}}
+        echo "${{ secrets.DOCKERHUB_PASSWORD}}" | docker login -u "dab8106" --password-stdin
+        docker image build -t dab8106/pyflask:latest .
+        docker push dab8106/pyflask:latest
