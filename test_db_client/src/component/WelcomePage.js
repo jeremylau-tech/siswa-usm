@@ -27,6 +27,7 @@ function WelcomePage() {
         </div>
       </section>
 
+
       {/* Services Section */}
       <section className="new-services-section">
         <h2 className="section-title">Buat Permohonan Disini</h2>

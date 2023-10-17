@@ -42,7 +42,7 @@ function FoodApplication() {
       <div className="form-column form-column-right">
         <h2 className="right-header">Maklumat Kupon Makanan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
-        <form>
+        <form class="form-style">
           <div className="form-group select-food-container">
             <label htmlFor="options-food" className="select-food-label">Jenis Tajaan:</label>
             <div className="select-food-wrapper">
