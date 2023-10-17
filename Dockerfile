@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
 COPY /test_db_client/package.json ./
+COPY /test_db_client/package-lock.json ./
 
 # Install project dependencies
 RUN npm install
@@ -14,7 +15,7 @@ RUN npm install
 COPY /test_db_client ./
 
 # Build the React app
-RUN CI= npm run build
+RUN npm run build
 
 # Expose the port the app will run on
 EXPOSE 80
