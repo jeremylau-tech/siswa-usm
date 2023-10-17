@@ -5,13 +5,13 @@ FROM node:14
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY siswa-usm/test_db_client/package.json ./
+COPY /test_db_client/package.json ./
 
 # Install project dependencies
 RUN npm install
 
 # Copy all source files from siswa-usm/test_db_client to the working directory
-COPY siswa-usm/test_db_client/ ./
+COPY /test_db_client ./
 
 # Build the React app
 RUN npm run build
