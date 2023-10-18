@@ -8,7 +8,6 @@ import Paper from '@mui/material/Paper';
 import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import Typography from "@mui/material/Typography";
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
-import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import {rows} from "./Data.js";
 
@@ -179,7 +178,7 @@ const columns = [
   
   
   function KhairatKematianList(){
-    const filteredRows = rows.filter((row) => row.status != "Baharu" && row.status != "Pengesahan" );
+    const filteredRows = rows.filter((row) => row.status !== "Baharu" && row.status !== "Pengesahan" );
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>

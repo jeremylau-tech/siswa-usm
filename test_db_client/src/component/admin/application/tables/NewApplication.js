@@ -8,7 +8,6 @@ import Paper from '@mui/material/Paper';
 import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import Typography from "@mui/material/Typography";
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
-import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
 import {rows} from "./Data.js";
 

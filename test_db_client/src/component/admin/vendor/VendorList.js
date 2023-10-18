@@ -2,7 +2,6 @@ import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { FormGroup, FormControlLabel, Switch } from "@mui/material";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 
 const columns = [
@@ -115,9 +114,9 @@ const rows = [
     VendorName: "Vendor A",
     location: "Location A",
     couponUsed: 10,
+    status: "Active",
     logoUrl:"https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
     description: "Vegan Food",
-    status: "Active",
     owner: "Kassim Bin Ahmad",
     phoneNo : "0123456789",
     email : "kassim@usm.my",
@@ -132,7 +131,6 @@ const rows = [
     status: "Active",
     logoUrl:"https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
     description: "Burger",
-    status: "Active",
     owner: "Fahmi Fadzil",
     phoneNo : "012232789",
     email : "fahmi@usm.my",
@@ -147,7 +145,6 @@ const rows = [
     status: "Inactive",
     logoUrl:"https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
     description: "Nasi Kandar",
-    status: "Inactive",
     owner: "Saifuddin Bin Nasution",
     phoneNo : "0123456732",
     email : "saufuddin@usm.my",

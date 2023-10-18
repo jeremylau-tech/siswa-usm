@@ -1,4 +1,4 @@
-import { Container, Typography, colors } from "@mui/material";
+import { Container, Typography,  } from "@mui/material";
 import React from "react";
 
 const gridContainerStyle = {
@@ -14,10 +14,6 @@ const inputStyle = {
   width: "100%",
 };
 
-const labelStyle = {
-  fontWeight: "bold",
-  textAlign: "right", // Align text to the left
-};
 
 function StudentInfoStep() {
   return (
