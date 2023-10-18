@@ -2,15 +2,12 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from "react";
-import { useNavigate  } from "react-router-dom"; // Import useHistory from react-router-dom
 import Cookies from 'js-cookie'; // Import the js-cookie library
-import { useEffect } from 'react'; // Import useEffect
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
+  const [errorMessage] = useState("");
 
   
 

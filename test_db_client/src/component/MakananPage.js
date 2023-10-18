@@ -1,5 +1,5 @@
 import React from "react";
-import './FormPage.css';
+import './forms/FormPage.css';
 
 function MakananPage() {
 

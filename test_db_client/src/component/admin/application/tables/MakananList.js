@@ -3,13 +3,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { saveAs } from 'file-saver';
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import Paper from '@mui/material/Paper';
 import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
-import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
 import {rows} from "./Data.js";
 
@@ -179,7 +177,7 @@ const columns = [
   
   
   function MakananList(){
-    const filteredRows = rows.filter((row) => row.status != "Baharu" && row.status != "Pengesahan" );
+    const filteredRows = rows.filter((row) => row.status !== "Baharu" && row.status !== "Pengesahan" );
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>

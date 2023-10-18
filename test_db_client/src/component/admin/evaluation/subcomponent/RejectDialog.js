@@ -4,9 +4,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 
 export default function RejectDialog() {
   const [open, setOpen] = React.useState(false);

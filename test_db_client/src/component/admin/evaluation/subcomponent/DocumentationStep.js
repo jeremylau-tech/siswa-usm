@@ -14,10 +14,6 @@ const inputStyle = {
   width: "100%",
 };
 
-const labelStyle = {
-  fontWeight: "bold",
-  textAlign: "right",
-};
 
 function DocumentationStep() {
   return (

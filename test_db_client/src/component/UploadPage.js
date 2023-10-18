@@ -3,25 +3,25 @@ import './UploadPage.css';
 import DragDrop from "./functions/DragDrop"; // Import the DragAndDrop component
 
 function UploadPage() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [isActive, setIsActive] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(""); // Add state for the selected option
+  const [, setSelectedFile] = useState(null);
+  const [, setIsActive] = useState(false);
+  const [, setSelectedOption] = useState(""); // Add state for the selected option
 
-  const handleFileDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      setSelectedFile(file);
-      setIsActive(false);
-    }
-  };
+  // const handleFileDrop = (e) => {
+  //   e.preventDefault();
+  //   const file = e.dataTransfer.files[0];
+  //   if (file) {
+  //     setSelectedFile(file);
+  //     setIsActive(false);
+  //   }
+  // };
 
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-    }
-  };
+  // const handleFileInputChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setSelectedFile(file);
+  //   }
+  // };
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
