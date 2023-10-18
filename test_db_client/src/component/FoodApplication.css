@@ -1,6 +1,8 @@
 .select-food-wrapper {
     display: flex;
     align-items: center; /* Vertically center the label and select element */
+    justify-content: center; /* Horizontally center the select element */
+    height: 100%; /* Set the height to 100% to center vertically */
   }
 
   .select-food-label {

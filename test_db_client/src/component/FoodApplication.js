@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
+// import { useState } from "react";
 import './FoodApplication.css';
 import DragDrop from "./functions/DragDrop"; // Import the DragAndDrop component
 
 function FoodApplication() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [isActive, setIsActive] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(""); // Add state for the selected option
+  // const [selectedFile, setSelectedFile] = useState(null);
+  // const [isActive, setIsActive] = useState(false);
+  // const [selectedOption, setSelectedOption] = useState("");
 
   // const handleFileDrop = (e) => {
   //   e.preventDefault();
@@ -23,9 +24,9 @@ function FoodApplication() {
   //   }
   // };
 
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
-  };
+  // const handleOptionChange = (e) => {
+  //   setSelectedOption(e.target.value);
+  // };
 
   const buttonStyle = {
     backgroundColor: '#491E6E',
@@ -46,7 +47,11 @@ function FoodApplication() {
           <div className="form-group select-food-container">
             <label htmlFor="options-food" className="select-food-label">Jenis Tajaan:</label>
             <div className="select-food-wrapper">
-              <select id="options-food" name="options-food" className="select-food" onChange={handleOptionChange}>
+              <select id="options-food" 
+              name="options-food" 
+              className="select-food" 
+              // onChange={handleOptionChange}
+              >
                 <option value="">Jenis Tajaan</option>
                 <option value="Option 1">Option 1</option>
                 <option value="Option 2">Option 2</option>
