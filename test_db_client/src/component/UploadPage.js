@@ -3,8 +3,8 @@ import './UploadPage.css';
 import DragDrop from "./functions/DragDrop"; // Import the DragAndDrop component
 
 function UploadPage() {
-  const [, setSelectedFile] = useState(null);
-  const [, setIsActive] = useState(false);
+  // const [, setSelectedFile] = useState(null);
+  // const [, setIsActive] = useState(false);
   const [, setSelectedOption] = useState(""); // Add state for the selected option
 
   // const handleFileDrop = (e) => {
