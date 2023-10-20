@@ -3,13 +3,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from "react";
 import Cookies from 'js-cookie'; // Import the js-cookie library
+import {CardMedia} from "@mui/material";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage] = useState("");
-
-  
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -67,11 +66,7 @@ function Login() {
     <div className="App">
       <Container id="main-container" className="d-grid h-100">
         <Form id="sign-in-form" className="text-center p-3 w-100" onSubmit={handleLogin}>
-          <img
-            className="m-4 bootstrap-logo"
-            src="/path/to/your/logo.png" // Replace with the path to your logo image
-            alt="Logo"
-          />
+         <CardMedia component="img" alt="Service 1 Banner" height="140" image="wang-pic.jpg" />
           <h1 className="mb-4 fs-3 fw-normal">Log Masuk</h1>
           <Form.Group controlId="sign-in-email-address">
             <Form.Control
