@@ -1,31 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 // import { useState } from "react";
 import DragDrop from "../functions/DragDrop"; // Import the DragAndDrop component
 
 function KhairatNextPage() {
-  // const [selectedFile, setSelectedFile] = useState(null);
-  // const [isActive, setIsActive] = useState(false);
-  // const [selectedOption, setSelectedOption] = useState("");
-
-  // const handleFileDrop = (e) => {
-  //   e.preventDefault();
-  //   const file = e.dataTransfer.files[0];
-  //   if (file) {
-  //     setSelectedFile(file);
-  //     setIsActive(false);
-  //   }
-  // };
-
-  // const handleFileInputChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     setSelectedFile(file);
-  //   }
-  // };
-
-  // const handleOptionChange = (e) => {
-  //   setSelectedOption(e.target.value);
-  // };
+  const [deathCertFile, setDeathCertFile] = useState(null); // Maintain the selectedFile state
+  const [icNumFile, setIcNumFile] = useState(null); // Maintain the selectedFile state
+  const [bankStatementFile, setBankStatementFile] = useState(null); // Maintain the selectedFile state
+  const [transportFareFile, setTransportFareFile] = useState(null); // Maintain the selectedFile state
 
   const buttonStyle = {
     backgroundColor: '#491E6E',
@@ -51,23 +32,21 @@ function KhairatNextPage() {
           
           <div className="form-group">
             <label htmlFor="email2">Salinan Sijil Kematian:</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
-          </div>
+            <DragDrop selectedFile={deathCertFile} setSelectedFile={setDeathCertFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Kad Pengenalan:</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
-          </div>
+            <DragDrop selectedFile={icNumFile} setSelectedFile={setIcNumFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Penyata Bank:</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
-          </div>
+            <DragDrop selectedFile={bankStatementFile} setSelectedFile={setBankStatementFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
+
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Resit Asal Tambang Perjalanan (Tujuan Pengebumian):</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
-          </div>
+            <DragDrop selectedFile={transportFareFile} setSelectedFile={setTransportFareFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
+
 
           <button type="submit" style={buttonStyle}>Submit</button>
         </form>

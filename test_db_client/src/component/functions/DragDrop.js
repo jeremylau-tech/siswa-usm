@@ -1,14 +1,19 @@
 import React, { useState, useRef } from "react";
 import "./DragDrop.css";
 
-function DragDrop() {
+function DragDrop({ selectedFile, setSelectedFile }) {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleDrop = async (e) => {
     e.preventDefault();
     setIsDragging(false);
-    uploadFile(e.dataTransfer.files[0]);
+    if (!selectedFile) {
+      const file = e.dataTransfer.files[0];
+      if (file) {
+        setSelectedFile(file);
+      }
+    }
   };
 
   const handleDragOver = (e) => {
@@ -16,13 +21,22 @@ function DragDrop() {
   };
 
   const handleFileInputChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      uploadFile(selectedFile);
+    if (!selectedFile) {
+      const file = e.target.files[0];
+      if (file) {
+        setSelectedFile(file);
+      }
     }
   };
 
-  const uploadFile = async (file) => {
+  const handleRemoveFile = () => {
+    setSelectedFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''; // Reset the input field
+    }
+  };
+
+  /*const uploadFile = async (file) => {
     if (file) {
       try {
         const formData = new FormData();
@@ -47,38 +61,57 @@ function DragDrop() {
         alert("An error occurred during file upload.");
       }
     }
-  };
+  };*/
 
   const boxStyle = {
     width: "100%",
     height: "150px",
-    border: isDragging ? "2px solid green" : "2px dashed gray",
-    backgroundColor: isDragging ? "lightgreen" : "lightgray",
+    border: isDragging ? "2px solid green" : selectedFile ? "2px solid green" : "2px dashed gray",
+    backgroundColor: isDragging ? "lightgreen" : selectedFile ? "lightgreen" : "lightgray",
+    display: "flex",
+    flexDirection: "column", // Display children vertically
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+  const buttonStyle = {
+    marginTop: "10px", // Add some space between the text and the button
+  };
+
+  const textStyles = {
+    fontWeight: "normal",
   };
 
   return (
-    <div className="drag-and-drop-container">
-      <div
+    <div style={textStyles} className="drag-and-drop-container">
+      <label
         className="drag-and-drop-box"
         style={boxStyle}
-        draggable
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragEnter={() => setIsDragging(true)}
         onDragLeave={() => setIsDragging(false)}
-        onClick={(e) => {
-          e.stopPropagation(); // Stop event propagation
-          fileInputRef.current.click(); // Trigger the file input's click event
-        }}
       >
-      {isDragging ? "Release to Drop" : <strong>Click&nbsp;</strong>} {isDragging ? "" : "or Drop file here"}
-      </div>
-      <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: "none" }}
-        onChange={handleFileInputChange}
-      />
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleFileInputChange}
+          disabled={selectedFile !== null} // Disable the input when a file is selected
+        />
+        {selectedFile ? (
+          <div style={textStyles}>
+            <strong>Selected File:</strong> {selectedFile.name}
+          </div>
+        ) : (
+          isDragging ? "Release to Drop" : <p style={textStyles}><strong>Click</strong> to upload file&nbsp;</p>
+        )}
+        {selectedFile && (
+          <div style={{ textAlign: "center" }}>
+            <button style={buttonStyle} onClick={handleRemoveFile}>Chose again</button>
+          </div>
+        )}
+      </label>
     </div>
   );
 }
