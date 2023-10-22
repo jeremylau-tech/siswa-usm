@@ -1,9 +1,8 @@
 import React from "react";
 // import { useState } from "react";
-import './FoodApplication.css';
-import DragDrop from "./functions/DragDrop"; // Import the DragAndDrop component
+import DragDrop from "../functions/DragDrop"; // Import the DragAndDrop component
 
-function FoodApplication() {
+function KhairatNextPage() {
   // const [selectedFile, setSelectedFile] = useState(null);
   // const [isActive, setIsActive] = useState(false);
   // const [selectedOption, setSelectedOption] = useState("");
@@ -41,23 +40,18 @@ function FoodApplication() {
         <p className="left-header-para">#USMCares</p>
       </div>
       <div className="form-column form-column-right">
-        <h2 className="right-header">Maklumat Baucar Makanan</h2>
+        <h2 className="right-header">Maklumat Khairat Kematian</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
         <form class="form-style">
-          <div className="form-group select-food-container">
-            <label htmlFor="options-food" className="select-food-label">Jenis Tajaan:</label>
-            <div className="select-food-wrapper">
-              <select id="options-food" 
-              name="options-food" 
-              className="select-food" 
-              // onChange={handleOptionChange}
-              >
-                <option value="">Jenis Tajaan</option>
-                <option value="Option 1">Option 1</option>
-                <option value="Option 2">Option 2</option>
-                <option value="Option 3">Option 3</option>
-              </select>
-            </div>
+          
+          <div className="form-group">
+            <label htmlFor="relationship">Hubungan:</label>
+            <input type="text" id="relationship" name="relationship" placeholder="Ibu/ Ayah/ Adik-beradik" />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="email2">Salinan Sijil Kematian:</label>
+            <DragDrop /> {/* Render the DragAndDrop component */}
           </div>
 
           <div className="form-group">
@@ -66,17 +60,12 @@ function FoodApplication() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email2">Salinan Penyata Bank Pelajar:</label>
+            <label htmlFor="email2">Salinan Penyata Bank:</label>
             <DragDrop /> {/* Render the DragAndDrop component */}
           </div>
 
           <div className="form-group">
-            <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa:</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email2">Dokumen Sokongan:</label>
+            <label htmlFor="email2">Salinan Resit Asal Tambang Perjalanan (Tujuan Pengebumian):</label>
             <DragDrop /> {/* Render the DragAndDrop component */}
           </div>
 
@@ -87,4 +76,4 @@ function FoodApplication() {
   );
 }
 
-export default FoodApplication;
+export default KhairatNextPage;
