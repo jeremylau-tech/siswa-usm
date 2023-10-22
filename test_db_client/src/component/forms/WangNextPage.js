@@ -3,26 +3,15 @@ import "./WangNextPage.css";
 import DragDrop from "../functions/DragDrop";
 
 function WangNextPage() {
-  const [, setSelectedFile] = useState(null);
-  const [, setIsActive] = useState(false);
+  const [icNumFile, setIcNumFile] = useState(null); // Maintain the selectedFile state
+  const [bankStatementFile, setBankStatementFile] = useState(null); // Maintain the selectedFile state
+  const [paymentSlipFile, setPaymentSlipFile] = useState(null); // Maintain the selectedFile state
+  const [supportDocFile, setSupportDocFile] = useState(null); // Maintain the selectedFile state
+
   const [selectedOptions, setSelectedOptions] = useState([]); // State for selected options
   const [reason, setReason] = useState(""); // State for the reason text area
 
-  const handleFileDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      setSelectedFile(file);
-      setIsActive(false);
-    }
-  };
 
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-    }
-  };
 
   const handleOptionChange = (e) => {
     setSelectedOptions([e.target.value]);
@@ -136,22 +125,22 @@ function WangNextPage() {
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Kad Pengenalan:</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
+            <DragDrop selectedFile={icNumFile} setSelectedFile={setIcNumFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
           </div>
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Penyata Bank Pelajar:</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
+            <DragDrop selectedFile={bankStatementFile} setSelectedFile={setBankStatementFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
           </div>
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa:</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
+            <DragDrop selectedFile={paymentSlipFile} setSelectedFile={setPaymentSlipFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
           </div>
 
           <div className="form-group">
             <label htmlFor="email2">Dokumen Sokongan:</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
+            <DragDrop selectedFile={supportDocFile} setSelectedFile={setSupportDocFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
           </div>
 
           <button type="submit" style={buttonStyle}>

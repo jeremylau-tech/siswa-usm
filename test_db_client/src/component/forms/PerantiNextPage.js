@@ -2,26 +2,12 @@ import React, { useState } from "react";
 import DragDrop from "../functions/DragDrop";
 
 function PerantiNextPage() {
-  const [, setSelectedFile] = useState(null);
-  const [, setIsActive] = useState(false);
+  const [paymentSlipFile, setPaymentSlipFile] = useState(null); // Maintain the selectedFile state
+  const [deviceImageFile, setDeviceImageFile] = useState(null); // Maintain the selectedFile state
   const [selectedOptions, setSelectedOptions] = useState([]); // State for selected options
   const [reason, setReason] = useState(""); // State for the reason text area
 
-  const handleFileDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      setSelectedFile(file);
-      setIsActive(false);
-    }
-  };
-
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-    }
-  };
+  
 
   const handleOptionChange = (e) => {
     setSelectedOptions([e.target.value]);
@@ -73,8 +59,7 @@ function PerantiNextPage() {
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa:</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
-          </div>
+            <DragDrop selectedFile={paymentSlipFile} setSelectedFile={setPaymentSlipFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
           <h2 style={{ textAlign: "center", marginTop: "50px", marginBottom: "5px" }}>Maklumat Peranti</h2>
           <p style={{ textAlign: "center"}}>Pastikan maklumat yang diisi tepat & sahih</p>
@@ -97,8 +82,7 @@ function PerantiNextPage() {
 
           <div className="form-group">
             <label htmlFor="email2">Gambar Peranti:</label>
-            <DragDrop /> {/* Render the DragAndDrop component */}
-          </div>
+            <DragDrop selectedFile={deviceImageFile} setSelectedFile={setDeviceImageFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
           <button type="submit" style={buttonStyle}>
             Submit
