@@ -73,7 +73,7 @@ app.post("/login", (req, res) => {
 
 app.get("/users", (req, res) => {
     // SQL query to select all records from the "user" table
-    const sql = "SELECT * FROM user";
+    const sql = "SELECT * FROM users";
 
     // Execute the query
     db.query(sql, (err, results) => {
@@ -85,6 +85,22 @@ app.get("/users", (req, res) => {
             res.json({ users: results });
         }
     });
+});
+
+app.get("/user-details", (req, res) => {
+  // SQL query to select all records from the "users_details" table
+  const sql = "SELECT * FROM users_details";
+
+  // Execute the query
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response with "userDetails" key
+          res.json({ userDetails: results });
+      }
+  });
 });
 
 // Endpoint to insert a new user
