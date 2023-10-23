@@ -12,7 +12,7 @@ function KhairatFormPage() {
   return (
     <div className="mt-5 form-page">
       <div className="form-column form-column-left">
-        <h2 className="left-header">Borang Permohonan<br />Bantuan Khairat<br />Kematian</h2>
+        <h2 className="left-header">Borang Permohonan<br />Bantuan Wang Ihsan</h2>
         <p className="left-header-para">#USMCares</p>
       </div>
       <div className="form-column form-column-right">
