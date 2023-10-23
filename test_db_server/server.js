@@ -134,6 +134,8 @@ app.post("/insert", (req, res) => {
     const {
       requestor_id,
       approver_id,
+      request_type,
+
       sponsor_type,
       req_relationship,
       death_cert_file,
@@ -141,10 +143,11 @@ app.post("/insert", (req, res) => {
       bank_statement_file,
       payment_slip_file,
       transport_fare_file,
-      request_type,
+      support_doc_file,
       device_type,
       device_details,
-      device_pic_file
+      device_pic_file,
+      food_justification
     } = req.body;
   
     // Check if requestor_id is empty or not provided
@@ -153,11 +156,54 @@ app.post("/insert", (req, res) => {
       return;
     }
   
+    const request_id = uuidv4();
+
     // SQL query to insert a new request into the "request" table
-    const sql = "INSERT INTO request (requestor_id, approver_id, sponsor_type, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  
+    sql = "INSERT INTO request (request_id, requestor_id, approver_id, request_type) VALUES (?, ?, ?, ?)";
     // Execute the query
     db.query(
+      sql,
+      [
+        request_id,     // Use the generated request_id
+        requestor_id,
+        approver_id || null, // Set approver_id to null if not provided
+        request_type
+      ],
+      (err, result) => {
+        if (err) {
+          console.error('Error inserting request data into MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+        } else {
+          res.status(201).json({ message: 'Request data inserted successfully' });
+        }
+      }
+    );
+
+    if (request_type === "makanan")
+    {
+      sql = "INSERT INTO request (request_id, sponsor_type, ic_num_file, payment_slip_file, food_justification) VALUES (?, ?, ?, ?, ?)";
+    // Execute the query
+    db.query(
+      sql,
+      [
+        request_id,
+        sponsor_type,
+        ic_num_file,
+        payment_slip_file,
+        food_justification
+      ],
+      (err, result) => {
+        if (err) {
+          console.error('Error inserting request data into MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+        } else {
+          res.status(201).json({ message: 'Request data inserted successfully' });
+        }
+      }
+    );
+    }
+
+    /*db.query(
       sql,
       [
         requestor_id,
@@ -169,6 +215,7 @@ app.post("/insert", (req, res) => {
         bank_statement_file || null,
         payment_slip_file || null,
         transport_fare_file || null,
+        support_doc_file || null,
         request_type || null,
         device_type || null,
         device_details || null,
@@ -182,7 +229,10 @@ app.post("/insert", (req, res) => {
           res.status(201).json({ message: 'Request data inserted successfully' });
         }
       }
-    );
+    );*/
+  
+    //const sql = "INSERT INTO request (requestor_id, approver_id, sponsor_type, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, support_doc_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
   });
   
 
