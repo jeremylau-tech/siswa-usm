@@ -96,16 +96,12 @@ function KhairatNextPage() {
     
         if (response.ok) {
           // If the server responds with a 200 status code (OK), you can handle success here
-          console.log("Form data sent successfully!");
+          alert("Form data sent successfully!");
 
-          setFormData((prevFormData) => {
+          setFormData(() => {
             // Reset the form fields by clearing the formData state
             return {
-              req_relationship: "",
-              death_cert_file: "",
-              ic_num_file: "",
-              bank_statement_file: "",
-              transport_fare_file: "",
+              req_relationship: ""
             };
           }, () => {
             console.log(formData); // This will log the updated formData
