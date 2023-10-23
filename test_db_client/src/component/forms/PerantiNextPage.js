@@ -4,7 +4,7 @@ import DragDrop from "../functions/DragDrop";
 function PerantiNextPage() {
   const [paymentSlipFile, setPaymentSlipFile] = useState(null); // Maintain the selectedFile state
   const [deviceImageFile, setDeviceImageFile] = useState(null); // Maintain the selectedFile state
-  const [selectedOptions, setSelectedOptions] = useState([]); // State for selected options
+  const [sponsorType, setSponsorType] = useState(""); // State for selected options
   const [deviceType, setDeviceType] = useState(""); // State for the reason text area
   const [deviceDetails, setDeviceDetails] = useState(""); // State for the reason text area
 
@@ -13,8 +13,8 @@ function PerantiNextPage() {
     request_type: "peranti"
   });
 
-  const handleOptionChange = (e) => {
-    setSelectedOptions([e.target.value]);
+  const handleSponsorTypeChange = (e) => {
+      setSponsorType(e.target.value);
   };
 
   const handleDeviceTypeChange = (e) => {
@@ -58,8 +58,9 @@ function PerantiNextPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    if (!deviceType||
+
+    if (!sponsorType ||
+      !deviceType||
       !deviceDetails ||
       !paymentSlipFile ||
       !deviceImageFile) {
@@ -83,7 +84,8 @@ function PerantiNextPage() {
         device_type: deviceType,
         device_details: deviceDetails,
         requestor_id: formData.requestor_id,
-        request_type: formData.request_type
+        request_type: formData.request_type,
+        sponsor_type: sponsorType
       };
 
       const apiUrl = "http://localhost:8000/insert-request"; // Update with your server's URL
@@ -100,7 +102,8 @@ function PerantiNextPage() {
       if (response.ok) {
         // If the server responds with a 200 status code (OK), you can handle success here
         alert("Form data sent successfully!");
-  
+        
+        setSponsorType("")
         setDeviceType("");
         setDeviceDetails("");
         setPaymentSlipFile("");
@@ -139,11 +142,11 @@ function PerantiNextPage() {
             <label htmlFor="options" className="select-label">
               Jenis Tajaan:
             </label>
-            <select id="options" name="options" className="select" onChange={handleOptionChange}>
+            <select id="sponsor_type" name="sponsor_type" className="select" onChange={handleSponsorTypeChange}>
               <option value="">Jenis Tajaan</option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
-              <option value="Option 3">Option 3</option>
+              <option value="JPA">JPA</option>
+              <option value="PTPTN">PTPTN</option>
+              <option value="Others">Others</option>
             </select>
           </div>
 

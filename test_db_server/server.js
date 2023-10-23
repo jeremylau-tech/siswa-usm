@@ -134,6 +134,7 @@ app.post("/insert", (req, res) => {
     const {
       requestor_id,
       approver_id,
+      sponsor_type,
       req_relationship,
       death_cert_file,
       ic_num_file,
@@ -153,7 +154,7 @@ app.post("/insert", (req, res) => {
     }
   
     // SQL query to insert a new request into the "request" table
-    const sql = "INSERT INTO request (requestor_id, approver_id, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const sql = "INSERT INTO request (requestor_id, approver_id, sponsor_type, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   
     // Execute the query
     db.query(
@@ -161,6 +162,7 @@ app.post("/insert", (req, res) => {
       [
         requestor_id,
         approver_id || null, // Set approver_id to null if not provided
+        sponsor_type || null, 
         req_relationship || null,
         death_cert_file || null,
         ic_num_file || null,
