@@ -141,6 +141,7 @@ app.post("/insert", (req, res) => {
       bank_statement_file,
       payment_slip_file,
       transport_fare_file,
+      support_doc_file,
       request_type,
       device_type,
       device_details,
@@ -154,7 +155,7 @@ app.post("/insert", (req, res) => {
     }
   
     // SQL query to insert a new request into the "request" table
-    const sql = "INSERT INTO request (requestor_id, approver_id, sponsor_type, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const sql = "INSERT INTO request (requestor_id, approver_id, sponsor_type, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, support_doc_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   
     // Execute the query
     db.query(
@@ -169,6 +170,7 @@ app.post("/insert", (req, res) => {
         bank_statement_file || null,
         payment_slip_file || null,
         transport_fare_file || null,
+        support_doc_file || null,
         request_type || null,
         device_type || null,
         device_details || null,
