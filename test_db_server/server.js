@@ -172,16 +172,13 @@ app.post("/insert", (req, res) => {
       (err, result) => {
         if (err) {
           console.error('Error inserting request data into MySQL:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-        } else {
-          res.status(201).json({ message: 'Request data inserted successfully' });
-        }
+        } 
       }
     );
 
     if (request_type === "makanan")
     {
-      sql = "INSERT INTO request (request_id, sponsor_type, ic_num_file, payment_slip_file, food_justification) VALUES (?, ?, ?, ?, ?)";
+      sql = "INSERT INTO food_application (request_id, sponsor_type, ic_num_file, payment_slip_file, food_justification) VALUES (?, ?, ?, ?, ?)";
     // Execute the query
     db.query(
       sql,
