@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { useState } from "react";
 import DragDrop from "../functions/DragDrop"; // Import the DragAndDrop component
 
 function KhairatNextPage() {
@@ -8,29 +7,21 @@ function KhairatNextPage() {
   const [bankStatementFile, setBankStatementFile] = useState(null); // Maintain the selectedFile state
   const [transportFareFile, setTransportFareFile] = useState(null); // Maintain the selectedFile state
 
-  const [test, setTest] = useState(''); // Maintain the selectedFile state
-
-
   const [formData, setFormData] = useState({
     requestor_id: "202124",
     req_relationship: "",
+    request_type: "khairat"
   });
 
-  // setFormData({
-  //   ...formData,
-  //   ic_num_file: "12345"
-  // });
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
   
-  const uploadFile = async (file, propertyNameToUpdate) => {
+  const uploadFile = async (file) => {
     if (file) {
       try {
         
-
         const uploadData = new FormData();
         uploadData.append("file", file);
         
@@ -89,6 +80,7 @@ function KhairatNextPage() {
           transport_fare_file: results[3],
           req_relationship: formData.req_relationship,
           requestor_id: formData.requestor_id,
+          request_type: formData.request_type
         };
 
         const apiUrl = "http://localhost:8000/insert-request"; // Update with your server's URL
@@ -103,31 +95,22 @@ function KhairatNextPage() {
         });
     
         if (response.ok) {
-          // console.log(formData);
           // If the server responds with a 200 status code (OK), you can handle success here
-          console.log("Form data sent successfully!");
-          // You can also reset the form or perform other actions on success
-          // Show an alert to indicate success
-          //alert("Form data submitted successfully!");
+          alert("Form data sent successfully!");
+
+          setFormData(() => {
+            // Reset the form fields by clearing the formData state
+            return {
+              req_relationship: ""
+            };
+          }, () => {
+            console.log(formData); // This will log the updated formData
+          });
     
-          // Reset the form fields by clearing the formData state
-          // setFormData((prevFormData) => {
-          //   // Reset the form fields by clearing the formData state
-          //   return {
-          //     req_relationship: "",
-          //     death_cert_file: "",
-          //     ic_num_file: "",
-          //     bank_statement_file: "",
-          //     transport_fare_file: "",
-          //   };
-          // }, () => {
-          //   console.log(formData); // This will log the updated formData
-          // });
-    
-          // setDeathCertFile(null);
-          // setIcNumFile(null);
-          // setBankStatementFile(null);
-          // setTransportFareFile(null);
+          setDeathCertFile(null);
+          setIcNumFile(null);
+          setBankStatementFile(null);
+          setTransportFareFile(null);
         } else {
           console.log(formData);
           // Handle errors or display error messages here

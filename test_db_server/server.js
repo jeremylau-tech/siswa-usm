@@ -134,6 +134,7 @@ app.post("/insert", (req, res) => {
     const {
       requestor_id,
       approver_id,
+      sponsor_type,
       req_relationship,
       death_cert_file,
       ic_num_file,
@@ -153,7 +154,7 @@ app.post("/insert", (req, res) => {
     }
   
     // SQL query to insert a new request into the "request" table
-    const sql = "INSERT INTO request (requestor_id, approver_id, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const sql = "INSERT INTO request (requestor_id, approver_id, sponsor_type, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   
     // Execute the query
     db.query(
@@ -161,6 +162,7 @@ app.post("/insert", (req, res) => {
       [
         requestor_id,
         approver_id || null, // Set approver_id to null if not provided
+        sponsor_type || null, 
         req_relationship || null,
         death_cert_file || null,
         ic_num_file || null,
@@ -189,81 +191,6 @@ app.post("/upload", upload.single("file"), (req, res) => {
   const filename = req.file.filename;
   res.send(`${filename}`);
 });
-
-// app.post("/insert-lel", (req, res) => {
-
-//   console.log("Received request data:", req.body);
-//   // Process the data
-//   res.json({ message: "Data received successfully" });
-// });
-
-// app.post("/insert-request", upload.fields([
-//   { name: 'death_cert_file', maxCount: 1 },
-//   { name: 'ic_num_file', maxCount: 1 },
-//   { name: 'bank_statement_file', maxCount: 1 },
-//   { name: 'payment_slip_file', maxCount: 1 },
-//   { name: 'transport_fare_file', maxCount: 1 },
-//   { name: 'device_pic_file', maxCount: 1 } 
-// ]), (req, res) => {
-//   console.log("Received form data:", req.body); // Log the form data
-
-//   const {
-//     requestor_id,
-//     approver_id,
-//     req_relationship,
-//     request_type,
-//     device_type,
-//     device_details
-//   } = req.body;
-//   console.log(req_relationship)
-
-//   // // Check if requestor_id is empty or not provided
-//   // if (!requestor_id) {
-//   //   res.status(400).json({ message: 'Missing requestor_id' });
-//   //   return;
-//   // }
-
-//   // Process the uploaded files and obtain their filenames
-//   const uploadedFiles = {
-//     death_cert_file: req.files['death_cert_file'] ? req.files['death_cert_file'][0].filename : null,
-//     ic_num_file: req.files['ic_num_file'] ? req.files['ic_num_file'][0].filename : null,
-//     bank_statement_file: req.files['bank_statement_file'] ? req.files['bank_statement_file'][0].filename : null,
-//     payment_slip_file: req.files['payment_slip_file'] ? req.files['payment_slip_file'][0].filename : null,
-//     transport_fare_file: req.files['transport_fare_file'] ? req.files['transport_fare_file'][0].filename : null,
-//     device_pic_file: req.files['device_pic_file'] ? req.files['device_pic_file'][0].filename : null
-//   };
-
- 
-//   // SQL query to insert a new request into the "request" table
-//   const sql = "INSERT INTO request (requestor_id, approver_id, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-//   // Execute the query with the uploaded file data
-//   db.query(
-//     sql,
-//     [
-//       requestor_id,
-//       approver_id || null,
-//       req_relationship || null,
-//       uploadedFiles.death_cert_file,
-//       uploadedFiles.ic_num_file,
-//       uploadedFiles.bank_statement_file,
-//       uploadedFiles.payment_slip_file,
-//       uploadedFiles.transport_fare_file,
-//       request_type || null,
-//       device_type || null,
-//       device_details || null,
-//       uploadedFiles.device_pic_file
-//     ],
-//     (err, result) => {
-//       if (err) {
-//         console.error('Error inserting request data into MySQL:', err);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//       } else {
-//         res.status(201).json({ message: 'Request data inserted successfully' });
-//       }
-//     }
-//   );
-// });
 
 app.listen(8000, () => {
   console.log(`Server is running on port 8000.`);
