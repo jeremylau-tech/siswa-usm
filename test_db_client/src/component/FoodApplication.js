@@ -8,11 +8,23 @@ function FoodApplication() {
   const [bankStatementFile, setBankStatementFile] = useState(null); // Maintain the selectedFile state
   const [paymentSlipFile, setPaymentSlipFile] = useState(null); // Maintain the selectedFile state
   const [supportDocFile, setSupportDocFile] = useState(null); // Maintain the selectedFile state
+  const [justification, setJustification] = useState(""); // State for justification text
+
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [customOption, setCustomOption] = useState(""); // State for custom "Jenis Tajaan"
 
   const buttonStyle = {
     backgroundColor: '#491E6E',
     borderColor: '#491E6E',
     color: 'white',
+  };
+
+  const handleOptionChange = (e) => {
+    const selectedOption = e.target.value;
+    setSelectedOptions([selectedOption]);
+    if (selectedOption !== "Lain") {
+      setCustomOption(""); // Clear custom "Jenis Tajaan" if another option is selected
+    }
   };
 
   return (
@@ -25,20 +37,34 @@ function FoodApplication() {
         <h2 className="right-header">Maklumat Baucar Makanan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
         <form class="form-style">
-          <div className="form-group select-food-container">
+          
+        <div className="form-group select-food-container">
             <label htmlFor="options-food" className="select-food-label">Jenis Tajaan:</label>
             <div className="select-food-wrapper">
               <select id="options-food" 
               name="options-food" 
-              className="select-food" 
-              // onChange={handleOptionChange}
+              className="select-food"
+              onChange={handleOptionChange}
               >
                 <option value="">Jenis Tajaan</option>
-                <option value="Option 1">Option 1</option>
-                <option value="Option 2">Option 2</option>
-                <option value="Option 3">Option 3</option>
+                <option value="Option 1">PTPTN</option>
+                <option value="Option 2">JPA</option>
+                <option value="Option 3">KPM</option>
+                <option value="Lain">Lain-lain</option>
               </select>
             </div>
+            {selectedOptions.includes("Lain") && (
+              <div className="form-group">
+                <label htmlFor="customOption">Sila Nyatakan Jenis Tajaan Lain:</label>
+                <input
+                  type="text"
+                  id="customOption"
+                  name="customOption"
+                  value={customOption}
+                  onChange={(e) => setCustomOption(e.target.value)}
+                />
+              </div>
+            )}
           </div>
 
           <div className="form-group">
@@ -47,18 +73,21 @@ function FoodApplication() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email2">Salinan Penyata Bank Pelajar:</label>
-            <DragDrop selectedFile={bankStatementFile} setSelectedFile={setBankStatementFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
-          </div>
-
-          <div className="form-group">
             <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa:</label>
             <DragDrop selectedFile={paymentSlipFile} setSelectedFile={setPaymentSlipFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
           </div>
 
+          {/* Justification textarea */}
           <div className="form-group">
-            <label htmlFor="email2">Dokumen Sokongan:</label>
-            <DragDrop selectedFile={supportDocFile} setSelectedFile={setSupportDocFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
+            <label htmlFor="justification">Justifikasi Untuk Menyokong Permohonan:</label>
+            <textarea
+              id="justification"
+              name="justification"
+              value={justification}
+              onChange={(e) => setJustification(e.target.value)}
+              className="reason-textarea"
+              placeholder="Saya memerlukan bantuan ini kerana..."
+            />
           </div>
 
           <button type="submit" style={buttonStyle}>Submit</button>
