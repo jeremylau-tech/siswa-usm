@@ -22,22 +22,20 @@ const handleSponsorTypeChange = (e) => {
   }
 };
 
-  const uploadFile = async (file) => {
+  const uploadFile = async (file, category) => {
     if (file) {
       try {
         
         const uploadData = new FormData();
         uploadData.append("file", file);
-        
-
-        const response = await fetch("http://localhost:8000/upload", {
+        const url = "http://localhost:8000/upload/" + category
+        const response = await fetch(url, {
           method: "POST",
           body: uploadData,
         });
   
         if (response.ok) {
           const filename = await response.text();
-
           return filename;
   
         } else {
@@ -65,8 +63,8 @@ const handleSponsorTypeChange = (e) => {
   
     // Define the array of promises for file uploads
     const uploadPromises = [
-      uploadFile(icNumFile, "ic_num_file"),
-      uploadFile(paymentSlipFile, "payment_slip_file"),
+      uploadFile(icNumFile, "ic"),
+      uploadFile(paymentSlipFile, "paymentslip"),
     ];
   
     try {

@@ -14,6 +14,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 
 // MySQL connection configuration
 const db = mysql.createConnection({
@@ -23,17 +26,39 @@ password: 'test123',
 database: 'bhepa_test',
 });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    const uniqueFilename = uuidv4() + path.extname(file.originalname);
-    cb(null, uniqueFilename);
-  },
+const getStorage = (category) => {
+  return multer.diskStorage({
+    destination: (req, file, cb) => {
+      const uploadPath = `uploads/${category}/`;
+      cb(null, uploadPath);
+    },
+    filename: (req, file, cb) => {
+      const uniqueFilename = uuidv4() + path.extname(file.originalname);
+      cb(null, uniqueFilename);
+    },
+  });
+};
+
+// Handle file upload for a specific category
+app.post("/upload/:category", (req, res) => {
+  const category = req.params.category; // Access the 'category' from the URL
+
+  // Create a new multer instance with the dynamic storage
+  const upload = multer({ storage: getStorage(category) });
+
+  upload.single("file")(req, res, (err) => {
+    if (err) {
+      // Handle errors
+      console.error("File upload failed:", err);
+      res.status(500).send("File upload failed.");
+    } else {
+      const filename = req.file.filename;
+      res.send(`uploads/${category}/${filename}`);
+    }
+  });
 });
 
-const upload = multer({ storage });
+
 
 // Connect to MySQL
 db.connect((err) => {
@@ -233,11 +258,7 @@ app.post("/insert", (req, res) => {
   });
   
 
-  // Handle file upload
-app.post("/upload", upload.single("file"), (req, res) => {
-  const filename = req.file.filename;
-  res.send(`${filename}`);
-});
+
 
 app.listen(8000, () => {
   console.log(`Server is running on port 8000.`);
