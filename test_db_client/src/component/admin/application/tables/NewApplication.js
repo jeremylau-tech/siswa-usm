@@ -180,62 +180,67 @@ const columns = [
   console.log(`Button clicked for row with ID: ${rowId}`);
   };
   
-  
-  function NewApplication(){
+   function NewApplication(){
 
     const [requests, setRequests] = useState([]);
     const [userDetailsMap, setUserDetailsMap] = useState({});
   
-    useEffect(() => {
-      // Fetch user details from the server
-      fetch("http://localhost:8000/user-details")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.userDetails) {
-            // Convert the array of user details into a map
-            const detailsMap = {};
-            data.userDetails.forEach((detail) => {
-              detailsMap[detail.unique_id] = detail;
-            });
-            setUserDetailsMap(detailsMap);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user details:", error);
-        });
     
-      // Fetch requests from the server
-      fetch("http://localhost:8000/request")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.request) {
-            // Update request objects with user names
-            const requestsWithUserNames = data.request.map((request) => {
-              request.request_date = request.request_date.split('T')[0];
-              const requestorDetails = userDetailsMap[request.requestor_id];
-              const adminDetails = userDetailsMap[request.admin_approver_id];
-              const bhepaDetails = userDetailsMap[request.bhepa_approver_id];
-              const tncDetails = userDetailsMap[request.tnc_approver_id];
-    
-              return {
-                ...request,
-                requestor_name: requestorDetails ? requestorDetails.name : '-',
-                admin_name: adminDetails ? adminDetails.name : '-',
-                bhepa_name: bhepaDetails ? bhepaDetails.name : '-',
-                tnc_name: tncDetails ? tncDetails.name : '-',
-              };
-            });
-    
-            setRequests(requestsWithUserNames);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching requests data:", error);
-        });
-    }, [userDetailsMap]);
+  useEffect(() => {
+    // Fetch user details from the server
+    fetch("http://localhost:8000/user-details")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.userDetails) {
+          // Convert the array of user details into a map
+          const detailsMap = {};
+          data.userDetails.forEach((detail) => {
+            detailsMap[detail.unique_id] = detail;
+          });
+          setUserDetailsMap(detailsMap);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user details:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    const statusParam = "baharu"; // Replace with the desired status parameter
+    const apiUrl = `http://localhost:8000/request-status?request_status=${statusParam}`;
+
+    // Fetch requests from the server
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.request) {
+          // Update request objects with user names
+          const requestsWithUserNames = data.request.map((request) => {
+            request.request_date = request.request_date.split('T')[0];
+            const requestorDetails = userDetailsMap[request.requestor_id];
+            const adminDetails = userDetailsMap[request.admin_approver_id];
+            const bhepaDetails = userDetailsMap[request.bhepa_approver_id];
+            const tncDetails = userDetailsMap[request.tnc_approver_id];
+
+            return {
+              ...request,
+              requestor_name: requestorDetails ? requestorDetails.name : '-',
+              admin_name: adminDetails ? adminDetails.name : '-',
+              bhepa_name: bhepaDetails ? bhepaDetails.name : '-',
+              tnc_name: tncDetails ? tncDetails.name : '-',
+            };
+          });
+
+          setRequests(requestsWithUserNames);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching requests data:", error);
+      });
+  }, [userDetailsMap]);
   
   // console.log(requests)
-  const filteredRequest = requests.filter(request => request.request_status === "baharu");
+  // const filteredRequest = requests.filter(request => request.request_status === "baharu");
 
   const downloadDataAsCSV = () => {
     // Create a header row with column names
@@ -243,7 +248,7 @@ const columns = [
 
     // Create a CSV content string by combining the header and data
     const csvData = [header].concat(
-      filteredRequest.map((row) =>
+      requests.map((row) =>
         `${row.request_id},${row.requestor_name},${row.request_type},${row.request_date},${row.request_status},${row.admin_approver_id},${row.bhepa_approver_id},${row.tnc_approver_id}`
       )
     ).join('\n');
@@ -285,7 +290,7 @@ const columns = [
           >  format .CSV </Typography>
         </Box>
         <DataGrid
-          rows={filteredRequest}
+          rows={requests}
           columns={columns}
           getRowId={(row) => row.request_id} // Assuming request_id is unique
           initialState={{

@@ -95,7 +95,7 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.get("/request", (req, res) => {
+app.get("/request-all", (req, res) => {
   // SQL query to select all records from the "user" table
   const sql = "SELECT * FROM request";
 
@@ -109,6 +109,96 @@ app.get("/request", (req, res) => {
           res.json({ request: results });
       }
   });
+});
+
+app.get("/request-status", (req, res) => {
+  // Extract the request_status query parameter from the request
+  const requestStatus = req.query.request_status;
+  console.log(requestStatus)
+
+  // Define the SQL query with a placeholder
+  const sql = `
+    SELECT * FROM request 
+    WHERE request_status = ?
+  `;
+
+  // Execute the query with parameterized values
+  db.query(sql, [requestStatus], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ request: results });
+    }
+  });
+});
+
+app.get("/request-type", (req, res) => {
+  // Extract the request_status query parameter from the request
+  const requestStatus = req.query.request_status;
+  console.log(requestStatus)
+
+  // Define the SQL query with a placeholder
+  const sql = `
+    SELECT * FROM request 
+    WHERE request_status = ?
+  `;
+
+  // Execute the query with parameterized values
+  db.query(sql, [requestStatus], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ request: results });
+    }
+  });
+});
+
+app.get("/request-type-status", (req, res) => {
+  // Extract the request_status query parameter from the request
+  const requestType = req.query.request_type;
+  const requestStatus = req.query.request_status;
+
+  let sql;
+  let special_param = false; // need to cater other status dalam process
+
+  if (requestStatus === "complete") {
+    sql = `
+    SELECT * FROM request 
+    WHERE request_type = ? AND (request_status = 'lulus' OR  request_status = 'tolak')
+  `;
+  } else {
+    special_param = true;
+    sql = `
+    SELECT * FROM request 
+    WHERE request_type = ? AND request_status = ? 
+  `;
+  }
+  
+  if (!special_param) {
+    db.query(sql, [requestType], (err, results) => {    
+      if (err) {
+        console.error('Error fetching data from MySQL:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        // Send the retrieved data as a JSON response
+        res.json({ request: results });
+      }
+    });
+  } else {
+    db.query(sql, [requestType, requestStatus], (err, results) => {    
+      if (err) {
+        console.error('Error fetching data from MySQL:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        // Send the retrieved data as a JSON response
+        res.json({ request: results });
+      }
+    });
+  }
 });
 
 
@@ -191,7 +281,7 @@ app.post('/countByStatus', (req, res) => {
   
   if (!special_param) {
     db.query(sql, [table, status, req_type], (err, results) => {
-      console.log(sql);
+      // console.log(sql);
     
       if (err) {
         console.error('Error fetching data from MySQL:', err);
