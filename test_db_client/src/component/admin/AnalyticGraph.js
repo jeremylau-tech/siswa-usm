@@ -34,8 +34,6 @@ useEffect(() => {
         req_type: group
       };
 
-      // alert(group)
-
       try {
         const response = await fetch(apiUrl, {
           method: 'POST',
@@ -50,7 +48,7 @@ useEffect(() => {
         }
 
         const responseData = await response.json();
-        console.log(group + "|" + status + ": " + responseData[0].count)
+        // console.log(group + "|" + status + ": " + responseData[0].count)
         return { group, key, count: responseData[0].count };
       } catch (err) {
         console.error(err);
@@ -78,7 +76,7 @@ useEffect(() => {
         });
   
         setData(updatedData);
-        console.log(updatedData)
+        // console.log(updatedData)
       })
     .catch((err) => {
       console.error(err);
