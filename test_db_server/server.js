@@ -58,8 +58,6 @@ app.post("/upload/:category", (req, res) => {
   });
 });
 
-
-
 // Connect to MySQL
 db.connect((err) => {
 if (err) {
@@ -130,6 +128,80 @@ app.get("/user-details", (req, res) => {
   });
 });
 
+// Route to get the count of food applications based on status
+// Route to get the count of applications based on status and table
+app.post('/countByStatus', (req, res) => {
+  const table = req.body.table;
+  const status = req.body.status;
+  const req_type = req.body.req_type;
+
+  if (!table || !status) {
+    return res.status(400).json({ message: 'Table and status are required in the request body.' });
+  }
+  
+  let sql;
+  let special_param = false; // need to cater other status dalam process
+
+  if (req_type === "all") {
+    if (status === "dalam proses") {
+      sql = `
+        SELECT COUNT(*) AS count
+        FROM ?? 
+        WHERE request_status = 'sah bhepa' OR request_status = 'syor bhepa'
+      `;
+    } else {
+      sql = `
+        SELECT COUNT(*) AS count
+        FROM ?? 
+        WHERE request_status = ?
+      `;
+    }
+  } else {
+    if (status === "dalam proses") {
+      special_param = true;
+      sql = `
+        SELECT COUNT(*) AS count
+        FROM ?? 
+        WHERE (request_status = 'sah bhepa' OR request_status = 'syor bhepa') AND request_type = ?
+      `;
+    } else {
+      sql = `
+        SELECT COUNT(*) AS count
+        FROM ?? 
+        WHERE request_status = ? AND request_type = ?
+      `;
+    }
+  }
+  
+  if (!special_param) {
+    db.query(sql, [table, status, req_type], (err, results) => {
+      console.log(sql);
+    
+      if (err) {
+        console.error('Error fetching data from MySQL:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        // Send the retrieved data as a JSON response
+        res.json(results);
+      }
+    });
+  } else {
+    db.query(sql, [table, req_type], (err, results) => {
+      console.log(sql);
+    
+      if (err) {
+        console.error('Error fetching data from MySQL:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        // Send the retrieved data as a JSON response
+        res.json(results);
+      }
+    });
+  }
+  
+});
+
+
 // Endpoint to insert a new user
 app.post("/insert", (req, res) => {
     const { name, matric_number, course_taken } = req.body;
@@ -182,9 +254,10 @@ app.post("/insert", (req, res) => {
     }
   
     const request_id = uuidv4();
+    const new_req_status = "baharu";
 
     // SQL query to insert a new request into the "request" table
-    sql = "INSERT INTO request (request_id, requestor_id, approver_id, request_type) VALUES (?, ?, ?, ?)";
+    sql = "INSERT INTO request (request_id, requestor_id, approver_id, request_type, request_status) VALUES (?, ?, ?, ?, ?)";
     // Execute the query
     db.query(
       sql,
@@ -192,7 +265,8 @@ app.post("/insert", (req, res) => {
         request_id,     // Use the generated request_id
         requestor_id,
         approver_id || null, // Set approver_id to null if not provided
-        request_type
+        request_type,
+        new_req_status
       ],
       (err, result) => {
         if (err) {
