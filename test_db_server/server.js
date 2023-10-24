@@ -95,6 +95,22 @@ app.post("/login", (req, res) => {
   });
 });
 
+app.get("/request", (req, res) => {
+  // SQL query to select all records from the "user" table
+  const sql = "SELECT * FROM request";
+
+  // Execute the query
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response
+          res.json({ request: results });
+      }
+  });
+});
+
 
 app.get("/users", (req, res) => {
     // SQL query to select all records from the "user" table
@@ -230,8 +246,10 @@ app.post("/insert", (req, res) => {
     console.log( req.body);
     const {
       requestor_id,
-      approver_id,
       request_type,
+      admin_approver_id,
+      bhepa_approver_id,
+      tnc_approver_id,
 
       sponsor_type,
       req_relationship,
@@ -257,14 +275,16 @@ app.post("/insert", (req, res) => {
     const new_req_status = "baharu";
 
     // SQL query to insert a new request into the "request" table
-    sql = "INSERT INTO request (request_id, requestor_id, approver_id, request_type, request_status) VALUES (?, ?, ?, ?, ?)";
+    sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time) VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), CURTIME())";
     // Execute the query
     db.query(
       sql,
       [
         request_id,     // Use the generated request_id
         requestor_id,
-        approver_id || null, // Set approver_id to null if not provided
+        admin_approver_id || null, // Set approver_id to null if not provided
+        bhepa_approver_id || null, // Set approver_id to null if not provided
+        tnc_approver_id || null, // Set approver_id to null if not provided
         request_type,
         new_req_status
       ],
