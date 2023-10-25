@@ -1,3 +1,5 @@
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
@@ -34,6 +36,19 @@ import FoodApplication from "./component/FoodApplication";
 import HistoryFood from "./component/HistoryFood";
 
 // Pay attention to this function
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD3GnS-yJudsXEAn3-gMEcrFeMOyu1lm08",
+  authDomain: "siswausm-e2238.firebaseapp.com",
+  projectId: "siswausm-e2238",
+  storageBucket: "siswausm-e2238.appspot.com",
+  messagingSenderId: "165270863272",
+  appId: "1:165270863272:web:d6208264ba08a5f555719d",
+  measurementId: "G-B2E66SYEEC"
+};
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
 function App() {
   return (
     <Router>

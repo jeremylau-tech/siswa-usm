@@ -77,7 +77,7 @@ function KhairatNextPage() {
           death_cert_file: results[0],
           ic_num_file: results[1],
           bank_statement_file: results[2],
-          transport_fare_file: results[3],
+          transport_fare_file: results[3], 
           req_relationship: formData.req_relationship,
           requestor_id: formData.requestor_id,
           request_type: formData.request_type
