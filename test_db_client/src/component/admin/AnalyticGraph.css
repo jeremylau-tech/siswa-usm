@@ -42,19 +42,19 @@
   
   /* Color classes for legend items */
   .new-color {
-    background-color: #f5365c; /* Change the color as needed */
+    background-color: #ff9100;
   }
   
   .pending-color {
-    background-color: #51f830; /* Change the color as needed */
+    background-color: #16adf3;
   }
   
   .completed-color {
-    background-color: #ff9100; /* Change the color as needed */
+    background-color: #51f830;
   }
   
   .rejected-color {
-    background-color: #16adf3; /* Change the color as needed */
+    background-color: #f5365c;
   }
   
   /* Responsive CSS */

@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import MessagePage from "./component/MessagePage";
 import UsersPage from "./component/UsersPage";
 import InsertPage from "./component/InsertPage";
-import Login from "./component/Login";
+import Login from "./component/authentication/Login";
 // Import new page down here (Follow this format to import new page)
 import NewPageTest from "./component/NewPageTest";
 import Makanan from "./component/MakananPage";

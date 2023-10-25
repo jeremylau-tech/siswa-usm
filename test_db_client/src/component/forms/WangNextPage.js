@@ -11,10 +11,14 @@ function WangNextPage() {
   const [selectedOptions, setSelectedOptions] = useState([]); // State for selected options
   const [reason, setReason] = useState(""); // State for the reason text area
 
-
+  const [customOption, setCustomOption] = useState(""); // State for custom "Jenis Tajaan"
 
   const handleOptionChange = (e) => {
-    setSelectedOptions([e.target.value]);
+    const selectedOption = e.target.value;
+    setSelectedOptions([selectedOption]);
+    if (selectedOption !== "Lain") {
+      setCustomOption(""); // Clear custom "Jenis Tajaan" if another option is selected
+    }
   };
 
   const handleCheckboxChange = (e) => {
@@ -26,9 +30,23 @@ function WangNextPage() {
     }
   };
 
-  const handleReasonChange = (e) => {
-    setReason(e.target.value);
+  const handleCustomOptionChange = (e) => {
+    setCustomOption(e.target.value);
   };
+
+  const handleReasonChange = (e) => {
+    const inputValue = e.target.value;
+    const wordLimit = 250;
+    const words = inputValue.split(/\s+/);
+  
+    if (words.length <= wordLimit) {
+      setReason(inputValue);
+    } else {
+      const truncatedText = words.slice(0, wordLimit).join(' ');
+      setReason(truncatedText);
+    }
+  };
+  
 
   const buttonStyle = {
     backgroundColor: "#491E6E",
@@ -40,25 +58,38 @@ function WangNextPage() {
     <div className="mt-5 form-page">
       <div className="form-column form-column-left">
         <h2 className="left-header">
-          Borang Permohonan<br />Bantuan Khairat<br />Kematian
+          Borang Permohonan<br />Wang Ihsan
         </h2>
         <p className="left-header-para">#USMCares</p>
       </div>
       <div className="form-column form-column-right">
-        <h2 className="right-header">Maklumat Wang Ihsan</h2>
+        <h2 className="right-header">Butiran Permohonan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
         <form className="form-style">
           
-          <div className="form-group select-container-wang">
+        <div className="form-group select-container-wang">
             <label htmlFor="options" className="select-label">
               Jenis Tajaan:
             </label>
             <select id="options" name="options" className="select" onChange={handleOptionChange}>
-              <option value="">Jenis Tajaan</option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
-              <option value="Option 3">Option 3</option>
+              <option value="">Sila Pilih Jenis Tajaan</option>
+              <option value="Option 1">PTPTN</option>
+              <option value="Option 2">JPA</option>
+              <option value="Option 3">KPM</option>
+              <option value="Lain">Lain-lain</option>
             </select>
+            {selectedOptions.includes("Lain") && (
+              <div className="form-group">
+                <label htmlFor="customOption">Sila Nyatakan Jenis Tajaan Lain:</label>
+                <input
+                  type="text"
+                  id="customOption"
+                  name="customOption"
+                  value={customOption}
+                  onChange={handleCustomOptionChange}
+                />
+              </div>
+            )}
           </div>
 
           <div className="form-group">
@@ -113,7 +144,7 @@ function WangNextPage() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="reason">Jelaskan Bantuan Yang Diperlukan (Sekitar 50 Patah Perkataan):</label>
+            <label htmlFor="reason">Jelaskan Bantuan Yang Diperlukan (Maksimum 250 Patah Perkataan):</label>
             <textarea
               id="reason"
               name="reason"
