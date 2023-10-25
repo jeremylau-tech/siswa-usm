@@ -9,27 +9,7 @@ import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import Typography from "@mui/material/Typography";
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
-import {rows} from "./Data.js";
-
-
-// const downloadDataAsCSV = () => {
-//   // Create a header row with column names
-//   const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor bhepa, Nama pelulus TNC';
-
-//   // Create a CSV content string by combining the header and data
-//   const csvData = [header].concat(
-//     rows.map((row) =>
-//       `${row.requestor_id},${row.requestor_name},${row.request_type},${row.request_date},${row.request_status},${row.admin_approver_id},${row.bhepa_approver_id},${row.tnc_approver_id}`
-//     )
-//   ).join('\n');
-
-//   // Create a Blob with the CSV content
-//   const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
-
-//   // Use a library like FileSaver.js or implement the saveAs function
-//   // to trigger the download. Here's how you can use FileSaver.js:
-//   saveAs(blob, 'data.csv');
-// };
+import { Link } from 'react-router-dom';
 
 const columns = [
   {
@@ -79,7 +59,7 @@ const columns = [
           textColor = "#558b2f"
           backgroundColor = "#dcedc8"
           break;
-        case "lulus tnc":
+        case "lulus":
           textColor = "#558b2f"
           backgroundColor = "#dcedc8"
           break;
@@ -122,6 +102,7 @@ const columns = [
     width: 150,
     sortable: false,
     renderCell: (params) => (
+      <Link to={`/EvaluationPage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}`}>
       <Button
         style = {{
           backgroundColor: "#fafafa", 
@@ -136,12 +117,14 @@ const columns = [
           padding: "3px",
         }}
         variant="contained"
-        href="http://localhost:3000/EvaluationPage"
-        onClick={() => handleButtonClick(params.row.request_id)}
+        // href="http://localhost:3000/EvaluationPage"
+        // onClick={() => handleButtonClick(params.row.request_id)}
       >
         <span style={{ marginRight: "20px" }}>{getStatusButtonText(params.row.request_status).icon}</span>
           {getStatusButtonText(params.row.request_status).text}
       </Button>
+      </Link>
+
     ),
   },
 ];
@@ -159,8 +142,8 @@ const columns = [
         buttonText = "Semak";
         icon = <RuleRoundedIcon />;
         break;
-      case "syor bhepa":
-        buttonText = "Lihat";
+        case "lulus":
+          buttonText = "Lihat";
         icon = <RemoveRedEyeRoundedIcon />;
         break;
       case "tolak":
@@ -177,7 +160,7 @@ const columns = [
   
   const handleButtonClick = (rowId) => {
   // Add your logic here to handle the button click for the row with the given ID
-  console.log(`Button clicked for row with ID: ${rowId}`);
+  alert(`Button clicked for row with ID: ${rowId}`);
   };
   
    function NewApplication(){

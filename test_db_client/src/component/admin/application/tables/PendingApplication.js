@@ -79,7 +79,7 @@ const columns = [
           textColor = "#558b2f"
           backgroundColor = "#dcedc8"
           break;
-        case "lulus tnc":
+        case "lulus":
           textColor = "#558b2f"
           backgroundColor = "#dcedc8"
           break;
@@ -159,8 +159,8 @@ const columns = [
         buttonText = "Semak";
         icon = <RuleRoundedIcon />;
         break;
-      case "syor bhepa":
-        buttonText = "Lihat";
+        case "lulus":
+          buttonText = "Lihat";
         icon = <RemoveRedEyeRoundedIcon />;
         break;
       case "tolak":

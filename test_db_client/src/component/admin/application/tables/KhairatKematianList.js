@@ -159,7 +159,7 @@ const columns = [
         buttonText = "Semak";
         icon = <RuleRoundedIcon />;
         break;
-      case "syor bhepa":
+      case "lulus":
         buttonText = "Lihat";
         icon = <RemoveRedEyeRoundedIcon />;
         break;
@@ -240,9 +240,6 @@ const columns = [
         console.error("Error fetching requests data:", error);
       });
   }, [userDetailsMap]);
-  
-  // console.log(requests)
-  // const filteredRequest = requests.filter(request => request.request_status === "baharu");
 
   const downloadDataAsCSV = () => {
     // Create a header row with column names

@@ -159,7 +159,7 @@ const columns = [
         buttonText = "Semak";
         icon = <RuleRoundedIcon />;
         break;
-      case "syor bhepa":
+      case "lulus":
         buttonText = "Lihat";
         icon = <RemoveRedEyeRoundedIcon />;
         break;

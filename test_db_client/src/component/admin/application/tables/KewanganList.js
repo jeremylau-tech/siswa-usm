@@ -159,8 +159,8 @@ const columns = [
         buttonText = "Semak";
         icon = <RuleRoundedIcon />;
         break;
-      case "syor bhepa":
-        buttonText = "Lihat";
+        case "lulus":
+          buttonText = "Lihat";
         icon = <RemoveRedEyeRoundedIcon />;
         break;
       case "tolak":
