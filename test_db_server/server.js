@@ -17,6 +17,18 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+function generateCouponCode(length) {
+  const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // You can customize this character set
+  let couponCode = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    couponCode += charset[randomIndex];
+  }
+
+  return couponCode;
+}
+
 
 // MySQL connection configuration
 const db = mysql.createConnection({
@@ -150,7 +162,7 @@ app.post('/request-edit-tolak', (req, res) => {
 });
 
 app.post('/request-edit-lulus', (req, res) => {
-  const { inputRemark, userRole, approverId, requestId, requestType } = req.body;
+  const { inputRemark, userRole, approverId, requestId, requestType, requestorId } = req.body;
 
   console.log(requestType);
 
@@ -181,16 +193,45 @@ app.post('/request-edit-lulus', (req, res) => {
   }
 
   // Update the request in the database based on the requestId
-  const sql = `UPDATE request SET ${user_remark} = ?, ${user_id} = ?, request_status = ?  WHERE request_id = ?`;
+  let sql = `UPDATE request SET ${user_remark} = ?, ${user_id} = ?, request_status = ?  WHERE request_id = ?`;
 
   db.query(sql, [inputRemark, approverId, req_status, requestId], (err, results) => {
     if (err) {
-      console.error('Error updating request:', err);
-      res.status(500).json({ message: 'Internal Server Error' });
-    } else {
-      res.json({ message: 'Request updated successfully' });
+      console.log('Error updating request:', err);
+      return res.status(500).json({ message: 'Error updating request' });
     }
   });
+
+  
+  if (req_status == "lulus") {
+    // const currentDate = new Date();
+    // const formattedCurrentDate = currentDate.toISOString().split('T')[0];
+
+    const fixDueDate = '2023-12-31';
+    // const threeMonthsLater = new Date(currentDate);
+
+    // threeMonthsLater.setMonth(currentDate.getMonth() + 3);
+
+    // const formattedThreeMonthsLater = threeMonthsLater.toISOString().split('T')[0];
+
+
+    const baucar_stat = "aktif";
+    let baucar_code = "";
+
+    for (let i = 0; i < 20; i++) {
+    baucar_code = generateCouponCode(6);
+    sql = "INSERT INTO baucar  (baucar_code, baucar_apply_date, baucar_apply_time, baucar_due_date, baucar_status, user_id) VALUES (?, ?, CURTIME(), ?, ?, ?)";
+    db.query(sql, [baucar_code, formattedCurrentDate, fixDueDate, baucar_stat, requestorId], (err, results) => {
+      if (err) {
+        console.error('Error updating request:', err);
+      }
+    });
+  }
+  return res.status(200).json({ message: 'Request updated and baucar generated successfully' });
+} else {
+  // Send a success response for non-'lulus' requests
+  return res.status(200).json({ message: 'Request updated successfully' });
+}
 });
 
 
@@ -323,6 +364,75 @@ app.get("/request-type-status", (req, res) => {
   }
 });
 
+app.post("/coupons-userid", (req, res) => {
+  const { userId } = req.body;
+  // console.log(userId)
+
+  if (!userId) {
+    return res.status(400).json({ message: 'userId is required' });
+  }
+
+  // SQL query to select coupons for the specified user
+  const sql = "SELECT * FROM baucar WHERE user_id = ? AND baucar_status = 'aktif'";
+
+  // Execute the query
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response with "coupons" key
+      res.json({ coupons: results });
+    }
+  });
+});
+
+app.get("/coupons-count", (req, res) => {
+  const { userId } = req.query;
+
+  if (!userId) {
+    return res.status(400).json({ message: 'userId is required' });
+  }
+
+  // SQL query to count the number of active coupons for the specified user
+  const sql = "SELECT COUNT(*) AS couponCount FROM baucar WHERE user_id = ?";
+
+  // Execute the query
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error('Error counting coupons from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved count as a JSON response
+
+      console.log(results[0].couponCount )
+      res.json({ couponCount: results[0].couponCount });
+    }
+  });
+});
+
+app.post("/coupons-redeem", (req, res) => {
+  const { baucarId, baucarVendor } = req.body;
+  console.log(baucarVendor)
+
+  if (!baucarId) {
+    return res.status(400).json({ message: 'baucarId is required' });
+  }
+
+  const baucarStatus = "tebus";
+
+  // Update the request in the database based on the requestId
+  const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = NOW(), baucar_vendor = ?  WHERE baucar_id = ?`;
+
+  db.query(sql, [baucarStatus, baucarVendor, baucarId], (err, results) => {
+    if (err) {
+      console.error('Error updating request:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json({ message: 'Request updated successfully' });
+    }
+  });
+});
 
 app.get("/users", (req, res) => {
     // SQL query to select all records from the "user" table

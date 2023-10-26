@@ -174,7 +174,11 @@ useEffect(() => {
                   {index === steps.length - 1 ? (
                     <>
                     <Box sx={{m:3}}>
-                      <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType}></ApprovedDialog>
+                        {requests[0] ? (
+                      <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requests[0].requestor_id}></ApprovedDialog>
+                      ) : (
+                        'Loading...' // or any dummy value you prefer
+                      )}
                     </Box>
                     <Box sx={{mb:2}}> 
                     <RejectDialog requestId={requestId} userId={userId} userRole={userRole}></RejectDialog>

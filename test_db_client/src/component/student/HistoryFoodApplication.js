@@ -7,63 +7,20 @@ const columns = [
   {
     field: "referenceNumber",
     headerName: "No Rujukan",
-    width: 200,
+    width: 150,
     editable: false,
   },
   {
-    field: "dateOfApplication",
-    headerName: "Tarikh Permohonan",
-    width: 250,
+    field: "UsedCoupon",
+    headerName: "Tarikh Digunakan",
+    width: 150,
     editable: false,
   },
   {
-    field: "status",
-    headerName: "Status",
-    width: 250,
+    field: "Vendor",
+    headerName: "Vendor",
+    width: 150,
     editable: false,
-    renderCell: (params) => {
-      const status = params.value;
-      let textColor = "white";
-      let backgroundColor = "";
-
-      switch (status) {
-        case "Baharu":
-          textColor = "#ff8f00";
-          backgroundColor = "#ffecb3";
-          break;
-        case "Telah Digunakan":
-          textColor = "#757575";
-          backgroundColor = "#eeeeee";
-          break;
-        case "Luput Tarikh Tempoh":
-          textColor = "#e53935";
-          backgroundColor = "#ffcdd2";
-          break;
-        default:
-          break;
-      }
-
-      const cellStyle = {
-        color: textColor,
-        padding: 2,
-        fontSize: 12,
-        fontWeight: "bold",
-        width: 150,
-      };
-
-      const paperStyle = {
-        backgroundColor: backgroundColor,
-        borderRadius: 25,
-      };
-
-      return (
-        <Paper square={false} elevation={0} style={paperStyle}>
-          <div style={cellStyle}>
-            {params.value}
-          </div>
-        </Paper>
-      );
-    },
   },
 ];
 
@@ -71,20 +28,20 @@ const rows = [
   {
     id: 1,
     referenceNumber: "REF12345",
-    dateOfApplication: "2023-09-13",
-    status: "Telah Digunakan",
+    UsedCoupon: "2023-12-20",
+    Vendor: "Cafe Restu",
   },
   {
     id: 2,
     referenceNumber: "REF54321",
-    dateOfApplication: "2023-09-15",
-    status: "Telah Digunakan",
+    UsedCoupon: "2023-12-20",
+    Vendor: "Cafe Restu",
   },
   {
     id: 3,
     referenceNumber: "REF98765",
-    dateOfApplication: "2023-09-18",
-    status: "Luput Tarikh Tempoh",
+    UsedCoupon: "2023-12-20",
+    Vendor: "Cafe Restu",
   },
   // Add more rows with new sample data as needed
 ];
@@ -101,7 +58,7 @@ function HistoryFoodApplication() {
         checkboxSelection
         disableRowSelectionOnClick
         autoHeight
-        style={{ width: '800px' }} 
+        style={{ width: '550px' }} 
       />
     </Box>
   );

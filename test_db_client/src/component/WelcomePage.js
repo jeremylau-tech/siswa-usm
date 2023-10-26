@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import './WelcomePage.css';
 import NavBar from './NavBar';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
@@ -6,9 +6,41 @@ import { Link } from "react-router-dom";
 import footerLogo from '../img/footer_logo.jpg';
 import { Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
 import { Link as ScrollLink } from "react-scroll";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 function WelcomePage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const data = { userId: '202124' };
+  const [couponCount, setCouponCount] = useState(0);
+
+  function handleClick() {
+    // Merge the existing location state with your data
+    navigate('/CouponPage', { state: { ...location.state, ...data } });
+  }
+
+  useEffect(() => {
+
+    // Function to make the GET request to get coupon count
+    const fetchCouponCount = () => {
+      fetch(`http://localhost:8000/coupons-count?userId=${data.userId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.couponCount !== undefined) {
+            setCouponCount(data.couponCount);
+          } else {
+            console.error("No coupon count data received.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching coupon count:", error);
+        });
+    };
+
+    fetchCouponCount();
+  }, []);
+
   return (
     <div className="welcome-page">
       {/* Navigation Bar */}
@@ -68,19 +100,30 @@ function WelcomePage() {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                  Keperluan asas dalam rutin seharian.
               </Typography>
-              <Button
-                component={Link}
-                to="/Baucar_FormPage"
-                variant="contained"
-                color="primary"
-                style={{ marginRight: '10px' }} // Add margin to the right side of the button
-              >
-                Mohon
-              </Button>
+            {couponCount == 0 ? (
+            <Button
+              component={Link}
+              to="/Baucar_FormPage"
+              variant="contained"
+              color="primary"
+              style={{ marginRight: '10px' }}
+            >
+              Mohon
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ marginRight: '10px' }}
+              disabled
+            >
+              Mohon
+            </Button>
+          )}
 
               <Button
-                component={Link}
-                to="/CouponPage"
+                // component={Link}
+                onClick={handleClick}
                 variant="contained"
                 color="primary"
                 style={{ marginLeft: '10px' }} // Add margin to the left side of the button
