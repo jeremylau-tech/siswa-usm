@@ -9,7 +9,7 @@ import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import Typography from "@mui/material/Typography";
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
-import {rows} from "./Data.js";
+import "./style.css"
 
 
 // const downloadDataAsCSV = () => {
@@ -115,7 +115,68 @@ const columns = [
         </div>
         </Paper>
       );},
-  },
+    },
+    {
+      field: "semakan",
+      headerName: "Semakan",
+      width: 150,
+      editable: false,
+      renderCell: (params) => {
+        const status = params.row.request_status; // Access the status value for the same row
+        const getIndicator = (status) => {
+          switch (status) {
+            case "baharu":
+              return (
+                <>
+                  <status-indicator intermediary></status-indicator>
+                  <status-indicator ></status-indicator>
+                  <status-indicator ></status-indicator>
+                </>
+              );
+            case "semak":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator intermediary></status-indicator>
+                  <status-indicator></status-indicator>
+                </>
+              );
+            case "syor":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator intermediary></status-indicator>
+                </>
+              );
+            case "lulus":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
+
+                </>
+              );
+            case "tolak":
+              return (
+                <>
+                  <status-indicator negative></status-indicator>
+                  <status-indicator></status-indicator>
+                  <status-indicator></status-indicator>
+                </>
+              );
+            default:
+              return <div>No Indicator</div>;
+          }
+        };
+        
+        return (
+          <div>
+          {getIndicator(status)}
+          </div>
+        );},
+    },
   {
     field: "actions",
     headerName: "Tindakan",
@@ -151,7 +212,7 @@ const columns = [
     let icon = null;
   
     switch (status) {
-      case "sah bhepa":
+      case "semak":
         buttonText = "Sahkan";
         icon = <CheckCircleRounded />;
         break;
@@ -159,7 +220,7 @@ const columns = [
         buttonText = "Semak";
         icon = <RuleRoundedIcon />;
         break;
-      case "syor bhepa":
+      case "syor":
         buttonText = "Lihat";
         icon = <RemoveRedEyeRoundedIcon />;
         break;
@@ -206,10 +267,11 @@ const columns = [
   }, []);
 
   useEffect(() => {
-    const statusParam = "baharu"; // Replace with the desired status parameter
+    const statusParam = "semak"; // Include multiple statuses separated by commas
     const apiUrl = `http://localhost:8000/request-status?request_status=${statusParam}`;
 
     // Fetch requests from the server
+    console.log("Fetching requests from the server...");
     fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
@@ -221,6 +283,7 @@ const columns = [
             const adminDetails = userDetailsMap[request.admin_approver_id];
             const bhepaDetails = userDetailsMap[request.bhepa_approver_id];
             const tncDetails = userDetailsMap[request.tnc_approver_id];
+            console.log("Fetch complete");
 
             return {
               ...request,
@@ -239,8 +302,7 @@ const columns = [
       });
   }, [userDetailsMap]);
   
-  // console.log(requests)
-  // const filteredRequest = requests.filter(request => request.request_status === "baharu");
+  
 
   const downloadDataAsCSV = () => {
     // Create a header row with column names
@@ -277,7 +339,7 @@ const columns = [
           }
           }
            onClick={downloadDataAsCSV}>
-            Muat Turun
+            Muat Turun 
             <DownloadRoundedIcon
               sx={{ ml: 1 }}
             />
@@ -296,7 +358,7 @@ const columns = [
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}

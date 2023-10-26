@@ -10,8 +10,35 @@ import {
 
 function InvoiceDialog({ selectedVendor, onClose }) {
     const handlePrint = () => {
-        window.print();
-        };
+    // // Create a new window with the invoice template
+    const printWindow = window.open("", "", "width=600,height=600");
+
+    // // Define the vendor's information
+    // const vendorInfo = {
+    //     idVendor: selectedVendor.idVendor,
+    //     description: selectedVendor.description,
+    //     owner: selectedVendor.owner,
+    //     phoneNo: selectedVendor.phoneNo,
+    //     email: selectedVendor.email,
+    //     registrationDate: selectedVendor.registrationDate,
+    // };
+
+    // // Replace placeholders in the template with actual data
+    // let invoiceHTML = invoiceTemplate; // Load your HTML template (invoiceTemplate) here
+    // for (const key in vendorInfo) {
+    //     const regex = new RegExp(`{${key}}`, "g");
+    //     invoiceHTML = invoiceHTML.replace(regex, vendorInfo[key]);
+    // }
+
+    // // Write the populated HTML to the new window
+    // printWindow.document.open();
+    // printWindow.document.write(invoiceHTML);
+    // printWindow.document.close();
+
+    // Print the new window
+    printWindow.print();
+    printWindow.close();
+          };
     
   return (
     <Dialog open={true} onClose={onClose} maxWidth="sm">
