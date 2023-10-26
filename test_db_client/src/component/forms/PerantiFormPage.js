@@ -12,7 +12,7 @@ function PerantiFormPage() {
   return (
     <div className="mt-5 form-page">
       <div className="form-column form-column-left">
-        <h2 className="left-header">Borang Permohonan<br />Peranti</h2>
+        <h2 className="left-header">Borang Permohonan<br />Bantuan Kerosakan<br />Peranti</h2>
         <p className="left-header-para">#USMCares</p>
       </div>
       <div className="form-column form-column-right">
@@ -30,20 +30,20 @@ function PerantiFormPage() {
             <input type="email" id="emel" name="emel" />
           </div>
           <div className="form-group">
-            <label htmlFor="matricNum">Matric Num:</label>
+            <label htmlFor="matricNum">Nombor Matrik:</label>
             <input type="text" id="matricNum" name="matricNum" />
           </div>
           <div className="form-group">
-            <label htmlFor="icNum">IC Num:</label>
+            <label htmlFor="icNum">Nombor Kad Penganalan:</label>
             <input type="text" id="icNum" name="icNum" />
           </div>
           <div className="form-group">
-            <label htmlFor="year">Year:</label>
+            <label htmlFor="year">Tahun Pengajian:</label>
             <input type="text" id="year" name="year" />
           </div>
           {/* Add more form fields as needed */}
           <Link to="/Peranti_NextPage"> {/* Replace <button> with <Link> */}
-            <button type="button" className="nextBtn" style={buttonStyle}>Next</button>
+            <button type="button" className="nextBtn" style={buttonStyle}>Seterusnya</button>
           </Link>
         </form>
       </div>
