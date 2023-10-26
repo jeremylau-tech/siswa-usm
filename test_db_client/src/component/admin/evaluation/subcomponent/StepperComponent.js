@@ -4,10 +4,12 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import StepContent from "@mui/material/StepContent";
 import StudentInfoStep from "./StudentInfoStep";
-import ResultStep from "./ResultStep";
+import ResultStep from "./result/ResultStep";
 import DocumentationStep from "./DocumentationStep";
-import ApprovedDialog from "./ApprovedDialog";
-import RejectDialog from "./RejectDialog";
+import RejectDialog from "./result/RejectDialog";
+import ApprovedDialogAdmin from "./result/ApprovedDialogAdmin";
+import ApprovedDialogBHEPA from "./result/ApprovedDialogBHEPA";
+
 
 const steps = [
   {
@@ -56,7 +58,10 @@ function StepperComponent() {
                   {index === steps.length - 1 ? (
                     <>
                     <Box sx={{m:3}}>
-                      <ApprovedDialog></ApprovedDialog>
+                      <ApprovedDialogAdmin></ApprovedDialogAdmin>
+                    </Box>
+                    <Box sx={{m:3}}>
+                      <ApprovedDialogBHEPA></ApprovedDialogBHEPA>
                     </Box>
                     <Box sx={{mb:2}}> 
                       <RejectDialog> </RejectDialog> 

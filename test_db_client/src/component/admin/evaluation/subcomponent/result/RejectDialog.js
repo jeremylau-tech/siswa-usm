@@ -38,13 +38,14 @@ export default function RejectDialog() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Adakah Anda Pasti? "}
+          {"Catatan Kepada Pelajar"}
         </DialogTitle>
         <DialogContent>
             <TextField
-                sx={{ m:1}}
+                sx={{ 
+                  backgroundColor:"#f0f0f0",
+                }}
                 id="outlined-multiline-static"
-                label="Catatan Kepada Pemohon"
                 multiline
                 rows={3}
                 fullWidth
