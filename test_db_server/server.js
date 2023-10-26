@@ -95,6 +95,105 @@ app.post("/login", (req, res) => {
   });
 });
 
+app.get('/get-pdf', (req, res) => {
+  const pdfPath = req.query.pdfPath; // Extract the PDF file path from the URL
+  // console.log(pdfPath)
+
+  // Set the path to the directory where your PDF files are located
+  const pdfDirectory = __dirname; // Change to the actual directory
+
+  // Use the res.sendFile method to send the PDF file
+  res.sendFile(pdfPath, { root: pdfDirectory }, (err) => {
+    if (err) {
+      console.error('Error sending PDF file:', err);
+      res.status(404).send('PDF file not found');
+    }
+  });
+});
+
+
+// Define the route to handle the PUT request for request editing
+app.post('/request-edit-tolak', (req, res) => {
+  const { inputRemark, userRole, approverId, requestId } = req.body;
+
+  let user_remark = '';
+  let user_id = '';
+  let req_status = "tolak";
+
+  if (userRole == "admin")
+  {
+    user_remark = "request_remark_admin";
+    user_id = "admin_approver_id";
+  }
+  else if (userRole == "bhepa")
+  {
+    user_remark = "request_remark_bhepa";
+    user_id = "bhepa_approver_id";
+  }
+  else if (userRole == "tnc")
+  {
+    user_remark = "request_remark_tnc";
+    user_id = "tnc_approver_id";
+  }
+
+  // Update the request in the database based on the requestId
+  const sql = `UPDATE request SET ${user_remark} = ?, ${user_id} = ?, request_status = ?  WHERE request_id = ?`;
+
+  db.query(sql, [inputRemark, approverId, req_status, requestId], (err, results) => {
+    if (err) {
+      console.error('Error updating request:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json({ message: 'Request updated successfully' });
+    }
+  });
+});
+
+app.post('/request-edit-lulus', (req, res) => {
+  const { inputRemark, userRole, approverId, requestId, requestType } = req.body;
+
+  console.log(requestType);
+
+  let user_remark = '';
+  let user_id = '';
+  let req_status = '';
+
+  if (userRole == "admin")
+  {
+    user_remark = "request_remark_admin";
+    user_id = "admin_approver_id";
+    req_status = "semak";
+  }
+  else if (userRole == "bhepa")
+  {
+    user_remark = "request_remark_bhepa";
+    user_id = "bhepa_approver_id";
+    if (requestType == "makanan" || requestType == "peranti" )
+    req_status = "lulus";
+    else
+    req_status = "syor";
+  }
+  else if (userRole == "tnc")
+  {
+    user_remark = "request_remark_tnc";
+    user_id = "tnc_approver_id";
+    req_status = "lulus";
+  }
+
+  // Update the request in the database based on the requestId
+  const sql = `UPDATE request SET ${user_remark} = ?, ${user_id} = ?, request_status = ?  WHERE request_id = ?`;
+
+  db.query(sql, [inputRemark, approverId, req_status, requestId], (err, results) => {
+    if (err) {
+      console.error('Error updating request:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json({ message: 'Request updated successfully' });
+    }
+  });
+});
+
+
 app.get("/request-all", (req, res) => {
   // SQL query to select all records from the "user" table
   const sql = "SELECT * FROM request";
@@ -114,7 +213,7 @@ app.get("/request-all", (req, res) => {
 app.get("/request-status", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestStatus = req.query.request_status;
-  console.log(requestStatus)
+  // console.log(requestStatus)
 
   // Define the SQL query with a placeholder
   const sql = `
@@ -134,10 +233,33 @@ app.get("/request-status", (req, res) => {
   });
 });
 
+
+app.get("/request-requestid", (req, res) => {
+  // Extract the request_status query parameter from the request
+  const requestId = req.query.request_id;
+  // Define the SQL query with a placeholder
+  const sql = `
+    SELECT * FROM request 
+    WHERE request_id = ?
+  `;
+
+  // Execute the query with parameterized values
+  db.query(sql, [requestId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ request: results });
+    }
+  });
+});
+
+
 app.get("/request-type", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestStatus = req.query.request_status;
-  console.log(requestStatus)
+  // console.log(requestStatus)
 
   // Define the SQL query with a placeholder
   const sql = `
@@ -234,6 +356,40 @@ app.get("/user-details", (req, res) => {
   });
 });
 
+app.get("/user-details-uniqueid", (req, res) => {
+  const uniqueId = req.query.unique_id;
+
+  // SQL query to select all records from the "users_details" table
+  const sql = "SELECT * FROM users_details WHERE unique_id = ?";
+
+  // Execute the query
+  db.query(sql, [uniqueId], (err, results) => {          if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response with "userDetails" key
+          res.json({ userDetails: results });
+      }
+  });
+});
+
+app.get("/food-applications-requestid", (req, res) => {
+  const requestId = req.query.request_id;
+
+  // SQL query to select all records from the "users_details" table
+  const sql = "SELECT * FROM food_application WHERE request_id = ?";
+
+  // Execute the query
+  db.query(sql, [requestId], (err, results) => {          if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response with "userDetails" key
+          res.json({ foodDetails: results });
+      }
+  });
+});
+
 // Route to get the count of food applications based on status
 // Route to get the count of applications based on status and table
 app.post('/countByStatus', (req, res) => {
@@ -253,7 +409,7 @@ app.post('/countByStatus', (req, res) => {
       sql = `
         SELECT COUNT(*) AS count
         FROM ?? 
-        WHERE request_status = 'sah bhepa' OR request_status = 'syor bhepa'
+        WHERE request_status = 'semak' OR request_status = 'syor'
       `;
     } else {
       sql = `
@@ -268,7 +424,7 @@ app.post('/countByStatus', (req, res) => {
       sql = `
         SELECT COUNT(*) AS count
         FROM ?? 
-        WHERE (request_status = 'sah bhepa' OR request_status = 'syor bhepa') AND request_type = ?
+        WHERE (request_status = 'semak' OR request_status = 'syor') AND request_type = ?
       `;
     } else {
       sql = `
@@ -293,7 +449,7 @@ app.post('/countByStatus', (req, res) => {
     });
   } else {
     db.query(sql, [table, req_type], (err, results) => {
-      console.log(sql);
+      // console.log(sql);
     
       if (err) {
         console.error('Error fetching data from MySQL:', err);
@@ -333,7 +489,7 @@ app.post("/insert", (req, res) => {
   });
 
   app.post("/insert-request", (req, res) => {
-    console.log( req.body);
+    // console.log( req.body);
     const {
       requestor_id,
       request_type,

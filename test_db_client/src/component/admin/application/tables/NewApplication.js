@@ -11,6 +11,11 @@ import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
 import { Link } from 'react-router-dom';
 
+
+function NewApplication({roles}){
+const validRoles = ['admin', 'bhepa', 'tnc'];
+
+  
 const columns = [
   {
     field: "request_id",
@@ -51,11 +56,11 @@ const columns = [
           textColor = "#ff8f00"
           backgroundColor = "#ffecb3"
           break;
-        case "sah bhepa":
+        case "semak":
           textColor = "#757575"
           backgroundColor = "#eeeeee"
           break;
-        case "syor bhepa":
+        case "syor":
           textColor = "#558b2f"
           backgroundColor = "#dcedc8"
           break;
@@ -102,7 +107,7 @@ const columns = [
     width: 150,
     sortable: false,
     renderCell: (params) => (
-      <Link to={`/EvaluationPage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}`}>
+      <Link to={`/EvaluationPage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
       <Button
         style = {{
           backgroundColor: "#fafafa", 
@@ -134,8 +139,12 @@ const columns = [
     let icon = null;
   
     switch (status) {
-      case "sah bhepa":
+      case "semak":
         buttonText = "Sahkan";
+        icon = <CheckCircleRounded />;
+        break;
+      case "syor":
+        buttonText = "Luluskan";
         icon = <CheckCircleRounded />;
         break;
       case "baharu":
@@ -162,11 +171,9 @@ const columns = [
   // Add your logic here to handle the button click for the row with the given ID
   alert(`Button clicked for row with ID: ${rowId}`);
   };
-  
-   function NewApplication(){
 
-    const [requests, setRequests] = useState([]);
-    const [userDetailsMap, setUserDetailsMap] = useState({});
+  const [requests, setRequests] = useState([]);
+  const [userDetailsMap, setUserDetailsMap] = useState({});
   
     
   useEffect(() => {
@@ -189,7 +196,13 @@ const columns = [
   }, []);
 
   useEffect(() => {
-    const statusParam = "baharu"; // Replace with the desired status parameter
+    let statusParam = ""
+    if (roles == "admin")
+      statusParam = "baharu"; // Replace with the desired status parameter
+    else if (roles == "bhepa")
+      statusParam = "semak";
+    else if (roles == "tnc")
+      statusParam = "syor";
     const apiUrl = `http://localhost:8000/request-status?request_status=${statusParam}`;
 
     // Fetch requests from the server

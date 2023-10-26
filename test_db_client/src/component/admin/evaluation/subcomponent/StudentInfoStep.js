@@ -15,7 +15,7 @@ const inputStyle = {
 };
 
 
-function StudentInfoStep() {
+function StudentInfoStep({ name, phone, year, ic, matric }) {
   return (
     <Container>
       <div>
@@ -25,25 +25,25 @@ function StudentInfoStep() {
           <div>
             <Typography textAlign={"right"} padding={1}>Nama:</Typography>
           </div>
-          <input style={inputStyle} type="text" value="John Doe" readOnly />
+          <input style={inputStyle} type="text" value={name} readOnly />
 
           <div>
           <Typography textAlign={"right"} padding={1}> No Matric:</Typography>
           </div>
-          <input style={inputStyle} type="text" value="123456" readOnly />
+          <input style={inputStyle} type="text" value={matric} readOnly />
 
           <div>
           <Typography textAlign={"right"} padding={1}> No Kad Pengenalan:</Typography>
           </div>
-          <input style={inputStyle} type="text" value="123456-78-9012" readOnly />
+          <input style={inputStyle} type="text" value={ic} readOnly />
           <div>
           <Typography textAlign={"right"} padding={1}> Tahun Pengajian:</Typography>
           </div>
-          <input style={inputStyle} type="text" value="3rd Year" readOnly />
+          <input style={inputStyle} type="text" value={year} readOnly />
           <div>
           <Typography textAlign={"right"} padding={1}> No Telefon:</Typography>
           </div>
-          <input style={inputStyle} type="text" value="+1 113-456-7890" readOnly />
+          <input style={inputStyle} type="text" value={phone} readOnly />
         </div>
       </div>
     </Container>

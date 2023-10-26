@@ -13,7 +13,6 @@ import MakananList from "./tables/MakananList";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -46,6 +45,7 @@ function a11yProps(index) {
 
 function ApplicationListPage() {
   const [value, setValue] = React.useState(0);
+  const roles = 'bhepa';
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -58,11 +58,11 @@ function ApplicationListPage() {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Permohonan Baharu" {...a11yProps(0)} />
-          <Tab label="Pengesahan " {...a11yProps(1)} />
-          <Tab label="Khairat Kematian" {...a11yProps(2)} />
-          <Tab label="Penyelenggaraan Peranti" {...a11yProps(3)} />
-          <Tab label="Wang Ihsan" {...a11yProps(4)} />
-          <Tab label="Makanan" {...a11yProps(5)} />
+          {/* <Tab label="Pengesahan " {...a11yProps(1)} /> */}
+          <Tab label="Khairat Kematian" {...a11yProps(1)} />
+          <Tab label="Penyelenggaraan Peranti" {...a11yProps(2)} />
+          <Tab label="Wang Ihsan" {...a11yProps(3)} />
+          <Tab label="Makanan" {...a11yProps(4)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -73,10 +73,10 @@ function ApplicationListPage() {
             alignItems: "center",
           }}
         >
-          <NewApplication />
+          <NewApplication roles={roles}/>
         </Box>
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+      {/* <CustomTabPanel value={value} index={1}>
         <Box
           sx={{
             display: "flex",
@@ -86,8 +86,8 @@ function ApplicationListPage() {
         >
           <PendingList />
         </Box>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      </CustomTabPanel> */}
+      <CustomTabPanel value={value} index={1}>
         <Box
           sx={{
             display: "flex",
@@ -98,7 +98,7 @@ function ApplicationListPage() {
           <KhairatKematianList />
         </Box>
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
+      <CustomTabPanel value={value} index={2}>
         <Box
             sx={{
               display: "flex",
@@ -109,7 +109,7 @@ function ApplicationListPage() {
             <PerantiList />
           </Box>    
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
+      <CustomTabPanel value={value} index={3}>
         <Box
             sx={{
               display: "flex",
@@ -120,7 +120,7 @@ function ApplicationListPage() {
             <KewanganList />
           </Box>    
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={5}>
+      <CustomTabPanel value={value} index={4}>
         <Box
             sx={{
               display: "flex",

@@ -71,11 +71,11 @@ const columns = [
           textColor = "#ff8f00"
           backgroundColor = "#ffecb3"
           break;
-        case "sah bhepa":
+        case "semak":
           textColor = "#757575"
           backgroundColor = "#eeeeee"
           break;
-        case "syor bhepa":
+        case "syor":
           textColor = "#558b2f"
           backgroundColor = "#dcedc8"
           break;
@@ -151,7 +151,7 @@ const columns = [
     let icon = null;
   
     switch (status) {
-      case "sah bhepa":
+      case "semak":
         buttonText = "Sahkan";
         icon = <CheckCircleRounded />;
         break;
