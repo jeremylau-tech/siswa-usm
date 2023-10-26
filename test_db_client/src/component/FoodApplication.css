@@ -1,4 +1,5 @@
-.select-food-wrapper {
+.select-food-wrapper,
+.select-wrapper-wang {
     display: flex;
     align-items: center; /* Vertically center the label and select element */
     justify-content: left; /* Horizontally center the select element */

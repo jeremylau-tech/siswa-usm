@@ -4,6 +4,7 @@ import AnalyticDashboard from "./AnalyticDashboard";
 import Divider from '@mui/material/Divider';
 import AnalyticGraph from "./AnalyticGraph";
 import VendorListPage from "./vendor/VendorListPage";
+import { Card,Container } from '@mui/material';
 
 function AdminDashboard() {
   return (
@@ -12,7 +13,7 @@ function AdminDashboard() {
         <Divider/>
         <AnalyticGraph />
         <Divider/>
-        <ApplicationListPage />
+          <ApplicationListPage />
         <Divider/>
         <VendorListPage />
     </div>

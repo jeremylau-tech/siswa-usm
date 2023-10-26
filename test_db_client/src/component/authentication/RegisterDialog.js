@@ -87,6 +87,15 @@ function RegistrationDialog({ open, handleClose } ) {
             autoFocus
             margin="dense"
             id="outlined-basic"
+            label="No Telefon"
+            type="phone"
+            fullWidth
+            variant="outlined"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="outlined-basic"
             label="No Matrik"
             type="matricnumber"
             fullWidth

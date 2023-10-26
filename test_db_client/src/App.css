@@ -95,3 +95,11 @@ button {
   padding: 10px 20px;
   cursor: pointer;
 }
+
+
+.background-container {
+  background-image: url("../build/thebricks.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 800px;
+}

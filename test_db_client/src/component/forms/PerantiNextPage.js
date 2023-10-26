@@ -129,7 +129,7 @@ function PerantiNextPage() {
     <div className="mt-5 form-page">
       <div className="form-column form-column-left">
         <h2 className="left-header">
-          Borang Permohonan<br />Bantuan Khairat<br />Kematian
+          Borang Permohonan<br />Bantuan Kerosakan<br />Peranti
         </h2>
         <p className="left-header-para">#USMCares</p>
       </div>
@@ -142,12 +142,14 @@ function PerantiNextPage() {
             <label htmlFor="options" className="select-label">
               Jenis Tajaan:
             </label>
-            <select id="sponsor_type" name="sponsor_type" className="select" onChange={handleSponsorTypeChange}>
-              <option value="">Jenis Tajaan</option>
-              <option value="JPA">JPA</option>
-              <option value="PTPTN">PTPTN</option>
-              <option value="Others">Others</option>
-            </select>
+            <div className="select-wrapper-wang">
+              <select id="sponsor_type" name="sponsor_type" className="select" onChange={handleSponsorTypeChange}>
+                <option value="">Jenis Tajaan</option>
+                <option value="JPA">JPA</option>
+                <option value="PTPTN">PTPTN</option>
+                <option value="Lain">Lain-lain</option>
+              </select>
+            </div>
           </div>
 
           <div className="form-group">
@@ -176,7 +178,7 @@ function PerantiNextPage() {
             name="device_type" 
             value={deviceType}
             onChange={handleDeviceTypeChange} 
-            placeholder="Lenove/ Acer/ HP/ etc" />
+            placeholder="Lenovo/ Acer/ HP/ Nyatakan Lain-lain Berkenaan" />
           </div>
 
           <div className="form-group">
