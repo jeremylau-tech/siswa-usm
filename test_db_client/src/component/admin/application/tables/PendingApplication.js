@@ -14,7 +14,7 @@ import {rows} from "./Data.js";
 
 // const downloadDataAsCSV = () => {
 //   // Create a header row with column names
-//   const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor bhepa, Nama pelulus TNC';
+//   const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor, Nama pelulus TNC';
 
 //   // Create a CSV content string by combining the header and data
 //   const csvData = [header].concat(
@@ -71,11 +71,11 @@ const columns = [
           textColor = "#ff8f00"
           backgroundColor = "#ffecb3"
           break;
-        case "sah bhepa":
+        case "sah":
           textColor = "#757575"
           backgroundColor = "#eeeeee"
           break;
-        case "syor bhepa":
+        case "syor":
           textColor = "#558b2f"
           backgroundColor = "#dcedc8"
           break;
@@ -151,7 +151,7 @@ const columns = [
     let icon = null;
   
     switch (status) {
-      case "sah bhepa":
+      case "sah":
         buttonText = "Sahkan";
         icon = <CheckCircleRounded />;
         break;
@@ -159,7 +159,7 @@ const columns = [
         buttonText = "Semak";
         icon = <RuleRoundedIcon />;
         break;
-      case "syor bhepa":
+      case "syor":
         buttonText = "Lihat";
         icon = <RemoveRedEyeRoundedIcon />;
         break;
@@ -206,7 +206,7 @@ const columns = [
   }, []);
 
   useEffect(() => {
-    const statusParam = "sah bhepa"; // Replace with the desired status parameter
+    const statusParam = "sah"; // Replace with the desired status parameter
     const apiUrl = `http://localhost:8000/request-status?request_status=${statusParam}`;
 
     // Fetch requests from the server
@@ -244,7 +244,7 @@ const columns = [
 
   const downloadDataAsCSV = () => {
     // Create a header row with column names
-    const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor bhepa, Nama pelulus TNC';
+    const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor, Nama pelulus TNC';
 
     // Create a CSV content string by combining the header and data
     const csvData = [header].concat(

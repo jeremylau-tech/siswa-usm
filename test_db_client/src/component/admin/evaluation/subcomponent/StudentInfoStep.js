@@ -7,11 +7,12 @@ const gridContainerStyle = {
 
 };
 
-const inputStyle = {
+const inputStyle  = {
   fontWeight: "normal",
   border: "none",
-  backgroundColor: "#f0f0f0", // Grey background color
-  width: "100%",
+  backgroundColor: "#f0f0f0",
+  width: "90%",
+  marginBottom: "10px", // Add vertical spacing (adjust as needed)
 };
 
 

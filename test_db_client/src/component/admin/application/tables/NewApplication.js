@@ -14,7 +14,7 @@ import "./style.css"
 
 // const downloadDataAsCSV = () => {
 //   // Create a header row with column names
-//   const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor bhepa, Nama pelulus TNC';
+//   const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor, Nama pelulus TNC';
 
 //   // Create a CSV content string by combining the header and data
 //   const csvData = [header].concat(
@@ -46,8 +46,8 @@ const columns = [
   },
   {
     field: "request_type",
-    headerName: "Jenis Permohonan",
-    width: 150,
+    headerName: "Jenis ",
+    width: 130,
     editable: false,
   },
   {
@@ -59,7 +59,7 @@ const columns = [
   {
     field: "request_status",
     headerName: "Status",
-    width: 200,
+    width: 150,
     editable: false,
     renderCell: (params) => {
       const status = params.value;
@@ -71,11 +71,15 @@ const columns = [
           textColor = "#ff8f00"
           backgroundColor = "#ffecb3"
           break;
-        case "sah bhepa":
+        case "sah":
           textColor = "#757575"
           backgroundColor = "#eeeeee"
           break;
-        case "syor bhepa":
+        case "semak":
+          textColor = "#757575"
+          backgroundColor = "#eeeeee"
+          break;
+        case "syor":
           textColor = "#558b2f"
           backgroundColor = "#dcedc8"
           break;
@@ -119,7 +123,7 @@ const columns = [
     {
       field: "semakan",
       headerName: "Semakan",
-      width: 150,
+      width: 130,
       editable: false,
       renderCell: (params) => {
         const status = params.row.request_status; // Access the status value for the same row
@@ -267,7 +271,7 @@ const columns = [
   }, []);
 
   useEffect(() => {
-    const statusParam = "semak"; // Include multiple statuses separated by commas
+    const statusParam = "syor"; // Include multiple statuses separated by commas
     const apiUrl = `http://localhost:8000/request-status?request_status=${statusParam}`;
 
     // Fetch requests from the server
@@ -306,7 +310,7 @@ const columns = [
 
   const downloadDataAsCSV = () => {
     // Create a header row with column names
-    const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor bhepa, Nama pelulus TNC';
+    const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor, Nama pelulus TNC';
 
     // Create a CSV content string by combining the header and data
     const csvData = [header].concat(
