@@ -1,31 +1,18 @@
 import React from "react";
-import { DEFAULT_GRID_COL_TYPE_KEY, DataGrid } from "@mui/x-data-grid";
-import Button from "@mui/material/Button";
+import {DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import { saveAs } from 'file-saver';
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import Paper from '@mui/material/Paper';
-import DescriptionIcon from '@mui/icons-material/Description';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import styled from "@emotion/styled";
 import DescriptionDialog from "./DescriptionDialog";
 
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-  },
-}));
+// const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+//   '& .MuiDialogContent-root': {
+//     padding: theme.spacing(2),
+//   },
+//   '& .MuiDialogActions-root': {
+//     padding: theme.spacing(1),
+//   },
+// }));
 
 const columns = [
     {
@@ -114,9 +101,6 @@ const columns = [
       width: 100,
       sortable: false,
       renderCell: (params) => {
-        const onClick = () => {
-          console.log("Clicked");
-        };
         return (
           <DescriptionDialog/>
         );
@@ -157,7 +141,7 @@ const columns = [
   
   
   function ApplicationStatus(){
-    const filteredRows = rows.filter((row) => row.status != "Baharu");
+    const filteredRows = rows.filter((row) => row.status !== "Baharu");
 
   return (
     <Box sx={{ height: 300, width: "100%" }}>

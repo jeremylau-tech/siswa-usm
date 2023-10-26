@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import './FormPage.css';
 
 function BaucarFormPage() {
@@ -19,7 +20,7 @@ function BaucarFormPage() {
         <p className="right-header-para">
           Pastikan maklumat yang diisi tepat & sahih
         </p>
-        <form class="form-style">
+        <form className="form-style"> {/* Changed 'class' to 'className' */}
           <div className="form-group">
             <label htmlFor="nama">Nama:</label>
             <input type="text" id="nama" name="nama" />
@@ -41,7 +42,9 @@ function BaucarFormPage() {
             <input type="text" id="year" name="year" />
           </div>
           {/* Add more form fields as needed */}
-          <button type="submit" style={buttonStyle}>Submit</button>
+          <Link to="/FoodApplication"> {/* Replace <button> with <Link> */}
+            <button type="button" className="nextBtn" style={buttonStyle}>Next</button>
+          </Link>
         </form>
       </div>
     </div>

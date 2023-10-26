@@ -1,5 +1,6 @@
 import React from "react";
 import './FormPage.css';
+import { Link } from "react-router-dom";
 
 function WangFormPage() {
   const buttonStyle = {
@@ -29,19 +30,21 @@ function WangFormPage() {
             <input type="email" id="emel" name="emel" />
           </div>
           <div className="form-group">
-            <label htmlFor="matricNum">Matric Num:</label>
+            <label htmlFor="matricNum">Nombor Matrik:</label>
             <input type="text" id="matricNum" name="matricNum" />
           </div>
           <div className="form-group">
-            <label htmlFor="icNum">IC Num:</label>
+            <label htmlFor="icNum">Nombor Kad Penganalan:</label>
             <input type="text" id="icNum" name="icNum" />
           </div>
           <div className="form-group">
-            <label htmlFor="year">Year:</label>
+            <label htmlFor="year">Tahun Pengajian:</label>
             <input type="text" id="year" name="year" />
           </div>
           {/* Add more form fields as needed */}
-          <button type="submit" style={buttonStyle}>Submit</button>
+          <Link to="/Wang_NextPage"> {/* Replace <button> with <Link> */}
+            <button type="button" className="nextBtn" style={buttonStyle}>Seterusnya</button>
+          </Link>
         </form>
       </div>
     </div>

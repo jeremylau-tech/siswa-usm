@@ -1,10 +1,12 @@
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import MessagePage from "./component/MessagePage";
 import UsersPage from "./component/UsersPage";
 import InsertPage from "./component/InsertPage";
-import Login from "./component/Login";
+import Login from "./component/authentication/Login";
 // Import new page down here (Follow this format to import new page)
 import NewPageTest from "./component/NewPageTest";
 import Makanan from "./component/MakananPage";
@@ -12,9 +14,12 @@ import Makanan from "./component/MakananPage";
 // Insert new import statement here
 import LandingPage from "./component/LandingPage";
 import BaucarFormPage from './component/forms/BaucarFormPage'; 
-import WangFormPage from './component/forms/WangFormPage'; 
+import WangFormPage from './component/forms/WangFormPage';
+import WangNextPage from './component/forms/WangNextPage';
 import KhairatFormPage from './component/forms/KhairatFormPage'; 
-import PerantiFormPage from './component/forms/PerantiFormPage'; 
+import KhairatNextPage from './component/forms/KhairatNextPage'; 
+import PerantiFormPage from './component/forms/PerantiFormPage';
+import PerantiNextPage from './component/forms/PerantiNextPage'; 
 import NavBar from "./component/NavBar";
 import TermsConditions from "./component/TermsCondition";
 import ApplicationListPage from "./component/admin/application/ApplicationListPage";
@@ -31,6 +36,19 @@ import FoodApplication from "./component/FoodApplication";
 import HistoryFood from "./component/HistoryFood";
 
 // Pay attention to this function
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD3GnS-yJudsXEAn3-gMEcrFeMOyu1lm08",
+  authDomain: "siswausm-e2238.firebaseapp.com",
+  projectId: "siswausm-e2238",
+  storageBucket: "siswausm-e2238.appspot.com",
+  messagingSenderId: "165270863272",
+  appId: "1:165270863272:web:d6208264ba08a5f555719d",
+  measurementId: "G-B2E66SYEEC"
+};
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
 function App() {
   return (
     <Router>
@@ -65,8 +83,11 @@ function App() {
           {/* Add new Landing Page route */}
           <Route path="/Baucar_FormPage" element={<BaucarFormPage />} />
           <Route path="/Khairat_FormPage" element={<KhairatFormPage />} />
+          <Route path="/Khairat_NextPage" element={<KhairatNextPage />} />
           <Route path="/Wang_FormPage" element={<WangFormPage />} />
+          <Route path="/Wang_NextPage" element={<WangNextPage />} />
           <Route path="/Peranti_FormPage" element={<PerantiFormPage />} />
+          <Route path="/Peranti_NextPage" element={<PerantiNextPage />} />
           <Route path="/Login" element={<Login />} />
         </Routes>
       </div>

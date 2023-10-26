@@ -1,0 +1,55 @@
+/* WangNextPage.css */
+.checkbox-label {
+    margin-top: 5px;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #333; /* Customize the label text color */
+    border: 1px solid #333; /* Add a border around the label */
+    padding: 5px; /* Reduce the padding for spacing */
+    border-radius: 5px; /* Add rounded corners */
+    width: 300px; /* Default width */
+  
+    @media (max-width: 768px) {
+      /* Adjust width for smaller screens */
+      width: 100%; /* Full width for screens up to 768px wide */
+    }
+  }
+  
+  .checkbox-input {
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .select-container-wang {
+    text-align: left; /* Align the content to the left */
+  } 
+
+.form-group input[type="number"] {
+  margin-top: 5px;
+  width: 100%; /* Set the width to 100% of the container */
+  padding: 10px; /* Add some padding for better visual appearance */
+  border: 1px solid #ccc; /* Add a border to the input field */
+  border-radius: 5px; /* Add rounded corners to the border */
+  font-size: 16px; /* Adjust the font size as needed */
+  color: #333; /* Customize the text color */
+}
+  
+  @media (max-width: 768px) {
+    /* Adjust the width for smaller screens */
+    .form-group input[type="number"] {
+      width: 100%; /* Full width for screens up to 768px wide */
+    }
+  }
+  
+  .reason-textarea {
+    margin-top: 10px;
+    width: 100%; /* Set the width to 100% of the container */
+    height: 150px; /* Adjust the height as needed */
+    padding: 10px; /* Add some padding for better visual appearance */
+    border: 1px solid #ccc; /* Add a border to the text area */
+    border-radius: 5px; /* Add rounded corners to the border */
+    resize: vertical; /* Allow vertical resizing */
+    font-size: 16px; /* Adjust the font size as needed */
+  }

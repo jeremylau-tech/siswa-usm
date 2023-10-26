@@ -3,9 +3,10 @@ import './WelcomePage.css';
 import NavBar from './NavBar';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
-import ApplicationStatus from "./student/ApplicationStatus";
 import footerLogo from '../img/footer_logo.jpg';
-import { Box, Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
+import { Link as ScrollLink } from "react-scroll";
+
 
 function WelcomePage() {
   return (
@@ -21,8 +22,17 @@ function WelcomePage() {
             <h1>Selamat <span>Datang!</span></h1>
             <p>A leading university, in Malaysia.</p>
             <div className="d-flex">
-              <a href="#about" className="btn-get-started scrollto">Buat Permohonan Sekarang</a>
-            </div>
+            <ScrollLink
+              to="new-services-section" // Specify the target section to scroll to
+              spy={true}
+              smooth={true}
+              duration={500}
+              offset={-70} // You can adjust this offset as needed
+              className="btn-get-started scrollto"
+            >
+              Buat Permohonan Sekarang
+            </ScrollLink>
+          </div>
           </div>
         </div>
       </section>

@@ -24,21 +24,22 @@ function Navbar() {
     Cookies.remove('password');
     navigate('/Login');
   };
-
   const renderItemLinks = () => {
     if (!isResponsive) {
       return (
         <div>
-          <Link to="/Penginapan">
-            <Button>Penginapan</Button>
+          <Link href="https://hac.usm.my">
+            <Button style={{ color: 'white' }}>Penginapan</Button>
           </Link>
-          <Link to="/Kaunseling">
-            <Button>Kaunseling</Button>
+  
+          <Link href="https://www.instagram.com/unitkaunselingusm/?hl=en">
+            <Button style={{ color: 'white' }}>Kaunseling</Button>
           </Link>
         </div>
       );
     }
   };
+  
 
   const renderLoginLogoutLink = () => {
     if (email && password) {
@@ -60,7 +61,7 @@ function Navbar() {
       // Render "Log Masuk" link only when not in responsive mode
       return (
         <Link to="/Login">
-          <Button className="p-4">Log Masuk</Button>
+          <Button className="p-4" style={{ color: 'white' }}>Log Masuk</Button>
         </Link>
       );
     }

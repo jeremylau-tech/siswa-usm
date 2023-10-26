@@ -5,7 +5,7 @@
 }
 
 .form-column {
-  flex: 1;
+  flex: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,14 +78,10 @@
   
 /* Style for input fields */
 .form-group input[type="text"],
-<<<<<<< HEAD
-.form-group input[type="email"] {
-=======
 .form-group input[type="email"],
 .form-group input[type="email2"]
  {
   display: block; 
->>>>>>> 9d8f2bdf24d71ebd8c1b747c8f72c9dd4f87e664
   width: 100%; /* Make input fields fill the width of their container */
   padding: 5px; /* Add some padding for better visual appearance */
   border-radius: 5px; /* Add rounded corners to the input fields */
@@ -93,13 +89,8 @@
   border: 1px solid #ccc; /* Add a border for better visibility */
   color: #7a828a; /* Set the text color to #7a828a */
   text-align: left; /* Align the text to the left */
-<<<<<<< HEAD
-=======
-  padding-right: 400px;
->>>>>>> main
+  /* padding-right: 400px; */
 }
-  
-
 
 /* Style for the submit button */
 button[type="submit"] {
@@ -116,6 +107,23 @@ button[type="submit"] {
   
   /* Hover effect for the submit button */
   button[type="submit"]:hover {
+    background-color: #807e7e; /* Change the background color on hover */
+  }
+
+  .nextBtn {
+    margin-top: 10px; /* Add some spacing above the submit button */
+    border-radius: 25px; /* Add rounded corners to the button */
+    background-color: #141416; /* Set the background color to #141416 */
+    color: white; /* Set the text color to white */
+    padding: 10px 20px; /* Add padding to the button for better visual appearance */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    border: none; /* Remove the button border */
+    width: 100%; /* Make the button width match the input fields */
+
+  }
+  
+  /* Hover effect for the submit button */
+  .nextBtn:hover {
     background-color: #807e7e; /* Change the background color on hover */
   }
 
