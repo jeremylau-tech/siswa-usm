@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import InvoicePage from "./InvoiceDialog"; // Import the InvoicePage component
+import InvoicePage from "./InvoiceDialog"; // Import the InvoicePage component\
 
 
 function VendorList() {
@@ -39,7 +39,7 @@ function VendorList() {
     {
       field: "VendorName",
       headerName: "Nama Vendor",
-      width: 250,
+      width: 150,
       editable: false,
     },
     {
@@ -178,8 +178,12 @@ function VendorList() {
   ];
 
   return (
+
     <div>
-      <Box sx={{ height: 400, width: "100%" }}>
+      <Box sx={{ 
+        height: 400, 
+        width: "100%",
+          }}>
         <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
       </Box>
       {showInvoiceDialog && selectedVendor && (

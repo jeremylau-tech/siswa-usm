@@ -130,6 +130,18 @@ function WangNextPage() {
                 Sara Hidup
                 </label>
             </div>
+            <div>
+                <label className="checkbox-label">
+                <input
+                    type="checkbox"
+                    className="checkbox-input"
+                    value="masalahKesihatan"
+                    onChange={handleCheckboxChange}
+                    checked={selectedOptions.includes("masalahKesihatan")}
+                />
+                Masalah Kesihatan
+                </label>
+            </div>
           </div>
 
           <div className="form-group">
@@ -151,6 +163,7 @@ function WangNextPage() {
               value={reason}
               onChange={handleReasonChange}
               className="reason-textarea"
+              placeholder="Saya memerlukan bantuan ini kerana..."
             />
           </div>
 
@@ -175,7 +188,7 @@ function WangNextPage() {
           </div>
 
           <button type="submit" style={buttonStyle}>
-            Submit
+            Hantar
           </button>
         </form>
       </div>

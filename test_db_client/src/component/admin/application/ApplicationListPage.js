@@ -10,6 +10,7 @@ import KewanganList from "./tables/KewanganList";
 import NewApplication from "./tables/NewApplication";
 import PendingList from "./tables/PendingApplication";
 import MakananList from "./tables/MakananList";
+import { Container } from "@mui/material";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,10 +52,16 @@ function ApplicationListPage() {
     setValue(newValue);
   };
   return (
+    <Container sx={{ 
+      width: '100%',
+      borderRadius: '10px',
+      boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+      padding: '10px',
+      height: '700px',
+       }}>
     <div className="container mt-5">
-
         <h2 className="status-title">Senarai Permohonan</h2>
-      <Box sx={{ width: '100%' }}>
+
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Permohonan Baharu" {...a11yProps(0)} />
@@ -130,10 +137,10 @@ function ApplicationListPage() {
           >
             <MakananList />
           </Box>    
-      </CustomTabPanel>
-    </Box>
-
+      </CustomTabPanel>  
     </div>
+    </Container>
+
   );
 }
 

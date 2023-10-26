@@ -131,11 +131,11 @@ function KhairatNextPage() {
   return (
     <div className="mt-5 form-page">
       <div className="form-column form-column-left">
-        <h2 className="left-header">Borang Permohonan<br />Makanan</h2>
+        <h2 className="left-header">Borang Permohonan<br />Bantuan Khairat <br />Kematian</h2>
         <p className="left-header-para">#USMCares</p>
       </div>
       <div className="form-column form-column-right">
-        <h2 className="right-header">Maklumat Khairat Kematian</h2>
+        <h2 className="right-header">Butiran Permohonan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
         <form class="form-style"  onSubmit={handleSubmit}>
           
@@ -143,7 +143,7 @@ function KhairatNextPage() {
             <label htmlFor="relationship">Hubungan:</label>
             <input
               type="text"
-              placeholder="Ibu/ Ayah/ Adik-beradik"
+              placeholder="Ibu/ Bapa/ Suami/ Isteri/ Penjaga Sah/ Nyatakan Lain-lain Berkenaan"
               id="req_relationship"
               name="req_relationship"
               value={formData.req_relationship}
@@ -170,7 +170,9 @@ function KhairatNextPage() {
             <DragDrop selectedFile={transportFareFile} setSelectedFile={setTransportFareFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
 
-          <button type="submit" style={buttonStyle}>Submit</button>
+          <button type="submit" style={buttonStyle}>
+            Hantar
+          </button>
         </form>
       </div>
     </div>

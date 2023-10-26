@@ -124,11 +124,11 @@ const handleSponsorTypeChange = (e) => {
   return (
     <div className="mt-5 form-page">
       <div className="form-column form-column-left">
-        <h2 className="left-header">Borang Permohonan<br />Makanan</h2>
+        <h2 className="left-header">Borang Permohonan<br />Baucar Makanan</h2>
         <p className="left-header-para">#USMCares</p>
       </div>
       <div className="form-column form-column-right">
-        <h2 className="right-header">Maklumat Baucar Makanan</h2>
+        <h2 className="right-header">Butiran Permohonan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
         <form className="form-style"  onSubmit={handleSubmit}>
           
@@ -180,7 +180,9 @@ const handleSponsorTypeChange = (e) => {
             />
           </div>
 
-          <button type="submit" style={buttonStyle}>Submit</button>
+          <button type="submit" style={buttonStyle}>
+            Hantar
+          </button>
         </form>
       </div>
     </div>

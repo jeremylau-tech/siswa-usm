@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
 host: 'localhost',
 user: 'root',
-password: 'test123',
+password: 'Admin@12345',
 database: 'bhepa_test',
 });
 
@@ -253,7 +253,7 @@ app.post('/countByStatus', (req, res) => {
       sql = `
         SELECT COUNT(*) AS count
         FROM ?? 
-        WHERE request_status = 'sah bhepa' OR request_status = 'syor bhepa'
+        WHERE request_status = 'sah' OR request_status = 'syor'
       `;
     } else {
       sql = `
@@ -268,7 +268,7 @@ app.post('/countByStatus', (req, res) => {
       sql = `
         SELECT COUNT(*) AS count
         FROM ?? 
-        WHERE (request_status = 'sah bhepa' OR request_status = 'syor bhepa') AND request_type = ?
+        WHERE (request_status = 'sah' OR request_status = 'syor') AND request_type = ?
       `;
     } else {
       sql = `
