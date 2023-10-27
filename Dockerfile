@@ -2,24 +2,22 @@
 FROM node:14
 
 # Set the working directory in the container
-WORKDIR /app/siswa-usm/test_db_client
+WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-# COPY siswa-usm/test_db_client/package.json ./
-COPY package*.json ./
+# Copy package.json and package-lock.json from the "test_db_client" subfolder
+COPY siswa-usm/test_db_client/package*.json ./
 
 # Install project dependencies
 RUN npm install
 
-# Copy all source files from siswa-usm/test_db_client to the working directory
-# COPY siswa-usm/test_db_client/ ./
-COPY . .
+# Copy all source files from the "test_db_client" subfolder
+COPY siswa-usm/test_db_client/ ./
 
-# Build the React app
+# Build the React app (if needed)
 # RUN npm run build
 
-# Expose the port the app will run on
-EXPOSE 80
+# Expose the port the app will run on (adjust based on your app)
+EXPOSE 8090
 
-# Define the command to start your app
+# Define the command to start your app (adjust based on your project)
 CMD [ "npm", "start" ]
