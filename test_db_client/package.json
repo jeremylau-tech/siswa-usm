@@ -54,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.52.0",
     "html-loader": "^4.2.0",
     "webpack": "^5.89.0"
   }
