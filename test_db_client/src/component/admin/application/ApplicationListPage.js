@@ -65,7 +65,7 @@ function ApplicationListPage() {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Permohonan Baharu" {...a11yProps(0)} />
-          <Tab label="Pengesahan " {...a11yProps(1)} />
+          <Tab label="Keseluruhan " {...a11yProps(1)} />
           <Tab label="Khairat Kematian" {...a11yProps(2)} />
           <Tab label="Penyelenggaraan Peranti" {...a11yProps(3)} />
           <Tab label="Wang Ihsan" {...a11yProps(4)} />
