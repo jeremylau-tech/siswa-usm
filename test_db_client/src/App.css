@@ -97,9 +97,9 @@ button {
 }
 
 
-.background-container {
-  background-image: url("../build/thebricks.jpg");
+/* .background-container {
+  background-image: url("thebricks.jpg");
   background-size: cover;
   background-position: center;
   height: 800px;
-}
+} */
