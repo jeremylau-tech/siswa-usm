@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:14
+FROM node:16
 
 # Set the working directory in the container
 WORKDIR /app
@@ -11,10 +11,10 @@ COPY siswa-usm/test_db_client/package*.json ./
 RUN npm install
 
 # Copy all source files from the "test_db_client" subfolder
-COPY siswa-usm/test_db_client/ ./
+COPY . .
 
-# Build the React app (if needed)
-# RUN npm run build
+# Set the working directory to the "test_db_client" folder
+WORKDIR /app/test_db_client
 
 # Expose port 80 (the default port for Apache)
 EXPOSE 80
