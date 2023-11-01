@@ -5,11 +5,14 @@ import Box from "@mui/material/Box";
 import { saveAs } from 'file-saver';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import Paper from '@mui/material/Paper';
-import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import Typography from "@mui/material/Typography";
-import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
-import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
-import {rows} from "./Data.js";
+import AssignmentTurnedInRoundedIcon from '@mui/icons-material/AssignmentTurnedInRounded';
+import "./style.css"
+import { Stack } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import StickyNote2RoundedIcon from '@mui/icons-material/StickyNote2Rounded';
 
 
 // const downloadDataAsCSV = () => {
@@ -31,161 +34,247 @@ import {rows} from "./Data.js";
 //   saveAs(blob, 'data.csv');
 // };
 
-const columns = [
-  {
-    field: "request_id",
-    headerName: "No Rujukan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "requestor_name",
-    headerName: "Nama Pelajar",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "request_type",
-    headerName: "Jenis Permohonan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "request_date",
-    headerName: "Tarikh Permohonan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "request_status",
-    headerName: "Status",
-    width: 200,
-    editable: false,
-    renderCell: (params) => {
-      const status = params.value;
-      let textColor = "white"; // You can change the text color as needed
-      let backgroundColor = ""; // You can change the background color as needed
 
-      switch (status) {
-        case "baharu":
-          textColor = "#ff8f00"
-          backgroundColor = "#ffecb3"
-          break;
-        case "sah":
-          textColor = "#757575"
-          backgroundColor = "#eeeeee"
-          break;
-        case "syor":
-          textColor = "#558b2f"
-          backgroundColor = "#dcedc8"
-          break;
-        case "lulus tnc":
-          textColor = "#558b2f"
-          backgroundColor = "#dcedc8"
-          break;
-        case "tolak":
-          textColor = "#e53935"
-          backgroundColor = "#ffcdd2"
-          break;
-        default:
-          break;
-      }
 
-      const cellStyle = {
-        color: textColor,
-        padding : 2,
-        fontSize: 12,
-        fontWeight: "bold",
-        width: 90,
-      };
+function PendingList() {
 
-      const paperStyle = {
-        backgroundColor: backgroundColor,
-        borderRadius: 25,
-      };
+  const [open, setOpen] = useState(false); // State variable to control the dialog
 
-      return (
-        <Paper
-          square={false}
-          elevation={0}
-          style={paperStyle}
+  const handleClose = () => {
+    setOpen(false); // Close the dialog
+  };
+
+  const [requests, setRequests] = useState([]);
+  const [userDetailsMap, setUserDetailsMap] = useState({});
+
+  const columns = [
+    {
+      field: "request_id",
+      headerName: "No Rujukan",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "requestor_name",
+      headerName: "Nama Pelajar",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "request_type",
+      headerName: "Jenis ",
+      width: 130,
+      editable: false,
+    },
+    {
+      field: "request_date",
+      headerName: "Tarikh Permohonan",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "request_status",
+      headerName: "Status",
+      width: 150,
+      editable: false,
+      renderCell: (params) => {
+        const status = params.value;
+        let textColor = "white"; // You can change the text color as needed
+        let backgroundColor = ""; // You can change the background color as needed
+
+        switch (status) {
+          case "baharu":
+            textColor = "#ff8f00"
+            backgroundColor = "#ffecb3"
+            break;
+          case "sah":
+            textColor = "#757575"
+            backgroundColor = "#eeeeee"
+            break;
+          case "semak":
+            textColor = "#757575"
+            backgroundColor = "#eeeeee"
+            break;
+          case "syor":
+            textColor = "#558b2f"
+            backgroundColor = "#dcedc8"
+            break;
+          case "lulus tnc":
+            textColor = "#558b2f"
+            backgroundColor = "#dcedc8"
+            break;
+          case "tolak":
+            textColor = "#e53935"
+            backgroundColor = "#ffcdd2"
+            break;
+          default:
+            break;
+        }
+
+        const cellStyle = {
+          color: textColor,
+          padding: 2,
+          fontSize: 12,
+          fontWeight: "bold",
+          width: 90,
+        };
+
+        const paperStyle = {
+          backgroundColor: backgroundColor,
+          borderRadius: 25,
+        };
+
+        return (
+          <Paper
+            square={false}
+            elevation={0}
+            style={paperStyle}
+          >
+            <div style={cellStyle}>
+              {params.value}
+            </div>
+          </Paper>
+        );
+      },
+    },
+    {
+      field: "semakan",
+      headerName: "Semakan",
+      width: 130,
+      editable: false,
+      renderCell: (params) => {
+        const status = params.row.request_status; // Access the status value for the same row
+        const getIndicator = (status) => {
+          switch (status) {
+            case "baharu":
+              return (
+                <>
+                  <status-indicator intermediary></status-indicator>
+                  <status-indicator ></status-indicator>
+                  <status-indicator ></status-indicator>
+                </>
+              );
+            case "semak":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator intermediary></status-indicator>
+                  <status-indicator></status-indicator>
+                </>
+              );
+            case "syor":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator intermediary></status-indicator>
+                </>
+              );
+            case "lulus":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
+
+                </>
+              );
+            case "tolak":
+              return (
+                <>
+                  <status-indicator negative></status-indicator>
+                  <status-indicator></status-indicator>
+                  <status-indicator></status-indicator>
+                </>
+              );
+            default:
+              return <div>No Indicator</div>;
+          }
+        };
+
+        return (
+          <div>
+            {getIndicator(status)}
+          </div>
+        );
+      },
+    },
+    {
+      field: "actions",
+      headerName: "Tindakan",
+      width: 100,
+      sortable: false,
+      renderCell: (params) => (
+        <Button
+          style={{
+            backgroundColor: "#fafafa",
+            color: "black",
+            fontWeight: "bold",
+            boxShadow: "none",
+            outlineColor: "lightgrey",
+            outlineStyle: "solid",
+            outlineWidth: "1.5px",
+            textTransform: "none",
+            display: "flex",
+          }}
+          variant="contained"
+          href="http://localhost:8090/EvaluationPage"
+          onClick={() => handleButtonClick(params.row.request_id)}
         >
-        <div style={cellStyle}>
-          {params.value}
-        </div>
-        </Paper>
-      );},
-  },
-  {
-    field: "actions",
-    headerName: "Tindakan",
-    width: 150,
-    sortable: false,
-    renderCell: (params) => (
-      <Button
-        style = {{
-          backgroundColor: "#fafafa", 
-          color: "black", 
-          fontWeight: "bold", 
-          boxShadow: "none",
-          outlineColor: "lightgrey",
-          outlineStyle: "solid",
-          outlineWidth: "1.5px",
-          width: 150,
-          textTransform: "none",
-          padding: "3px",
-        }}
-        variant="contained"
-        href="http://localhost:3000/EvaluationPage"
-        onClick={() => handleButtonClick(params.row.request_id)}
-      >
-        <span style={{ marginRight: "20px" }}>{getStatusButtonText(params.row.request_status).icon}</span>
+          <span >{getStatusButtonText(params.row.request_status).icon}</span>
           {getStatusButtonText(params.row.request_status).text}
-      </Button>
-    ),
-  },
-];
+        </Button>
+      ),
+    },
+    {
+      field: "catatan",
+      headerName: "Catatan",
+      width: 100,
+      sortable: false,
+      renderCell: (params) => (
+        <Button
+          style={{
+            backgroundColor: "#fafafa",
+            color: "black",
+            fontWeight: "bold",
+            boxShadow: "none",
+            outlineColor: "lightgrey",
+            outlineStyle: "solid",
+            outlineWidth: "1.5px",
+            textTransform: "none",
+            display: "flex",
+          }}
+          variant="contained"
+          onClick={() => handleCatatanButton(params.row.remark)}
+        >
+          <span >
+            <StickyNote2RoundedIcon> </StickyNote2RoundedIcon>
+          </span>
+        </Button>
+      ),
+    },
+  ];
 
   const getStatusButtonText = (status) => {
     let buttonText = "";
-    let icon = null;
-  
-    switch (status) {
-      case "sah":
-        buttonText = "Sahkan";
-        icon = <CheckCircleRounded />;
-        break;
-      case "baharu":
-        buttonText = "Semak";
-        icon = <RuleRoundedIcon />;
-        break;
-      case "syor":
-        buttonText = "Lihat";
-        icon = <RemoveRedEyeRoundedIcon />;
-        break;
-      case "tolak":
-        buttonText = "Lihat";
-        icon = <RemoveRedEyeRoundedIcon />;
-        break;
-      default:
-        buttonText = "Unknown";
-        break;
-    }
-  
+    let icon = <AssignmentTurnedInRoundedIcon />;
     return { text: buttonText, icon: icon };
   };
-  
-  const handleButtonClick = (rowId) => {
-  // Add your logic here to handle the button click for the row with the given ID
-  console.log(`Button clicked for row with ID: ${rowId}`);
-  };
-  
-   function NewApplication(){
 
-    const [requests, setRequests] = useState([]);
-    const [userDetailsMap, setUserDetailsMap] = useState({});
-  
-    
+  const handleButtonClick = (rowId) => {
+    console.log(`Button clicked for row with ID: ${rowId}`);
+  };
+
+  const handleCatatanButton = (remark) => {
+    console.log(`Button clicked for row with ID: ${remark}`);
+    setOpen(true);
+    setSelectedCatatan(remark); // Store the rowId in the state
+  };
+
+  const [selectedCatatan, setSelectedCatatan] = useState(null);
+
+
+
   useEffect(() => {
     // Fetch user details from the server
     fetch("http://localhost:8000/user-details")
@@ -206,10 +295,11 @@ const columns = [
   }, []);
 
   useEffect(() => {
-    const statusParam = "sah"; // Replace with the desired status parameter
-    const apiUrl = `http://localhost:8000/request-status?request_status=${statusParam}`;
+    const statusParam = "semak"; // Include multiple statuses separated by commas
+    const apiUrl = `http://localhost:8000/request-all`;
 
     // Fetch requests from the server
+    console.log("Fetching requests from the server...");
     fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
@@ -221,6 +311,7 @@ const columns = [
             const adminDetails = userDetailsMap[request.admin_approver_id];
             const bhepaDetails = userDetailsMap[request.bhepa_approver_id];
             const tncDetails = userDetailsMap[request.tnc_approver_id];
+            console.log("Fetch complete");
 
             return {
               ...request,
@@ -230,7 +321,6 @@ const columns = [
               tnc_name: tncDetails ? tncDetails.name : '-',
             };
           });
-
           setRequests(requestsWithUserNames);
         }
       })
@@ -238,9 +328,8 @@ const columns = [
         console.error("Error fetching requests data:", error);
       });
   }, [userDetailsMap]);
-  
-  // console.log(requests)
-  // const filteredRequest = requests.filter(request => request.request_status === "baharu");
+
+
 
   const downloadDataAsCSV = () => {
     // Create a header row with column names
@@ -262,21 +351,21 @@ const columns = [
   };
 
   return (
-    
+    <div>
       <Box sx={{ height: 400, width: "100%" }}>
-        <Box sx={{ flexGrow: 1,}}
-        margin={1}
-        align={"right"}
+        <Box sx={{ flexGrow: 1, }}
+          margin={1}
+          align={"right"}
         >
-         <Button variant="contained" 
-          style={{
-            color: "#424242",
-            textTransform: "none",
-            backgroundColor: "#eeeeee",
-            boxShadow: "none",
-          }
-          }
-           onClick={downloadDataAsCSV}>
+          <Button variant="contained"
+            style={{
+              color: "#424242",
+              textTransform: "none",
+              backgroundColor: "#eeeeee",
+              boxShadow: "none",
+            }
+            }
+            onClick={downloadDataAsCSV}>
             Muat Turun
             <DownloadRoundedIcon
               sx={{ ml: 1 }}
@@ -296,7 +385,7 @@ const columns = [
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}
@@ -305,7 +394,19 @@ const columns = [
           disableRowSelectionOnClick
         />
       </Box>
+      {/* Dialog component */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle variant='h5'>Catatan</DialogTitle>
+        <DialogContent>
+          {selectedCatatan !== null ? (
+            <div>
+              {selectedCatatan}
+            </div>
+          ) : null}
+        </DialogContent>
+      </Dialog>
+    </div>
   );
-  }
+}
 
-  export default NewApplication;
+export default PendingList;

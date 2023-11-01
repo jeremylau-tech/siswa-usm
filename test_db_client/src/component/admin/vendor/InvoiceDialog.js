@@ -1,4 +1,6 @@
 import React from "react";
+import jsPDF from "jspdf";
+import "jspdf-invoice-template";
 import {
   Dialog,
   DialogTitle,
@@ -9,37 +11,34 @@ import {
 } from "@mui/material";
 
 function InvoiceDialog({ selectedVendor, onClose }) {
-    const handlePrint = () => {
-    // // Create a new window with the invoice template
-    const printWindow = window.open("", "", "width=600,height=600");
+  const handlePrint = () => {
+    const pdf = new jsPDF();
+    pdf.setFontSize(14);
 
-    // // Define the vendor's information
-    // const vendorInfo = {
-    //     idVendor: selectedVendor.idVendor,
-    //     description: selectedVendor.description,
-    //     owner: selectedVendor.owner,
-    //     phoneNo: selectedVendor.phoneNo,
-    //     email: selectedVendor.email,
-    //     registrationDate: selectedVendor.registrationDate,
-    // };
+    // Define the content of the invoice
+    const content = `
+    Invoice for: ${selectedVendor.VendorName}
+    ID Vendor: ${selectedVendor.idVendor}
+    Description: ${selectedVendor.description}
+    Owner: ${selectedVendor.owner}
+    Phone No: ${selectedVendor.phoneNo}
+    Email: ${selectedVendor.email}
+    Registration Date: ${selectedVendor.registrationDate}
 
-    // // Replace placeholders in the template with actual data
-    // let invoiceHTML = invoiceTemplate; // Load your HTML template (invoiceTemplate) here
-    // for (const key in vendorInfo) {
-    //     const regex = new RegExp(`{${key}}`, "g");
-    //     invoiceHTML = invoiceHTML.replace(regex, vendorInfo[key]);
-    // }
+    Products:
+    - Product A: 2 units x $50.00
+    - Product B: 3 units x $30.00
 
-    // // Write the populated HTML to the new window
-    // printWindow.document.open();
-    // printWindow.document.write(invoiceHTML);
-    // printWindow.document.close();
+    Total: $190.00
+    `;
 
-    // Print the new window
-    printWindow.print();
-    printWindow.close();
-          };
-    
+    // Set the content and create the PDF
+    pdf.text(content, 10, 10);
+
+    // Save the PDF or open it in a new window
+    pdf.save(`Invoice_${selectedVendor.VendorName}.pdf`);
+  };
+
   return (
     <Dialog open={true} onClose={onClose} maxWidth="sm">
       <DialogTitle>
@@ -52,7 +51,7 @@ function InvoiceDialog({ selectedVendor, onClose }) {
             alt={selectedVendor.VendorName}
             style={{ width: "100px", height: "100px", borderRadius: "50%" }}
           />
-          
+
           <Typography>ID Vendor: {selectedVendor.idVendor}</Typography>
           <Typography>Description: {selectedVendor.description}</Typography>
           <Typography>Owner: {selectedVendor.owner}</Typography>
