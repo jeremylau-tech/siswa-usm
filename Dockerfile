@@ -2,10 +2,10 @@
 FROM node:16
 
 # Set the working directory in the container
-WORKDIR /app/siswa-usm/test_db_client
+WORKDIR /app
 
 # Copy package.json and package-lock.json from the "test_db_client" subfolder
-COPY package*.json ./
+COPY siswa-usm/test_db_client/package*.json ./
 
 # Install project dependencies
 RUN npm install
@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Set the working directory to the "test_db_client" folder
-# WORKDIR /app/test_db_client
+WORKDIR /app/test_db_client
 
 # Expose port 80 (the default port for Apache)
 EXPOSE 80
