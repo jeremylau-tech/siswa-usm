@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 80
 
 # Define the command to start your app (adjust based on your project)
-CMD [ "npm", "start" ]
+CMD [ "npm", "start" , "||", "true"]
