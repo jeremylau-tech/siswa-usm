@@ -35,7 +35,7 @@ function generateCouponCode(length) {
 const db = mysql.createConnection({
 host: 'localhost',
 user: 'root',
-password: 'test123',
+password: 'Admin@12345',
 database: 'bhepa_test',
 });
 
