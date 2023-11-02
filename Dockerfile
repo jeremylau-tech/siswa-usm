@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Set the working directory to the "test_db_client" folder
-WORKDIR /app/test_db_client
+WORKDIR /app
 
 # Expose port 80 (the default port for Apache)
 EXPOSE 80
