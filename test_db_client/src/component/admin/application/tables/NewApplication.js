@@ -12,7 +12,9 @@ import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
 import { Link } from 'react-router-dom';
 import StickyNote2RoundedIcon from '@mui/icons-material/StickyNote2Rounded';
 import AssignmentTurnedInRoundedIcon from '@mui/icons-material/AssignmentTurnedInRounded';
-
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
 
 function NewApplication({roles}){
 const validRoles = ['admin', 'bhepa', 'tnc'];
@@ -43,66 +45,6 @@ const columns = [
     width: 150,
     editable: false,
   },
-  // {
-  //   field: "request_status",
-  //   headerName: "Status",
-  //   width: 200,
-  //   editable: false,
-  //   renderCell: (params) => {
-  //     const status = params.value;
-  //     let textColor = "white"; // You can change the text color as needed
-  //     let backgroundColor = ""; // You can change the background color as needed
-
-  //     switch (status) {
-  //       case "baharu":
-  //         textColor = "#ff8f00"
-  //         backgroundColor = "#ffecb3"
-  //         break;
-  //       case "semak":
-  //         textColor = "#757575"
-  //         backgroundColor = "#eeeeee"
-  //         break;
-  //       case "syor":
-  //         textColor = "#558b2f"
-  //         backgroundColor = "#dcedc8"
-  //         break;
-  //       case "lulus":
-  //         textColor = "#558b2f"
-  //         backgroundColor = "#dcedc8"
-  //         break;
-  //       case "tolak":
-  //         textColor = "#e53935"
-  //         backgroundColor = "#ffcdd2"
-  //         break;
-  //       default:
-  //         break;
-  //     }
-
-  //     const cellStyle = {
-  //       color: textColor,
-  //       padding : 2,
-  //       fontSize: 12,
-  //       fontWeight: "bold",
-  //       width: 90,
-  //     };
-
-  //     const paperStyle = {
-  //       backgroundColor: backgroundColor,
-  //       borderRadius: 25,
-  //     };
-
-  //     return (
-  //       <Paper
-  //         square={false}
-  //         elevation={0}
-  //         style={paperStyle}
-  //       >
-  //       <div style={cellStyle}>
-  //         {params.value}
-  //       </div>
-  //       </Paper>
-  //     );},
-  // },
   {
     field: "semakan",
     headerName: "Semakan",
@@ -212,7 +154,7 @@ const columns = [
           display: "flex",
         }}
         variant="contained"
-        onClick={() => handleCatatanButton(params.row.remark)}
+        onClick={() => handleCatatanButton("later put here for remarking")}
       >
         <span >
           <StickyNote2RoundedIcon> </StickyNote2RoundedIcon>
@@ -220,83 +162,33 @@ const columns = [
       </Button>
     ),
   },
-  
-  // {
-  //   field: "actions",
-  //   headerName: "Tindakan",
-  //   width: 150,
-  //   sortable: false,
-  //   renderCell: (params) => (
-  //     <Link to={`/EvaluationPage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
-  //     <Button
-  //       style = {{
-  //         backgroundColor: "#fafafa", 
-  //         color: "black", 
-  //         fontWeight: "bold", 
-  //         boxShadow: "none",
-  //         outlineColor: "lightgrey",
-  //         outlineStyle: "solid",
-  //         outlineWidth: "1.5px",
-  //         width: 150,
-  //         textTransform: "none",
-  //         padding: "3px",
-  //       }}
-  //       variant="contained"
-  //       // href="http://localhost:3000/EvaluationPage"
-  //       // onClick={() => handleButtonClick(params.row.request_id)}
-  //     >
-  //       <span style={{ marginRight: "20px" }}>{getStatusButtonText(params.row.request_status).icon}</span>
-  //         {getStatusButtonText(params.row.request_status).text}
-  //     </Button>
-  //     </Link>
-
-  //   ),
-  // },
 ];
+
 const getStatusButtonText = (status) => {
   let buttonText = "";
   let icon = <AssignmentTurnedInRoundedIcon />;
   return { text: buttonText, icon: icon };
 };
 
-  // const getStatusButtonText = (status) => {
-  //   let buttonText = "";
-  //   let icon = null;
-  
-  //   switch (status) {
-  //     case "semak":
-  //       buttonText = "Sahkan";
-  //       icon = <CheckCircleRounded />;
-  //       break;
-  //     case "syor":
-  //       buttonText = "Luluskan";
-  //       icon = <CheckCircleRounded />;
-  //       break;
-  //     case "baharu":
-  //       buttonText = "Semak";
-  //       icon = <RuleRoundedIcon />;
-  //       break;
-  //       case "lulus":
-  //         buttonText = "Lihat";
-  //       icon = <RemoveRedEyeRoundedIcon />;
-  //       break;
-  //     case "tolak":
-  //       buttonText = "Lihat";
-  //       icon = <RemoveRedEyeRoundedIcon />;
-  //       break;
-  //     default:
-  //       buttonText = "Unknown";
-  //       break;
-  //   }
-  
-  //   return { text: buttonText, icon: icon };
-  // };
+
+  const [open, setOpen] = useState(false); // State variable to control the dialog
+
+  const handleClose = () => {
+    setOpen(false); // Close the dialog
+  };
   
   const handleButtonClick = (rowId) => {
   // Add your logic here to handle the button click for the row with the given ID
   alert(`Button clicked for row with ID: ${rowId}`);
   };
 
+  const handleCatatanButton = (remark) => {
+    console.log(`Button clicked for row with ID: ${remark}`);
+    setOpen(true);
+    setSelectedCatatan(remark); // Store the rowId in the state
+  };
+
+  const [selectedCatatan, setSelectedCatatan] = useState(null);
   const [requests, setRequests] = useState([]);
   const [userDetailsMap, setUserDetailsMap] = useState({});
   
@@ -383,21 +275,21 @@ const getStatusButtonText = (status) => {
   };
 
   return (
-    
+    <div>
       <Box sx={{ height: 400, width: "100%" }}>
-        <Box sx={{ flexGrow: 1,}}
-        margin={1}
-        align={"right"}
+        <Box sx={{ flexGrow: 1, }}
+          margin={1}
+          align={"right"}
         >
-         <Button variant="contained" 
-          style={{
-            color: "#424242",
-            textTransform: "none",
-            backgroundColor: "#eeeeee",
-            boxShadow: "none",
-          }
-          }
-           onClick={downloadDataAsCSV}>
+          <Button variant="contained"
+            style={{
+              color: "#424242",
+              textTransform: "none",
+              backgroundColor: "#eeeeee",
+              boxShadow: "none",
+            }
+            }
+            onClick={downloadDataAsCSV}>
             Muat Turun
             <DownloadRoundedIcon
               sx={{ ml: 1 }}
@@ -417,7 +309,7 @@ const getStatusButtonText = (status) => {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}
@@ -426,6 +318,19 @@ const getStatusButtonText = (status) => {
           disableRowSelectionOnClick
         />
       </Box>
+      {/* Dialog component */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle variant='h5'>Catatan</DialogTitle>
+        <DialogContent>
+          {selectedCatatan !== null ? (
+            <div>
+              {selectedCatatan}
+            </div>
+          ) : null}
+        </DialogContent>
+      </Dialog>
+    </div>
+      
   );
   }
 

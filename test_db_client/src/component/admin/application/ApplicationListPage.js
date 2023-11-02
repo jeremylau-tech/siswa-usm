@@ -13,6 +13,7 @@ import MakananList from "./tables/MakananList";
 import { Button, Container } from "@mui/material";
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import { useState } from "react";
+import SettingsDialog from "./settings/SettingsDialog";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -117,7 +118,7 @@ function ApplicationListPage(user_roles) {
                 alignItems: "center",
               }}
             >
-              <PendingList />
+              <PendingList roles={roles}/>
             </Box>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
@@ -161,7 +162,7 @@ function ApplicationListPage(user_roles) {
                 alignItems: "center",
               }}
             >
-              <MakananList />
+              <MakananList roles={roles}/>
             </Box>
           </CustomTabPanel>
         </div>
