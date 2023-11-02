@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './FoodApplication.css';
-import DragDrop from "./functions/DragDrop"; // Import the DragAndDrop component
+import DragDrop from "./functions/DragDrop";
+import { Link } from "react-router-dom";
 
 function FoodApplication() {
   const [sponsorType, setSponsorType] = useState(""); // State for selected options
@@ -98,10 +99,10 @@ const handleSponsorTypeChange = (e) => {
         // If the server responds with a 200 status code (OK), you can handle success here
         alert("Form data sent successfully!");
         
-        // setSponsorType("");
-        // setIcNumFile(null)
-        // setPaymentSlipFile(null);
-        // setFoodJustification("");
+        setSponsorType("");
+        setIcNumFile(null)
+        setPaymentSlipFile(null);
+        setFoodJustification("");
       } else {
         console.log(formData);
         // Handle errors or display error messages here
@@ -114,12 +115,25 @@ const handleSponsorTypeChange = (e) => {
   };
 
   const buttonStyle = {
+    padding: '10px 20px',
+    borderRadius: '5px',
+    marginRight: '10px',
+    width: 'calc(48% - 5px)',
+  };
+  
+  const kembaliButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#808080', // Lighter color for Kembali button
+    borderColor: '#808080', // Matching border color
+    color: 'white', // Text color for Kembali button
+  };
+  
+  const hantarButtonStyle = {
+    ...buttonStyle,
     backgroundColor: '#491E6E',
     borderColor: '#491E6E',
     color: 'white',
   };
-
-
 
   return (
     <div className="mt-5 form-page">
@@ -136,7 +150,7 @@ const handleSponsorTypeChange = (e) => {
             <label htmlFor="options-food" className="select-food-label">Jenis Tajaan:</label>
             <div className="select-food-wrapper">
             <select id="sponsor_type" name="sponsor_type" className="select" onChange={handleSponsorTypeChange} value={sponsorType}>
-                <option value="">Jenis Tajaan</option>
+                <option value="">Sila Pilih Jenis Tajaan</option>
                 <option value="PTPTN">PTPTN</option>
                 <option value="JPA">JPA</option>
                 <option value="KPM">KPM</option>
@@ -180,9 +194,17 @@ const handleSponsorTypeChange = (e) => {
             />
           </div>
 
-          <button type="submit" style={buttonStyle}>
-            Hantar
-          </button>
+          {/* Button container */}
+          <div className="button-container">
+            <Link to="/WelcomePage">
+              <button type="button" style={kembaliButtonStyle}>
+                Kembali
+              </button>
+            </Link>
+            <button type="submit" style={hantarButtonStyle}>
+              Hantar
+            </button>
+          </div>
         </form>
       </div>
     </div>

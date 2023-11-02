@@ -4,11 +4,13 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import InvoicePage from "./InvoiceDialog"; // Import the InvoicePage component\
-
+import CreateVendor from "./EditVendor";
 
 function VendorList() {
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [showInvoiceDialog, setShowInvoiceDialog] = useState(false);
+  const [showCreateVendorDialog, setShowCreateVendorDialog] = useState(false);
+  const [selectedCreateVendor, setSelectedCreateVendor] = useState(null);
 
   const handleRekodClick = (rowId) => {
     // Handle the Rekod button click for the row with the given ID
@@ -25,9 +27,9 @@ function VendorList() {
   const handleEditClick = (row) => {
     // Handle the Edit button click for the row
     console.log("Edit button clicked for row:", row);
-    // Implement the logic to edit the vendor's information here.
+    setSelectedCreateVendor(row); // Store the selected vendor for editing
+    setShowCreateVendorDialog(true); // Show the CreateVendor dialog
   };
-
 
   const columns = [
     {
@@ -187,16 +189,15 @@ function VendorList() {
   ];
 
   return (
-
     <div>
-      <Box sx={{
-        height: 400,
-        width: "100%",
-      }}>
+      <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
       </Box>
       {showInvoiceDialog && selectedVendor && (
         <InvoicePage selectedVendor={selectedVendor} onClose={() => setShowInvoiceDialog(false)} />
+      )}
+      {showCreateVendorDialog && selectedCreateVendor && (
+        <CreateVendor selectedVendor={selectedCreateVendor} onClose={() => setShowCreateVendorDialog(false)} />
       )}
     </div>
   );

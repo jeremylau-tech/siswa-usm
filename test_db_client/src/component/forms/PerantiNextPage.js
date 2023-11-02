@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DragDrop from "../functions/DragDrop";
+import { Link } from "react-router-dom";
 
 function PerantiNextPage() {
   const [paymentSlipFile, setPaymentSlipFile] = useState(null); // Maintain the selectedFile state
@@ -8,14 +9,25 @@ function PerantiNextPage() {
   const [deviceType, setDeviceType] = useState(""); // State for the reason text area
   const [deviceDetails, setDeviceDetails] = useState(""); // State for the reason text area
 
+  const [selectedOption, setSelectedOption] = useState(""); // State for selected option
+  const [customOption, setCustomOption] = useState(""); // State for custom "Jenis Tajaan"
+
+  const handleSponsorTypeChange = (e) => {
+    const selectedOption = e.target.value;
+    setSelectedOption(selectedOption);
+    if (selectedOption !== "Lain") {
+      setCustomOption(""); // Clear custom "Jenis Tajaan" if another option is selected
+    }
+  };
+
+  const handleCustomOptionChange = (e) => {
+    setCustomOption(e.target.value);
+  };
+
   const [formData, setFormData] = useState({
     requestor_id: "202124",
     request_type: "peranti"
   });
-
-  const handleSponsorTypeChange = (e) => {
-      setSponsorType(e.target.value);
-  };
 
   const handleDeviceTypeChange = (e) => {
     setDeviceType(e.target.value);
@@ -120,9 +132,24 @@ function PerantiNextPage() {
   };
 
   const buttonStyle = {
-    backgroundColor: "#491E6E",
-    borderColor: "#491E6E",
-    color: "white",
+    padding: '10px 20px',
+    borderRadius: '5px',
+    marginRight: '10px',
+    width: 'calc(48% - 5px)',
+  };
+  
+  const kembaliButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#808080', // Lighter color for Kembali button
+    borderColor: '#808080', // Matching border color
+    color: 'white', // Text color for Kembali button
+  };
+  
+  const hantarButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#491E6E',
+    borderColor: '#491E6E',
+    color: 'white',
   };
 
   return (
@@ -137,19 +164,30 @@ function PerantiNextPage() {
         <h2 className="right-header">Maklumat Status Kewangan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
         <form className="form-style"  onSubmit={handleSubmit}>
-          
-          <div className="form-group select-container-wang">
+
+          <div className="form-group select-container-peranti">
             <label htmlFor="options" className="select-label">
               Jenis Tajaan:
             </label>
-            <div className="select-wrapper-wang">
-              <select id="sponsor_type" name="sponsor_type" className="select" onChange={handleSponsorTypeChange}>
-                <option value="">Jenis Tajaan</option>
-                <option value="JPA">JPA</option>
-                <option value="PTPTN">PTPTN</option>
-                <option value="Lain">Lain-lain</option>
-              </select>
-            </div>
+            <select id="sponsor_type" name="sponsor_type" className="select" onChange={handleSponsorTypeChange}>
+              <option value="">Sila Pilih Jenis Tajaan</option>
+              <option value="Option 1">PTPTN</option>
+              <option value="Option 2">JPA</option>
+              <option value="Option 3">KPM</option>
+              <option value="Lain">Lain-lain</option>
+            </select>
+            {selectedOption === "Lain" && (
+              <div className="form-group">
+                <label htmlFor="customOption">Sila Nyatakan Jenis Tajaan Lain:</label>
+                <input
+                  type="text"
+                  id="customOption"
+                  name="customOption"
+                  value={customOption}
+                  onChange={handleCustomOptionChange}
+                />
+              </div>
+            )}
           </div>
 
           <div className="form-group">
@@ -185,9 +223,18 @@ function PerantiNextPage() {
             <label htmlFor="email2">Gambar Peranti:</label>
             <DragDrop selectedFile={deviceImageFile} setSelectedFile={setDeviceImageFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
-          <button type="submit" style={buttonStyle}>
-            Submit
-          </button>
+          {/* Button container */}
+          <div className="button-container">
+            <Link to="/Peranti_FormPage">
+              <button type="button" style={kembaliButtonStyle}>
+                Kembali
+              </button>
+            </Link>
+            <button type="submit" style={hantarButtonStyle}>
+              Hantar
+            </button>
+          </div>
+
         </form>
       </div>
     </div>

@@ -130,3 +130,11 @@ button[type="submit"] {
   .form-style {
     padding: 30px;
   }
+
+  .select-container-form {
+    text-align: center;
+  }
+
+  .button-container-form {
+    margin-top: 30px;
+  }
