@@ -8,25 +8,15 @@ function WangNextPage() {
   const [paymentSlipFile, setPaymentSlipFile] = useState(null); // Maintain the selectedFile state
   const [supportDocFile, setSupportDocFile] = useState(null); // Maintain the selectedFile state
 
-  const [selectedOptions, setSelectedOptions] = useState([]); // State for selected options
-  const [reason, setReason] = useState(""); // State for the reason text area
-
+  const [selectedOption, setSelectedOption] = useState(""); // State for selected option
   const [customOption, setCustomOption] = useState(""); // State for custom "Jenis Tajaan"
-
+  const [reason, setReason] = useState(""); // State for the reason text area
+  
   const handleOptionChange = (e) => {
     const selectedOption = e.target.value;
-    setSelectedOptions([selectedOption]);
+    setSelectedOption(selectedOption);
     if (selectedOption !== "Lain") {
       setCustomOption(""); // Clear custom "Jenis Tajaan" if another option is selected
-    }
-  };
-
-  const handleCheckboxChange = (e) => {
-    const option = e.target.value;
-    if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter((item) => item !== option));
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
     }
   };
 
@@ -38,15 +28,14 @@ function WangNextPage() {
     const inputValue = e.target.value;
     const wordLimit = 250;
     const words = inputValue.split(/\s+/);
-  
+
     if (words.length <= wordLimit) {
       setReason(inputValue);
     } else {
-      const truncatedText = words.slice(0, wordLimit).join(' ');
+      const truncatedText = words.slice(0, wordLimit).join(" ");
       setReason(truncatedText);
     }
   };
-  
 
   const buttonStyle = {
     backgroundColor: "#491E6E",
@@ -66,8 +55,7 @@ function WangNextPage() {
         <h2 className="right-header">Butiran Permohonan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
         <form className="form-style">
-          
-        <div className="form-group select-container-wang">
+          <div className="form-group select-container-wang">
             <label htmlFor="options" className="select-label">
               Jenis Tajaan:
             </label>
@@ -78,7 +66,7 @@ function WangNextPage() {
               <option value="Option 3">KPM</option>
               <option value="Lain">Lain-lain</option>
             </select>
-            {selectedOptions.includes("Lain") && (
+            {selectedOption === "Lain" && (
               <div className="form-group">
                 <label htmlFor="customOption">Sila Nyatakan Jenis Tajaan Lain:</label>
                 <input
@@ -92,66 +80,35 @@ function WangNextPage() {
             )}
           </div>
 
-          <div className="form-group">
-            <label>Jenis Bantuan Yang Diperlukan:</label>
-            <div>
-                <label className="checkbox-label">
-                <input
-                    type="checkbox"
-                    className="checkbox-input"
-                    value="yuranDesa"
-                    onChange={handleCheckboxChange}
-                    checked={selectedOptions.includes("yuranDesa")}
-                />
-                Yuran Desa
-                </label>
-            </div>
-            <div>
-                <label className="checkbox-label">
-                <input
-                    type="checkbox"
-                    className="checkbox-input"
-                    value="yuranPengajian"
-                    onChange={handleCheckboxChange}
-                    checked={selectedOptions.includes("yuranPengajian")}
-                />
-                Yuran Pengajian
-                </label>
-            </div>
-            <div>
-                <label className="checkbox-label">
-                <input
-                    type="checkbox"
-                    className="checkbox-input"
-                    value="saraHidup"
-                    onChange={handleCheckboxChange}
-                    checked={selectedOptions.includes("saraHidup")}
-                />
-                Sara Hidup
-                </label>
-            </div>
-            <div>
-                <label className="checkbox-label">
-                <input
-                    type="checkbox"
-                    className="checkbox-input"
-                    value="masalahKesihatan"
-                    onChange={handleCheckboxChange}
-                    checked={selectedOptions.includes("masalahKesihatan")}
-                />
-                Masalah Kesihatan
-                </label>
+          <div className="form-group select-container-bantuan">
+            <div className="form-group">
+              <label htmlFor="options" className="select-label">
+                <label>Jenis Bantuan Yang Diperlukan:</label>
+              </label>
+              <select
+                id="bantuanOptions"
+                name="bantuanOptions"
+                className="select"
+                value={selectedOption}
+                onChange={handleOptionChange}
+              >
+                <option value="">Sila Pilih Jenis Bantuan</option>
+                <option value="yuranDesa">Yuran Desasiswa</option>
+                <option value="yuranPengajian">Yuran Pengajian</option>
+                <option value="saraHidup">Sara Hidup</option>
+                <option value="masalahKesihatan">Masalah Kesihatan</option>
+              </select>
             </div>
           </div>
 
           <div className="form-group">
             <label htmlFor="amount">Amaun Yang Diperlukan:</label>
             <input
-                type="number"  // Change the input type to "number"
-                id="amount"
-                name="amount"
-                placeholder="RM" // Set "RM" as a placeholder
-                step="0.01" // Optionally specify step value for decimal numbers
+              type="number"
+              id="amount"
+              name="amount"
+              placeholder="RM"
+              step="0.01"
             />
           </div>
 
@@ -169,22 +126,22 @@ function WangNextPage() {
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Kad Pengenalan:</label>
-            <DragDrop selectedFile={icNumFile} setSelectedFile={setIcNumFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
+            <DragDrop selectedFile={icNumFile} setSelectedFile={setIcNumFile} />
           </div>
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Penyata Bank Pelajar:</label>
-            <DragDrop selectedFile={bankStatementFile} setSelectedFile={setBankStatementFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
+            <DragDrop selectedFile={bankStatementFile} setSelectedFile={setBankStatementFile} />
           </div>
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa:</label>
-            <DragDrop selectedFile={paymentSlipFile} setSelectedFile={setPaymentSlipFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
+            <DragDrop selectedFile={paymentSlipFile} setSelectedFile={setPaymentSlipFile} />
           </div>
 
           <div className="form-group">
             <label htmlFor="email2">Dokumen Sokongan:</label>
-            <DragDrop selectedFile={supportDocFile} setSelectedFile={setSupportDocFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
+            <DragDrop selectedFile={supportDocFile} setSelectedFile={setSupportDocFile} />
           </div>
 
           <button type="submit" style={buttonStyle}>

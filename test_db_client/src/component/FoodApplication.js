@@ -136,7 +136,7 @@ const handleSponsorTypeChange = (e) => {
             <label htmlFor="options-food" className="select-food-label">Jenis Tajaan:</label>
             <div className="select-food-wrapper">
             <select id="sponsor_type" name="sponsor_type" className="select" onChange={handleSponsorTypeChange} value={sponsorType}>
-                <option value="">Jenis Tajaan</option>
+                <option value="">Sila Pilih Jenis Tajaan</option>
                 <option value="PTPTN">PTPTN</option>
                 <option value="JPA">JPA</option>
                 <option value="KPM">KPM</option>

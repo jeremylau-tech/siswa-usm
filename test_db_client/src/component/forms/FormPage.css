@@ -130,3 +130,7 @@ button[type="submit"] {
   .form-style {
     padding: 30px;
   }
+
+  .select-container-form {
+    text-align: center;
+  }
