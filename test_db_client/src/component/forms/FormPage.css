@@ -134,3 +134,7 @@ button[type="submit"] {
   .select-container-form {
     text-align: center;
   }
+
+  .button-container-form {
+    margin-top: 30px;
+  }

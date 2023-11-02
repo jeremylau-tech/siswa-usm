@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import DragDrop from "../functions/DragDrop"; // Import the DragAndDrop component
+import DragDrop from "../functions/DragDrop";
+import { Link } from "react-router-dom";
 
 function KhairatNextPage() {
   const [deathCertFile, setDeathCertFile] = useState(null); // Maintain the selectedFile state
@@ -122,11 +123,26 @@ function KhairatNextPage() {
       }
     };
     
-  const buttonStyle = {
-    backgroundColor: '#491E6E',
-    borderColor: '#491E6E',
-    color: 'white',
-  };
+    const buttonStyle = {
+      padding: '10px 20px',
+      borderRadius: '5px',
+      marginRight: '10px',
+      width: 'calc(48% - 5px)',
+    };
+    
+    const kembaliButtonStyle = {
+      ...buttonStyle,
+      backgroundColor: '#808080', // Lighter color for Kembali button
+      borderColor: '#808080', // Matching border color
+      color: 'white', // Text color for Kembali button
+    };
+    
+    const hantarButtonStyle = {
+      ...buttonStyle,
+      backgroundColor: '#491E6E',
+      borderColor: '#491E6E',
+      color: 'white',
+    };
 
   return (
     <div className="mt-5 form-page">
@@ -169,10 +185,18 @@ function KhairatNextPage() {
             <label htmlFor="email2">Salinan Resit Asal Tambang Perjalanan (Tujuan Pengebumian):</label>
             <DragDrop selectedFile={transportFareFile} setSelectedFile={setTransportFareFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
+          {/* Button container */}
+          <div className="button-container">
+            <Link to="/Khairat_FormPage">
+              <button type="button" style={kembaliButtonStyle}>
+                Kembali
+              </button>
+            </Link>
+            <button type="submit" style={hantarButtonStyle}>
+              Hantar
+            </button>
+          </div>
 
-          <button type="submit" style={buttonStyle}>
-            Hantar
-          </button>
         </form>
       </div>
     </div>
