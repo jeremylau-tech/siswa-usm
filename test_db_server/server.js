@@ -7,9 +7,10 @@ const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
 const corsOptions = {
-  origin: 'http://localhost:8090', // Replace with the actual origin of your frontend
+  origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 
@@ -17,12 +18,24 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+function generateCouponCode(length) {
+  const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // You can customize this character set
+  let couponCode = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    couponCode += charset[randomIndex];
+  }
+
+  return couponCode;
+}
+
 
 // MySQL connection configuration
 const db = mysql.createConnection({
 host: 'localhost',
 user: 'root',
-password: 'Admin@12345',
+password: 'test123',
 database: 'bhepa_test',
 });
 
@@ -90,10 +103,140 @@ app.post("/login", (req, res) => {
       res.status(401).json({ message: "Invalid email or password" });
     } else {
       // User successfully authenticated
-      res.status(200).json({ message: "Login successful" });
+      res.json({ user: results[0] });
+
+      // res.status(200).json({ message: "Login successful" });
     }
   });
 });
+
+app.get('/get-pdf', (req, res) => {
+  const pdfPath = req.query.pdfPath; // Extract the PDF file path from the URL
+  // console.log(pdfPath)
+
+  // Set the path to the directory where your PDF files are located
+  const pdfDirectory = __dirname; // Change to the actual directory
+
+  // Use the res.sendFile method to send the PDF file
+  res.sendFile(pdfPath, { root: pdfDirectory }, (err) => {
+    if (err) {
+      console.error('Error sending PDF file:', err);
+      res.status(404).send('PDF file not found');
+    }
+  });
+});
+
+
+// Define the route to handle the PUT request for request editing
+app.post('/request-edit-tolak', (req, res) => {
+  const { inputRemark, userRole, approverId, requestId } = req.body;
+
+  let user_remark = '';
+  let user_id = '';
+  let req_status = "tolak";
+
+  if (userRole == "admin")
+  {
+    user_remark = "request_remark_admin";
+    user_id = "admin_approver_id";
+  }
+  else if (userRole == "bhepa")
+  {
+    user_remark = "request_remark_bhepa";
+    user_id = "bhepa_approver_id";
+  }
+  else if (userRole == "tnc")
+  {
+    user_remark = "request_remark_tnc";
+    user_id = "tnc_approver_id";
+  }
+
+  // Update the request in the database based on the requestId
+  const sql = `UPDATE request SET ${user_remark} = ?, ${user_id} = ?, request_status = ?  WHERE request_id = ?`;
+
+  db.query(sql, [inputRemark, approverId, req_status, requestId], (err, results) => {
+    if (err) {
+      console.error('Error updating request:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json({ message: 'Request updated successfully' });
+    }
+  });
+});
+
+app.post('/request-edit-lulus', (req, res) => {
+  const { inputRemark, userRole, approverId, requestId, requestType, requestorId } = req.body;
+
+  // console.log(requestType);
+
+  let user_remark = '';
+  let user_id = '';
+  let req_status = '';
+
+  if (userRole == "admin")
+  {
+    user_remark = "request_remark_admin";
+    user_id = "admin_approver_id";
+    req_status = "semak";
+  }
+  else if (userRole == "bhepa")
+  {
+    user_remark = "request_remark_bhepa";
+    user_id = "bhepa_approver_id";
+    if (requestType == "makanan" || requestType == "peranti" )
+    req_status = "lulus";
+    else
+    req_status = "syor";
+  }
+  else if (userRole == "tnc")
+  {
+    user_remark = "request_remark_tnc";
+    user_id = "tnc_approver_id";
+    req_status = "lulus";
+  }
+
+  // Update the request in the database based on the requestId
+  let sql = `UPDATE request SET ${user_remark} = ?, ${user_id} = ?, request_status = ?  WHERE request_id = ?`;
+
+  db.query(sql, [inputRemark, approverId, req_status, requestId], (err, results) => {
+    if (err) {
+      console.log('Error updating request:', err);
+      return res.status(500).json({ message: 'Error updating request' });
+    }
+  });
+
+  
+  if (req_status == "lulus") {
+    // const currentDate = new Date();
+    // const formattedCurrentDate = currentDate.toISOString().split('T')[0];
+
+    const fixDueDate = '2023-12-31';
+    // const threeMonthsLater = new Date(currentDate);
+
+    // threeMonthsLater.setMonth(currentDate.getMonth() + 3);
+
+    // const formattedThreeMonthsLater = threeMonthsLater.toISOString().split('T')[0];
+
+
+    const baucar_stat = "aktif";
+    let baucar_code = "";
+
+    for (let i = 0; i < 20; i++) {
+    baucar_code = generateCouponCode(6);
+    sql = "INSERT INTO baucar  (baucar_code, baucar_apply_date, baucar_apply_time, baucar_due_date, baucar_status, user_id) VALUES (?, ?, CURTIME(), ?, ?, ?)";
+    db.query(sql, [baucar_code, formattedCurrentDate, fixDueDate, baucar_stat, requestorId], (err, results) => {
+      if (err) {
+        console.error('Error updating request:', err);
+      }
+    });
+  }
+  return res.status(200).json({ message: 'Request updated and baucar generated successfully' });
+} else {
+  // Send a success response for non-'lulus' requests
+  return res.status(200).json({ message: 'Request updated successfully' });
+}
+});
+
 
 app.get("/request-all", (req, res) => {
   // SQL query to select all records from the "user" table
@@ -114,7 +257,7 @@ app.get("/request-all", (req, res) => {
 app.get("/request-status", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestStatus = req.query.request_status;
-  console.log(requestStatus)
+  // console.log(requestStatus)
 
   // Define the SQL query with a placeholder
   const sql = `
@@ -134,10 +277,33 @@ app.get("/request-status", (req, res) => {
   });
 });
 
+
+app.get("/request-requestid", (req, res) => {
+  // Extract the request_status query parameter from the request
+  const requestId = req.query.request_id;
+  // Define the SQL query with a placeholder
+  const sql = `
+    SELECT * FROM request 
+    WHERE request_id = ?
+  `;
+
+  // Execute the query with parameterized values
+  db.query(sql, [requestId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ request: results });
+    }
+  });
+});
+
+
 app.get("/request-type", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestStatus = req.query.request_status;
-  console.log(requestStatus)
+  // console.log(requestStatus)
 
   // Define the SQL query with a placeholder
   const sql = `
@@ -201,6 +367,99 @@ app.get("/request-type-status", (req, res) => {
   }
 });
 
+app.post("/coupons-userid", (req, res) => {
+  const { userId } = req.body;
+  // console.log(userId)
+
+  if (!userId) {
+    return res.status(400).json({ message: 'userId is required' });
+  }
+
+  // SQL query to select coupons for the specified user
+  const sql = "SELECT * FROM baucar WHERE user_id = ? AND baucar_status = 'aktif'";
+
+  // Execute the query
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response with "coupons" key
+      res.json({ coupons: results });
+    }
+  });
+});
+
+app.post("/coupons-userid-status", (req, res) => {
+  const { userId, baucarStatus } = req.body;
+  // console.log(userId)
+
+  if (!userId) {
+    return res.status(400).json({ message: 'userId is required' });
+  }
+
+  // SQL query to select coupons for the specified user
+  const sql = "SELECT * FROM baucar WHERE user_id = ? AND baucar_status = ?";
+
+  // Execute the query
+  db.query(sql, [userId, baucarStatus], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response with "coupons" key
+      // console.log(results)
+      res.json({ coupons: results });
+    }
+  });
+});
+
+app.get("/coupons-count", (req, res) => {
+  const { userId } = req.query;
+
+  if (!userId) {
+    return res.status(400).json({ message: 'userId is required' });
+  }
+
+  // SQL query to count the number of active coupons for the specified user
+  const sql = "SELECT COUNT(*) AS couponCount FROM baucar WHERE user_id = ?";
+
+  // Execute the query
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error('Error counting coupons from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved count as a JSON response
+
+      console.log(results[0].couponCount )
+      res.json({ couponCount: results[0].couponCount });
+    }
+  });
+});
+
+app.post("/coupons-redeem", (req, res) => {
+  const { baucarId, baucarVendor } = req.body;
+  // console.log(baucarVendor)
+
+  if (!baucarId) {
+    return res.status(400).json({ message: 'baucarId is required' });
+  }
+
+  const baucarStatus = "tebus";
+
+  // Update the request in the database based on the requestId
+  const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = NOW(), baucar_vendor = ?  WHERE baucar_id = ?`;
+
+  db.query(sql, [baucarStatus, baucarVendor, baucarId], (err, results) => {
+    if (err) {
+      console.error('Error updating request:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json({ message: 'Request updated successfully' });
+    }
+  });
+});
 
 app.get("/users", (req, res) => {
     // SQL query to select all records from the "user" table
@@ -234,6 +493,40 @@ app.get("/user-details", (req, res) => {
   });
 });
 
+app.get("/user-details-uniqueid", (req, res) => {
+  const uniqueId = req.query.unique_id;
+
+  // SQL query to select all records from the "users_details" table
+  const sql = "SELECT * FROM users_details WHERE unique_id = ?";
+
+  // Execute the query
+  db.query(sql, [uniqueId], (err, results) => {          if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response with "userDetails" key
+          res.json({ userDetails: results });
+      }
+  });
+});
+
+app.get("/food-applications-requestid", (req, res) => {
+  const requestId = req.query.request_id;
+
+  // SQL query to select all records from the "users_details" table
+  const sql = "SELECT * FROM food_application WHERE request_id = ?";
+
+  // Execute the query
+  db.query(sql, [requestId], (err, results) => {          if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response with "userDetails" key
+          res.json({ foodDetails: results });
+      }
+  });
+});
+
 // Route to get the count of food applications based on status
 // Route to get the count of applications based on status and table
 app.post('/countByStatus', (req, res) => {
@@ -253,7 +546,7 @@ app.post('/countByStatus', (req, res) => {
       sql = `
         SELECT COUNT(*) AS count
         FROM ?? 
-        WHERE request_status = 'sah' OR request_status = 'syor'
+        WHERE request_status = 'semak' OR request_status = 'syor'
       `;
     } else {
       sql = `
@@ -268,7 +561,7 @@ app.post('/countByStatus', (req, res) => {
       sql = `
         SELECT COUNT(*) AS count
         FROM ?? 
-        WHERE (request_status = 'sah' OR request_status = 'syor') AND request_type = ?
+        WHERE (request_status = 'semak' OR request_status = 'syor') AND request_type = ?
       `;
     } else {
       sql = `
@@ -293,7 +586,7 @@ app.post('/countByStatus', (req, res) => {
     });
   } else {
     db.query(sql, [table, req_type], (err, results) => {
-      console.log(sql);
+      // console.log(sql);
     
       if (err) {
         console.error('Error fetching data from MySQL:', err);
@@ -308,32 +601,44 @@ app.post('/countByStatus', (req, res) => {
 });
 
 
-// Endpoint to insert a new user
-app.post("/insert", (req, res) => {
-    const { name, matric_number, course_taken } = req.body;
-  
-    // Check if required fields are provided
-    if (!name || !matric_number || !course_taken) {
-      res.status(400).json({ message: 'Missing required fields' });
-      return;
+app.post("/insert-users", (req, res) => {
+  const { unique_id, email, password, name, ic_num, phone_num, school, course, student_status, study_year } = req.body;
+
+  // Check if required fields are provided
+  if (!unique_id) {
+    res.status(400).json({ message: 'Missing required fields' });
+    return;
+  }
+
+  const student_roles = "student";
+
+  // SQL query to insert a new user into the "user" table
+  let sql = "INSERT INTO users (unique_id, email, password, roles) VALUES (?, ?, ?, ?)";
+
+  // Execute the query
+  db.query(sql, [unique_id, email, password, student_roles], (err, result) => {
+    if (err) {
+      console.error('Error inserting user data into MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // If the user is successfully inserted into the "user" table, proceed to insert details
+      sql = "INSERT INTO users_details (unique_id, email, name, ic_num, phone_num, school, course, student_status, study_year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      
+      // Execute the query for inserting user details
+      db.query(sql, [unique_id, email, name, ic_num, phone_num, school, course, student_status, study_year], (err, result) => {
+        if (err) {
+          console.error('Error inserting user details into MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+        } else {
+          res.status(201).json({ message: 'User data inserted successfully' });
+        }
+      });
     }
-  
-    // SQL query to insert a new user into the "user" table
-    const sql = "INSERT INTO user (name, matric_number, course_taken) VALUES (?, ?, ?)";
-  
-    // Execute the query
-    db.query(sql, [name, matric_number, course_taken], (err, result) => {
-      if (err) {
-        console.error('Error inserting user data into MySQL:', err);
-        res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-        res.status(201).json({ message: 'User data inserted successfully' });
-      }
-    });
   });
+});
 
   app.post("/insert-request", (req, res) => {
-    console.log( req.body);
+    // console.log( req.body);
     const {
       requestor_id,
       request_type,
