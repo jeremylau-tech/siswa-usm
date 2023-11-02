@@ -17,7 +17,7 @@ COPY . .
 WORKDIR /app/test_db_client/
 
 # Expose port 80 (the default port for Apache)
-EXPOSE 80
+EXPOSE 3030
 
 # Define the command to start your app (adjust based on your project)
 CMD [ "npm", "start", "||", "true" ]
