@@ -1,6 +1,5 @@
 import React from "react";
 import jsPDF from "jspdf";
-import "jspdf-invoice-template";
 import {
   Dialog,
   DialogTitle,
@@ -9,35 +8,49 @@ import {
   Button,
   Box,
 } from "@mui/material";
+import { renderToString } from "react-dom/server";
+
 
 function InvoiceDialog({ selectedVendor, onClose }) {
   const handlePrint = () => {
-    const pdf = new jsPDF();
-    pdf.setFontSize(14);
+    //   const pdf = new jsPDF();
+    //   pdf.setFontSize(14);
 
-    // Define the content of the invoice
-    const content = `
-    Invoice for: ${selectedVendor.VendorName}
-    ID Vendor: ${selectedVendor.idVendor}
-    Description: ${selectedVendor.description}
-    Owner: ${selectedVendor.owner}
-    Phone No: ${selectedVendor.phoneNo}
-    Email: ${selectedVendor.email}
-    Registration Date: ${selectedVendor.registrationDate}
+    //   const htmlTemplate = `
 
-    Products:
-    - Product A: 2 units x $50.00
-    - Product B: 3 units x $30.00
+    // `;
 
-    Total: $190.00
-    `;
+    //   // Set the content and create the PDF
+    //   pdf.fromHTML(htmlTemplate, 10, 10);
 
-    // Set the content and create the PDF
-    pdf.text(content, 10, 10);
+    //   // Save the PDF or open it in a new window
+    const string = renderToString(<Prints />);
+    const pdf = new jsPDF("p", "mm", "a4");
 
-    // Save the PDF or open it in a new window
+    pdf.fromHTML(string);
+
     pdf.save(`Invoice_${selectedVendor.VendorName}.pdf`);
   };
+
+  const Prints = () => (
+    <div>
+      <h1>Invoice for: ${selectedVendor.VendorName}</h1>
+      <p>ID Vendor: ${selectedVendor.idVendor}</p>
+      <p>Description: ${selectedVendor.description}</p>
+      <p>Owner: ${selectedVendor.owner}</p>
+      <p>Phone No: ${selectedVendor.phoneNo}</p>
+      <p>Email: ${selectedVendor.email}</p>
+      <p>Registration Date: ${selectedVendor.registrationDate}</p>
+
+      <h2>Products:</h2>
+      <ul>
+        <li>Product A: 2 units x $50.00</li>
+        <li>Product B: 3 units x $30.00</li>
+      </ul>
+
+      <p>Total: $190.00</p>
+    </div>
+  );
 
   return (
     <Dialog open={true} onClose={onClose} maxWidth="sm">
