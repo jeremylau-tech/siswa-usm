@@ -33,7 +33,7 @@ function generateCouponCode(length) {
 
 // MySQL connection configuration
 const db = mysql.createConnection({
-host: 'localhost',
+host: '172.17.0.100',
 user: 'root',
 password: 'Admin@12345',
 database: 'bhepa_test',
@@ -749,6 +749,6 @@ app.post("/insert-users", (req, res) => {
 
 
 
-app.listen(8000, () => {
-  console.log(`Server is running on port 8000.`);
+app.listen(3000, () => {
+  console.log(`Server is running on port 3000.`);
 });
