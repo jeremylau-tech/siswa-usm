@@ -1,7 +1,7 @@
 import React from "react";
 import './WelcomePage.css';
 import NavBar from './NavBar';
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
 import footerLogo from '../img/footer_logo.jpg';
 import { Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
