@@ -45,13 +45,19 @@ function VendorList() {
     {
       field: "location",
       headerName: "Lokasi",
-      width: 150,
+      width: 100,
       editable: false,
     },
     {
       field: "couponUsed",
-      headerName: "Bil. Kupon Telah Digunakan",
-      width: 200,
+      headerName: "Kupon untuk Dituntut",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "couponUsedTotal",
+      headerName: "Kupon Telah Diguna",
+      width: 150,
       editable: false,
     },
     {
@@ -140,12 +146,12 @@ function VendorList() {
       couponUsed: 10,
       couponUsedTotal: 100,
       status: "Active",
-      logoUrl:"https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
+      logoUrl: "https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
       description: "Vegan Food",
       owner: "Kassim Bin Ahmad",
-      phoneNo : "0123456789",
-      email : "kassim@usm.my",
-      registrationDate : "01/03/2022",
+      phoneNo: "0123456789",
+      email: "kassim@usm.my",
+      registrationDate: "01/03/2022",
     },
     {
       id: 2,
@@ -155,12 +161,12 @@ function VendorList() {
       couponUsed: 5,
       couponUsedTotal: 5,
       status: "Active",
-      logoUrl:"https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
+      logoUrl: "https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
       description: "Burger",
       owner: "Fahmi Fadzil",
-      phoneNo : "012232789",
-      email : "fahmi@usm.my",
-      registrationDate : "01/01/2021",
+      phoneNo: "012232789",
+      email: "fahmi@usm.my",
+      registrationDate: "01/01/2021",
     },
     {
       id: 3,
@@ -168,14 +174,14 @@ function VendorList() {
       VendorName: "Vendor C",
       location: "Location C",
       couponUsed: 5,
-      couponUsedTotal: 3,
+      couponUsedTotal: 7,
       status: "Inactive",
-      logoUrl:"https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
+      logoUrl: "https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
       description: "Nasi Kandar",
       owner: "Saifuddin Bin Nasution",
-      phoneNo : "0123456732",
-      email : "saufuddin@usm.my",
-      registrationDate : "01/02/2021",
+      phoneNo: "0123456732",
+      email: "saufuddin@usm.my",
+      registrationDate: "01/02/2021",
     },
     // Add more rows with data as needed
   ];
@@ -183,10 +189,10 @@ function VendorList() {
   return (
 
     <div>
-      <Box sx={{ 
-        height: 400, 
+      <Box sx={{
+        height: 400,
         width: "100%",
-          }}>
+      }}>
         <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
       </Box>
       {showInvoiceDialog && selectedVendor && (
