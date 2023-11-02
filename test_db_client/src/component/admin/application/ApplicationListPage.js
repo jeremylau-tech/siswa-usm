@@ -13,11 +13,9 @@ import MakananList from "./tables/MakananList";
 import { Button, Container } from "@mui/material";
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import { useState } from "react";
-import SettingsDialog from "./settings/SettingsDialog";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -48,22 +46,10 @@ function a11yProps(index) {
   };
 }
 
-function ApplicationListPage() {
+function ApplicationListPage(user_roles) {
+  const roles = user_roles.user_roles
+
   const [value, setValue] = React.useState(0);
-
-  // State to control the visibility of the settings dialog
-  const [settingsDialogOpen, setSettingsDialogOpen] = useState(false);
-
-  // Function to open the settings dialog
-  const openSettingsDialog = () => {
-    setSettingsDialogOpen(true);
-  };
-
-  // Function to close the settings dialog
-  const closeSettingsDialog = () => {
-    setSettingsDialogOpen(false);
-  };
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -91,7 +77,6 @@ function ApplicationListPage() {
                 borderColor: 'gray',
                 color: 'white',
               }}
-              onClick={openSettingsDialog} // Open the settings dialog when the button is clicked
 
             >
               <SettingsRoundedIcon
@@ -121,7 +106,7 @@ function ApplicationListPage() {
                 alignItems: "center",
               }}
             >
-              <NewApplication />
+          <NewApplication roles={roles}/>
             </Box>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
@@ -181,7 +166,6 @@ function ApplicationListPage() {
           </CustomTabPanel>
         </div>
       </div>
-      <SettingsDialog open={settingsDialogOpen} onClose={closeSettingsDialog} />
     </Container>
 
 
