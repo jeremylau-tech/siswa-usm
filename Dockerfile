@@ -20,4 +20,4 @@ WORKDIR /app/test_db_client/
 EXPOSE 3030
 
 # Define the command to start your app (adjust based on your project)
-CMD [ "npm", "start", "||", "true" ]
+CMD [ "npm", "start"]
