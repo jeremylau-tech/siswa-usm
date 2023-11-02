@@ -99,10 +99,10 @@ const handleSponsorTypeChange = (e) => {
         // If the server responds with a 200 status code (OK), you can handle success here
         alert("Form data sent successfully!");
         
-        // setSponsorType("");
-        // setIcNumFile(null)
-        // setPaymentSlipFile(null);
-        // setFoodJustification("");
+        setSponsorType("");
+        setIcNumFile(null)
+        setPaymentSlipFile(null);
+        setFoodJustification("");
       } else {
         console.log(formData);
         // Handle errors or display error messages here
@@ -196,7 +196,7 @@ const handleSponsorTypeChange = (e) => {
 
           {/* Button container */}
           <div className="button-container">
-            <Link to="/Baucar_FormPage">
+            <Link to="/WelcomePage">
               <button type="button" style={kembaliButtonStyle}>
                 Kembali
               </button>
@@ -205,7 +205,6 @@ const handleSponsorTypeChange = (e) => {
               Hantar
             </button>
           </div>
-          
         </form>
       </div>
     </div>
