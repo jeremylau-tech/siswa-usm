@@ -102,7 +102,9 @@ app.post("/login", (req, res) => {
       res.status(401).json({ message: "Invalid email or password" });
     } else {
       // User successfully authenticated
-      res.status(200).json({ message: "Login successful" });
+      res.json({ user: results[0] });
+
+      // res.status(200).json({ message: "Login successful" });
     }
   });
 });
@@ -164,7 +166,7 @@ app.post('/request-edit-tolak', (req, res) => {
 app.post('/request-edit-lulus', (req, res) => {
   const { inputRemark, userRole, approverId, requestId, requestType, requestorId } = req.body;
 
-  console.log(requestType);
+  // console.log(requestType);
 
   let user_remark = '';
   let user_id = '';
@@ -387,6 +389,30 @@ app.post("/coupons-userid", (req, res) => {
   });
 });
 
+app.post("/coupons-userid-status", (req, res) => {
+  const { userId, baucarStatus } = req.body;
+  // console.log(userId)
+
+  if (!userId) {
+    return res.status(400).json({ message: 'userId is required' });
+  }
+
+  // SQL query to select coupons for the specified user
+  const sql = "SELECT * FROM baucar WHERE user_id = ? AND baucar_status = ?";
+
+  // Execute the query
+  db.query(sql, [userId, baucarStatus], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response with "coupons" key
+      // console.log(results)
+      res.json({ coupons: results });
+    }
+  });
+});
+
 app.get("/coupons-count", (req, res) => {
   const { userId } = req.query;
 
@@ -413,7 +439,7 @@ app.get("/coupons-count", (req, res) => {
 
 app.post("/coupons-redeem", (req, res) => {
   const { baucarId, baucarVendor } = req.body;
-  console.log(baucarVendor)
+  // console.log(baucarVendor)
 
   if (!baucarId) {
     return res.status(400).json({ message: 'baucarId is required' });
@@ -574,29 +600,41 @@ app.post('/countByStatus', (req, res) => {
 });
 
 
-// Endpoint to insert a new user
-app.post("/insert", (req, res) => {
-    const { name, matric_number, course_taken } = req.body;
-  
-    // Check if required fields are provided
-    if (!name || !matric_number || !course_taken) {
-      res.status(400).json({ message: 'Missing required fields' });
-      return;
+app.post("/insert-users", (req, res) => {
+  const { unique_id, email, password, name, ic_num, phone_num, school, course, student_status, study_year } = req.body;
+
+  // Check if required fields are provided
+  if (!unique_id) {
+    res.status(400).json({ message: 'Missing required fields' });
+    return;
+  }
+
+  const student_roles = "student";
+
+  // SQL query to insert a new user into the "user" table
+  let sql = "INSERT INTO users (unique_id, email, password, roles) VALUES (?, ?, ?, ?)";
+
+  // Execute the query
+  db.query(sql, [unique_id, email, password, student_roles], (err, result) => {
+    if (err) {
+      console.error('Error inserting user data into MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // If the user is successfully inserted into the "user" table, proceed to insert details
+      sql = "INSERT INTO users_details (unique_id, email, name, ic_num, phone_num, school, course, student_status, study_year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      
+      // Execute the query for inserting user details
+      db.query(sql, [unique_id, email, name, ic_num, phone_num, school, course, student_status, study_year], (err, result) => {
+        if (err) {
+          console.error('Error inserting user details into MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+        } else {
+          res.status(201).json({ message: 'User data inserted successfully' });
+        }
+      });
     }
-  
-    // SQL query to insert a new user into the "user" table
-    const sql = "INSERT INTO user (name, matric_number, course_taken) VALUES (?, ?, ?)";
-  
-    // Execute the query
-    db.query(sql, [name, matric_number, course_taken], (err, result) => {
-      if (err) {
-        console.error('Error inserting user data into MySQL:', err);
-        res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-        res.status(201).json({ message: 'User data inserted successfully' });
-      }
-    });
   });
+});
 
   app.post("/insert-request", (req, res) => {
     // console.log( req.body);

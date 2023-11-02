@@ -64,7 +64,7 @@ const handleSponsorTypeChange = (e) => {
     // Define the array of promises for file uploads
     const uploadPromises = [
       uploadFile(icNumFile, "ic"),
-      uploadFile(paymentSlipFile, "paymentslip"),
+      uploadFile(paymentSlipFile, "paymentslip"), 
     ];
   
     try {

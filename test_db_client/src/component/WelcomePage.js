@@ -9,10 +9,17 @@ import { Link as ScrollLink } from "react-scroll";
 import { useNavigate, useLocation } from 'react-router-dom';
 
 
-function WelcomePage() {
+function WelcomePage(props) { 
+
+  
   const navigate = useNavigate();
   const location = useLocation();
-  const data = { userId: '202124' };
+  const user = location.state;
+  // if (user)
+  // alert(user.unique_id)
+  // console.log(user)
+
+  const data = { userId: user.unique_id };
   const [couponCount, setCouponCount] = useState(0);
 
   function handleClick() {
@@ -103,7 +110,7 @@ function WelcomePage() {
             {couponCount == 0 ? (
             <Button
               component={Link}
-              to="/Baucar_FormPage"
+              to="/FoodApplication"
               variant="contained"
               color="primary"
               style={{ marginRight: '10px' }}

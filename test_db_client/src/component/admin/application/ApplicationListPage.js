@@ -43,9 +43,10 @@ function a11yProps(index) {
   };
 }
 
-function ApplicationListPage() {
+function ApplicationListPage(user_roles) {
+  const roles = user_roles.user_roles
+
   const [value, setValue] = React.useState(0);
-  const roles = 'bhepa';
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

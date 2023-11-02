@@ -6,8 +6,11 @@ import Cookies from 'js-cookie'; // Import the js-cookie library
 import {CardMedia} from "@mui/material";
 import Box from '@mui/material/Box';
 import RegistrationDialog from './RegisterDialog';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage] = useState("");
@@ -44,13 +47,22 @@ function Login() {
       });
 
       if (response.status === 200) {
+        const data = await response.json();
+
         // Authentication successful, show an alert message
         alert("Login successful");
         // Save credentials as secure cookies
         Cookies.set('email', email, { secure: true });
         Cookies.set('password', password, { secure: true });
+        
+        // console.log(data.user)
 
-        window.location.href = '/AdminDashboard';
+        // window.location.href = '/AdminDashboard';
+        if (data.user.roles === "student")
+          navigate('/WelcomePage', { state: { ...location.state, ...data.user } });
+        else
+          navigate('/adminDashboard', { state: { ...location.state, ...data.user } });
+
 
       } else if (response.status === 401) {
         // Handle authentication failure, show an error message in an alert

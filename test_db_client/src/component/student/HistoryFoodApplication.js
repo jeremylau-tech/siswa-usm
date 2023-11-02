@@ -1,67 +1,89 @@
-import React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import Box from "@mui/material/Box";
-import Paper from '@mui/material/Paper';
+import React, { useState,useEffect } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
+// import HistoryFoodApplication from "./student/HistoryFoodApplication";
 
-const columns = [
-  {
-    field: "referenceNumber",
-    headerName: "No Rujukan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "UsedCoupon",
-    headerName: "Tarikh Digunakan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "Vendor",
-    headerName: "Vendor",
-    width: 150,
-    editable: false,
-  },
-];
+import {
+  Card, CardContent, Typography, Button
+} from "@mui/material";
+import '../CouponPage.css';
 
-const rows = [
-  {
-    id: 1,
-    referenceNumber: "REF12345",
-    UsedCoupon: "2023-12-20",
-    Vendor: "Cafe Restu",
-  },
-  {
-    id: 2,
-    referenceNumber: "REF54321",
-    UsedCoupon: "2023-12-20",
-    Vendor: "Cafe Restu",
-  },
-  {
-    id: 3,
-    referenceNumber: "REF98765",
-    UsedCoupon: "2023-12-20",
-    Vendor: "Cafe Restu",
-  },
-  // Add more rows with new sample data as needed
-];
+function CouponPage() {
+  // const { userId } = props.location.state;
+  // const { userId } = props.location.state;
+  const location = useLocation();
+  const navigate = useNavigate();
 
-function HistoryFoodApplication() {
-  const filteredRows = rows.filter((row) => row.status !== "Baharu");
+  const { userId } = location.state;
+  const baucarStatus = "tebus";
+  const [baucar, setBaucar] = useState([]);
+
+  useEffect(() => {
+    // Define the request body with userId and baucarStatus
+    const requestData = {
+      userId: userId,
+      baucarStatus: baucarStatus
+    };
+    
+    fetch("http://localhost:8000/coupons-userid-status", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.coupons) {
+          setBaucar(data.coupons); // Assign data.coupons directly to the baucar state
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user details:", error);
+      });
+  }, [userId]);
+
+  function formatDueDate(dueDate) {
+    const date = new Date(dueDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${day}/${month}/${year}`;
+  }
+  
+  const navToHistory = () => {
+    navigate('/CouponPage', { state: location.state });
+  };
 
   return (
-    <Box sx={{ height: 300, width: "100%" }}>
-      <DataGrid
-        rows={filteredRows}
-        columns={columns}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-        autoHeight
-        style={{ width: '550px' }} 
-      />
-    </Box>
+    <div className="coupon-page">
+      <h1 className="coupon-title">Rekod Penggunaan Kupon Makanan</h1> <Button variant="outlined" color="primary" onClick={() => navToHistory()}>
+                  Kembali
+                </Button>
+    <div className="coupon-container">
+      {baucar.map((baucar, index) => (
+          <Card key={baucar.baucar_id} className="coupon-card">
+            <CardContent>
+              <Typography variant="h4" gutterBottom>
+                Menu Rahmah
+              </Typography>
+              <Typography variant="body1" className={`coupon-code`}>
+                {baucar.baucar_code}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" style={{ marginTop: "8px" }}>
+                {formatDueDate(baucar.baucar_redeem_date)}
+              </Typography>
+              <div style={{ marginTop: "12px" }}>
+                <Button disabled variant="outlined">
+                  Telah Ditebus
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+      ))}
+    </div>
+
+    </div>
   );
 }
 
-export default HistoryFoodApplication;
+export default CouponPage;

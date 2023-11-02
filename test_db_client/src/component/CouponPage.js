@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import {
   Card, CardContent, Typography, Button, Dialog, DialogTitle, DialogContent,
@@ -60,11 +60,14 @@ const coupons = [
   // Add more coupon objects as needed
 ];
 
-function CouponPage(props) {
+function CouponPage() {
   // const { userId } = props.location.state;
   // const { userId } = props.location.state;
   const location = useLocation();
+  const navigate = useNavigate();
+
   const { userId } = location.state;
+  // console.log(location.state)
 
 
   const [useDialogOpen, setUseDialogOpen] = useState(false);
@@ -72,6 +75,12 @@ function CouponPage(props) {
   const [usedCoupons, setUsedCoupons] = useState([]);
   const [redeemIndex, setRedeemIndex] = useState(null);
   const [selectedVendor, setSelectedVendor] = useState("Vendor A");
+
+
+  const navToHistory = () => {
+    navigate('/HistoryFood', { state: location.state });
+  };
+
 
   const handleUseClick = (baucarId) => {
     setRedeemIndex(baucarId);
@@ -163,7 +172,9 @@ function CouponPage(props) {
   console.log(baucar)
   return (
     <div className="coupon-page">
-      <h1 className="coupon-title">Kupon Makanan</h1>
+      <h1 className="coupon-title">Kupon Makanan</h1> <Button variant="outlined" color="primary" onClick={() => navToHistory()}>
+                  Rekod Penebusan
+                </Button>
     <div className="coupon-container">
       {baucar.map((baucar, index) => (
           <Card key={baucar.baucar_id} className="coupon-card">

@@ -31,7 +31,8 @@ import WelcomePage from "./component/WelcomePage";
 import VendorListPage from "./component/admin/vendor/VendorListPage";
 import CouponPage from "./component/CouponPage";
 import FoodApplication from "./component/FoodApplication";
-import HistoryFood from "./component/HistoryFood";
+// import HistoryFood from "./component/HistoryFood";
+import HistoryFood from "./component/student/HistoryFoodApplication";
 
 // Pay attention to this function
 function App() {
@@ -40,7 +41,7 @@ function App() {
       <div className="App">
         <NavBar />
         <Routes>
-          <Route path="/" element={<WelcomePage />} />
+          <Route path="/" element={<Login />} />
           <Route path="/message" element={<MessagePage />} />
           <Route path="/makanan" element={<Makanan />} />
           <Route path="/users" element={<UsersPage />} />
