@@ -2,7 +2,8 @@
 FROM node:16
 
 # Set the working directory in the container
-WORKDIR /app
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json from the "test_db_client" subfolder
 COPY /test_db_client/package*.json ./
@@ -11,13 +12,13 @@ COPY /test_db_client/package*.json ./
 RUN npm install
 
 # Copy all source files from the "test_db_client" subfolder
-COPY . .
+COPY ./ .
 
 # Set the working directory to the "test_db_client" folder
-WORKDIR /app/test_db_client/
+WORKDIR /usr/src/app/test_db_client/
 
 # Expose port 80 (the default port for Apache)
 EXPOSE 3030
 
 # Define the command to start your app (adjust based on your project)
-CMD [ "npm", "start", "||", "true" ]
+CMD [ "npm", "start"]
