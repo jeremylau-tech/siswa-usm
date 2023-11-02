@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:16
+FROM node:20
 
 # Set the working directory in the container
 RUN mkdir -p /usr/src/app
@@ -22,4 +22,6 @@ WORKDIR /usr/src/app/test_db_client/
 EXPOSE 3000
 
 # Define the command to start your app (adjust based on your project)
-CMD [ "npm", "start"]
+RUN npm run build
+RUN npm install -g serve
+CMD [ "serve", "-s", "build"]
