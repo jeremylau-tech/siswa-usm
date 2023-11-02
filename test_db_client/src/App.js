@@ -24,6 +24,7 @@ import NavBar from "./component/NavBar";
 import TermsConditions from "./component/TermsCondition";
 import ApplicationListPage from "./component/admin/application/ApplicationListPage";
 import EvaluationPage from "./component/admin/evaluation/EvaluationPage";
+import ArchivePage from "./component/admin/evaluation/ArchivePage";
 import AnalyticDashboard from "./component/admin/AnalyticDashboard";
 import AdminDashboard from "./component/admin/AdminDashboard";
 import UploadPage from "./component/UploadPage";
@@ -55,7 +56,7 @@ function App() {
       <div className="App">
         <NavBar />
         <Routes>
-          <Route path="/" element={<WelcomePage />} />
+          <Route path="/" element={<Login />} />
           <Route path="/message" element={<MessagePage />} />
           <Route path="/makanan" element={<Makanan />} />
           <Route path="/users" element={<UsersPage />} />
@@ -66,6 +67,7 @@ function App() {
           <Route path="/ApplicationListPage" element={<ApplicationListPage />} />
           <Route path="/TermsConditions" element={<TermsConditions />} />
           <Route path="/EvaluationPage" element={<EvaluationPage />} />
+          <Route path="/ArchivePage" element={<ArchivePage />} />
           <Route path="/AnalyticDashboard" element={<AnalyticDashboard />} />
           <Route path="/AdminDashboard" element={<AdminDashboard />} />
           <Route path="/UploadPage" element={<UploadPage />} />
