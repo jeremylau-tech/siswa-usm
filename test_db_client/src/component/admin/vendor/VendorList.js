@@ -3,14 +3,19 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import InvoicePage from "./InvoiceDialog"; // Import the InvoicePage component\
 import CreateVendor from "./EditVendor";
+import InvoicePage from "./InvoicePage"; // Import the InvoicePage component
+import { Link, Route, BrowserRouter as Router } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
+
 
 function VendorList() {
   const [selectedVendor, setSelectedVendor] = useState(null);
-  const [showInvoiceDialog, setShowInvoiceDialog] = useState(false);
   const [showCreateVendorDialog, setShowCreateVendorDialog] = useState(false);
   const [selectedCreateVendor, setSelectedCreateVendor] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleRekodClick = (rowId) => {
     // Handle the Rekod button click for the row with the given ID
@@ -21,7 +26,8 @@ function VendorList() {
     // Handle the Tuntutan button click for the row
     console.log("Tuntutan button clicked for row:", row);
     setSelectedVendor(row);
-    setShowInvoiceDialog(true);
+    console.log('Hello')
+    navigate("/InvoicePage", { state: { row } });
   };
 
   const handleEditClick = (row) => {
@@ -154,6 +160,9 @@ function VendorList() {
       phoneNo: "0123456789",
       email: "kassim@usm.my",
       registrationDate: "01/03/2022",
+      bank: "Maybank",
+      accountNo: "123456789",
+      accountName: "Kassim Bin Ahmad",
     },
     {
       id: 2,
@@ -169,6 +178,9 @@ function VendorList() {
       phoneNo: "012232789",
       email: "fahmi@usm.my",
       registrationDate: "01/01/2021",
+      bank: "CIMB",
+      accountNo: "123456789",
+      accountName: "Shielawanis Binti Shamsuddin",
     },
     {
       id: 3,
@@ -184,6 +196,9 @@ function VendorList() {
       phoneNo: "0123456732",
       email: "saufuddin@usm.my",
       registrationDate: "01/02/2021",
+      bank: "HSBC",
+      accountNo: "123456789",
+      accountName: "Saifuddin Bin Nasution",
     },
     // Add more rows with data as needed
   ];
@@ -193,16 +208,14 @@ function VendorList() {
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
       </Box>
-      {showInvoiceDialog && selectedVendor && (
-        <InvoicePage selectedVendor={selectedVendor} onClose={() => setShowInvoiceDialog(false)} />
-      )}
       {showCreateVendorDialog && selectedCreateVendor && (
-        <CreateVendor selectedVendor={selectedCreateVendor} onClose={() => setShowCreateVendorDialog(false)} />
+        <CreateVendor
+          selectedVendor={selectedCreateVendor}
+          onClose={() => setShowCreateVendorDialog(false)}
+        />
       )}
     </div>
   );
 }
 
 export default VendorList;
-
-

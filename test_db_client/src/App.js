@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MessagePage from "./component/MessagePage";
 import UsersPage from "./component/UsersPage";
 import InsertPage from "./component/InsertPage";
@@ -13,13 +13,13 @@ import Makanan from "./component/MakananPage";
 
 // Insert new import statement here
 import LandingPage from "./component/LandingPage";
-import BaucarFormPage from './component/forms/BaucarFormPage'; 
+import BaucarFormPage from './component/forms/BaucarFormPage';
 import WangFormPage from './component/forms/WangFormPage';
 import WangNextPage from './component/forms/WangNextPage';
-import KhairatFormPage from './component/forms/KhairatFormPage'; 
-import KhairatNextPage from './component/forms/KhairatNextPage'; 
+import KhairatFormPage from './component/forms/KhairatFormPage';
+import KhairatNextPage from './component/forms/KhairatNextPage';
 import PerantiFormPage from './component/forms/PerantiFormPage';
-import PerantiNextPage from './component/forms/PerantiNextPage'; 
+import PerantiNextPage from './component/forms/PerantiNextPage';
 import NavBar from "./component/NavBar";
 import TermsConditions from "./component/TermsCondition";
 import ApplicationListPage from "./component/admin/application/ApplicationListPage";
@@ -35,6 +35,8 @@ import VendorListPage from "./component/admin/vendor/VendorListPage";
 import CouponPage from "./component/CouponPage";
 import FoodApplication from "./component/FoodApplication";
 import HistoryFood from "./component/HistoryFood";
+import InvoicePage from "./component/admin/vendor/InvoicePage";
+
 
 // Pay attention to this function
 
@@ -62,7 +64,7 @@ function App() {
           <Route path="/users" element={<UsersPage />} />
           <Route path="/insert" element={<InsertPage />} />
 
-           {/* Add new page down here as new route (Use the below format) */}
+          {/* Add new page down here as new route (Use the below format) */}
           <Route path="/newpagetest" element={<NewPageTest />} />
           <Route path="/ApplicationListPage" element={<ApplicationListPage />} />
           <Route path="/TermsConditions" element={<TermsConditions />} />
@@ -77,6 +79,8 @@ function App() {
           <Route path="/CouponPage" element={<CouponPage />} />
           <Route path="/FoodApplication" element={<FoodApplication />} />
           <Route path="/HistoryFood" element={<HistoryFood />} />
+          <Route path="/InvoicePage" element={<InvoicePage />} />
+
 
           {/* Add new Landing Page route */}
           <Route path="/LandingPage" element={<LandingPage />} />
