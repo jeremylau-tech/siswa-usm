@@ -34,7 +34,7 @@ function KhairatFormPage() {
             <input type="text" id="matricNum" name="matricNum" />
           </div>
           <div className="form-group">
-            <label htmlFor="icNum">Nombor Kad Penganalan:</label>
+            <label htmlFor="icNum">Nombor Kad Pengenalan:</label>
             <input type="text" id="icNum" name="icNum" />
           </div>
           <div className="form-group">

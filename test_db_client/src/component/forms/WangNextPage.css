@@ -1,30 +1,12 @@
 /* WangNextPage.css */
-.checkbox-label {
-    margin-top: 5px;
-    display: block;
-    margin-bottom: 5px;
-    font-weight: normal;
-    font-size: 16px;
-    color: #333; /* Customize the label text color */
-    border: 1px solid #333; /* Add a border around the label */
-    padding: 5px; /* Reduce the padding for spacing */
-    border-radius: 5px; /* Add rounded corners */
-    width: 300px; /* Default width */
-  
-    @media (max-width: 768px) {
-      /* Adjust width for smaller screens */
-      width: 100%; /* Full width for screens up to 768px wide */
-    }
-  }
-  
-  .checkbox-input {
-    margin-right: 8px;
-    vertical-align: middle;
-  }
 
-  .select-container-wang {
+.select-container-wang {
     text-align: left; /* Align the content to the left */
-  } 
+} 
+
+.select-container-bantuan {
+  text-align: left; /* Align the content to the left */
+} 
 
 .form-group input[type="number"] {
   margin-top: 5px;
