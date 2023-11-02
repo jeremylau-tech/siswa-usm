@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./WangNextPage.css";
 import DragDrop from "../functions/DragDrop";
+import { Link } from "react-router-dom";
 
 function WangNextPage() {
   const [icNumFile, setIcNumFile] = useState(null); // Maintain the selectedFile state
@@ -38,9 +39,24 @@ function WangNextPage() {
   };
 
   const buttonStyle = {
-    backgroundColor: "#491E6E",
-    borderColor: "#491E6E",
-    color: "white",
+    padding: '10px 20px',
+    borderRadius: '5px',
+    marginRight: '10px',
+    width: 'calc(48% - 5px)',
+  };
+  
+  const kembaliButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#808080', // Lighter color for Kembali button
+    borderColor: '#808080', // Matching border color
+    color: 'white', // Text color for Kembali button
+  };
+  
+  const hantarButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#491E6E',
+    borderColor: '#491E6E',
+    color: 'white',
   };
 
   return (
@@ -144,9 +160,18 @@ function WangNextPage() {
             <DragDrop selectedFile={supportDocFile} setSelectedFile={setSupportDocFile} />
           </div>
 
-          <button type="submit" style={buttonStyle}>
-            Hantar
-          </button>
+          {/* Button container */}
+          <div className="button-container">
+            <Link to="/Wang_FormPage">
+              <button type="button" style={kembaliButtonStyle}>
+                Kembali
+              </button>
+            </Link>
+            <button type="submit" style={hantarButtonStyle}>
+              Hantar
+            </button>
+          </div>
+
         </form>
       </div>
     </div>
