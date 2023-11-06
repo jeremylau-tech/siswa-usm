@@ -1,50 +1,30 @@
 import React from "react";
 import jsPDF from "jspdf";
 import {
-  Typography,
   Button,
-  Box,
 } from "@mui/material";
 import { renderToString } from "react-dom/server";
 import { useLocation, useNavigate } from "react-router-dom";
+import './InvoicePrint.css';
 
-function InvoicePage({ selectedVendor }) {
+
+function InvoicePage({ }) {
   const location = useLocation();
   const row = location.state.row;
   let totalInvoice = row.couponUsed * 5;
   let date = new Date().toLocaleDateString();
 
-
   const handlePrint = () => {
-    // const string = renderToString(<Prints />);
-    // const pdf = new jsPDF("p", "mm", "a4");
-    // pdf.fromHTML(string);
-    // pdf.save(`Invoice_${selectedVendor.VendorName}.pdf`);
+    let printContents = document.getElementById('printablediv').innerHTML;
+    let originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
   };
-
-  const Prints = () => (
-    <div>
-      <h1>Invoice for: {selectedVendor.VendorName}</h1>
-      <p>ID Vendor: {selectedVendor.idVendor}</p>
-      <p>Description: {selectedVendor.description}</p>
-      <p>Owner: {selectedVendor.owner}</p>
-      <p>Phone No: {selectedVendor.phoneNo}</p>
-      <p>Email: {selectedVendor.email}</p>
-      <p>Registration Date: {selectedVendor.registrationDate}</p>
-
-      <h2>Products:</h2>
-      <ul>
-        <li>Product A: 2 units x $50.00</li>
-        <li>Product B: 3 units x $30.00</li>
-      </ul>
-
-      <p>Total: $190.00</p>
-    </div>
-  );
 
   return (
     <div>
-      <div className="invoice-box" style={styles.invoiceBox}>
+      <div className="invoice-box " id='printablediv' style={styles.invoiceBox}>
         <table cellPadding="0" cellSpacing="0" style={styles.table}>
           <tr className="top" style={styles.topTableTd}>
             <td colSpan="2" style={styles.topTableTd}>
@@ -54,7 +34,7 @@ function InvoicePage({ selectedVendor }) {
                     <img
                       src={row.logoUrl}
                       alt="Logo"
-                      style={{ ...styles.title, maxWidth: '300px' }} // Adjust the max width as needed
+                      style={{ ...styles.title, maxWidth: '300px', maxHeight: '100px', }} // Adjust the max width as needed
                     />
                   </td>
                   <td style={{ ...styles.topTableTd, textAlign: 'right' }}>
@@ -89,7 +69,6 @@ function InvoicePage({ selectedVendor }) {
             </td>
           </tr>
 
-
           <tr className="heading" style={styles.headingTd}>
             <td>Item</td>
             <td>Price</td>
@@ -118,15 +97,17 @@ function InvoicePage({ selectedVendor }) {
           </tr>
         </table>
       </div>
-      <Button
-        style={{
-          backgroundColor: 'grey',
-          color: 'white',
-          marginTop: '20px',
-        }}
-        variant="contained" onClick={handlePrint}>
-        Print
-      </Button>
+      <div className="">
+        <Button
+          style={{
+            backgroundColor: 'grey',
+            color: 'white',
+            marginTop: '20px',
+          }}
+          variant="contained" onClick={handlePrint}>
+          Print
+        </Button>
+      </div>
     </div>
   );
 }
