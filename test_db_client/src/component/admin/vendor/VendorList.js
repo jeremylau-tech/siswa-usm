@@ -154,7 +154,7 @@ function VendorList() {
       couponUsed: 10,
       couponUsedTotal: 100,
       status: "Active",
-      logoUrl: "https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
+      logoUrl: "https://static.wixstatic.com/media/951be0_064baafbc96f4ccda4a094e6f8cd8066~mv2.png/v1/fill/w_240,h_106,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/He%26She_Black_Logo.png",
       description: "Vegan Food",
       owner: "Kassim Bin Ahmad",
       phoneNo: "0123456789",
