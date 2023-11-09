@@ -187,6 +187,69 @@ app.get("/vendor-table", (req, res) => {
   });
 });
 
+app.post('/insert-vendor', (req, res) => {
+  const {
+    vendorName,
+    vendorLocation,
+    vendorDescription,
+    vendorFullname,
+    vendorPhoneNo,
+    vendorEmail,
+    vendorBankAccName,
+    vendorBankAccNo,
+    vendorBankName,
+  } = req.body;
+
+  // Validate required fields
+  if (
+    !vendorName ||
+    !vendorLocation ||
+    !vendorDescription ||
+    !vendorFullname ||
+    !vendorPhoneNo ||
+    !vendorEmail ||
+    !vendorBankAccName ||
+    !vendorBankAccNo ||
+    !vendorBankName
+  ) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  const currentDate = new Date().toISOString().slice(0, 10);
+  const vendorStatus = 'active';
+
+  const sql = `
+    INSERT INTO vendor 
+    (vendor_location, vendor_name, vendor_status, vendor_description, vendor_fullname, 
+    vendor_phone, vendor_email, vendor_register_date, vendor_bank, vendor_bank_acc, vendor_bank_acc_name)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const values = [
+    vendorLocation,
+    vendorName,
+    vendorStatus,
+    vendorDescription,
+    vendorFullname,
+    vendorPhoneNo,
+    vendorEmail,
+    currentDate,
+    vendorBankName,
+    vendorBankAccNo,
+    vendorBankAccName,
+  ];
+
+  // Execute the query
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error inserting data into MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      console.log('Data inserted successfully');
+      res.json({ message: 'Data inserted successfully' });
+    }
+  });
+});
 
 // Define the route to handle the PUT request for request editing
 app.post('/request-edit-tolak', (req, res) => {
