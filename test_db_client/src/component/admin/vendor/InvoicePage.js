@@ -1,11 +1,8 @@
 import React from "react";
-import jsPDF from "jspdf";
 import {
   Button,
 } from "@mui/material";
-import { renderToString } from "react-dom/server";
 import { useLocation, useNavigate } from "react-router-dom";
-// import './InvoicePrint.css';
 
 
 function InvoicePage({ }) {
@@ -20,11 +17,16 @@ function InvoicePage({ }) {
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
+    window.location.reload();
   };
 
   return (
     <div>
-      <div className="invoice-box " id='printablediv' style={styles.invoiceBox}>
+      <div id="printablediv" 
+      style={{
+        padding:'30px',
+      }}>
+      <div className="invoice-box" style={styles.invoiceBox}>
         <table cellPadding="0" cellSpacing="0" style={styles.table}>
           <tr className="top" style={styles.topTableTd}>
             <td colSpan="2" style={styles.topTableTd}>
@@ -98,8 +100,10 @@ function InvoicePage({ }) {
           </tr>
         </table>
       </div>
-      <div className="">
+      </div>
+      <div>
         <Button
+          className="col"
           style={{
             backgroundColor: 'grey',
             color: 'white',
