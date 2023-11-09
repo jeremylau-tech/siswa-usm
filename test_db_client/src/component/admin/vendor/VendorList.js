@@ -119,8 +119,8 @@ function VendorList() {
           </Button>
           <Button
             style={{
-              backgroundColor: "#fafafa",
-              color: "black",
+              backgroundColor: params.row.baucarToClaim ? "#fafafa" : "#dcdcdc", // Use different colors based on the condition
+              color: params.row.baucarToClaim ? "black" : "#808080", // Adjust text color accordingly
               fontWeight: "bold",
               boxShadow: "none",
               outlineColor: "lightgrey",
@@ -133,6 +133,7 @@ function VendorList() {
             variant="contained"
             color="secondary"
             onClick={() => handleTuntutanClick(params.row)}
+            disabled={!params.row.baucarToClaim}
           >
             Tuntutan
           </Button>
@@ -160,6 +161,64 @@ function VendorList() {
       ),
     },
   ]; 
+
+  // const rows = [
+  //   {
+  //     id: 1,
+  //     idVendor: "VENDOR123",
+  //     VendorName: "Vendor A",
+  //     location: "Location A",
+  //     couponUsed: 10,
+  //     couponUsedTotal: 100,
+  //     status: "Active",
+  //     logoUrl: "https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
+  //     description: "Vegan Food",
+  //     owner: "Kassim Bin Ahmad",
+  //     phoneNo: "0123456789",
+  //     email: "kassim@usm.my",
+  //     registrationDate: "01/03/2022",
+  //     bank: "Maybank",
+  //     accountNo: "123456789",
+  //     accountName: "Kassim Bin Ahmad",
+  //   },
+  //   {
+  //     id: 2,
+  //     idVendor: "VENDOR456",
+  //     VendorName: "Vendor B",
+  //     location: "Location B",
+  //     couponUsed: 5,
+  //     couponUsedTotal: 5,
+  //     status: "Active",
+  //     logoUrl: "https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
+  //     description: "Burger",
+  //     owner: "Fahmi Fadzil",
+  //     phoneNo: "012232789",
+  //     email: "fahmi@usm.my",
+  //     registrationDate: "01/01/2021",
+  //     bank: "CIMB",
+  //     accountNo: "123456789",
+  //     accountName: "Shielawanis Binti Shamsuddin",
+  //   },
+  //   {
+  //     id: 3,
+  //     idVendor: "VENDOR457",
+  //     VendorName: "Vendor C",
+  //     location: "Location C",
+  //     couponUsed: 5,
+  //     couponUsedTotal: 7,
+  //     status: "Inactive",
+  //     logoUrl: "https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
+  //     description: "Nasi Kandar",
+  //     owner: "Saifuddin Bin Nasution",
+  //     phoneNo: "0123456732",
+  //     email: "saufuddin@usm.my",
+  //     registrationDate: "01/02/2021",
+  //     bank: "HSBC",
+  //     accountNo: "123456789",
+  //     accountName: "Saifuddin Bin Nasution",
+  //   },
+  //   // Add more rows with data as needed
+  // ];
 
   const rows = Object.values(vendorMap);
   const getRowId = (row) => row.vendor_id;
