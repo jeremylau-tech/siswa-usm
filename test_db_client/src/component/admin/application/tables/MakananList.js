@@ -9,181 +9,185 @@ import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import Typography from "@mui/material/Typography";
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
-import {rows} from "./Data.js";
+import { Link } from 'react-router-dom';
+import StickyNote2RoundedIcon from '@mui/icons-material/StickyNote2Rounded';
+import AssignmentTurnedInRoundedIcon from '@mui/icons-material/AssignmentTurnedInRounded';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
 
-
-// const downloadDataAsCSV = () => {
-//   // Create a header row with column names
-//   const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor, Nama pelulus TNC';
-
-//   // Create a CSV content string by combining the header and data
-//   const csvData = [header].concat(
-//     rows.map((row) =>
-//       `${row.requestor_id},${row.requestor_name},${row.request_type},${row.request_date},${row.request_status},${row.admin_approver_id},${row.bhepa_approver_id},${row.tnc_approver_id}`
-//     )
-//   ).join('\n');
-
-//   // Create a Blob with the CSV content
-//   const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
-
-//   // Use a library like FileSaver.js or implement the saveAs function
-//   // to trigger the download. Here's how you can use FileSaver.js:
-//   saveAs(blob, 'data.csv');
-// };
-
-const columns = [
-  {
-    field: "request_id",
-    headerName: "No Rujukan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "requestor_name",
-    headerName: "Nama Pelajar",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "request_type",
-    headerName: "Jenis Permohonan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "request_date",
-    headerName: "Tarikh Permohonan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "request_status",
-    headerName: "Status",
-    width: 200,
-    editable: false,
-    renderCell: (params) => {
-      const status = params.value;
-      let textColor = "white"; // You can change the text color as needed
-      let backgroundColor = ""; // You can change the background color as needed
-
-      switch (status) {
-        case "baharu":
-          textColor = "#ff8f00"
-          backgroundColor = "#ffecb3"
-          break;
-        case "sah":
-          textColor = "#757575"
-          backgroundColor = "#eeeeee"
-          break;
-        case "syor":
-          textColor = "#558b2f"
-          backgroundColor = "#dcedc8"
-          break;
-        case "lulus":
-          textColor = "#558b2f"
-          backgroundColor = "#dcedc8"
-          break;
-        case "tolak":
-          textColor = "#e53935"
-          backgroundColor = "#ffcdd2"
-          break;
-        default:
-          break;
-      }
-
-      const cellStyle = {
-        color: textColor,
-        padding : 2,
-        fontSize: 12,
-        fontWeight: "bold",
-        width: 90,
+   function NewApplication({roles}){
+    const columns = [
+      {
+        field: "request_id",
+        headerName: "No Rujukan",
+        width: 150,
+        editable: false,
+      },
+      {
+        field: "requestor_name",
+        headerName: "Nama Pelajar",
+        width: 150,
+        editable: false,
+      },
+      {
+        field: "request_type",
+        headerName: "Jenis Permohonan",
+        width: 150,
+        editable: false,
+      },
+      {
+        field: "request_date",
+        headerName: "Tarikh Permohonan",
+        width: 150,
+        editable: false,
+      },
+      {
+        field: "semakan",
+        headerName: "Semakan",
+        width: 130,
+        editable: false,
+        renderCell: (params) => {
+          const status = params.row.request_status; // Access the status value for the same row
+          const getIndicator = (status) => {
+            switch (status) {
+              case "baharu":
+                return (
+                  <>
+                    <status-indicator intermediary></status-indicator>
+                    <status-indicator ></status-indicator>
+                    <status-indicator ></status-indicator>
+                  </>
+                );
+              case "semak":
+                return (
+                  <>
+                    <status-indicator positive></status-indicator>
+                    <status-indicator intermediary></status-indicator>
+                    <status-indicator></status-indicator>
+                  </>
+                );
+              case "syor":
+                return (
+                  <>
+                    <status-indicator positive></status-indicator>
+                    <status-indicator positive></status-indicator>
+                    <status-indicator intermediary></status-indicator>
+                  </>
+                );
+              case "lulus":
+                return (
+                  <>
+                    <status-indicator positive></status-indicator>
+                    <status-indicator positive></status-indicator>
+                    <status-indicator positive></status-indicator>
+    
+                  </>
+                );
+              case "tolak":
+                return (
+                  <>
+                    <status-indicator negative></status-indicator>
+                    <status-indicator></status-indicator>
+                    <status-indicator></status-indicator>
+                  </>
+                );
+              default:
+                return <div>No Indicator</div>;
+            }
+          };
+    
+          return (
+            <div>
+              {getIndicator(status)}
+            </div>
+          );
+        },
+      },
+      {
+        field: "actions",
+        headerName: "Tindakan",
+        width: 100,
+        sortable: false,
+        renderCell: (params) => (
+          <Link to={`/ArchivePage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
+    
+          <Button
+            style={{
+              backgroundColor: "#fafafa",
+              color: "black",
+              fontWeight: "bold",
+              boxShadow: "none",
+              outlineColor: "lightgrey",
+              outlineStyle: "solid",
+              outlineWidth: "1.5px",
+              textTransform: "none",
+              display: "flex",
+            }}
+            variant="contained"
+          >
+            <span >{getStatusButtonText(params.row.request_status).icon}</span>
+            {getStatusButtonText(params.row.request_status).text}
+          </Button>
+          </Link>
+        ),
+      },
+      {
+        field: "catatan",
+        headerName: "Catatan",
+        width: 100,
+        sortable: false,
+        renderCell: (params) => (
+          <Button
+            style={{
+              backgroundColor: "#fafafa",
+              color: "black",
+              fontWeight: "bold",
+              boxShadow: "none",
+              outlineColor: "lightgrey",
+              outlineStyle: "solid",
+              outlineWidth: "1.5px",
+              textTransform: "none",
+              display: "flex",
+            }}
+            variant="contained"
+            onClick={() => handleCatatanButton("later put here for remarking")}
+          >
+            <span >
+              <StickyNote2RoundedIcon> </StickyNote2RoundedIcon>
+            </span>
+          </Button>
+        ),
+      },
+    ];
+    
+    const getStatusButtonText = (status) => {
+      let buttonText = "";
+      let icon = <AssignmentTurnedInRoundedIcon />;
+      return { text: buttonText, icon: icon };
+    };
+    
+    
+      const [open, setOpen] = useState(false); // State variable to control the dialog
+    
+      const handleClose = () => {
+        setOpen(false); // Close the dialog
       };
-
-      const paperStyle = {
-        backgroundColor: backgroundColor,
-        borderRadius: 25,
+      
+      const handleButtonClick = (rowId) => {
+      // Add your logic here to handle the button click for the row with the given ID
+      alert(`Button clicked for row with ID: ${rowId}`);
       };
-
-      return (
-        <Paper
-          square={false}
-          elevation={0}
-          style={paperStyle}
-        >
-        <div style={cellStyle}>
-          {params.value}
-        </div>
-        </Paper>
-      );},
-  },
-  {
-    field: "actions",
-    headerName: "Tindakan",
-    width: 150,
-    sortable: false,
-    renderCell: (params) => (
-      <Button
-        style = {{
-          backgroundColor: "#fafafa", 
-          color: "black", 
-          fontWeight: "bold", 
-          boxShadow: "none",
-          outlineColor: "lightgrey",
-          outlineStyle: "solid",
-          outlineWidth: "1.5px",
-          width: 150,
-          textTransform: "none",
-          padding: "3px",
-        }}
-        variant="contained"
-        href="http://localhost:3000/EvaluationPage"
-        onClick={() => handleButtonClick(params.row.request_id)}
-      >
-        <span style={{ marginRight: "20px" }}>{getStatusButtonText(params.row.request_status).icon}</span>
-          {getStatusButtonText(params.row.request_status).text}
-      </Button>
-    ),
-  },
-];
-
-  const getStatusButtonText = (status) => {
-    let buttonText = "";
-    let icon = null;
-  
-    switch (status) {
-      case "sah":
-        buttonText = "Sahkan";
-        icon = <CheckCircleRounded />;
-        break;
-      case "baharu":
-        buttonText = "Semak";
-        icon = <RuleRoundedIcon />;
-        break;
-      case "syor":
-        buttonText = "Lihat";
-        icon = <RemoveRedEyeRoundedIcon />;
-        break;
-      case "tolak":
-        buttonText = "Lihat";
-        icon = <RemoveRedEyeRoundedIcon />;
-        break;
-      default:
-        buttonText = "Unknown";
-        break;
-    }
-  
-    return { text: buttonText, icon: icon };
-  };
-  
-  const handleButtonClick = (rowId) => {
-  // Add your logic here to handle the button click for the row with the given ID
-  console.log(`Button clicked for row with ID: ${rowId}`);
-  };
-  
-   function NewApplication(){
-
-    const [requests, setRequests] = useState([]);
-    const [userDetailsMap, setUserDetailsMap] = useState({});
+    
+      const handleCatatanButton = (remark) => {
+        console.log(`Button clicked for row with ID: ${remark}`);
+        setOpen(true);
+        setSelectedCatatan(remark); // Store the rowId in the state
+      };
+    
+      const [selectedCatatan, setSelectedCatatan] = useState(null);
+      const [requests, setRequests] = useState([]);
+      const [userDetailsMap, setUserDetailsMap] = useState({});
   
     
   useEffect(() => {
@@ -265,12 +269,13 @@ const columns = [
 
   return (
     
-      <Box sx={{ height: 400, width: "100%" }}>
-        <Box sx={{ flexGrow: 1,}}
+    <div>
+    <Box sx={{ height: 400, width: "100%" }}>
+      <Box sx={{ flexGrow: 1, }}
         margin={1}
         align={"right"}
-        >
-         <Button variant="contained" 
+      >
+        <Button variant="contained"
           style={{
             color: "#424242",
             textTransform: "none",
@@ -278,35 +283,47 @@ const columns = [
             boxShadow: "none",
           }
           }
-           onClick={downloadDataAsCSV}>
-            Muat Turun
-            <DownloadRoundedIcon
-              sx={{ ml: 1 }}
-            />
-          </Button>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            fontStyle={"italic"}
-            fontSize={12}
-          >  format .CSV </Typography>
-        </Box>
-        <DataGrid
-          rows={requests}
-          columns={columns}
-          getRowId={(row) => row.request_id} // Assuming request_id is unique
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
-          pageSizeOptions={[5]}
-          checkboxSelection
-          disableRowSelectionOnClick
-        />
+          onClick={downloadDataAsCSV}>
+          Muat Turun
+          <DownloadRoundedIcon
+            sx={{ ml: 1 }}
+          />
+        </Button>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          fontStyle={"italic"}
+          fontSize={12}
+        >  format .CSV </Typography>
       </Box>
+      <DataGrid
+        rows={requests}
+        columns={columns}
+        getRowId={(row) => row.request_id} // Assuming request_id is unique
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 10,
+            },
+          },
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
+      />
+    </Box>
+    {/* Dialog component */}
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle variant='h5'>Catatan</DialogTitle>
+      <DialogContent>
+        {selectedCatatan !== null ? (
+          <div>
+            {selectedCatatan}
+          </div>
+        ) : null}
+      </DialogContent>
+    </Dialog>
+  </div>
   );
   }
 

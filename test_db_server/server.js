@@ -32,7 +32,7 @@ function generateCouponCode(length) {
 
 // MySQL connection configuration
 const db = mysql.createConnection({
-host: '172.17.0.100',
+host: 'localhost',
 user: 'root',
 password: 'Admin@12345',
 database: 'bhepa_test',
@@ -125,6 +125,131 @@ app.get('/get-pdf', (req, res) => {
   });
 });
 
+app.get("/vendor-all", (req, res) => {
+  // SQL query to select all records from the "user" table
+  const sql = "SELECT * FROM vendor";
+
+  // Execute the query
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response
+          res.json({ vendors: results });
+      }
+  });
+});
+
+app.get("/vendor-all-aktif", (req, res) => {
+  // SQL query to select all records from the "user" table
+  const sql = "SELECT * FROM vendor WHERE vendor_status = 'Active'";
+
+  // Execute the query
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response
+          res.json({ vendors: results });
+      }
+  });
+});
+
+app.get("/vendor-table", (req, res) => {
+  // SQL query to select all records from the "vendor" table and count of matching records in "baucar" table
+  const sql = `
+    SELECT 
+      vendor.*,
+      SUM(CASE WHEN baucar.baucar_status = "tebus" OR baucar.baucar_status = "tuntut" THEN 1 ELSE 0 END) AS baucarCountRedeemed,
+      SUM(CASE WHEN baucar.baucar_status = "tuntut" THEN 1 ELSE 0 END) AS baucarCountClaimed
+    FROM vendor
+    LEFT JOIN baucar ON vendor.vendor_id = baucar.vendor_id
+    GROUP BY vendor.vendor_id;
+  `;
+
+  // Execute the query
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Calculate baucarNeedClaim here (difference between baucarCountRedeem and baucarCountClaim)
+      const vendorsWithCalculatedData = results.map((vendor) => ({
+        ...vendor,
+        baucarToClaim: vendor.baucarCountRedeemed - vendor.baucarCountClaimed,
+      }));
+
+      // Send the retrieved data with calculated fields as a JSON response
+      res.json({ vendors: vendorsWithCalculatedData });
+    }
+  });
+});
+
+app.post('/insert-vendor', (req, res) => {
+  const {
+    vendorName,
+    vendorLocation,
+    vendorDescription,
+    vendorFullname,
+    vendorPhoneNo,
+    vendorEmail,
+    vendorBankAccName,
+    vendorBankAccNo,
+    vendorBankName,
+  } = req.body;
+
+  // Validate required fields
+  if (
+    !vendorName ||
+    !vendorLocation ||
+    !vendorDescription ||
+    !vendorFullname ||
+    !vendorPhoneNo ||
+    !vendorEmail ||
+    !vendorBankAccName ||
+    !vendorBankAccNo ||
+    !vendorBankName
+  ) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  const currentDate = new Date().toISOString().slice(0, 10);
+  const vendorStatus = 'active';
+
+  const sql = `
+    INSERT INTO vendor 
+    (vendor_location, vendor_name, vendor_status, vendor_description, vendor_fullname, 
+    vendor_phone, vendor_email, vendor_register_date, vendor_bank, vendor_bank_acc, vendor_bank_acc_name)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const values = [
+    vendorLocation,
+    vendorName,
+    vendorStatus,
+    vendorDescription,
+    vendorFullname,
+    vendorPhoneNo,
+    vendorEmail,
+    currentDate,
+    vendorBankName,
+    vendorBankAccNo,
+    vendorBankAccName,
+  ];
+
+  // Execute the query
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error inserting data into MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      console.log('Data inserted successfully');
+      res.json({ message: 'Data inserted successfully' });
+    }
+  });
+});
 
 // Define the route to handle the PUT request for request editing
 app.post('/request-edit-tolak', (req, res) => {
@@ -206,8 +331,8 @@ app.post('/request-edit-lulus', (req, res) => {
 
   
   if (req_status == "lulus") {
-    // const currentDate = new Date();
-    // const formattedCurrentDate = currentDate.toISOString().split('T')[0];
+    const currentDate = new Date();
+    const formattedCurrentDate = currentDate.toISOString().split('T')[0];
 
     const fixDueDate = '2023-12-31';
     // const threeMonthsLater = new Date(currentDate);
@@ -438,7 +563,7 @@ app.get("/coupons-count", (req, res) => {
 });
 
 app.post("/coupons-redeem", (req, res) => {
-  const { baucarId, baucarVendor } = req.body;
+  const { baucarId, vendorId } = req.body;
   // console.log(baucarVendor)
 
   if (!baucarId) {
@@ -448,9 +573,9 @@ app.post("/coupons-redeem", (req, res) => {
   const baucarStatus = "tebus";
 
   // Update the request in the database based on the requestId
-  const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = NOW(), baucar_vendor = ?  WHERE baucar_id = ?`;
+  const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = NOW(), vendor_id = ?  WHERE baucar_id = ?`;
 
-  db.query(sql, [baucarStatus, baucarVendor, baucarId], (err, results) => {
+  db.query(sql, [baucarStatus, vendorId, baucarId], (err, results) => {
     if (err) {
       console.error('Error updating request:', err);
       res.status(500).json({ message: 'Internal Server Error' });
@@ -459,6 +584,30 @@ app.post("/coupons-redeem", (req, res) => {
     }
   });
 });
+
+app.post("/coupons-claimed", (req, res) => {
+  const {vendorId } = req.body;
+  // console.log(baucarVendor)
+
+  if (!vendorId) {
+    return res.status(400).json({ message: 'baucarId is required' });
+  }
+
+  const baucarStatus = "tuntut";
+
+  // Update the request in the database based on the requestId
+  const sql = `UPDATE baucar SET baucar_status = ? WHERE vendor_id = ? AND baucar_status = "tebus"`;
+
+  db.query(sql, [baucarStatus, vendorId], (err, results) => {
+    if (err) {
+      console.error('Error updating request:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json({ message: 'Request updated successfully' });
+    }
+  });
+});
+
 
 app.get("/users", (req, res) => {
     // SQL query to select all records from the "user" table
@@ -748,6 +897,6 @@ app.post("/insert-users", (req, res) => {
 
 
 
-app.listen(3000, () => {
-  console.log(`Server is running on port 3000.`);
+app.listen(8000, () => {
+  console.log(`Server is running on port 8000.`);
 });

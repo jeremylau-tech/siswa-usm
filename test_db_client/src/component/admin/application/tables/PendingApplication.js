@@ -13,30 +13,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import StickyNote2RoundedIcon from '@mui/icons-material/StickyNote2Rounded';
+import { Link } from 'react-router-dom';
 
 
-// const downloadDataAsCSV = () => {
-//   // Create a header row with column names
-//   const header = 'No Rujukan,Nama Pelajar,Jenis Permohonan,Tarikh Permohonan,Status,Nama penyemak admin, Nama pengesyor, Nama pelulus TNC';
-
-//   // Create a CSV content string by combining the header and data
-//   const csvData = [header].concat(
-//     rows.map((row) =>
-//       `${row.requestor_id},${row.requestor_name},${row.request_type},${row.request_date},${row.request_status},${row.admin_approver_id},${row.bhepa_approver_id},${row.tnc_approver_id}`
-//     )
-//   ).join('\n');
-
-//   // Create a Blob with the CSV content
-//   const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
-
-//   // Use a library like FileSaver.js or implement the saveAs function
-//   // to trigger the download. Here's how you can use FileSaver.js:
-//   saveAs(blob, 'data.csv');
-// };
-
-
-
-function PendingList() {
+function PendingList({roles}) {
 
   const [open, setOpen] = useState(false); // State variable to control the dialog
 
@@ -71,71 +51,6 @@ function PendingList() {
       headerName: "Tarikh Permohonan",
       width: 150,
       editable: false,
-    },
-    {
-      field: "request_status",
-      headerName: "Status",
-      width: 150,
-      editable: false,
-      renderCell: (params) => {
-        const status = params.value;
-        let textColor = "white"; // You can change the text color as needed
-        let backgroundColor = ""; // You can change the background color as needed
-
-        switch (status) {
-          case "baharu":
-            textColor = "#ff8f00"
-            backgroundColor = "#ffecb3"
-            break;
-          case "sah":
-            textColor = "#757575"
-            backgroundColor = "#eeeeee"
-            break;
-          case "semak":
-            textColor = "#757575"
-            backgroundColor = "#eeeeee"
-            break;
-          case "syor":
-            textColor = "#558b2f"
-            backgroundColor = "#dcedc8"
-            break;
-          case "lulus tnc":
-            textColor = "#558b2f"
-            backgroundColor = "#dcedc8"
-            break;
-          case "tolak":
-            textColor = "#e53935"
-            backgroundColor = "#ffcdd2"
-            break;
-          default:
-            break;
-        }
-
-        const cellStyle = {
-          color: textColor,
-          padding: 2,
-          fontSize: 12,
-          fontWeight: "bold",
-          width: 90,
-        };
-
-        const paperStyle = {
-          backgroundColor: backgroundColor,
-          borderRadius: 25,
-        };
-
-        return (
-          <Paper
-            square={false}
-            elevation={0}
-            style={paperStyle}
-          >
-            <div style={cellStyle}>
-              {params.value}
-            </div>
-          </Paper>
-        );
-      },
     },
     {
       field: "semakan",
@@ -205,6 +120,7 @@ function PendingList() {
       width: 100,
       sortable: false,
       renderCell: (params) => (
+        <Link to={`/ArchivePage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
         <Button
           style={{
             backgroundColor: "#fafafa",
@@ -218,12 +134,11 @@ function PendingList() {
             display: "flex",
           }}
           variant="contained"
-          href="http://localhost:8090/EvaluationPage"
-          onClick={() => handleButtonClick(params.row.request_id)}
         >
           <span >{getStatusButtonText(params.row.request_status).icon}</span>
           {getStatusButtonText(params.row.request_status).text}
         </Button>
+        </Link>
       ),
     },
     {
@@ -295,7 +210,6 @@ function PendingList() {
   }, []);
 
   useEffect(() => {
-    const statusParam = "semak"; // Include multiple statuses separated by commas
     const apiUrl = `http://localhost:8000/request-all`;
 
     // Fetch requests from the server

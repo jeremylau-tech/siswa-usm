@@ -11,8 +11,6 @@ function AdminDashboard(props) {
   const location = useLocation();
   const user = location.state;
 
-  alert(user.roles)
-
   return (
     <div className="App">
         <AnalyticDashboard /> 
