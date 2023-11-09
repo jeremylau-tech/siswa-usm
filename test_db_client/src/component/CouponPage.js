@@ -7,58 +7,58 @@ import {
 } from "@mui/material";
 import './CouponPage.css';
 
-const coupons = [
-  {
-    id: 1,
-    title: "Coupon 1",
-    code: "SAMPLECODE1",
-    expiration: "Tamat Tempoh: 2023-12-31",
-    price: "Menu Rahmah",
-  },
-  {
-    id: 2,
-    title: "Coupon 2",
-    code: "SAMPLECODE2",
-    expiration: "Tamat Tempoh: 2023-12-15",
-    price: "Menu Rahmah",
-  },
-  {
-    id: 3,
-    title: "Coupon 3",
-    code: "SAMPLECODE3",
-    expiration: "Tamat Tempoh: 2023-11-05",
-    price: "Menu Rahmah",
-  },
-  {
-    id: 4,
-    title: "Coupon 4",
-    code: "SAMPLECODE4",
-    expiration: "Tamat Tempoh: 2023-12-13",
-    price: "Menu Rahmah",
-  },
-  {
-    id: 5,
-    title: "Coupon 5",
-    code: "SAMPLECODE5",
-    expiration: "Tamat Tempoh: 2023-11-28",
-    price: "Menu Rahmah",
-  },
-  {
-    id: 6,
-    title: "Coupon 6",
-    code: "SAMPLECODE6",
-    expiration: "Tamat Tempoh: 2023-12-02",
-    price: "Menu Rahmah",
-  },
-  {
-    id: 7,
-    title: "Coupon 7",
-    code: "SAMPLECODE7",
-    expiration: "Tamat Tempoh: 2023-10-25",
-    price: "Menu Rahmah",
-  },
-  // Add more coupon objects as needed
-];
+// const coupons = [
+//   {
+//     id: 1,
+//     title: "Coupon 1",
+//     code: "SAMPLECODE1",
+//     expiration: "Tamat Tempoh: 2023-12-31",
+//     price: "Menu Rahmah",
+//   },
+//   {
+//     id: 2,
+//     title: "Coupon 2",
+//     code: "SAMPLECODE2",
+//     expiration: "Tamat Tempoh: 2023-12-15",
+//     price: "Menu Rahmah",
+//   },
+//   {
+//     id: 3,
+//     title: "Coupon 3",
+//     code: "SAMPLECODE3",
+//     expiration: "Tamat Tempoh: 2023-11-05",
+//     price: "Menu Rahmah",
+//   },
+//   {
+//     id: 4,
+//     title: "Coupon 4",
+//     code: "SAMPLECODE4",
+//     expiration: "Tamat Tempoh: 2023-12-13",
+//     price: "Menu Rahmah",
+//   },
+//   {
+//     id: 5,
+//     title: "Coupon 5",
+//     code: "SAMPLECODE5",
+//     expiration: "Tamat Tempoh: 2023-11-28",
+//     price: "Menu Rahmah",
+//   },
+//   {
+//     id: 6,
+//     title: "Coupon 6",
+//     code: "SAMPLECODE6",
+//     expiration: "Tamat Tempoh: 2023-12-02",
+//     price: "Menu Rahmah",
+//   },
+//   {
+//     id: 7,
+//     title: "Coupon 7",
+//     code: "SAMPLECODE7",
+//     expiration: "Tamat Tempoh: 2023-10-25",
+//     price: "Menu Rahmah",
+//   },
+//   // Add more coupon objects as needed
+// ];
 
 function CouponPage() {
   // const { userId } = props.location.state;
@@ -67,14 +67,13 @@ function CouponPage() {
   const navigate = useNavigate();
 
   const { userId } = location.state;
-  // console.log(location.state)
-
 
   const [useDialogOpen, setUseDialogOpen] = useState(false);
   const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const [usedCoupons, setUsedCoupons] = useState([]);
   const [redeemIndex, setRedeemIndex] = useState(null);
-  const [selectedVendor, setSelectedVendor] = useState("Vendor A");
+  const [selectedVendor, setSelectedVendor] = useState("");
+  const [vendorMap, setVendorMap] = useState({});
 
 
   const navToHistory = () => {
@@ -111,11 +110,10 @@ function CouponPage() {
     // alert(baucar[redeemIndex].baucar_id)
     const requestData = {
       baucarId: baucar[redeemIndex].baucar_id,
-      baucarVendor: selectedVendor,
+      vendorId: vendorMap[selectedVendor].vendor_id,
     };
 
-    // alert(requestData.baucarId)
-  
+
     fetch("http://localhost:8000/coupons-redeem", {
       method: "POST",
       headers: {
@@ -161,6 +159,22 @@ function CouponPage() {
       });
   }, []);
 
+
+      
+  useEffect(() => {
+    // Make an HTTP GET request to the /vendor-all endpoint
+    fetch('http://localhost:8000/vendor-all') // Replace with the appropriate URL
+      .then(res => res.json())
+      .then(data => {
+        // Update the state with the retrieved data
+        setVendorMap(data.vendors);
+      })
+      .catch(error => {
+        console.error('Error fetching data from the server:', error);
+      });
+  }, []);
+
+
   function formatDueDate(dueDate) {
     const date = new Date(dueDate);
     const year = date.getFullYear();
@@ -169,7 +183,6 @@ function CouponPage() {
     return `${day}/${month}/${year}`;
   }
   
-  console.log(baucar)
   return (
     <div className="coupon-page">
       <h1 className="coupon-title">Kupon Makanan</h1> <Button variant="outlined" color="primary" onClick={() => navToHistory()}>
@@ -212,56 +225,23 @@ function CouponPage() {
           </div>
           <FormControl component="fieldset" style={{ marginTop: "16px" }}>
           <FormLabel component="legend">Sila Pilih Vendor</FormLabel>
-          <RadioGroup
-            value={selectedVendor}
-            onChange={(event) => setSelectedVendor(event.target.value)}
-          >
+          {vendorMap !== null && Object.keys(vendorMap).length > 0 ? (
+        <RadioGroup
+          value={selectedVendor.vendor_id}
+          onChange={(event) => setSelectedVendor(event.target.value)}
+        >
+          {Object.values(vendorMap).map((vendor, index) => (
             <FormControlLabel
-              value="Aman (Yacob)"
+              key={vendor.vendor_id}
+              value={index}
               control={<Radio />}
-              label="Aman (Yacob)"
+              label={`${vendor.vendor_location} (${vendor.vendor_name})`}
             />
-            <FormControlLabel
-              value="Bakti Permai (Abdul Hamid)"
-              control={<Radio />}
-              label="Bakti Permai (Abdul Hamid)"
-            />
-            <FormControlLabel
-              value="Bakti Permai (Rohani)"
-              control={<Radio />}
-              label="Bakti Permai (Rohani)"
-            />
-            <FormControlLabel
-              value="Cahaya Gemilang (Zulkifli)"
-              control={<Radio />}
-              label="Cahaya Gemilang (Zulkifli)"
-            />
-            <FormControlLabel
-              value="Fajar Harapan (Anamary)"
-              control={<Radio />}
-              label="Fajar Harapan (Anamary)"
-            />
-            <FormControlLabel
-              value="Indah Kembara (Suraini)"
-              control={<Radio />}
-              label="Indah Kembara (Suraini)"
-            />
-            <FormControlLabel
-              value="Restu (Yusrina)"
-              control={<Radio />}
-              label="Restu (Yusrina)"
-            />
-            <FormControlLabel
-              value="Saujana (Ashraf)"
-              control={<Radio />}
-              label="Saujana (Ashraf)"
-            />
-            <FormControlLabel
-              value="Tekun (Erma)"
-              control={<Radio />}
-              label="Tekun (Erma)"
-            />
-          </RadioGroup>
+          ))}
+        </RadioGroup>
+      ) : (
+        <p>No data available</p>
+      )}
         </FormControl>
         </DialogContent>
         <DialogActions>
@@ -279,7 +259,18 @@ function CouponPage() {
         <DialogContent>
             <Typography variant="body1">Anda telah berjaya menebus kupon.</Typography>
             <Typography variant="body1">
-            <strong>Vendor Yang Dipilih:</strong> {selectedVendor}
+            {vendorMap !== null && vendorMap !== undefined && Object.keys(vendorMap).length ? (
+      <span>
+        <strong>Vendor Yang Dipilih:</strong>{' '}
+        {vendorMap[selectedVendor] ? (
+          `${vendorMap[selectedVendor].vendor_location} (${vendorMap[selectedVendor].vendor_name})`
+        ) : (
+          'No vendor selected'
+        )}
+      </span>
+    ) : (
+      <span>No data available</span>
+    )}
             </Typography>
             <Typography variant="body1">
             <strong>Kupon Makanan:</strong> Menu Rahmah

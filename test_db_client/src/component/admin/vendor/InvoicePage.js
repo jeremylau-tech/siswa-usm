@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 function InvoicePage({ }) {
   const location = useLocation();
   const row = location.state.row;
-  let totalInvoice = row.couponUsed * 5;
+  let totalInvoice = row.baucarToClaim * 5;
   let date = new Date().toLocaleDateString();
 
   const handlePrint = () => {
@@ -34,7 +34,8 @@ function InvoicePage({ }) {
                 <tr>
                   <td className="title" style={{ ...styles.title, textAlign: 'left' }}>
                     <img
-                      src={row.logoUrl}
+                    src="https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg"
+                      // src={row.logoUrl}
                       alt="Logo"
                       style={{ ...styles.title, maxWidth: '300px', maxHeight: '100px', }} // Adjust the max width as needed
                     />
@@ -53,11 +54,11 @@ function InvoicePage({ }) {
               <table style={styles.table}>
                 <tr>
                   <td style={styles.tableTd}>
-                    {row.owner} <br />
-                    {row.VendorName} <br />
-                    {row.location}<br />
-                    Phone: {row.phoneNo}<br />
-                    Emel: {row.email}<br />
+                    {row.vendor_id} <br />
+                    {row.vendor_fullname} <br />
+                    {row.vendor_location}<br />
+                    Phone: {row.vendor_phone}<br />
+                    Emel: {row.vendor_email}<br />
                   </td>
                   <td style={styles.tableTd}>
                     Bahagian Hal Ehwal Pembangunan Pelajar & Alumni <br />
@@ -76,7 +77,7 @@ function InvoicePage({ }) {
             <td>Price</td>
           </tr>
           <tr className="item" style={styles.itemTd}>
-            <td>Menu Rahmah * {row.couponUsed} set</td>
+            <td>Menu Rahmah * {row.baucarToClaim} set</td>
             <td>RM {totalInvoice}</td>
           </tr>
           <tr className="total" style={styles.totalTd}>
@@ -91,9 +92,9 @@ function InvoicePage({ }) {
           </tr>
           <tr className="details" style={styles.detailsTd}>
             <td>
-              Bank Name: {row.bank} <br />
-              Account Holder Name: {row.accountName}<br />
-              Account Number: {row.accountNo} <br />
+              Bank Name: {row.vendor_bank} <br />
+              Account Holder Name: {row.vendor_bank_acc_name}<br />
+              Account Number: {row.vendor_bank_acc} <br />
             </td>
             <td>Bank Transfer</td>
           </tr>
