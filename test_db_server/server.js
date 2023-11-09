@@ -162,7 +162,7 @@ app.get("/vendor-table", (req, res) => {
   const sql = `
     SELECT 
       vendor.*,
-      SUM(CASE WHEN baucar.baucar_status = "tebus" THEN 1 ELSE 0 END) AS baucarCountRedeemed,
+      SUM(CASE WHEN baucar.baucar_status = "tebus" OR baucar.baucar_status = "tuntut" THEN 1 ELSE 0 END) AS baucarCountRedeemed,
       SUM(CASE WHEN baucar.baucar_status = "tuntut" THEN 1 ELSE 0 END) AS baucarCountClaimed
     FROM vendor
     LEFT JOIN baucar ON vendor.vendor_id = baucar.vendor_id

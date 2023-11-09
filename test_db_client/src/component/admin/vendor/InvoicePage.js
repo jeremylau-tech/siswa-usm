@@ -12,6 +12,27 @@ function InvoicePage({ }) {
   let date = new Date().toLocaleDateString();
 
   const handlePrint = () => {
+
+    const requestData = {
+      vendorId: row.vendor_id,
+    };
+
+    fetch("http://localhost:8000/coupons-claimed", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // Handle the response data as needed
+        alert(data.message); // You can show a message from the server response
+      })
+      .catch((error) => {
+        console.error("Error in claim:", error);
+      });
+      
     let printContents = document.getElementById('printablediv').innerHTML;
     let originalContents = document.body.innerHTML;
     document.body.innerHTML = printContents;
