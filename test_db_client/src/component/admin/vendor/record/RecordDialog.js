@@ -4,10 +4,17 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { Typography, Box, Button, Divider } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import { useNavigate, useLocation } from "react-router-dom";
+import ClaimedInvoicePage from './ClaimedInvoicePage';
+
 
 
 
 const RecordDialog = ({ open, onClose, recordDialogData }) => {
+    const [selectedInvoice, setSelectedInvoice] = useState(null);
+    const navigate = useNavigate();
+
+
 
     const columns = [
         {
@@ -69,7 +76,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
                         }}
                         variant="contained"
                         color="primary"
-                        onClick={() => handleSenaraiKuponClick(params.row.invoice_id)}
+                        onClick={() => handleSenaraiKuponClick(params.row)}
                     >
                         Senarai Kupon
                     </Button>
@@ -108,8 +115,6 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             vendor_bank_acc_name: "Ali bin Abu",
             vendor_bank: "Maybank",
             vendor_bank_acc_no: "21989813978139781",
-
-
         },
         {
             invoice_id: "INV21021",
@@ -146,8 +151,11 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
     ]
 
 
-    const handleLihatClick = (id) => {
-        alert("Lihat invoice " + id);
+    const handleLihatClick = (row) => {
+        console.log("Tuntutan button clicked for row:", row);
+        setSelectedInvoice(row);
+        navigate("/ClaimedInvoicePage", { state: { row } });
+
     }
 
     const handleSenaraiKuponClick = (id) => {
