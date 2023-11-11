@@ -59,7 +59,7 @@ function ApplicationListPage(user_roles) {
     <Container sx={{
       width: '100%',
       borderRadius: '10px',
-      boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+      boxShadow: '0 0 3px rgba(0,0,0,0.5)',
       padding: '10px',
       height: '700px',
     }}>
@@ -78,7 +78,6 @@ function ApplicationListPage(user_roles) {
                 borderColor: 'gray',
                 color: 'white',
               }}
-
             >
               <SettingsRoundedIcon
                 style={{

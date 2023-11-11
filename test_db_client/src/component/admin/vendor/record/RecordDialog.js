@@ -5,7 +5,6 @@ import DialogContent from '@mui/material/DialogContent';
 import { Typography, Box, Button, Divider } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate, useLocation } from "react-router-dom";
-import ClaimedInvoicePage from './ClaimedInvoicePage';
 
 
 
@@ -25,14 +24,14 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             editable: false,
         },
         {
-            field: "vendor_name",
-            headerName: "Nama Vendor",
+            field: "date_claimed",
+            headerName: "Tarikh Dituntut",
             width: 150,
             editable: false,
         },
         {
-            field: "date_claimed",
-            headerName: "Tarikh Dituntut",
+            field: "no_coupon_claim",
+            headerName: "Bil. Kupon Dituntut",
             width: 150,
             editable: false,
         },
@@ -89,9 +88,9 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
     const rows = [
         {
             invoice_id: "INV0032",
-            vendor_name: "Vendor 32",
             date_claimed: "2021-10-01",
             vendor_address: "Vendor 3 Address",
+            vendor_name: "VendorName 3",
             vendor_owner: "Ali Bin Abu",
             vendor_phone: "Vendor 3 Phone",
             vendor_email: "Vendor 3 email",
@@ -100,14 +99,12 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             vendor_bank_acc_name: "Ali bin Abu",
             vendor_bank: "Maybank",
             vendor_bank_acc_no: "21989813978139781",
-
-
         },
         {
             invoice_id: "INV321213",
-            vendor_name: "Vendor 13",
             date_claimed: "2021-10-01",
             vendor_address: "Vendor 3 Address",
+            vendor_name: "VendorName 3",
             vendor_owner: "Ali Bin Abu",
             vendor_phone: "Vendor 3 Phone",
             vendor_email: "Vendor 3 email",
@@ -119,9 +116,9 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
         },
         {
             invoice_id: "INV21021",
-            vendor_name: "Vendor 3",
             date_claimed: "2021-10-01",
             vendor_address: "Vendor 3 Address",
+            vendor_name: "VendorName 3",
             vendor_owner: "Ali Bin Abu",
             vendor_phone: "Vendor 3 Phone",
             vendor_email: "Vendor 3 email",
@@ -130,15 +127,12 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             vendor_bank_acc_name: "Ali bin Abu",
             vendor_bank: "Maybank",
             vendor_bank_acc_no: "21989813978139781",
-
-
         },
         {
             invoice_id: "INV12331",
-            vendor_name: "Vendor 3",
             date_claimed: "2021-10-01",
             vendor_address: "Vendor 3 Address",
-            vendor_location: "Vendor 3 Location",
+            vendor_name: "VendorName 3",
             vendor_owner: "Ali Bin Abu",
             vendor_phone: "Vendor 3 Phone",
             vendor_email: "Vendor 3 email",
@@ -147,8 +141,6 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             vendor_bank_acc_name: "Ali bin Abu",
             vendor_bank: "Maybank",
             vendor_bank_acc_no: "21989813978139781",
-
-
         },
     ]
 
@@ -160,8 +152,10 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
 
     }
 
-    const handleSenaraiKuponClick = (id) => {
-        alert("Lihat Senarai " + recordDialogData);
+    const handleSenaraiKuponClick = (row) => {
+        console.log("Lihat button clicked for row:", row);
+        setSelectedInvoice(row);
+        navigate("/UsedCouponList", { state: { row } });
     }
 
     const getRowId = (row) => row.invoice_id;
