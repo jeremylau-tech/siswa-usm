@@ -13,6 +13,7 @@ import ClaimedInvoicePage from './ClaimedInvoicePage';
 const RecordDialog = ({ open, onClose, recordDialogData }) => {
     const [selectedInvoice, setSelectedInvoice] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
 
 
 
@@ -56,7 +57,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
                         }}
                         variant="contained"
                         color="primary"
-                        onClick={() => handleLihatClick(params.row.invoice_id)}
+                        onClick={() => handleLihatClick(params.row)}
                     >
                         Lihat
                     </Button>
@@ -91,7 +92,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             vendor_name: "Vendor 32",
             date_claimed: "2021-10-01",
             vendor_address: "Vendor 3 Address",
-            vendor_location: "Vendor 3 Location",
+            vendor_owner: "Ali Bin Abu",
             vendor_phone: "Vendor 3 Phone",
             vendor_email: "Vendor 3 email",
             vendor_id: "V003",
@@ -107,7 +108,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             vendor_name: "Vendor 13",
             date_claimed: "2021-10-01",
             vendor_address: "Vendor 3 Address",
-            vendor_location: "Vendor 3 Location",
+            vendor_owner: "Ali Bin Abu",
             vendor_phone: "Vendor 3 Phone",
             vendor_email: "Vendor 3 email",
             vendor_id: "V003",
@@ -121,7 +122,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             vendor_name: "Vendor 3",
             date_claimed: "2021-10-01",
             vendor_address: "Vendor 3 Address",
-            vendor_location: "Vendor 3 Location",
+            vendor_owner: "Ali Bin Abu",
             vendor_phone: "Vendor 3 Phone",
             vendor_email: "Vendor 3 email",
             vendor_id: "V003",
@@ -138,6 +139,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             date_claimed: "2021-10-01",
             vendor_address: "Vendor 3 Address",
             vendor_location: "Vendor 3 Location",
+            vendor_owner: "Ali Bin Abu",
             vendor_phone: "Vendor 3 Phone",
             vendor_email: "Vendor 3 email",
             vendor_id: "V003",
@@ -152,7 +154,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
 
 
     const handleLihatClick = (row) => {
-        console.log("Tuntutan button clicked for row:", row);
+        console.log("Lihat button clicked for row:", row);
         setSelectedInvoice(row);
         navigate("/ClaimedInvoicePage", { state: { row } });
 

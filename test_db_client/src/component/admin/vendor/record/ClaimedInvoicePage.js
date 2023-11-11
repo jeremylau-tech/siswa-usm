@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 function ClaimedInvoicePage({ }) {
   const location = useLocation();
   const row = location.state.row;
-  let totalInvoice = row.couponUsed * 5;
+  let totalInvoice = row.no_coupon_claim * 5;
   let date = new Date().toLocaleDateString();
 
   const handlePrint = () => {
@@ -19,6 +19,7 @@ function ClaimedInvoicePage({ }) {
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
+    window.location.reload();
   };
 
   return (
@@ -37,7 +38,7 @@ function ClaimedInvoicePage({ }) {
                     />
                   </td>
                   <td style={{ ...styles.topTableTd, textAlign: 'right' }}>
-                    Invoice Reference: {row.id}{row.idVendor}{date} <br />
+                    Invoice Reference: {row.invoice_id}{row.vendor_id}{date} <br />
                     Created: {date} <br />
                   </td>
                 </tr>
@@ -50,11 +51,11 @@ function ClaimedInvoicePage({ }) {
               <table style={styles.table}>
                 <tr>
                   <td style={styles.tableTd}>
-                    {row.owner} <br />
-                    {row.VendorName} <br />
-                    {row.location}<br />
-                    Phone: {row.phoneNo}<br />
-                    Emel: {row.email}<br />
+                    {row.vendor_owner} <br />
+                    {row.vendor_name} <br />
+                    {row.vendor_address}<br />
+                    Phone: {row.vendor_phone}<br />
+                    Emel: {row.vendor_email}<br />
                   </td>
                   <td style={styles.tableTd}>
                     Bahagian Hal Ehwal Pembangunan Pelajar & Alumni <br />
@@ -73,7 +74,7 @@ function ClaimedInvoicePage({ }) {
             <td>Price</td>
           </tr>
           <tr className="item" style={styles.itemTd}>
-            <td>Menu Rahmah * {row.couponUsed} set</td>
+            <td>Menu Rahmah * {row.no_coupon_claim} set</td>
             <td>RM {totalInvoice}</td>
           </tr>
           <tr className="total" style={styles.totalTd}>
@@ -88,9 +89,9 @@ function ClaimedInvoicePage({ }) {
           </tr>
           <tr className="details" style={styles.detailsTd}>
             <td>
-              Bank Name: {row.bank} <br />
-              Account Holder Name: {row.accountName}<br />
-              Account Number: {row.accountNo} <br />
+              Bank Name: {row.vendor_bank} <br />
+              Account Holder Name: {row.vendor_bank_acc_name}<br />
+              Account Number: {row.vendor_bank_acc_no} <br />
             </td>
             <td>Bank Transfer</td>
           </tr>
