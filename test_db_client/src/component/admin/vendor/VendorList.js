@@ -8,6 +8,7 @@ import InvoicePage from "./InvoicePage"; // Import the InvoicePage component
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import RecordDialog from "./record/RecordDialog";
+import InfoVendor from "./InfoVendor";
 
 
 
@@ -18,10 +19,33 @@ function VendorList() {
   const [showRecordDialog, setShowRecordDialog] = useState(false);
   const [recordDialogData, setRecordDialogData] = useState(null);
 
+  const [showInfoVendorDialog, setShowInfoVendorDialog] = useState(false); // New state
+  const [infoVendorData, setInfoVendorData] = useState(null); // New state
 
   const navigate = useNavigate();
   const location = useLocation();
   const [vendorMap, setVendorMap] = useState({});
+
+  useEffect(() => {
+  // Create a dummy data entry
+  const dummyData = {
+    vendor_id: 1, // You can use any unique ID
+    vendor_name: "Dummy Vendor",
+    vendor_location: "Dummy Location",
+    baucarToClaim: 10,
+    baucarCountRedeemed: 5,
+  };
+
+  // Set the dummy data in the vendorMap
+  setVendorMap({ 1: dummyData }); // Use a unique key like vendor_id for the entry
+  }, []);
+
+  const handleDoubleClickVendorName = (row) => {
+    // Handle double-click on the vendor name
+    setInfoVendorData(row);
+    setShowInfoVendorDialog(true);
+  };
+
 
   const handleRekodClick = (row) => {
     // Extract the necessary information from the row
@@ -182,7 +206,19 @@ function VendorList() {
   return (
     <div>
       <Box sx={{ height: 400, width: "100%" }}>
-        <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection getRowId={getRowId} />
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          checkboxSelection
+          getRowId={getRowId}
+          onCellDoubleClick={(params) => {
+            // Call the handler when double-clicking on the vendor name column
+            if (params.field === 'vendor_name') {
+              handleDoubleClickVendorName(params.row);
+            }
+          }}
+        />
       </Box>
       {showCreateVendorDialog && selectedCreateVendor && (
         <CreateVendor
@@ -196,6 +232,14 @@ function VendorList() {
           open={showRecordDialog}
           onClose={() => setShowRecordDialog(false)}
           recordDialogData={recordDialogData}
+        />
+      )}
+
+      {showInfoVendorDialog && infoVendorData && (
+        <InfoVendor
+          open={showInfoVendorDialog}
+          vendorData={infoVendorData}
+          onClose={() => setShowInfoVendorDialog(false)}
         />
       )}
     </div>
