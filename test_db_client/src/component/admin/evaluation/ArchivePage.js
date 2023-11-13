@@ -29,7 +29,7 @@ function EvaluationPage() {
   const userId = new URLSearchParams(location.search).get('userId');
   const rowReqType = new URLSearchParams(location.search).get('rowReqType');  
   const userRole = new URLSearchParams(location.search).get('userRole');
-
+  const isArchive = true;
 
   return (
     <Box sx={{ flexGrow: 1,}}>
@@ -50,7 +50,7 @@ function EvaluationPage() {
                 {/* Include the StepperComponent here */}
               
                 {rowReqType === "makanan" ? (
-                <StepperComponentMakanan requestId={rowId} userId={userId} userRole={userRole} reqType={rowReqType}/>
+                <StepperComponentMakanan requestId={rowId} userId={userId} userRole={userRole} reqType={rowReqType} isArchive={isArchive}/>
               ) : (
                 /* Render a different stepper component here for other cases */
                 <StepperComponent />
