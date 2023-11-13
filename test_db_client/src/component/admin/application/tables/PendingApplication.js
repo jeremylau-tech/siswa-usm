@@ -7,6 +7,7 @@ import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 import AssignmentTurnedInRoundedIcon from '@mui/icons-material/AssignmentTurnedInRounded';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import "./style.css"
 import { Stack } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
@@ -172,7 +173,7 @@ function PendingList({roles}) {
 
   const getStatusButtonText = (status) => {
     let buttonText = "";
-    let icon = <AssignmentTurnedInRoundedIcon />;
+    let icon = <VisibilityIcon />;
     return { text: buttonText, icon: icon };
   };
 
