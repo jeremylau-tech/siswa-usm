@@ -9,6 +9,18 @@ import { Box, Card, CardContent, CardMedia, Typography, Button } from "@mui/mate
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function LandingPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const user = location.state;
+
+  // alert(user.unique_id);
+  // console.log(user);
+
+  function handleMohonMakanan() {
+    // Merge the existing location state with your data
+    navigate('/FoodApplication', { state: { ...location.state} });
+  }
+
   return (
     <div className="landing-page">
 
@@ -46,14 +58,13 @@ function LandingPage() {
                 Keperluan asas dalam rutin seharian.
               </Typography>
               <Button
-                component={Link}
-                to="/Baucar_FormPage"
-                variant="contained"
-                color="primary"
-                style={{ marginRight: '10px' }} // Add margin to the right side of the button
-              >
-                Mohon
-              </Button>
+  variant="contained"
+  color="primary"
+  style={{ marginRight: '10px' }}
+  onClick={handleMohonMakanan}
+>
+  Mohon
+</Button>
 
               <Button
                 component={Link}

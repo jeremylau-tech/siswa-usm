@@ -4,14 +4,13 @@ import AnalyticDashboard from "./AnalyticDashboard";
 import Divider from '@mui/material/Divider';
 import AnalyticGraph from "./AnalyticGraph";
 import VendorListPage from "./vendor/VendorListPage";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function AdminDashboard(props) {
-  const navigate = useNavigate();
   const location = useLocation();
   const user = location.state;
 
-  return (
+  return ( 
     <div className="App">
         <AnalyticDashboard /> 
         <Divider/>
