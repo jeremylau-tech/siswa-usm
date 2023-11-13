@@ -109,6 +109,11 @@ function VendorList() {
       headerName: "Nama Vendor",
       width: 150,
       editable: false,
+      renderCell: (params) => (
+        <div style={{ color: "blue" }}>
+          {params.value}
+        </div>
+      ),
     },
     {
       field: "vendor_location",
@@ -213,8 +218,8 @@ function VendorList() {
           checkboxSelection
           getRowId={getRowId}
           onCellDoubleClick={(params) => {
-            // Call the handler when double-clicking on the vendor name column
-            if (params.field === 'vendor_name') {
+            // Check if the double-click occurred in the "Nama Vendor" column
+            if (params.field === "vendor_name") {
               handleDoubleClickVendorName(params.row);
             }
           }}
