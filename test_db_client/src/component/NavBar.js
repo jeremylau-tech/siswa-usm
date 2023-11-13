@@ -14,6 +14,7 @@ function Navbar() {
   const theme = useTheme();
   const isResponsive = useMediaQuery(theme.breakpoints.down("md"));
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const currentDate = new Date().toISOString();
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!isDrawerOpen);
@@ -22,7 +23,7 @@ function Navbar() {
   const handleLogout = () => {
     Cookies.remove('email');
     Cookies.remove('password');
-    navigate('/Login');
+    navigate(`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`);
   };
   const renderItemLinks = () => {
     if (!isResponsive) {
@@ -60,7 +61,7 @@ function Navbar() {
     } else if (!isResponsive) {
       // Render "Log Masuk" link only when not in responsive mode
       return (
-        <Link to="/Login">
+        <Link to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
           <Button className="p-4" style={{ color: 'white' }}>Log Masuk</Button>
         </Link>
       );
@@ -105,7 +106,7 @@ function Navbar() {
           <ListItem button component="a" href="https://www.instagram.com/unitkaunselingusm/?hl=en">
             <ListItemText primary="Kaunseling" />
           </ListItem>
-          <ListItem button component="a" href="/Login">
+          <ListItem button component="a" href={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
             <ListItemText primary="Log Masuk" />
           </ListItem>
           <Divider />

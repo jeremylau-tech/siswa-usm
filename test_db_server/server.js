@@ -401,7 +401,6 @@ app.get("/request-status", (req, res) => {
   });
 });
 
-
 app.get("/request-requestid", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestId = req.query.request_id;
@@ -585,6 +584,7 @@ app.post("/coupons-redeem", (req, res) => {
   });
 });
 
+
 app.post("/coupons-claimed", (req, res) => {
   const {vendorId } = req.body;
   // console.log(baucarVendor)
@@ -607,6 +607,56 @@ app.post("/coupons-claimed", (req, res) => {
     }
   });
 });
+
+// app.post("/coupons-claimed", (req, res) => {
+//   const {
+//     vendorLocation,
+//     vendorFullname,
+//     vendorPhoneNo,
+//     vendorEmail,
+//     vendorBankAccName,
+//     vendorBankAccNo,
+//     vendorBankName,
+//     invoiceTotalCount,
+//     invoiceTotalPrice
+//   } = req.body;
+
+//   // Validate required fields
+//   if (
+//     !vendorLocation ||
+//     !vendorFullname ||
+//     !vendorPhoneNo ||
+//     !vendorEmail ||
+//     !vendorBankAccName ||
+//     !vendorBankAccNo ||
+//     !vendorBankName ||
+//     !invoiceTotalCount || 
+//     !invoiceTotalPrice
+//   ) {
+//     return res.status(400).json({ message: 'All fields are required' });
+//   }
+
+//   const currentDate = new Date().toISOString().slice(0, 10);
+//   const invoice_id = 'active';
+//   const sql = `
+//     INSERT INTO invoice 
+//     (invoice_id, vendor_location, vendor_name, vendor_status, vendor_description, vendor_fullname, 
+//     vendor_phone, vendor_email, invoice_date, vendor_bank, vendor_bank_acc, vendor_bank_acc_name)
+//     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+//   `;
+
+//   // // Update the request in the database based on the requestId
+//   // const sql = `UPDATE baucar SET baucar_status = ? WHERE vendor_id = ? AND baucar_status = "tebus"`;
+
+//   db.query(sql, [baucarStatus, vendorId], (err, results) => {
+//     if (err) {
+//       console.error('Error updating request:', err);
+//       res.status(500).json({ message: 'Internal Server Error' });
+//     } else {
+//       res.json({ message: 'Request updated successfully' });
+//     }
+//   });
+// });
 
 
 app.get("/users", (req, res) => {
