@@ -143,6 +143,25 @@ app.post('/invoice-all-vendor', (req, res) => {
   });
 });
 
+
+app.post('/get-vendor', (req, res) => {
+  const { vendorId } = req.body;
+
+  // SQL query to select all records from the "invoice" table for a specific vendor
+  const sql = 'SELECT * FROM vendor WHERE vendor_id = ?';
+
+  // Execute the query with parameter binding
+  db.query(sql, [vendorId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ vendors: results });
+    }
+  });
+});
+
 app.get("/vendor-all", (req, res) => {
   // SQL query to select all records from the "user" table
   const sql = "SELECT * FROM vendor";
