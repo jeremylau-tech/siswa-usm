@@ -23,8 +23,8 @@ function Navbar() {
   const handleLogout = () => {
     Cookies.remove('email');
     Cookies.remove('password');
-    // navigate(`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`);
-    navigate(`/Login`);
+    navigate(`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`);
+    // navigate(`/Login`);
   };
   const renderItemLinks = () => {
     if (!isResponsive) {
@@ -62,8 +62,10 @@ function Navbar() {
     } else if (!isResponsive) {
       // Render "Log Masuk" link only when not in responsive mode
       return (
-        //// <Link to={`\Login`}>
+=======
         <Link to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
+         {/* <Link to={`\Login`}> */}
+>>>>>>> 9e1dbde247fff1932b803eff11bffce81095aabd
           <Button className="p-4" style={{ color: 'white' }}>Log Masuk</Button>
         </Link>
       );
@@ -108,8 +110,8 @@ function Navbar() {
           <ListItem component="a" href="https://www.instagram.com/unitkaunselingusm/?hl=en">
             <ListItemText primary="Kaunseling" />
           </ListItem>
-          {/* <ListItem button component="a" href={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}> */}
-          <ListItem component="a" href={`/Login`}>
+          <ListItem button component="a" href={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
+          {/* <ListItem component="a" href={`/Login`}> */}
             <ListItemText primary="Log Masuk" />
           </ListItem>
           <Divider />
