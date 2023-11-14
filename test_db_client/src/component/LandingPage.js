@@ -14,7 +14,6 @@ function LandingPage() {
   const user = location.state;
   const data = { userId: user.unique_id };
 
-
   // alert(user.unique_id);
   // console.log(user);
 
