@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './LandingPage.css';
 import NavBar from './NavBar';
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
 import ApplicationStatus from "./student/ApplicationStatus";
 import footerLogo from '../img/footer_logo.jpg';
