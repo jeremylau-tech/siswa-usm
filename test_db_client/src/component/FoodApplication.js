@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './FoodApplication.css';
 import DragDrop from "./functions/DragDrop";
 import { Link } from "react-router-dom";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function FoodApplication() {
   const [sponsorType, setSponsorType] = useState(""); // State for selected options
@@ -9,9 +10,14 @@ function FoodApplication() {
   const [paymentSlipFile, setPaymentSlipFile] = useState(null); // Maintain the selectedFile state
   const [foodJustification, setFoodJustification] = useState(""); // State for justification text
   const [customOption, setCustomOption] = useState(""); // State for custom "Jenis Tajaan"
+  const location = useLocation();
+  const user = location.state;
+
+  // alert(user.unique_id);
+  // console.log(user);
 
   const [formData, setFormData] = useState({
-    requestor_id: "202124",
+    requestor_id: user.unique_id,
     request_type: "makanan"
   });
 

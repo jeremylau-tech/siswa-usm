@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -7,6 +7,8 @@ import CreateVendor from "./EditVendor";
 import InvoicePage from "./InvoicePage"; // Import the InvoicePage component
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
+import RecordDialog from "./record/RecordDialog";
+import InfoVendor from "./InfoVendor";
 
 
 
@@ -14,13 +16,55 @@ function VendorList() {
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [showCreateVendorDialog, setShowCreateVendorDialog] = useState(false);
   const [selectedCreateVendor, setSelectedCreateVendor] = useState(null);
+  const [showRecordDialog, setShowRecordDialog] = useState(false);
+  const [recordDialogData, setRecordDialogData] = useState(null);
+
+  const [showInfoVendorDialog, setShowInfoVendorDialog] = useState(false); // New state
+  const [infoVendorData, setInfoVendorData] = useState(null); // New state
+
   const navigate = useNavigate();
   const location = useLocation();
   const [vendorMap, setVendorMap] = useState({});
 
-  const handleRekodClick = (rowId) => {
-    // Handle the Rekod button click for the row with the given ID
-    console.log(`Rekod button clicked for row with ID: ${rowId}`);
+  useEffect(() => {
+  // Create a dummy data entry
+  const dummyData = {
+    vendor_id: 1, // You can use any unique ID
+    vendor_name: "Dummy Vendor",
+    vendor_location: "Dummy Location",
+    baucarToClaim: 10,
+    baucarCountRedeemed: 5,
+  };
+
+  // Set the dummy data in the vendorMap
+  setVendorMap({ 1: dummyData }); // Use a unique key like vendor_id for the entry
+  }, []);
+
+  const handleDoubleClickVendorName = (row) => {
+    // Handle double-click on the vendor name
+    setInfoVendorData(row);
+    setShowInfoVendorDialog(true);
+  };
+
+
+  const handleRekodClick = (row) => {
+    // Extract the necessary information from the row
+    const { vendor_id, vendor_name, vendor_location, baucarToClaim, baucarCountRedeemed } = row;
+
+    // Create an object with the required data
+    const rowData = {
+      vendor_id,
+      vendor_name,
+      vendor_location,
+      baucarToClaim,
+      baucarCountRedeemed,
+    };
+
+    // Set the rowData to state
+    setRecordDialogData(rowData);
+
+    // Show the RecordDialog
+    setShowRecordDialog(true);
   };
 
   const handleTuntutanClick = (row) => {
@@ -65,6 +109,11 @@ function VendorList() {
       headerName: "Nama Vendor",
       width: 150,
       editable: false,
+      renderCell: (params) => (
+        <div style={{ color: "blue" }}>
+          {params.value}
+        </div>
+      ),
     },
     {
       field: "vendor_location",
@@ -84,12 +133,6 @@ function VendorList() {
       width: 150,
       editable: false,
     },
-    // {
-    //   field: "status",
-    //   headerName: "Status",
-    //   width: 100,
-    //   editable: false,
-    // },
     {
       field: "tindakan",
       headerName: "Tindakan",
@@ -113,7 +156,7 @@ function VendorList() {
             }}
             variant="contained"
             color="primary"
-            onClick={() => handleRekodClick(params.row.id)}
+            onClick={() => handleRekodClick(params.row)}
           >
             Rekod
           </Button>
@@ -160,65 +203,7 @@ function VendorList() {
         </div>
       ),
     },
-  ]; 
-
-  // const rows = [
-  //   {
-  //     id: 1,
-  //     idVendor: "VENDOR123",
-  //     VendorName: "Vendor A",
-  //     location: "Location A",
-  //     couponUsed: 10,
-  //     couponUsedTotal: 100,
-  //     status: "Active",
-  //     logoUrl: "https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
-  //     description: "Vegan Food",
-  //     owner: "Kassim Bin Ahmad",
-  //     phoneNo: "0123456789",
-  //     email: "kassim@usm.my",
-  //     registrationDate: "01/03/2022",
-  //     bank: "Maybank",
-  //     accountNo: "123456789",
-  //     accountName: "Kassim Bin Ahmad",
-  //   },
-  //   {
-  //     id: 2,
-  //     idVendor: "VENDOR456",
-  //     VendorName: "Vendor B",
-  //     location: "Location B",
-  //     couponUsed: 5,
-  //     couponUsedTotal: 5,
-  //     status: "Active",
-  //     logoUrl: "https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
-  //     description: "Burger",
-  //     owner: "Fahmi Fadzil",
-  //     phoneNo: "012232789",
-  //     email: "fahmi@usm.my",
-  //     registrationDate: "01/01/2021",
-  //     bank: "CIMB",
-  //     accountNo: "123456789",
-  //     accountName: "Shielawanis Binti Shamsuddin",
-  //   },
-  //   {
-  //     id: 3,
-  //     idVendor: "VENDOR457",
-  //     VendorName: "Vendor C",
-  //     location: "Location C",
-  //     couponUsed: 5,
-  //     couponUsedTotal: 7,
-  //     status: "Inactive",
-  //     logoUrl: "https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg",
-  //     description: "Nasi Kandar",
-  //     owner: "Saifuddin Bin Nasution",
-  //     phoneNo: "0123456732",
-  //     email: "saufuddin@usm.my",
-  //     registrationDate: "01/02/2021",
-  //     bank: "HSBC",
-  //     accountNo: "123456789",
-  //     accountName: "Saifuddin Bin Nasution",
-  //   },
-  //   // Add more rows with data as needed
-  // ];
+  ];
 
   const rows = Object.values(vendorMap);
   const getRowId = (row) => row.vendor_id;
@@ -226,12 +211,40 @@ function VendorList() {
   return (
     <div>
       <Box sx={{ height: 400, width: "100%" }}>
-        <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection getRowId={getRowId}/>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          checkboxSelection
+          getRowId={getRowId}
+          onCellDoubleClick={(params) => {
+            // Check if the double-click occurred in the "Nama Vendor" column
+            if (params.field === "vendor_name") {
+              handleDoubleClickVendorName(params.row);
+            }
+          }}
+        />
       </Box>
       {showCreateVendorDialog && selectedCreateVendor && (
         <CreateVendor
           selectedVendor={selectedCreateVendor}
           onClose={() => setShowCreateVendorDialog(false)}
+        />
+
+      )}
+      {showRecordDialog && recordDialogData && (
+        <RecordDialog
+          open={showRecordDialog}
+          onClose={() => setShowRecordDialog(false)}
+          recordDialogData={recordDialogData}
+        />
+      )}
+
+      {showInfoVendorDialog && infoVendorData && (
+        <InfoVendor
+          open={showInfoVendorDialog}
+          vendorData={infoVendorData}
+          onClose={() => setShowInfoVendorDialog(false)}
         />
       )}
     </div>

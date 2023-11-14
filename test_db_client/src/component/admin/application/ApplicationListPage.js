@@ -51,6 +51,11 @@ function ApplicationListPage(user_roles) {
   const roles = user_roles.user_roles
 
   const [value, setValue] = React.useState(0);
+  const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
+
+  const handleSettingsButtonClick = () => {
+    setIsSettingsDialogOpen(true);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -59,7 +64,7 @@ function ApplicationListPage(user_roles) {
     <Container sx={{
       width: '100%',
       borderRadius: '10px',
-      boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+      boxShadow: '0 0 3px rgba(0,0,0,0.5)',
       padding: '10px',
       height: '700px',
     }}>
@@ -78,7 +83,7 @@ function ApplicationListPage(user_roles) {
                 borderColor: 'gray',
                 color: 'white',
               }}
-
+              onClick={handleSettingsButtonClick} // Handle click to open dialog
             >
               <SettingsRoundedIcon
                 style={{
@@ -167,6 +172,9 @@ function ApplicationListPage(user_roles) {
           </CustomTabPanel>
         </div>
       </div>
+      {isSettingsDialogOpen && (
+        <SettingsDialog open={isSettingsDialogOpen} onClose={() => setIsSettingsDialogOpen(false)} />
+      )}
     </Container>
 
 

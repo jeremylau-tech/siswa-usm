@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import './LandingPage.css';
 import NavBar from './NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -6,8 +6,28 @@ import { Link } from "react-router-dom";
 import ApplicationStatus from "./student/ApplicationStatus";
 import footerLogo from '../img/footer_logo.jpg';
 import { Box, Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function LandingPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const user = location.state;
+  const data = { userId: user.unique_id };
+
+
+  // alert(user.unique_id);
+  // console.log(user);
+
+  function handleMohonMakanan() {
+    // Merge the existing location state with your data
+    navigate('/FoodApplication', { state: { ...location.state} });
+  }
+
+  function handleGoToBaucarMakanan() {
+    // Merge the existing location state with your data
+    navigate('/CouponPage', { state: { ...location.state, ...data } });
+  }
+
   return (
     <div className="landing-page">
 
@@ -45,21 +65,19 @@ function LandingPage() {
                 Keperluan asas dalam rutin seharian.
               </Typography>
               <Button
-                component={Link}
-                to="/Baucar_FormPage"
-                variant="contained"
-                color="primary"
-                style={{ marginRight: '10px' }} // Add margin to the right side of the button
-              >
-                Mohon
-              </Button>
+  variant="contained"
+  color="primary"
+  style={{ marginRight: '10px' }}
+  onClick={handleMohonMakanan}
+>
+  Mohon
+</Button>
 
               <Button
-                component={Link}
-                to="/CouponPage"
                 variant="contained"
                 color="primary"
                 style={{ marginLeft: '10px' }} // Add margin to the left side of the button
+                onClick={handleGoToBaucarMakanan}
               >
                 Guna
               </Button>

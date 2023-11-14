@@ -59,7 +59,7 @@ function Login() {
 
         // window.location.href = '/AdminDashboard';
         if (data.user.roles === "student")
-          navigate('/WelcomePage', { state: { ...location.state, ...data.user } });
+          navigate('/landingPage', { state: { ...location.state, ...data.user } });
         else
           navigate('/adminDashboard', { state: { ...location.state, ...data.user } });
 

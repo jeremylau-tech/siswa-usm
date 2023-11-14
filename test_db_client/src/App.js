@@ -36,6 +36,9 @@ import CouponPage from "./component/CouponPage";
 import FoodApplication from "./component/FoodApplication";
 import HistoryFood from "./component/HistoryFood";
 import InvoicePage from "./component/admin/vendor/InvoicePage";
+import ClaimedInvoicePage from "./component/admin/vendor/record/ClaimedInvoicePage";
+import UsedCouponList from "./component/admin/vendor/record/UsedCouponList";
+
 
 
 // Pay attention to this function
@@ -58,7 +61,7 @@ function App() {
       <div className="App">
         <NavBar />
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<WelcomePage />} />
           <Route path="/message" element={<MessagePage />} />
           <Route path="/makanan" element={<Makanan />} />
           <Route path="/users" element={<UsersPage />} />
@@ -80,7 +83,8 @@ function App() {
           <Route path="/FoodApplication" element={<FoodApplication />} />
           <Route path="/HistoryFood" element={<HistoryFood />} />
           <Route path="/InvoicePage" element={<InvoicePage />} />
-
+          <Route path="/ClaimedInvoicePage" element={<ClaimedInvoicePage />} />
+          <Route path="/UsedCouponList" element={<UsedCouponList />} />
 
           {/* Add new Landing Page route */}
           <Route path="/LandingPage" element={<LandingPage />} />

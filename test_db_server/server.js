@@ -125,6 +125,24 @@ app.get('/get-pdf', (req, res) => {
   });
 });
 
+app.post('/invoice-all-vendor', (req, res) => {
+  const { vendorId } = req.body;
+
+  // SQL query to select all records from the "invoice" table for a specific vendor
+  const sql = 'SELECT * FROM invoice WHERE vendor_id = ?';
+
+  // Execute the query with parameter binding
+  db.query(sql, [vendorId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ invoices: results });
+    }
+  });
+});
+
 app.get("/vendor-all", (req, res) => {
   // SQL query to select all records from the "user" table
   const sql = "SELECT * FROM vendor";
@@ -378,6 +396,32 @@ app.get("/request-all", (req, res) => {
   });
 });
 
+app.get("/request-all-admin", (req, res) => {
+  // SQL query to select all records from the "user" table
+  // const sql = "SELECT * FROM request";
+
+  const sql = `
+    SELECT r.*, IFNULL(rc.request_count_per_user, 0) AS request_count_per_user
+    FROM request r
+    LEFT JOIN (
+      SELECT requestor_id, COUNT(*) AS request_count_per_user
+      FROM request
+      GROUP BY requestor_id
+    ) rc ON r.requestor_id = rc.requestor_id
+  `;
+
+  // Execute the query
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response
+          res.json({ request: results });
+      }
+  });
+});
+
 app.get("/request-status", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestStatus = req.query.request_status;
@@ -401,6 +445,35 @@ app.get("/request-status", (req, res) => {
   });
 });
 
+app.get("/request-status-admin", (req, res) => {
+  // Extract the request_status query parameter from the request
+  const requestStatus = req.query.request_status;
+  // console.log(requestStatus)
+
+  // Define the SQL query with a placeholder
+  const sql = `
+    SELECT r.*, IFNULL(rc.request_count_per_user, 0) AS request_count_per_user
+    FROM request r
+    LEFT JOIN (
+      SELECT requestor_id, COUNT(*) AS request_count_per_user
+      FROM request
+      WHERE request_status = ?
+      GROUP BY requestor_id
+    ) rc ON r.requestor_id = rc.requestor_id
+    WHERE r.request_status = ?;
+  `;
+
+  // Execute the query with parameterized values
+  db.query(sql, [requestStatus, requestStatus], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ request: results });
+    }
+  });
+});
 
 app.get("/request-requestid", (req, res) => {
   // Extract the request_status query parameter from the request
@@ -489,6 +562,53 @@ app.get("/request-type-status", (req, res) => {
       }
     });
   }
+});
+
+app.get("/request-type-status-admin", (req, res) => {
+  // Extract the request_status query parameter from the request
+  const requestType = req.query.request_type;
+  const requestStatus = req.query.request_status;
+
+  let sql;
+  let special_param = false; // need to cater other status dalam process
+
+  let first_half_sql = "";
+  let sec_half_sql = "" ;
+  let sql_params = [];
+
+  if (requestStatus === "complete") {
+    first_half_sql = "WHERE request_type = ? AND (request_status = 'lulus' OR  request_status = 'tolak')";
+    sec_half_sql = "WHERE r.request_type = ? AND (r.request_status = 'lulus' OR  r.request_status = 'tolak')";
+    sql_params = [requestType, requestType];
+  }
+  else {
+    first_half_sql = "WHERE request_type = ? AND request_status = ?";
+    sec_half_sql = "WHERE r.request_type = ? AND r.request_status = ?";
+    sql_params =  [requestType, requestStatus, requestType, requestStatus];
+  }
+
+  sql = `
+    SELECT r.*, IFNULL(rc.request_count_per_user, 0) AS request_count_per_user
+    FROM request r
+    LEFT JOIN (
+      SELECT requestor_id, COUNT(*) AS request_count_per_user
+      FROM request
+      ${first_half_sql}
+      GROUP BY requestor_id
+    ) rc ON r.requestor_id = rc.requestor_id
+    ${sec_half_sql};
+    `;
+    
+  
+    db.query(sql, sql_params, (err, results) => {    
+      if (err) {
+        console.error('Error fetching data from MySQL:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        // Send the retrieved data as a JSON response
+        res.json({ request: results });
+      }
+    });
 });
 
 app.post("/coupons-userid", (req, res) => {
@@ -585,28 +705,89 @@ app.post("/coupons-redeem", (req, res) => {
   });
 });
 
+
 app.post("/coupons-claimed", (req, res) => {
-  const {vendorId } = req.body;
-  // console.log(baucarVendor)
+  const { vendorId, numClaimed } = req.body;
 
   if (!vendorId) {
-    return res.status(400).json({ message: 'baucarId is required' });
+    return res.status(400).json({ message: 'vendorId is required' });
   }
 
-  const baucarStatus = "tuntut";
+  // Generate a unique invoice_id using uuidv4
+  let unique_invoice_id = uuidv4();
 
-  // Update the request in the database based on the requestId
-  const sql = `UPDATE baucar SET baucar_status = ? WHERE vendor_id = ? AND baucar_status = "tebus"`;
-
-  db.query(sql, [baucarStatus, vendorId], (err, results) => {
-    if (err) {
-      console.error('Error updating request:', err);
-      res.status(500).json({ message: 'Internal Server Error' });
-    } else {
-      res.json({ message: 'Request updated successfully' });
+  // Insert a new invoice record
+  let insertSql = `INSERT INTO invoice (invoice_id, claimed_date, num_baucar_claimed, vendor_id) VALUES (?, CURRENT_DATE, ?, ?)`;
+  db.query(insertSql, [unique_invoice_id, numClaimed, vendorId], (insertErr, insertResults) => {
+    if (insertErr) {
+      console.error('Error inserting invoice:', insertErr);
+      return res.status(500).json({ message: 'Internal Server Error' });
     }
+
+    // Update the request in the baucar table based on vendorId and baucar_status
+    let updateSql = `UPDATE baucar SET invoice_id = ?, baucar_status = "tuntut"  WHERE vendor_id = ? AND baucar_status = "tebus"`;
+    // let updateSql = `UPDATE baucar SET invoice_id = ?  WHERE vendor_id = ? AND baucar_status = "tebus"`;
+
+    db.query(updateSql, [unique_invoice_id, vendorId], (updateErr, updateResults) => {
+      if (updateErr) {
+        console.error('Error updating baucar:', updateErr);
+        return res.status(500).json({ message: 'Internal Server Error' });
+      }
+
+      res.json({ message: 'Invoice and Baucar updated successfully' });
+    });
   });
 });
+
+// app.post("/coupons-claimed", (req, res) => {
+//   const {
+//     vendorLocation,
+//     vendorFullname,
+//     vendorPhoneNo,
+//     vendorEmail,
+//     vendorBankAccName,
+//     vendorBankAccNo,
+//     vendorBankName,
+//     invoiceTotalCount,
+//     invoiceTotalPrice
+//   } = req.body;
+
+//   // Validate required fields
+//   if (
+//     !vendorLocation ||
+//     !vendorFullname ||
+//     !vendorPhoneNo ||
+//     !vendorEmail ||
+//     !vendorBankAccName ||
+//     !vendorBankAccNo ||
+//     !vendorBankName ||
+//     !invoiceTotalCount || 
+//     !invoiceTotalPrice
+//   ) {
+//     return res.status(400).json({ message: 'All fields are required' });
+//   }
+
+//   const currentDate = new Date().toISOString().slice(0, 10);
+//   const invoice_id = 'active';
+//   const sql = `
+//     INSERT INTO invoice 
+//     (invoice_id, vendor_location, vendor_name, vendor_status, vendor_description, vendor_fullname, 
+//     vendor_phone, vendor_email, invoice_date, vendor_bank, vendor_bank_acc, vendor_bank_acc_name)
+//     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+//   `;
+
+//   // // Update the request in the database based on the requestId
+//   // const sql = `UPDATE baucar SET baucar_status = ? WHERE vendor_id = ? AND baucar_status = "tebus"`;
+
+//   db.query(sql, [baucarStatus, vendorId], (err, results) => {
+//     if (err) {
+//       console.error('Error updating request:', err);
+//       res.status(500).json({ message: 'Internal Server Error' });
+//     } else {
+//       res.json({ message: 'Request updated successfully' });
+//     }
+//   });
+// });
 
 
 app.get("/users", (req, res) => {
@@ -787,7 +968,7 @@ app.post("/insert-users", (req, res) => {
 
   app.post("/insert-request", (req, res) => {
     // console.log( req.body);
-    const {
+      const {
       requestor_id,
       request_type,
       admin_approver_id,

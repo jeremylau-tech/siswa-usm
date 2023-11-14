@@ -10,43 +10,43 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 
 function WelcomePage(props) { 
+  const currentDate = new Date().toISOString();
 
-  
-  const navigate = useNavigate();
-  const location = useLocation();
-  const user = location.state;
-  // if (user)
-  // alert(user.unique_id)
-  // console.log(user)
-
-  const data = { userId: user.unique_id };
-  const [couponCount, setCouponCount] = useState(0);
+  // const navigate = useNavigate();
+  // const location = useLocation();
+  // const user = location.state;
+  // // if (user)
+  // // alert(user.unique_id)
+  // // console.log(user)
+ 
+  // const data = { userId: user.unique_id };
+  // const [couponCount, setCouponCount] = useState(0);
 
   function handleClick() {
     // Merge the existing location state with your data
-    navigate('/CouponPage', { state: { ...location.state, ...data } });
+    // navigate('/CouponPage', { state: { ...location.state, ...data } });
   }
 
-  useEffect(() => {
+  // useEffect(() => {
 
     // Function to make the GET request to get coupon count
-    const fetchCouponCount = () => {
-      fetch(`http://localhost:8000/coupons-count?userId=${data.userId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.couponCount !== undefined) {
-            setCouponCount(data.couponCount);
-          } else {
-            console.error("No coupon count data received.");
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching coupon count:", error);
-        });
-    };
+  //   const fetchCouponCount = () => {
+  //     fetch(`http://localhost:8000/coupons-count?userId=${data.userId}`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         if (data.couponCount !== undefined) {
+  //           setCouponCount(data.couponCount);
+  //         } else {
+  //           console.error("No coupon count data received.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching coupon count:", error);
+  //       });
+  //   };
 
-    fetchCouponCount();
-  }, []);
+  //   fetchCouponCount();
+  // }, []);
 
   return (
     <div className="welcome-page">
@@ -107,7 +107,7 @@ function WelcomePage(props) {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                  Keperluan asas dalam rutin seharian.
               </Typography>
-            {couponCount == 0 ? (
+            {/* {couponCount == 0 ? (
             <Button
               component={Link}
               to="/FoodApplication"
@@ -126,7 +126,18 @@ function WelcomePage(props) {
             >
               Mohon
             </Button>
-          )}
+          )} */}
+
+{/* <Button
+              variant="contained"
+              color="primary"
+              style={{ marginRight: '10px' }}
+              disabled
+            >
+              Mohon
+            </Button>
+
+          
 
               <Button
                 // component={Link}
@@ -136,8 +147,11 @@ function WelcomePage(props) {
                 style={{ marginLeft: '10px' }} // Add margin to the left side of the button
               >
                 Guna
+              </Button> */}
+                <Button  component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`} variant="contained" color="primary">
+                {/* <Button  component={Link} to={`/Login`} variant="contained" color="primary"> */}
+                Mohon
               </Button>
-
             </CardContent>
           </Card>
 

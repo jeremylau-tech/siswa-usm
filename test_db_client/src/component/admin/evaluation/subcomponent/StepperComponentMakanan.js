@@ -4,17 +4,22 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import StepContent from "@mui/material/StepContent";
 import StudentInfoStep from "./StudentInfoStep";
+import ResultStepArchive from "./ResultStepArchive";
 import ResultStep from "./ResultStep";
 import DocumentationStep from "./DocumentationStep";
 import ApprovedDialog from "./ApprovedDialog";
 import RejectDialog from "./RejectDialog";
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
 
 
-function StepperComponentMakanan({ requestId, userId, userRole, reqType }) {
+function StepperComponentMakanan({ requestId, userId, userRole, reqType, isArchive }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [requests, setRequests] = useState([]);
   const [foodApplication, setFoodApplication] = useState([]);
   const [userDetailsMap, setUserDetailsMap] = useState({});
+
+  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const userData = { roles: userRole };
 
   const steps = [
     {
@@ -60,8 +65,12 @@ function StepperComponentMakanan({ requestId, userId, userRole, reqType }) {
       )
     },
     {
-      label: 'Langkah 4 : Keputusan Semakan & Catatan',
-      content: <ResultStep />, // Use the component for Step 3
+      label: isArchive ? 'Langkah 4 : Semakan Catatan' : 'Langkah 4 : Keputusan Semakan & Catatan',
+      content: isArchive ? (
+        <ResultStepArchive />
+      ) : (
+        <ResultStep />
+      ) 
     },
   ];
   
@@ -144,6 +153,10 @@ useEffect(() => {
 
   console.log(requests);
 
+  const handleHome = () => {
+    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    navigate('/adminDashboard', { state: { ...userData } });
+  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -173,6 +186,8 @@ useEffect(() => {
                 <div>
                   {index === steps.length - 1 ? (
                     <>
+                    {!isArchive ? (
+            <>
                     <Box sx={{m:3}}>
                         {requests[0] ? (
                       <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requests[0].requestor_id}></ApprovedDialog>
@@ -184,7 +199,20 @@ useEffect(() => {
                     <RejectDialog requestId={requestId} userId={userId} userRole={userRole}></RejectDialog>
                       </Box>
                     </>
-                  ) : (
+          ) : (
+            
+            <Button
+                      variant="contained"
+                      onClick={handleHome}
+                      disableElevation={true}
+                      style={{ backgroundColor: "green", color: "#fff", fontWeight: "bold", width: "30%" }}
+                      sx={{ mt: 1, mr: 1 }}
+                    >
+                      Home
+                    </Button>
+          )}
+        </>
+      ) : (
                     <Button
                       variant="contained"
                       onClick={handleNext}
