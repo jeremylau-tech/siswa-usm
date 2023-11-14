@@ -62,7 +62,6 @@ function Navbar() {
     } else if (!isResponsive) {
       // Render "Log Masuk" link only when not in responsive mode
       return (
-
         <Link to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
          {/* <Link to={`\Login`}> */}
           <Button className="p-4" style={{ color: 'white' }}>Log Masuk</Button>
