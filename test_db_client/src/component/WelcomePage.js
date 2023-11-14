@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './WelcomePage.css';
 import NavBar from './NavBar';
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+// import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
 import footerLogo from '../img/footer_logo.jpg';
 import { Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
@@ -148,8 +148,8 @@ function WelcomePage(props) {
               >
                 Guna
               </Button> */}
-                <Button  component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`} variant="contained" color="primary">
-                {/* <Button  component={Link} to={`/Login`} variant="contained" color="primary"> */}
+                {/* <Button  component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`} variant="contained" color="primary"> */}
+                <Button  component={Link} to={`/Login`} variant="contained" color="primary">
                 Mohon
               </Button>
             </CardContent>
