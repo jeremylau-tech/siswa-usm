@@ -11,6 +11,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const RecordDialog = ({ open, onClose, recordDialogData }) => {
     const [selectedInvoice, setSelectedInvoice] = useState(null);
+    const [invoiceMap, setInvoiceMap] = useState({});
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -22,13 +24,22 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             editable: false,
         },
         {
-            field: "date_claimed",
+            field: "claimed_date",
             headerName: "Tarikh Dituntut",
             width: 150,
             editable: false,
+            renderCell: (params) => {
+                // Convert the date string to a JavaScript Date object
+                const dateObj = new Date(params.value);
+    
+                // Format the date to display only the date part
+                const formattedDate = dateObj.toISOString().split('T')[0];
+    
+                return <div>{formattedDate}</div>;
+            },
         },
         {
-            field: "no_coupon_claim",
+            field: "num_baucar_claimed",
             headerName: "Bil. Kupon Dituntut",
             width: 150,
             editable: false,
@@ -83,64 +94,64 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
         },
     ];
 
-    const rows = [
-        {
-            invoice_id: "INV0032",
-            date_claimed: "2021-10-01",
-            vendor_address: "Vendor 3 Address",
-            vendor_name: "VendorName 3",
-            vendor_owner: "Ali Bin Abu",
-            vendor_phone: "Vendor 3 Phone",
-            vendor_email: "Vendor 3 email",
-            vendor_id: "V003",
-            no_coupon_claim: 3,
-            vendor_bank_acc_name: "Ali bin Abu",
-            vendor_bank: "Maybank",
-            vendor_bank_acc_no: "21989813978139781",
-        },
-        {
-            invoice_id: "INV321213",
-            date_claimed: "2021-10-01",
-            vendor_address: "Vendor 3 Address",
-            vendor_name: "VendorName 3",
-            vendor_owner: "Ali Bin Abu",
-            vendor_phone: "Vendor 3 Phone",
-            vendor_email: "Vendor 3 email",
-            vendor_id: "V003",
-            no_coupon_claim: 3,
-            vendor_bank_acc_name: "Ali bin Abu",
-            vendor_bank: "Maybank",
-            vendor_bank_acc_no: "21989813978139781",
-        },
-        {
-            invoice_id: "INV21021",
-            date_claimed: "2021-10-01",
-            vendor_address: "Vendor 3 Address",
-            vendor_name: "VendorName 3",
-            vendor_owner: "Ali Bin Abu",
-            vendor_phone: "Vendor 3 Phone",
-            vendor_email: "Vendor 3 email",
-            vendor_id: "V003",
-            no_coupon_claim: 3,
-            vendor_bank_acc_name: "Ali bin Abu",
-            vendor_bank: "Maybank",
-            vendor_bank_acc_no: "21989813978139781",
-        },
-        {
-            invoice_id: "INV12331",
-            date_claimed: "2021-10-01",
-            vendor_address: "Vendor 3 Address",
-            vendor_name: "VendorName 3",
-            vendor_owner: "Ali Bin Abu",
-            vendor_phone: "Vendor 3 Phone",
-            vendor_email: "Vendor 3 email",
-            vendor_id: "V003",
-            no_coupon_claim: 3,
-            vendor_bank_acc_name: "Ali bin Abu",
-            vendor_bank: "Maybank",
-            vendor_bank_acc_no: "21989813978139781",
-        },
-    ]
+    // const rows = [
+    //     {
+    //         invoice_id: "INV0032",
+    //         date_claimed: "2021-10-01",
+    //         vendor_address: "Vendor 3 Address",
+    //         vendor_name: "VendorName 3",
+    //         vendor_owner: "Ali Bin Abu",
+    //         vendor_phone: "Vendor 3 Phone",
+    //         vendor_email: "Vendor 3 email",
+    //         vendor_id: "V003",
+    //         no_coupon_claim: 3,
+    //         vendor_bank_acc_name: "Ali bin Abu",
+    //         vendor_bank: "Maybank",
+    //         vendor_bank_acc_no: "21989813978139781",
+    //     },
+    //     {
+    //         invoice_id: "INV321213",
+    //         date_claimed: "2021-10-01",
+    //         vendor_address: "Vendor 3 Address",
+    //         vendor_name: "VendorName 3",
+    //         vendor_owner: "Ali Bin Abu",
+    //         vendor_phone: "Vendor 3 Phone",
+    //         vendor_email: "Vendor 3 email",
+    //         vendor_id: "V003",
+    //         no_coupon_claim: 3,
+    //         vendor_bank_acc_name: "Ali bin Abu",
+    //         vendor_bank: "Maybank",
+    //         vendor_bank_acc_no: "21989813978139781",
+    //     },
+    //     {
+    //         invoice_id: "INV21021",
+    //         date_claimed: "2021-10-01",
+    //         vendor_address: "Vendor 3 Address",
+    //         vendor_name: "VendorName 3",
+    //         vendor_owner: "Ali Bin Abu",
+    //         vendor_phone: "Vendor 3 Phone",
+    //         vendor_email: "Vendor 3 email",
+    //         vendor_id: "V003",
+    //         no_coupon_claim: 3,
+    //         vendor_bank_acc_name: "Ali bin Abu",
+    //         vendor_bank: "Maybank",
+    //         vendor_bank_acc_no: "21989813978139781",
+    //     },
+    //     {
+    //         invoice_id: "INV12331",
+    //         date_claimed: "2021-10-01",
+    //         vendor_address: "Vendor 3 Address",
+    //         vendor_name: "VendorName 3",
+    //         vendor_owner: "Ali Bin Abu",
+    //         vendor_phone: "Vendor 3 Phone",
+    //         vendor_email: "Vendor 3 email",
+    //         vendor_id: "V003",
+    //         no_coupon_claim: 3,
+    //         vendor_bank_acc_name: "Ali bin Abu",
+    //         vendor_bank: "Maybank",
+    //         vendor_bank_acc_no: "21989813978139781",
+    //     },
+    // ]
 
 
     const handleLihatClick = (row) => {
@@ -173,7 +184,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
           .then(res => res.json())
           .then(data => {
             // Update the state with the retrieved data
-            console.log(data.invoices);
+            setInvoiceMap(data.invoices);
           })
           .catch(error => {
             console.error('Error fetching data from the server:', error);
@@ -189,7 +200,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             </DialogTitle>
             <DialogContent>
                 <Box sx={{ height: 400, width: '100%' }}>
-                    <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection getRowId={getRowId} />
+                    <DataGrid rows={invoiceMap} columns={columns} pageSize={5} checkboxSelection getRowId={getRowId} />
                 </Box>
             </DialogContent>
         </Dialog>
