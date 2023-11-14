@@ -24,4 +24,4 @@ EXPOSE 3000
 # Define the command to start your app (adjust based on your project)
 RUN npm run build
 RUN npm install -g serve
-CMD [ "serve", "-s", "build", "-l", "3000"]
+CMD [ "serve", "-s", "build"]
