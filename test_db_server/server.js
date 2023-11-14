@@ -143,6 +143,30 @@ app.post('/invoice-all-vendor', (req, res) => {
   });
 });
 
+app.post('/invoice-baucar', (req, res) => {
+  const { invoiceId } = req.body;
+
+  // SQL query to select data using UNION from multiple tables
+  const sql = `
+    SELECT b.*, v.vendor_name, v.vendor_location, u.unique_id, u.name
+    FROM baucar b
+    JOIN vendor v ON b.vendor_id = v.vendor_id
+    JOIN users_details u ON b.user_id = u.unique_id
+    WHERE b.invoice_id = ?;
+  `;
+
+  // Execute the query with parameter binding
+  db.query(sql, [invoiceId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ invoices: results });
+    }
+  });
+});
+
 
 app.post('/get-vendor', (req, res) => {
   const { vendorId } = req.body;
