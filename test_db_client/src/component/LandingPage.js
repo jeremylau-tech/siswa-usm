@@ -21,6 +21,11 @@ function LandingPage() {
     navigate('/FoodApplication', { state: { ...location.state} });
   }
 
+  function handleGoToBaucarMakanan() {
+    // Merge the existing location state with your data
+    navigate('/CouponPage', { state: { ...location.state} });
+  }
+
   return (
     <div className="landing-page">
 
@@ -67,11 +72,10 @@ function LandingPage() {
 </Button>
 
               <Button
-                component={Link}
-                to="/CouponPage"
                 variant="contained"
                 color="primary"
                 style={{ marginLeft: '10px' }} // Add margin to the left side of the button
+                onClick={handleGoToBaucarMakanan}
               >
                 Guna
               </Button>

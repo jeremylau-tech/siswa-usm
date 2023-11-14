@@ -37,6 +37,7 @@ function InvoicePage({ }) {
   const handleConfirmPrint = () => {
     const requestData = {
       vendorId: row.vendor_id,
+      numClaimed: row.baucarToClaim
     };
 
     fetch("http://localhost:8000/coupons-claimed", {
