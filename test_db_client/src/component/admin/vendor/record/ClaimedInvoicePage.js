@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import {
   Button,
 } from "@mui/material";
@@ -10,9 +10,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 function ClaimedInvoicePage({ }) {
   const location = useLocation();
   const row = location.state.row;
-  let totalInvoice = row.no_coupon_claim * 5;
+  const [vendorMap, setVendorMap] = useState({});
+
+  console.log(row);
+  let totalInvoice = row.num_baucar_claimed * 5;
   let date = new Date().toLocaleDateString();
 
+
+  const formatDate = (dateString) => {
+    const dateObj = new Date(dateString);
+    return dateObj.toISOString().split('T')[0];
+};
   const handlePrint = () => {
     let printContents = document.getElementById('printablediv').innerHTML;
     let originalContents = document.body.innerHTML;
@@ -21,6 +29,29 @@ function ClaimedInvoicePage({ }) {
     document.body.innerHTML = originalContents;
     window.location.reload();
   };
+
+  useEffect(() => {
+    const vendorId = row.vendor_id;  // Replace with the actual vendorId
+
+    // Make an HTTP POST request to the /invoice-all-vendor endpoint
+    fetch('http://localhost:8000/get-vendor', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ vendorId }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        // Update the state with the retrieved data
+        // setInvoiceMap(data.invoices);
+        setVendorMap(data.vendors[0])
+      })
+      .catch(error => {
+        console.error('Error fetching data from the server:', error);
+      });
+  }, []);
+
 
   return (
     <div>
@@ -38,8 +69,8 @@ function ClaimedInvoicePage({ }) {
                     />
                   </td>
                   <td style={{ ...styles.topTableTd, textAlign: 'right' }}>
-                    Invoice Reference: {row.invoice_id}{row.vendor_id}{date} <br />
-                    Created: {date} <br />
+                    Invoice Reference: {row.invoice_id}<br />
+                    Created: {formatDate(row.claimed_date)} <br />
                   </td>
                 </tr>
               </table>
@@ -51,11 +82,11 @@ function ClaimedInvoicePage({ }) {
               <table style={styles.table}>
                 <tr>
                   <td style={styles.tableTd}>
-                    {row.vendor_owner} <br />
-                    {row.vendor_name} <br />
-                    {row.vendor_address}<br />
-                    Phone: {row.vendor_phone}<br />
-                    Emel: {row.vendor_email}<br />
+                    {row.vendor_id} <br />
+                    {vendorMap.vendor_fullname} <br />
+                    {vendorMap.vendor_location}<br />
+                    Phone: {vendorMap.vendor_phone}<br />
+                    Emel: {vendorMap.vendor_email}<br />
                   </td>
                   <td style={styles.tableTd}>
                     Bahagian Hal Ehwal Pembangunan Pelajar & Alumni <br />
@@ -74,7 +105,7 @@ function ClaimedInvoicePage({ }) {
             <td>Price</td>
           </tr>
           <tr className="item" style={styles.itemTd}>
-            <td>Menu Rahmah * {row.no_coupon_claim} set</td>
+            <td>Menu Rahmah * {row.num_baucar_claimed} set</td>
             <td>RM {totalInvoice}</td>
           </tr>
           <tr className="total" style={styles.totalTd}>
@@ -89,9 +120,9 @@ function ClaimedInvoicePage({ }) {
           </tr>
           <tr className="details" style={styles.detailsTd}>
             <td>
-              Bank Name: {row.vendor_bank} <br />
-              Account Holder Name: {row.vendor_bank_acc_name}<br />
-              Account Number: {row.vendor_bank_acc_no} <br />
+              Bank Name: {vendorMap.vendor_bank} <br />
+              Account Holder Name: {vendorMap.vendor_bank_acc_name}<br />
+              Account Number: {vendorMap.vendor_bank_acc} <br />
             </td>
             <td>Bank Transfer</td>
           </tr>

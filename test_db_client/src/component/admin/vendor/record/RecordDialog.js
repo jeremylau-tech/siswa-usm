@@ -16,6 +16,11 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const formatDate = (dateString) => {
+        const dateObj = new Date(dateString);
+        return dateObj.toISOString().split('T')[0];
+    };
+
     const columns = [
         {
             field: "invoice_id",
@@ -29,13 +34,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
             width: 150,
             editable: false,
             renderCell: (params) => {
-                // Convert the date string to a JavaScript Date object
-                const dateObj = new Date(params.value);
-    
-                // Format the date to display only the date part
-                const formattedDate = dateObj.toISOString().split('T')[0];
-    
-                return <div>{formattedDate}</div>;
+                return <div>{formatDate(params.value)}</div>;
             },
         },
         {
