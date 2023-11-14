@@ -689,25 +689,35 @@ app.post("/coupons-redeem", (req, res) => {
 
 
 app.post("/coupons-claimed", (req, res) => {
-  const {vendorId } = req.body;
-  // console.log(baucarVendor)
+  const { vendorId, numClaimed } = req.body;
 
   if (!vendorId) {
-    return res.status(400).json({ message: 'baucarId is required' });
+    return res.status(400).json({ message: 'vendorId is required' });
   }
 
-  const baucarStatus = "tuntut";
+  // Generate a unique invoice_id using uuidv4
+  let unique_invoice_id = uuidv4();
 
-  // Update the request in the database based on the requestId
-  const sql = `UPDATE baucar SET baucar_status = ? WHERE vendor_id = ? AND baucar_status = "tebus"`;
-
-  db.query(sql, [baucarStatus, vendorId], (err, results) => {
-    if (err) {
-      console.error('Error updating request:', err);
-      res.status(500).json({ message: 'Internal Server Error' });
-    } else {
-      res.json({ message: 'Request updated successfully' });
+  // Insert a new invoice record
+  let insertSql = `INSERT INTO invoice (invoice_id, claimed_date, num_baucar_claimed) VALUES (?, CURRENT_DATE, ?)`;
+  db.query(insertSql, [unique_invoice_id, numClaimed], (insertErr, insertResults) => {
+    if (insertErr) {
+      console.error('Error inserting invoice:', insertErr);
+      return res.status(500).json({ message: 'Internal Server Error' });
     }
+
+    // Update the request in the baucar table based on vendorId and baucar_status
+    let updateSql = `UPDATE baucar SET invoice_id = ?, baucar_status = "tuntut"  WHERE vendor_id = ? AND baucar_status = "tebus"`;
+    // let updateSql = `UPDATE baucar SET invoice_id = ?  WHERE vendor_id = ? AND baucar_status = "tebus"`;
+
+    db.query(updateSql, [unique_invoice_id, vendorId], (updateErr, updateResults) => {
+      if (updateErr) {
+        console.error('Error updating baucar:', updateErr);
+        return res.status(500).json({ message: 'Internal Server Error' });
+      }
+
+      res.json({ message: 'Invoice and Baucar updated successfully' });
+    });
   });
 });
 

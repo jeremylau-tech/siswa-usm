@@ -35,8 +35,10 @@ function InvoicePage({ }) {
   };
 
   const handleConfirmPrint = () => {
+    // alert("Claimed!") --> Add this to see the error
     const requestData = {
       vendorId: row.vendor_id,
+      numClaimed: row.baucarToClaim
     };
 
     fetch("http://localhost:8000/coupons-claimed", {
