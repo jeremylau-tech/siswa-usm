@@ -54,6 +54,12 @@ function PendingList({roles}) {
       editable: false,
     },
     {
+      field: "request_count_per_user",
+      headerName: "Bilangan Permohonan",
+      width: 150,
+      editable: false,
+    },
+    {
       field: "semakan",
       headerName: "Semakan",
       width: 130,
@@ -211,7 +217,7 @@ function PendingList({roles}) {
   }, []);
 
   useEffect(() => {
-    const apiUrl = `http://localhost:8000/request-all`;
+    const apiUrl = `http://localhost:8000/request-all-admin`;
 
     // Fetch requests from the server
     console.log("Fetching requests from the server...");

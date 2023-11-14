@@ -43,6 +43,12 @@ import DialogContent from '@mui/material/DialogContent';
         editable: false,
       },
       {
+        field: "request_count_per_user",
+        headerName: "Bilangan Permohonan",
+        width: 150,
+        editable: false,
+      },
+      {
         field: "semakan",
         headerName: "Semakan",
         width: 130,
@@ -212,7 +218,7 @@ import DialogContent from '@mui/material/DialogContent';
   useEffect(() => {
     const statusParam = "complete"; // Replace with the desired status parameter
     const typeparam = "makanan"; 
-    const apiUrl = `http://localhost:8000/request-type-status?request_status=${statusParam}&request_type=${typeparam}`;
+    const apiUrl = `http://localhost:8000/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)

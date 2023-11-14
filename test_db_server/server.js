@@ -378,6 +378,32 @@ app.get("/request-all", (req, res) => {
   });
 });
 
+app.get("/request-all-admin", (req, res) => {
+  // SQL query to select all records from the "user" table
+  // const sql = "SELECT * FROM request";
+
+  const sql = `
+    SELECT r.*, IFNULL(rc.request_count_per_user, 0) AS request_count_per_user
+    FROM request r
+    LEFT JOIN (
+      SELECT requestor_id, COUNT(*) AS request_count_per_user
+      FROM request
+      GROUP BY requestor_id
+    ) rc ON r.requestor_id = rc.requestor_id
+  `;
+
+  // Execute the query
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response
+          res.json({ request: results });
+      }
+  });
+});
+
 app.get("/request-status", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestStatus = req.query.request_status;
@@ -391,6 +417,36 @@ app.get("/request-status", (req, res) => {
 
   // Execute the query with parameterized values
   db.query(sql, [requestStatus], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ request: results });
+    }
+  });
+});
+
+app.get("/request-status-admin", (req, res) => {
+  // Extract the request_status query parameter from the request
+  const requestStatus = req.query.request_status;
+  // console.log(requestStatus)
+
+  // Define the SQL query with a placeholder
+  const sql = `
+    SELECT r.*, IFNULL(rc.request_count_per_user, 0) AS request_count_per_user
+    FROM request r
+    LEFT JOIN (
+      SELECT requestor_id, COUNT(*) AS request_count_per_user
+      FROM request
+      WHERE request_status = ?
+      GROUP BY requestor_id
+    ) rc ON r.requestor_id = rc.requestor_id
+    WHERE r.request_status = ?;
+  `;
+
+  // Execute the query with parameterized values
+  db.query(sql, [requestStatus, requestStatus], (err, results) => {
     if (err) {
       console.error('Error fetching data from MySQL:', err);
       res.status(500).json({ message: 'Internal Server Error' });
@@ -488,6 +544,53 @@ app.get("/request-type-status", (req, res) => {
       }
     });
   }
+});
+
+app.get("/request-type-status-admin", (req, res) => {
+  // Extract the request_status query parameter from the request
+  const requestType = req.query.request_type;
+  const requestStatus = req.query.request_status;
+
+  let sql;
+  let special_param = false; // need to cater other status dalam process
+
+  let first_half_sql = "";
+  let sec_half_sql = "" ;
+  let sql_params = [];
+
+  if (requestStatus === "complete") {
+    first_half_sql = "WHERE request_type = ? AND (request_status = 'lulus' OR  request_status = 'tolak')";
+    sec_half_sql = "WHERE r.request_type = ? AND (r.request_status = 'lulus' OR  r.request_status = 'tolak')";
+    sql_params = [requestType, requestType];
+  }
+  else {
+    first_half_sql = "WHERE request_type = ? AND request_status = ?";
+    sec_half_sql = "WHERE r.request_type = ? AND r.request_status = ?";
+    sql_params =  [requestType, requestStatus, requestType, requestStatus];
+  }
+
+  sql = `
+    SELECT r.*, IFNULL(rc.request_count_per_user, 0) AS request_count_per_user
+    FROM request r
+    LEFT JOIN (
+      SELECT requestor_id, COUNT(*) AS request_count_per_user
+      FROM request
+      ${first_half_sql}
+      GROUP BY requestor_id
+    ) rc ON r.requestor_id = rc.requestor_id
+    ${sec_half_sql};
+    `;
+    
+  
+    db.query(sql, sql_params, (err, results) => {    
+      if (err) {
+        console.error('Error fetching data from MySQL:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        // Send the retrieved data as a JSON response
+        res.json({ request: results });
+      }
+    });
 });
 
 app.post("/coupons-userid", (req, res) => {

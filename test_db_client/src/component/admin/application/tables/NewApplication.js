@@ -46,6 +46,12 @@ const columns = [
     editable: false,
   },
   {
+    field: "request_count_per_user",
+    headerName: "Bilangan Permohonan",
+    width: 150,
+    editable: false,
+  },
+  {
     field: "semakan",
     headerName: "Semakan",
     width: 130,
@@ -220,7 +226,7 @@ const getStatusButtonText = (status) => {
       statusParam = "semak";
     else if (roles == "tnc")
       statusParam = "syor";
-    const apiUrl = `http://localhost:8000/request-status?request_status=${statusParam}`;
+    const apiUrl = `http://localhost:8000/request-status-admin?request_status=${statusParam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)
@@ -245,6 +251,9 @@ const getStatusButtonText = (status) => {
           });
 
           setRequests(requestsWithUserNames);
+          console.log('asdsadas')
+          console.log(requests)
+
         }
       })
       .catch((error) => {
@@ -252,7 +261,6 @@ const getStatusButtonText = (status) => {
       });
   }, [userDetailsMap]);
   
-  // console.log(requests)
   // const filteredRequest = requests.filter(request => request.request_status === "baharu");
 
   const downloadDataAsCSV = () => {
