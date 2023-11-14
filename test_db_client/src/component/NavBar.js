@@ -31,7 +31,7 @@ function Navbar() {
       return (
         <div>
           <Link href="https://hac.usm.my">
-            <Button style={{ color: 'white' }}>Penginapan |</Button>
+            <Button style={{ color: 'white' }}>Penginapan </Button>
           </Link>
   
           <Link href="https://www.instagram.com/unitkaunselingusm/?hl=en">
