@@ -707,7 +707,9 @@ app.post("/coupons-claimed", (req, res) => {
     }
 
     // Update the request in the baucar table based on vendorId and baucar_status
-    let updateSql = `UPDATE baucar SET invoice_id = ? WHERE vendor_id = ? AND baucar_status = "tebus"`;
+    let updateSql = `UPDATE baucar SET invoice_id = ?, baucar_status = "tuntut"  WHERE vendor_id = ? AND baucar_status = "tebus"`;
+    // let updateSql = `UPDATE baucar SET invoice_id = ?  WHERE vendor_id = ? AND baucar_status = "tebus"`;
+
     db.query(updateSql, [unique_invoice_id, vendorId], (updateErr, updateResults) => {
       if (updateErr) {
         console.error('Error updating baucar:', updateErr);

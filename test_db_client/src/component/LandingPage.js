@@ -12,6 +12,8 @@ function LandingPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = location.state;
+  const data = { userId: user.unique_id };
+
 
   // alert(user.unique_id);
   // console.log(user);
@@ -23,7 +25,7 @@ function LandingPage() {
 
   function handleGoToBaucarMakanan() {
     // Merge the existing location state with your data
-    navigate('/CouponPage', { state: { ...location.state} });
+    navigate('/CouponPage', { state: { ...location.state, ...data } });
   }
 
   return (
