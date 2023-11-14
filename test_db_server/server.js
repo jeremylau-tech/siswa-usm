@@ -125,6 +125,24 @@ app.get('/get-pdf', (req, res) => {
   });
 });
 
+app.post('/invoice-all-vendor', (req, res) => {
+  const { vendorId } = req.body;
+
+  // SQL query to select all records from the "invoice" table for a specific vendor
+  const sql = 'SELECT * FROM invoice WHERE vendor_id = ?';
+
+  // Execute the query with parameter binding
+  db.query(sql, [vendorId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ invoices: results });
+    }
+  });
+});
+
 app.get("/vendor-all", (req, res) => {
   // SQL query to select all records from the "user" table
   const sql = "SELECT * FROM vendor";
@@ -699,8 +717,8 @@ app.post("/coupons-claimed", (req, res) => {
   let unique_invoice_id = uuidv4();
 
   // Insert a new invoice record
-  let insertSql = `INSERT INTO invoice (invoice_id, claimed_date, num_baucar_claimed) VALUES (?, CURRENT_DATE, ?)`;
-  db.query(insertSql, [unique_invoice_id, numClaimed], (insertErr, insertResults) => {
+  let insertSql = `INSERT INTO invoice (invoice_id, claimed_date, num_baucar_claimed, vendor_id) VALUES (?, CURRENT_DATE, ?, ?)`;
+  db.query(insertSql, [unique_invoice_id, numClaimed, vendorId], (insertErr, insertResults) => {
     if (insertErr) {
       console.error('Error inserting invoice:', insertErr);
       return res.status(500).json({ message: 'Internal Server Error' });
@@ -950,7 +968,7 @@ app.post("/insert-users", (req, res) => {
 
   app.post("/insert-request", (req, res) => {
     // console.log( req.body);
-    const {
+      const {
       requestor_id,
       request_type,
       admin_approver_id,
