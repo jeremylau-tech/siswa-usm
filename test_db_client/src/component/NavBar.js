@@ -114,7 +114,7 @@ function Navbar() {
       <Drawer anchor="right" open={isResponsive && isDrawerOpen} onClose={handleDrawerToggle}>
         <List>
           <ListItem component="a" href="https://hac.usm.my">
-            <ListItemText primary="Penginapan |" />
+            <ListItemText primary="Penginapan" />
           </ListItem>
           <ListItem component="a" href="https://www.instagram.com/unitkaunselingusm/?hl=en">
             <ListItemText primary="Kaunseling" />
