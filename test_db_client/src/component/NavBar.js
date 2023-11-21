@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+// Navbar.js
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cookies from 'js-cookie';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AppBar, Toolbar, Button, IconButton, Drawer, List, ListItem, ListItemText, Divider } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { processToken, authenticateWithADFS } from './Auth.js';
 import "./NavBar.css"; // Import your CSS file
 
 function Navbar() {
@@ -15,6 +17,7 @@ function Navbar() {
   const isResponsive = useMediaQuery(theme.breakpoints.down("md"));
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const currentDate = new Date().toISOString();
+  const location = useLocation();
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!isDrawerOpen);
@@ -23,9 +26,9 @@ function Navbar() {
   const handleLogout = () => {
     Cookies.remove('email');
     Cookies.remove('password');
-    navigate(`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`);
-    // navigate(`/Login`);
+    authenticateWithADFS();
   };
+
   const renderItemLinks = () => {
     if (!isResponsive) {
       return (
@@ -33,7 +36,6 @@ function Navbar() {
           <Link href="https://hac.usm.my">
             <Button style={{ color: 'white' }}>Penginapan </Button>
           </Link>
-  
           <Link href="https://www.instagram.com/unitkaunselingusm/?hl=en">
             <Button style={{ color: 'white' }}>Kaunseling</Button>
           </Link>
@@ -41,7 +43,6 @@ function Navbar() {
       );
     }
   };
-  
 
   const renderLoginLogoutLink = () => {
     if (email && password) {
@@ -60,18 +61,28 @@ function Navbar() {
         </Button>
       );
     } else if (!isResponsive) {
-      // Render "Log Masuk" link only when not in responsive mode
       return (
-        <Link to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
-         {/* <Link to={`\Login`}> */}
-          <Button className="p-4" style={{ color: 'white' }}>Log Masuk</Button>
-        </Link>
+        <Button className="p-4" style={{ color: 'white' }} onClick={authenticateWithADFS}>
+          Log Masuk
+        </Button>
       );
     }
-    // Don't render the "Log Masuk" link in the Navbar in responsive mode
     return null;
   };
-  
+
+  useEffect(() => {
+    const xmlTokenFromADFS = new URLSearchParams(location.search).get('token');
+    if (xmlTokenFromADFS) {
+      processToken(xmlTokenFromADFS)
+        .then((tokenObject) => {
+          console.log('Processed Token:', tokenObject);
+          // Do something with the tokenObject, e.g., store in state or context
+        })
+        .catch((error) => {
+          console.error('Error processing token:', error);
+        });
+    }
+  }, [location.search]);
 
   return (
     <>
@@ -103,13 +114,12 @@ function Navbar() {
       <Drawer anchor="right" open={isResponsive && isDrawerOpen} onClose={handleDrawerToggle}>
         <List>
           <ListItem component="a" href="https://hac.usm.my">
-            <ListItemText primary="Penginapan |" />
+            <ListItemText primary="Penginapan" />
           </ListItem>
           <ListItem component="a" href="https://www.instagram.com/unitkaunselingusm/?hl=en">
             <ListItemText primary="Kaunseling" />
           </ListItem>
           <ListItem button component="a" href={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
-          {/* <ListItem component="a" href={`/Login`}> */}
             <ListItemText primary="Log Masuk" />
           </ListItem>
           <Divider />

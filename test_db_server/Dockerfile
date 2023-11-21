@@ -5,16 +5,17 @@ FROM node:20
 RUN mkdir -p /usr/src/server
 WORKDIR /usr/src/server
 
-# Copy package.json and package-lock.json from the "test_db_client" subfolder
-COPY /test_db_server/package*.json ./
+# Copy package.json and package-lock.json from the "test_db_server" subfolder
+COPY /package*.json ./
 
 # Install project dependencies
 RUN npm install
 
-# Copy the server.js file from the "test_db_client" directory
-COPY ./ .
+# Copy all source files from the "test_db_server" subfolder
+COPY test_db_server/ .
 
-# Expose port 80 (the default port for Apache)
-RUN npm run build
+# Expose the port your server is listening on
+EXPOSE 3001
 
+# Command to start your Node.js application
 CMD [ "node", "server.js" ]

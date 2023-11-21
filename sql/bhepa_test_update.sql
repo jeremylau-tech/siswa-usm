@@ -32,13 +32,16 @@ CREATE TABLE `baucar` (
   `user_id` varchar(10) DEFAULT NULL,
   `baucar_redeem_date` date DEFAULT NULL,
   `vendor_id` int DEFAULT NULL,
+  `invoice_id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`baucar_id`),
   UNIQUE KEY `baucar_code` (`baucar_code`),
   KEY `user_id` (`user_id`),
   KEY `fk_baucar_vendor` (`vendor_id`),
+  KEY `fk_request_invoice` (`invoice_id`),
   CONSTRAINT `baucar_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`unique_id`),
-  CONSTRAINT `fk_baucar_vendor` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`vendor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_baucar_vendor` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`vendor_id`),
+  CONSTRAINT `fk_request_invoice` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`invoice_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +50,7 @@ CREATE TABLE `baucar` (
 
 LOCK TABLES `baucar` WRITE;
 /*!40000 ALTER TABLE `baucar` DISABLE KEYS */;
-INSERT INTO `baucar` VALUES (107,'FZQVMH','2023-11-09','09:18:42','2023-12-31','aktif','202124',NULL,NULL),(108,'VOGB06','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',10),(109,'NG0UTV','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',11),(110,'4BXT94','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',10),(111,'NCLD4L','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',10),(112,'KJ83JC','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',10),(113,'4XEADJ','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',10),(114,'H49SCR','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',12),(115,'767A1X','2023-11-09','09:18:42','2023-12-31','aktif','202124',NULL,NULL),(116,'C4CAYP','2023-11-09','09:18:42','2023-12-31','aktif','202124',NULL,NULL),(117,'47EENT','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',17),(118,'KT22WK','2023-11-09','09:18:42','2023-12-31','aktif','202124',NULL,NULL),(119,'BBOSSA','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',17),(120,'R1U75L','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',17),(121,'CK2L2Y','2023-11-09','09:18:42','2023-12-31','aktif','202124',NULL,NULL),(122,'YSG1B1','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',17),(123,'DOVHBR','2023-11-09','09:18:42','2023-12-31','aktif','202124',NULL,NULL),(124,'XT0F09','2023-11-09','09:18:42','2023-12-31','aktif','202124',NULL,NULL),(125,'45KQJQ','2023-11-09','09:18:42','2023-12-31','tebus','202124','2023-11-09',16),(126,'IPWDAZ','2023-11-09','09:18:42','2023-12-31','tuntut','202124','2023-11-09',17);
+INSERT INTO `baucar` VALUES (147,'GPO1GF','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(148,'ZJC6HI','2023-11-14','10:48:32','2023-12-31','tuntut','221222','2023-11-14',10,'fff74678-3281-4a2a-8292-af88212088a8'),(149,'N6V6L0','2023-11-14','10:48:32','2023-12-31','tuntut','221222','2023-11-14',10,'fff74678-3281-4a2a-8292-af88212088a8'),(150,'Q95PE8','2023-11-14','10:48:32','2023-12-31','tuntut','221222','2023-11-14',10,'ccc71923-e198-42f8-876b-236106a941c7'),(151,'3UVQQ8','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(152,'3I8TTA','2023-11-14','10:48:32','2023-12-31','tuntut','221222','2023-11-14',10,'ccc71923-e198-42f8-876b-236106a941c7'),(153,'THFGO4','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(154,'9AUTQM','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(155,'KV2NQM','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(156,'KQM9E8','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(157,'HRTNW3','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(158,'2ZOLDM','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(159,'250JPE','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(160,'B771ZE','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(161,'ELJBAS','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(162,'8SGH3V','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(163,'P0IWKK','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(164,'4B9ZS3','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(165,'QWVURU','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(166,'MN23WV','2023-11-14','10:48:32','2023-12-31','aktif','221222',NULL,NULL,NULL),(167,'2ZY4UW','2023-11-14','14:13:36','2023-12-31','tebus','202124','2023-11-14',10,NULL),(168,'65TZOF','2023-11-14','14:13:36','2023-12-31','tuntut','202124','2023-11-14',18,'f948d793-5042-4d4b-871f-3eaefb4f40bd'),(169,'8THTIO','2023-11-14','14:13:36','2023-12-31','tuntut','202124','2023-11-14',18,'f948d793-5042-4d4b-871f-3eaefb4f40bd'),(170,'9XXIXE','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(171,'OGIG31','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(172,'V82GY2','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(173,'T6NZQ1','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(174,'IKNVJN','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(175,'WOZR9M','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(176,'47LH93','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(177,'7KNAVW','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(178,'NA78GN','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(179,'CJV0AD','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(180,'3FCDQP','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(181,'GS8HJU','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(182,'YKD8UM','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(183,'Z2U7CC','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(184,'57BFZS','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(185,'O7B314','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL),(186,'WJPBES','2023-11-14','14:13:36','2023-12-31','aktif','202124',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `baucar` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -75,8 +78,36 @@ CREATE TABLE `food_application` (
 
 LOCK TABLES `food_application` WRITE;
 /*!40000 ALTER TABLE `food_application` DISABLE KEYS */;
-INSERT INTO `food_application` VALUES ('7a4528fa-c762-462d-b721-a1c9624fa30b','PTPTN','uploads/ic/aa78a5c1-3c90-48c9-89a7-f5d36f529518.png','uploads/paymentslip/9fba193c-1ee8-4132-a9ff-bb9c98ebab08.drawio','sd');
+INSERT INTO `food_application` VALUES ('4dfb72bc-d369-4e3b-9069-2b80c890788b','PTPTN','uploads/ic/a4e14d03-bf2c-4011-b956-5d99b1415b1e.pdf','uploads/paymentslip/060d7995-b47f-4ed7-94bf-340d9f99d7a9.pdf','Bantuan makanan'),('6a6b168a-4f06-4f8e-b3ec-847eafb2923f','JPA','uploads/ic/f1bda6e4-7f72-4e92-b54e-a47904bbf74c.pdf','uploads/paymentslip/b0b2caa7-5419-43b0-90fd-63b372c463cf.pdf','tolongg');
 /*!40000 ALTER TABLE `food_application` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `invoice`
+--
+
+DROP TABLE IF EXISTS `invoice`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `invoice` (
+  `invoice_id` varchar(50) NOT NULL,
+  `claimed_date` date DEFAULT NULL,
+  `num_baucar_claimed` int DEFAULT NULL,
+  `vendor_id` int DEFAULT NULL,
+  PRIMARY KEY (`invoice_id`),
+  KEY `fk_vendor_invoice` (`vendor_id`),
+  CONSTRAINT `fk_vendor_invoice` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`vendor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invoice`
+--
+
+LOCK TABLES `invoice` WRITE;
+/*!40000 ALTER TABLE `invoice` DISABLE KEYS */;
+INSERT INTO `invoice` VALUES ('ccc71923-e198-42f8-876b-236106a941c7','2023-11-14',2,10),('f948d793-5042-4d4b-871f-3eaefb4f40bd','2023-11-14',2,18),('fff74678-3281-4a2a-8292-af88212088a8','2023-11-14',2,10);
+/*!40000 ALTER TABLE `invoice` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -117,7 +148,7 @@ CREATE TABLE `request` (
 
 LOCK TABLES `request` WRITE;
 /*!40000 ALTER TABLE `request` DISABLE KEYS */;
-INSERT INTO `request` VALUES ('7a4528fa-c762-462d-b721-a1c9624fa30b','202124','202124','202124',NULL,'makanan','lulus','2023-11-09','09:17:57','hola','huh\n',NULL);
+INSERT INTO `request` VALUES ('4dfb72bc-d369-4e3b-9069-2b80c890788b','202124','202124','202124',NULL,'makanan','lulus','2023-11-14','14:08:56','Lulus admin','Sahkan bhepa',NULL),('6a6b168a-4f06-4f8e-b3ec-847eafb2923f','221222','221222','221222',NULL,'makanan','lulus','2023-11-14','10:47:43','yess','lulus\n',NULL);
 /*!40000 ALTER TABLE `request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,4 +279,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-09 23:02:58
+-- Dump completed on 2023-11-14 21:00:45
