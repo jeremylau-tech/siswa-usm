@@ -5,21 +5,36 @@ import NavBar from './NavBar';
 import { Link } from "react-router-dom";
 import ApplicationStatus from "./student/ApplicationStatus";
 import footerLogo from '../img/footer_logo.jpg';
-import { Box, Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
+import { Tr, Table, Grid, Container, Box, Card, CardContent, CardMedia, Typography, Button, Divider, IconButton } from "@mui/material";
 import { useNavigate, useLocation } from 'react-router-dom';
+import EditIcon from '@mui/icons-material/Edit';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import EditRounded from '@mui/icons-material/EditRounded';
 
 function LandingPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = location.state;
   const data = { userId: user.unique_id };
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  // alert(user.unique_id);
-  // console.log(user);
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
 
   function handleMohonMakanan() {
     // Merge the existing location state with your data
-    navigate('/FoodApplication', { state: { ...location.state} });
+    navigate('/FoodApplication', { state: { ...location.state } });
   }
 
   function handleGoToBaucarMakanan() {
@@ -32,6 +47,87 @@ function LandingPage() {
 
       {/* Navigation Bar */}
       <NavBar />
+      {/* Services Section */}
+      <Box
+        align="center"
+        marginTop="50px"
+      >
+        <Card
+          sx={{
+            maxWidth: "90%",
+            backgroundColor: '#f5f5f5',
+            borderRadius: '10px',
+            boxShadow: 'none',
+            outlineColor: '#CCCCCC',
+            outlineStyle: 'solid',
+          }}
+        >
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div" >
+              Selamat Datang!
+            </Typography>
+            <Typography gutterBottom variant="h5" component="div" >
+              Mohamad Firdaus Bin Kasah Hamid
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Sila pastikan maklumat anda tepat dan telah dikemaskini
+            </Typography>
+            <Divider
+              style={{
+                marginTop: '10px',
+                marginBottom: '10px',
+                width: '30%',
+              }}
+
+            />
+            <Box
+              allign="center"
+            >
+              <table cellPadding='2px' align='center' justify='center' >
+                <tr>
+                  <td>
+                    <Typography variant="body2" color="text.secondary">
+                      No Telefon
+                    </Typography>
+                  </td>
+                  <td><Container
+                    sx={{
+                      display: 'flex',
+                      backgroundColor: '#CCCCCC',
+                      borderRadius: '5px',
+                      width: '100%',
+                    }}
+                  >
+                    <Typography
+                      align='center'
+                      padding={0.5}
+                    >
+                      +60194800970
+                    </Typography>
+                  </Container>
+                  </td>
+                  <td>
+                    <div onClick={handleOpenDialog}>
+                      <IconButton
+                        aria-label="edit"
+                        size="small"
+                        style={{
+                          color: 'grey',
+                        }}
+                      >
+                        <EditRounded />
+                      </IconButton>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
+
+
 
       {/* Services Section */}
       <section className="services-section">
@@ -64,14 +160,13 @@ function LandingPage() {
                 Keperluan asas dalam rutin seharian.
               </Typography>
               <Button
-  variant="contained"
-  color="primary"
-  style={{ marginRight: '10px' }}
-  onClick={handleMohonMakanan}
->
-  Mohon
-</Button>
-
+                variant="contained"
+                color="primary"
+                style={{ marginRight: '10px' }}
+                onClick={handleMohonMakanan}
+              >
+                Mohon
+              </Button>
               <Button
                 variant="contained"
                 color="primary"
@@ -120,17 +215,41 @@ function LandingPage() {
       {/* Status Permohonan Section */}
       <section className="status-permohonan">
         <div className="container" >
-        <h2 className="status-title">Status Permohonan</h2>
-        <section>
-        <Box 
-        style={{
-          paddingBottom: '50px',
-        }}
-        >
-          <ApplicationStatus></ApplicationStatus>
-        </Box>
-      </section>
+          <h2 className="status-title">Status Permohonan</h2>
+          <section>
+            <Box
+              style={{
+                paddingBottom: '50px',
+              }}
+            >
+              <ApplicationStatus></ApplicationStatus>
+            </Box>
+          </section>
         </div>
+        <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+          <DialogTitle>Kemaskini No Telefon</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Sila ke laman
+            </DialogContentText>
+            <DialogContentText
+              style={{
+                color: 'blue',
+                textDecoration: 'underline',
+              }}
+            >
+              <a href='https://campusonline.usm.my'> CampusOnline {'>'} Student Profile {'>'} Email & Mobile </a>
+            </DialogContentText>
+            <DialogContentText>
+              untuk mengemaskini no telefon anda
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color="primary">
+              Tutup
+            </Button>
+          </DialogActions>
+        </Dialog>
       </section>
 
       {/* Copyright Footnote Section */}
