@@ -38,6 +38,7 @@ import HistoryFood from "./component/HistoryFood";
 import InvoicePage from "./component/admin/vendor/InvoicePage";
 import ClaimedInvoicePage from "./component/admin/vendor/record/ClaimedInvoicePage";
 import UsedCouponList from "./component/admin/vendor/record/UsedCouponList";
+import CouponPublicView from "./component/public/CouponPublicView";
 
 
 
@@ -85,6 +86,8 @@ function App() {
           <Route path="/InvoicePage" element={<InvoicePage />} />
           <Route path="/ClaimedInvoicePage" element={<ClaimedInvoicePage />} />
           <Route path="/UsedCouponList" element={<UsedCouponList />} />
+          <Route path="/CouponPublicView" element={<CouponPublicView />} />
+
 
           {/* Add new Landing Page route */}
           <Route path="/LandingPage" element={<LandingPage />} />

@@ -61,50 +61,60 @@ function ApplicationListPage(user_roles) {
     setValue(newValue);
   };
   return (
-    <Container sx={{
-      width: '100%',
-      borderRadius: '10px',
-      boxShadow: '0 0 3px rgba(0,0,0,0.5)',
-      padding: '10px',
-      height: '700px',
-    }}>
-      <div className="container mt-5">
-        <div className="row">
-          <div class="col">
-
-          </div>
-          <div class="col">
-            <h2 className="status-title">Senarai Permohonan</h2>
-          </div>
-          <div class="col" style={{ textAlign: "left" }}>
-            <Button
-              variant="outlined"
+    <Container
+      sx={{
+        width: "100%",
+        borderRadius: "10px",
+        boxShadow: "0 0 3px rgba(0,0,0,0.5)",
+        padding: "10px",
+        height: "700px",
+      }}
+    >
+      <Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottom: "1px solid #e0e0e0",
+            marginBottom: "10px",
+          }}
+        >
+          <h2 className="status-title">Senarai Permohonan</h2>
+          <Button
+            variant="outlined"
+            style={{
+              borderColor: "gray",
+              color: "white",
+            }}
+            onClick={handleSettingsButtonClick} // Handle click to open dialog
+          >
+            <SettingsRoundedIcon
               style={{
-                borderColor: 'gray',
-                color: 'white',
+                color: "gray",
               }}
-              onClick={handleSettingsButtonClick} // Handle click to open dialog
-            >
-              <SettingsRoundedIcon
-                style={{
-                  color: "gray",
-                }}
-              ></SettingsRoundedIcon>
-            </Button>
-          </div>
-        </div>
-        <div class="row">
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-              <Tab label="Permohonan Baharu" {...a11yProps(0)} />
-              <Tab label="Keseluruhan " {...a11yProps(1)} />
-              <Tab label="Khairat Kematian" {...a11yProps(2)} />
-              <Tab label="Penyelenggaraan Peranti" {...a11yProps(3)} />
-              <Tab label="Wang Ihsan" {...a11yProps(4)} />
-              <Tab label="Makanan" {...a11yProps(5)} />
-            </Tabs>
-          </Box>
-          <CustomTabPanel value={value} index={0}>
+            />
+          </Button>
+        </Box>
+
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Permohonan Baharu" {...a11yProps(0)} />
+            <Tab label="Keseluruhan " {...a11yProps(1)} />
+            <Tab label="Khairat Kematian" {...a11yProps(2)} />
+            <Tab label="Penyelenggaraan Peranti" {...a11yProps(3)} />
+            <Tab label="Wang Ihsan" {...a11yProps(4)} />
+            <Tab label="Makanan" {...a11yProps(5)} />
+          </Tabs>
+        </Box>
+
+        <Box>
+          {/* Render your tab panels here */}
+          {value === 0 && (
             <Box
               sx={{
                 display: "flex",
@@ -112,10 +122,10 @@ function ApplicationListPage(user_roles) {
                 alignItems: "center",
               }}
             >
-          <NewApplication roles={roles}/>
+              <NewApplication roles={roles} />
             </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
+          )}
+          {value === 1 && (
             <Box
               sx={{
                 display: "flex",
@@ -123,10 +133,10 @@ function ApplicationListPage(user_roles) {
                 alignItems: "center",
               }}
             >
-              <PendingList roles={roles}/>
+              <PendingList roles={roles} />
             </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={2}>
+          )}
+          {value === 2 && (
             <Box
               sx={{
                 display: "flex",
@@ -136,8 +146,8 @@ function ApplicationListPage(user_roles) {
             >
               <KhairatKematianList />
             </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={3}>
+          )}
+          {value === 3 && (
             <Box
               sx={{
                 display: "flex",
@@ -147,8 +157,8 @@ function ApplicationListPage(user_roles) {
             >
               <PerantiList />
             </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={4}>
+          )}
+          {value === 4 && (
             <Box
               sx={{
                 display: "flex",
@@ -158,8 +168,8 @@ function ApplicationListPage(user_roles) {
             >
               <KewanganList />
             </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={5}>
+          )}
+          {value === 5 && (
             <Box
               sx={{
                 display: "flex",
@@ -167,13 +177,17 @@ function ApplicationListPage(user_roles) {
                 alignItems: "center",
               }}
             >
-              <MakananList roles={roles}/>
+              <MakananList roles={roles} />
             </Box>
-          </CustomTabPanel>
-        </div>
-      </div>
+          )}
+        </Box>
+      </Box>
+
       {isSettingsDialogOpen && (
-        <SettingsDialog open={isSettingsDialogOpen} onClose={() => setIsSettingsDialogOpen(false)} />
+        <SettingsDialog
+          open={isSettingsDialogOpen}
+          onClose={() => setIsSettingsDialogOpen(false)}
+        />
       )}
     </Container>
 
