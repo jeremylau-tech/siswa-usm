@@ -2,26 +2,20 @@
 FROM node:20
 
 # Set the working directory in the container
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /usr/src/server
+WORKDIR /usr/src/server
 
-# Copy package.json and package-lock.json from the "test_db_client" subfolder
-COPY /test_db_client/package*.json ./
+# Copy package.json and package-lock.json from the "test_db_server" subfolder
+COPY /test_db_server/package*.json ./
 
 # Install project dependencies
 RUN npm install
-RUN npm install -g react-scripts
 
-# Copy all source files from the "test_db_client" subfolder
-COPY ./ .
+# Copy all source files from the "test_db_server" subfolder
+COPY test_db_server/ .
 
-# Set the working directory to the "test_db_client" folder
-WORKDIR /usr/src/app/test_db_client/
+# Expose the port your server is listening on
+EXPOSE 3001
 
-# Expose port 80 (the default port for Apache)
-EXPOSE 3000
-
-# Define the command to start your app (adjust based on your project)
-RUN npm run build
-RUN npm install -g serve
-CMD [ "serve", "-s", "build"]
+# Command to start your Node.js application
+CMD [ "node", "server.js" ]
