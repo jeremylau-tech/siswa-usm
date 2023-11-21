@@ -1,14 +1,13 @@
 version: '3'
 
 services:
-  # Node.js service
+  # Node.js backend and React frontend service
   siswa-usm:
     container_name: siswa-usm
-    image: siswa-usm  # Replace with the actual image name if it's different
+    image: siswa-usm
     ports:
-      - "8090:3000"  # Map the container's port 3000 to the host's port 8090
-    depends_on:
-      - mysql8  # This ensures that the "mysql8" service is started before "siswa-usm"
+      - "8090:3000"  # Expose React frontend on host port 8090
+      - "8092:3001"  # Expose Node.js backend on host port 8092
 
   # MySQL service
   mysql8:
@@ -17,7 +16,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: pelajardatabase
       MYSQL_DATABASE: mysql8
-      MYSQL_USER: kebajikanpelajar@docker.usm.my
+      # MYSQL_USER: kebajikanpelajar@docker.usm.my
       # MYSQL_PASSWORD: your_mysql_password
     ports:
       - "3306:3306"
