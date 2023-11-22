@@ -1,11 +1,5 @@
 version: "3.4"
 
-x-common-variables: &common-variables
-  MYSQL_USER: kebajikanpelajar@docker.usm.my
-  MYSQL_PASSWORD: pelajardatabase
-  MYSQL_DATABASE: bhepa_test
-  REACT_APP_SERVER_PORT: 8090
-
 services:
   sql:
     image: mysql:5.7

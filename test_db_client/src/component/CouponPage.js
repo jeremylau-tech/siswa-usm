@@ -141,7 +141,7 @@ function CouponPage() {
     // Data to send in the request body
     const requestData = { userId };
     
-    fetch("http://localhost:8000/coupons-userid", {
+    fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-userid`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -163,7 +163,7 @@ function CouponPage() {
       
   useEffect(() => {
     // Make an HTTP GET request to the /vendor-all endpoint
-    fetch('http://localhost:8000/vendor-all') // Replace with the appropriate URL
+    fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }vendor-all`)
       .then(res => res.json())
       .then(data => {
         // Update the state with the retrieved data
