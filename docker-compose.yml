@@ -47,5 +47,5 @@ services:
     volumes:
       - ./test_db_client/src:/app/src
     links:
-      - server
+      - test_db_server
     command: npm start
