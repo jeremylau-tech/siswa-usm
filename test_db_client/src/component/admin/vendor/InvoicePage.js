@@ -7,18 +7,26 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  Typography,
+  Container,
+  Grid,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 
 
+
 function InvoicePage({ }) {
   const location = useLocation();
   const row = location.state.row;
+  const navigate = useNavigate();
+  const user = location.state;
+  const data = { userId: user.unique_id };
   let totalInvoice = row.baucarToClaim * 5;
   let date = new Date().toLocaleDateString();
   let invoiceId = generateRandomId(8);
+
 
   //Temporary user Id and userRole - User who process the coupon claim
   let userId = "USM0001";
@@ -35,7 +43,8 @@ function InvoicePage({ }) {
   };
 
   const handleConfirmPrint = () => {
-    // alert("Claimed!") --> Add this to see the error
+    setOpenPrintConfirmation(false);
+
     const requestData = {
       vendorId: row.vendor_id,
       numClaimed: row.baucarToClaim
@@ -57,14 +66,23 @@ function InvoicePage({ }) {
         console.error("Error in claim:", error);
       });
 
-    let printContents = document.getElementById('printablediv').innerHTML;
-    let originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
-    window.location.reload();
-    setOpenPrintConfirmation(false);
+    // Create a new window or iframe
+    const printWindow = window.open("", "_blank");
+    // Append the content to the new window or iframe
+    printWindow.document.write(document.getElementById('printablediv').innerHTML);
+    // Close the document to ensure proper cleanup
+    printWindow.document.close();
+
+    // Print the content
+    printWindow.print();
+
+    // Close the new window or iframe
+    printWindow.close();
+
+    // Continue with other actions
+    navigate('/AdminDashboard', { state: { ...location.state, ...data } });
   };
+
 
   //Temp user Id and userRole - User who process the coupon claim
 
@@ -92,18 +110,14 @@ function InvoicePage({ }) {
             <tr className="top" style={styles.topTableTd}>
               <td colSpan="2" style={styles.topTableTd}>
                 <table style={styles.table}>
+                  <Typography variant="h6" fontWeight='bold' marginLeft={1} >INVOIS MEMBEKAL MAKANAN DAN MINUMAN</Typography>
                   <tr>
                     <td className="title" style={{ ...styles.title, textAlign: 'left' }}>
-                      <img
-                        src="https://img.freepik.com/premium-vector/catering-quality-food-design-logo_187482-593.jpg"
-                        // src={row.logoUrl}
-                        alt="Logo"
-                        style={{ ...styles.title, maxWidth: '300px', maxHeight: '100px', }} // Adjust the max width as needed
-                      />
+
                     </td>
                     <td style={{ ...styles.topTableTd, textAlign: 'right' }}>
-                      Invoice Reference: {invoiceId} <br />
-                      Created: {date} <br />
+                      No Rujukan Invois: {invoiceId} <br />
+                      Tarikh Invois: {date} <br />
                     </td>
                   </tr>
                 </table>
@@ -115,64 +129,105 @@ function InvoicePage({ }) {
                 <table style={styles.table}>
                   <tr>
                     <td style={styles.tableTd}>
-                      {row.vendor_id} <br />
-                      {row.vendor_fullname} <br />
-                      {row.vendor_location}<br />
-                      Phone: {row.vendor_phone}<br />
-                      Emel: {row.vendor_email}<br />
-                    </td>
-                    <td style={styles.tableTd}>
-                      Bahagian Hal Ehwal Pembangunan Pelajar & Alumni <br />
+                      <Typography variant="" fontWeight='bold' >
+                        Kepada:</Typography> <br />                      Bahagian Hal Ehwal Pembangunan Pelajar & Alumni <br />
                       Kompleks Cahaya, Bangunan H20-24,<br />
                       11800 Universiti Sains Malaysia, Pulau Pinang<br />
                       +604-653 3106/3107   +604-657 7053<br />
                       Emel : bhepa@usm.my
                     </td>
                   </tr>
+                  <tr>
+                    <td style={styles.tableTd}>
+                      <Typography variant="" fontWeight='bold' >
+                        Daripada:</Typography> <br />
+                      {row.vendor_fullname} <br />
+                      {row.vendor_location}<br />
+                      Phone: {row.vendor_phone}<br />
+                      Emel: {row.vendor_email}<br />
+                    </td>
+                  </tr>
                 </table>
               </td>
             </tr>
-
-            <tr className="heading" style={styles.headingTd}>
-              <td>Item</td>
-              <td>Price</td>
-            </tr>
-            <tr className="item" style={styles.itemTd}>
-              <td>Menu Rahmah * {row.baucarToClaim} set</td>
-              <td>RM {totalInvoice}</td>
-            </tr>
-            <tr className="total" style={styles.totalTd}>
-              <td></td>
-              <td>Total: RM {totalInvoice}</td>
-            </tr>
+            <table
+              style={styles.itemTable}
+            >
+              <tr className="heading" style={styles.headingTd2}>
+                <td>Perkara</td>
+                <td>Harga</td>
+              </tr>
+              <tr className="item" style={styles.itemTd2}>
+                <td>Menu Rahmah * {row.baucarToClaim} set</td>
+                <td>RM {totalInvoice}</td>
+              </tr>
+              <tr className="total" style={styles.totalTd}>
+                <td></td>
+                <td>Jumlah: RM {totalInvoice}</td>
+              </tr>
+            </table>
             <br />
-            <tr className="heading" style={styles.headingTd}>
-              <td>Payment Details </td>
-
-              <td>Payment Method</td>
-            </tr>
+            <br />
+            <br />
+            <br />
+            <Typography variant='bodytext' fontWeight=''> Bayaran perlulah dikreditkan kepada akaun seperti dalam butiran berikut,</Typography> <br />
+            <Typography variant='h7' fontWeight='bold'> Butiran Pembayaran</Typography> <br />
             <tr className="details" style={styles.detailsTd}>
               <td>
-                Bank Name: {row.vendor_bank} <br />
-                Account Holder Name: {row.vendor_bank_acc_name}<br />
-                Account Number: {row.vendor_bank_acc} <br />
+                Nama Bank : {row.vendor_bank} <br />
+                Nama Pemegang Akaun Bank: {row.vendor_bank_acc_name}<br />
+                Nombor Akaun: {row.vendor_bank_acc} <br />
               </td>
+            </tr>
+            <br />
+            <Typography variant='h7' fontWeight='bold'> Kaedah Pembayaran</Typography> <br />
+            <tr>
               <td>Bank Transfer</td>
             </tr>
           </table>
         </div>
       </div>
       <div>
-        <Button
-          className="col"
-          style={{
-            backgroundColor: 'grey',
-            color: 'white',
+        <Container
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
             marginTop: '20px',
           }}
-          variant="contained" onClick={handlePrint}>
-          Teruskan Tuntutan Dan Cetak
-        </Button>
+        >
+          <Button
+            className="col"
+            variant="outlined"
+            style={{
+              backgroundColor: "#c8e6c9",
+              color: "#33691e",
+              marginTop: "20px",
+              marginRight: "20px",
+              marginBottom: "20px",
+              outlineColor: "#33691e",
+            }}
+            onClick={handlePrint}
+          >
+            Teruskan Tuntutan Dan Cetak
+          </Button>
+
+          <Button
+            className="col"
+            style={{
+              backgroundColor: "grey",
+              color: "white",
+              marginTop: "20px",
+              marginRight: "20px",
+              marginBottom: "20px",
+            }}
+            variant="contained"
+            onClick={() => {
+              navigate('/AdminDashboard', { state: { ...location.state, ...data } });
+            }}
+          >
+            Kembali
+          </Button>
+        </Container>
         {/* Print Confirmation Dialog */}
         <Dialog
           open={openPrintConfirmation}
@@ -182,12 +237,14 @@ function InvoicePage({ }) {
             {"Teruskan Tuntutan?"}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Dengan menekan butang teruskan, anda bersetuju bahawa :
+            <DialogContentText
+              id="alert-dialog-description"
+              style={{ color: "red" }}
+            >
+              Dengan menekan butang teruskan,
               <ul>
                 <li> Bilangan kupon untuk dituntut akan dikira 0 semula. Rekod invois lama akan disediakan dalam butang 'Rekod' pada paparan senarai.</li>
                 <li> Maklumat pada invois adalah tetap tidak boleh ditukar.</li>
-                {/* Add more disclaimers as needed */}
               </ul>
             </DialogContentText>
           </DialogContent>
@@ -199,7 +256,7 @@ function InvoicePage({ }) {
           </DialogActions>
         </Dialog>
       </div>
-    </div>
+    </div >
   );
 }
 
@@ -208,12 +265,17 @@ const styles = {
     maxWidth: '800px',
     margin: 'auto',
     padding: '30px',
-    border: '1px solid #eee',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.15)',
     fontSize: '16px',
     lineHeight: '24px',
     fontFamily: "'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif",
     color: '#555',
+  },
+  itemTable: {
+    width: '100%',
+    lineHeight: 'inherit',
+    textAlign: 'left',
+    border: '1px solid #000',
+
   },
   table: {
     width: '100%',
@@ -234,6 +296,7 @@ const styles = {
     fontSize: '45px',
     lineHeight: '45px',
     color: '#333',
+
   },
   informationTableTd: {
     paddingBottom: '40px',
@@ -243,11 +306,20 @@ const styles = {
     borderBottom: '1px solid #ddd',
     fontWeight: 'bold',
   },
+  headingTd2: {
+    background: '#eee',
+    border: '1px solid #000',
+    borderBottom: '1px solid #ddd',
+    fontWeight: 'bold',
+  },
   detailsTd: {
     paddingBottom: '20px',
   },
   itemTd: {
     borderBottom: '1px solid #eee',
+  },
+  itemTd2: {
+    borderBottom: '1px solid #000',
   },
   lastItemTd: {
     borderBottom: 'none',
