@@ -22,7 +22,7 @@ services:
     build: ./test_db_server
     container_name: test_db_server
     depends_on:
-      - sql
+      - mysql8
     environment:
       MYSQL_HOST_IP: mysql-db
     ports:
@@ -30,7 +30,7 @@ services:
     volumes:
       - ./test_db_server:/app
     links:
-      - sql
+      - mysql8
     command: node server.js
 
   test_db_client:
