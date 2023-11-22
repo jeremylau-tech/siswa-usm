@@ -85,7 +85,9 @@ function VendorList() {
 
   useEffect(() => {
     // Make an HTTP GET request to the /vendor-all endpoint
-    fetch('http://localhost:8000/vendor-table') // Replace with the appropriate URL
+        // fetch('http://localhost:8000/vendor-table') // Replace with the appropriate URL
+    // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }vendor-table`)
+    fetch('http://docker.usm.my:8000/vendor-table') // Replace with the appropriate URL
       .then(res => res.json())
       .then(data => {
         // Update the state with the retrieved data
