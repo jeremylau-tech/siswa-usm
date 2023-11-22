@@ -5,7 +5,6 @@ services:
     image: mysql:5.7
     container_name: mysql_container
     environment:
-      <<: *common-variables
       MYSQL_HOST: mysql8
       MYSQL_ROOT_PASSWORD: pelajardatabase
     ports:
@@ -20,7 +19,6 @@ services:
     depends_on:
       - sql
     environment:
-      <<: *common-variables
       MYSQL_HOST_IP: mysql-db
     ports:
       - 8000:8000
@@ -34,7 +32,6 @@ services:
     build: ./test_db_client
     container_name: test_db_client
     environment:
-      <<: *common-variables
       NODE_PATH: src
     ports:
       - 8090:3000
