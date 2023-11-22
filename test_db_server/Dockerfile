@@ -12,10 +12,11 @@ COPY /package*.json ./
 RUN npm install
 
 # Copy all source files from the "test_db_server" subfolder
-COPY test_db_server/ .
+COPY ./ .
+# COPY test_db_server/ .
 
 # Expose the port your server is listening on
-EXPOSE 3001
+EXPOSE 8000
 
 # Command to start your Node.js application
 CMD [ "node", "server.js" ]
