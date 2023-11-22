@@ -92,6 +92,7 @@ function VendorList() {
       .then(data => {
         // Update the state with the retrieved data
         setVendorMap(data.vendors);
+        console.error('Error????', error);
       })
       .catch(error => {
         console.error('Error fetching data from the server:', error);
