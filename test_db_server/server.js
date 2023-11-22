@@ -7,7 +7,7 @@ const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
 const corsOptions = {
-  origin: 'http://docker.usm.my:3000', // Replace with the actual origin of your frontend
+  origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -29,6 +29,7 @@ function generateCouponCode(length) {
   return couponCode;
 }
 
+let isDbConnected = false; // Variable to store the connection state
 
 // MySQL connection configuration
 const db = mysql.createConnection({
@@ -38,9 +39,20 @@ password: 'Admin@12345',
 database: 'bhepa_test',
 });
 
+// Connect to MySQL
+db.connect((err) => {
+  if (err) {
+      console.error('Error connecting to MySQL:', err);
+  } else {
+    isDbConnected = true; // Set the connection state to true
+      console.log('Connected to MySQL');
+  }
+  });
+  
+
 app.get("/check-db", (req, res) => {
-  if (db.state === 'authenticated') {
-      res.json({ message: 'Database connection is successful!' });
+  if (isDbConnected) {
+    res.json({ message: 'Database connection is successful!' });
   } else {
       res.status(500).json({ error: 'Database connection failed.' });
   }
@@ -82,14 +94,6 @@ app.post("/upload/:category", (req, res) => {
   });
 });
 
-// Connect to MySQL
-db.connect((err) => {
-if (err) {
-    console.error('Error connecting to MySQL:', err);
-} else {
-    console.log('Connected to MySQL');
-}
-});
 
 
 // Define a route to handle user login
