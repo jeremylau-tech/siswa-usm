@@ -15,7 +15,7 @@ RUN npm install
 COPY test_db_server/ .
 
 # Expose the port your server is listening on
-EXPOSE 3001
+EXPOSE 8000
 
 # Command to start your Node.js application
 CMD [ "node", "server.js" ]
