@@ -33,10 +33,10 @@ let isDbConnected = false; // Variable to store the connection state
 
 // MySQL connection configuration
 const db = mysql.createConnection({
-host: 'localhost',
+host: 'docker.usm.my:8092',
 user: 'root',
-password: 'Admin@12345',
-database: 'bhepa_test',
+password: 'pelajardatabase',
+database: 'mysql8',
 });
 
 // Connect to MySQL
