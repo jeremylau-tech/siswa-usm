@@ -38,6 +38,18 @@ password: 'Admin@12345',
 database: 'bhepa_test',
 });
 
+app.get("/check-db", (req, res) => {
+  if (db.state === 'authenticated') {
+      res.json({ message: 'Database connection is successful!' });
+  } else {
+      res.status(500).json({ error: 'Database connection failed.' });
+  }
+});
+
+app.get("/check-backend", (req, res) => {
+    res.json({ message: 'If you\'re seeing this, connection is working! ' });
+});
+
 const getStorage = (category) => {
   return multer.diskStorage({
     destination: (req, file, cb) => {
@@ -79,10 +91,6 @@ if (err) {
 }
 });
 
-
-app.get("/message", (req, res) => {
-    res.json({ message: 'If you\'re seeing this, connection is working! ' });
-});
 
 // Define a route to handle user login
 app.post("/login", (req, res) => {

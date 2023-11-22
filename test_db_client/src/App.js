@@ -3,7 +3,7 @@ import { getAnalytics } from "firebase/analytics";
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import MessagePage from "./component/MessagePage";
+// import MessagePage from "./component/MessagePage";
 import UsersPage from "./component/UsersPage";
 import InsertPage from "./component/InsertPage";
 import Login from "./component/authentication/Login";
@@ -63,7 +63,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<WelcomePage />} />
-          <Route path="/message" element={<MessagePage />} />
+          {/* <Route path="/message" element={<MessagePage />} /> */}
           <Route path="/makanan" element={<Makanan />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/insert" element={<InsertPage />} />
