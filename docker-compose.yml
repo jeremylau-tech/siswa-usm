@@ -12,7 +12,7 @@ services:
   restart: unless-stopped
   volumes:
         - ./sql:/docker-entrypoint-initdb.d
-  command: --init-file /docker-entrypoint-initdb.d/bhepa_test_update.sql
+  # command: --init-file /docker-entrypoint-initdb.d/bhepa_test_update.sql
 
 
   test_db_server:
