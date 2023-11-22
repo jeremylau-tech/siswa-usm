@@ -19,7 +19,7 @@ services:
     build: ./test_db_server
     container_name: test_db_server
     ports:
-      - "8092:8000"
+      - "8000:8000"
     volumes:
       - ./test_db_server:/app
     command: node server.js
