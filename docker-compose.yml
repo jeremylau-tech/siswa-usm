@@ -1,21 +1,51 @@
-version: '3'
+version: "3.4"
+
+x-common-variables: &common-variables
+  MYSQL_USER: kebajikanpelajar@docker.usm.my
+  MYSQL_PASSWORD: pelajardatabase
+  MYSQL_DATABASE: bhepa_test
+  REACT_APP_SERVER_PORT: 8090
 
 services:
-  # Node.js backend and React frontend service
-  siswa-usm:
-    container_name: siswa-usm
-    image: siswa-usm
-    ports:
-      - "8090:3000"  # Expose React frontend on host port 8090
-      - "8092:3001"  # Expose Node.js backend on host port 8092
-
-  # MySQL service
-  mysql8:
-    container_name: mysql8
-    image: mysql:8.0
+  sql:
+    image: mysql:5.7
+    container_name: mysql_container
     environment:
+      <<: *common-variables
+      MYSQL_HOST: mysql8
       MYSQL_ROOT_PASSWORD: pelajardatabase
-      MYSQL_DATABASE: mysql8
-      # MYSQL_USER: kebajikanpelajar@docker.usm.my
-      # MYSQL_PASSWORD: your_mysql_password
     ports:
+      - 3306:3306
+    restart: unless-stopped
+    volumes:
+      - ./db/sample.sql:/docker-entrypoint-initdb.d/sample.sql
+
+  test_db_server:
+    build: ./test_db_server
+    container_name: test_db_server
+    depends_on:
+      - sql
+    environment:
+      <<: *common-variables
+      MYSQL_HOST_IP: mysql-db
+    ports:
+      - 8000:8000
+    volumes:
+      - ./test_db_server:/app
+    links:
+      - sql
+    command: node server.js
+
+  test_db_client:
+    build: ./test_db_client
+    container_name: test_db_client
+    environment:
+      <<: *common-variables
+      NODE_PATH: src
+    ports:
+      - 3000:3000
+    volumes:
+      - ./test_db_client/src:/app/src
+    links:
+      - server
+    command: npm start
