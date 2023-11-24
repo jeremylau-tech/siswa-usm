@@ -15,6 +15,7 @@ import AssignmentTurnedInRoundedIcon from '@mui/icons-material/AssignmentTurnedI
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
+import { useNavigate, useLocation } from 'react-router-dom';
 
    function NewApplication({roles}){
     const columns = [
@@ -116,7 +117,6 @@ import DialogContent from '@mui/material/DialogContent';
         width: 100,
         sortable: false,
         renderCell: (params) => (
-          <Link to={`/ArchivePage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
     
           <Button
             style={{
@@ -131,11 +131,11 @@ import DialogContent from '@mui/material/DialogContent';
               display: "flex",
             }}
             variant="contained"
-          >
+            onClick={() => handleToArchieve(params)}
+            >
             <span >{getStatusButtonText(params.row.request_status).icon}</span>
             {getStatusButtonText(params.row.request_status).text}
           </Button>
-          </Link>
         ),
       },
       {
@@ -167,6 +167,23 @@ import DialogContent from '@mui/material/DialogContent';
       },
     ];
     
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    function handleToArchieve(params) {
+// <Link to={`/ArchivePage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
+
+
+alert(params.row.request_remark_admin)
+  const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
+    tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc } = params.row;
+  const user_role = roles;
+
+  // Navigate to the ArchivePage with request details and userRole
+  navigate('/ArchivePage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
+    tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role } });
+  }
+
     const getStatusButtonText = (status) => {
       let buttonText = "";
       let icon = <AssignmentTurnedInRoundedIcon />;
