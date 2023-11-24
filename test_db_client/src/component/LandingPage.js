@@ -19,9 +19,10 @@ function LandingPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = location.state;
-  const data = { userId: user.unique_id };
+  const userId = user.unique_id;
+  const data = { userId:  userId};
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+  const [userDetails, setUserDetails] = useState({});
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -41,6 +42,28 @@ function LandingPage() {
     // Merge the existing location state with your data
     navigate('/CouponPage', { state: { ...location.state, ...data } });
   }
+
+  useEffect(() => {
+
+    // Make an HTTP POST request to the /invoice-all-vendor endpoint
+    fetch('http://localhost:8000/get-user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        // Update the state with the retrieved data
+        // setInvoiceMap(data.invoices);
+        // setVendorMap(data.vendors[0])
+        setUserDetails(data.user[0])
+      })
+      .catch(error => {
+        console.error('Error fetching data from the server:', error);
+      });
+  }, []);
 
   return (
     <div className="landing-page">
@@ -67,7 +90,7 @@ function LandingPage() {
               Selamat Datang!
             </Typography>
             <Typography gutterBottom variant="h5" component="div" >
-              Mohamad Firdaus Bin Kasah Hamid
+              {userDetails.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Sila pastikan maklumat anda tepat dan telah dikemaskini
@@ -102,7 +125,7 @@ function LandingPage() {
                       align='center'
                       padding={0.5}
                     >
-                      +60194800970
+                      {userDetails.phone_num}
                     </Typography>
                   </Container>
                   </td>
@@ -222,7 +245,7 @@ function LandingPage() {
                 paddingBottom: '50px',
               }}
             >
-              <ApplicationStatus></ApplicationStatus>
+              <ApplicationStatus userId={userId}></ApplicationStatus>
             </Box>
           </section>
         </div>
