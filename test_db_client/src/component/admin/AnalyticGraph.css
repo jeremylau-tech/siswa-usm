@@ -7,7 +7,7 @@
     align-items: center;
     overflow-x: auto; /* Enable horizontal scrolling if needed */
     max-width: 100%; /* Allow the chart container to grow to the screen width */
-    margin-top: -60px;
+    margin-top: -5px;
     margin-bottom: 2rem;
   }
   

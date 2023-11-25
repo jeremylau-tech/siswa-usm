@@ -4,8 +4,6 @@ import Box from "@mui/material/Box";
 import CreateVendor from "./CreateVendor";
 import { Container } from "@mui/material";
 
-
-
 function VendorListPage() {
   return (
     <Container sx={{
@@ -17,7 +15,7 @@ function VendorListPage() {
       marginTop: '20px',
     }}>
       <div className="container mt-5" >
-        <h2 className="status-title" style={{ padding: "30px" }}>Vendor</h2>
+        <h2 className="section-title" style={{ padding: "10px" }}>Vendor</h2>
         <Box
           style={{
             display: "flex",

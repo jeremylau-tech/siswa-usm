@@ -80,12 +80,15 @@ function ApplicationListPage(user_roles) {
             marginBottom: "10px",
           }}
         >
-          <h2 className="status-title">Senarai Permohonan</h2>
+          <h2 className="section-title" style={{ flex: 1, textAlign: "center" }}>
+            Senarai Permohonan
+          </h2>
           <Button
             variant="outlined"
             style={{
               borderColor: "gray",
               color: "white",
+              flex: 0, // Make sure the button doesn't grow
             }}
             onClick={handleSettingsButtonClick} // Handle click to open dialog
           >

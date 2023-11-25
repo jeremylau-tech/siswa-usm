@@ -13,11 +13,11 @@ function AdminDashboard(props) {
   return ( 
     <div className="App">
         <AnalyticDashboard /> 
-        <Divider/>
+        <Divider style={{ margin: '30px 0' }} />
         <AnalyticGraph />
-        <Divider/>
+        <Divider style={{ margin: '30px 0' }} />
         <ApplicationListPage user_roles={user.roles}/>
-        <Divider/>
+        <Divider style={{ margin: '30px 0' }} />
         <VendorListPage />
     </div>
   );
