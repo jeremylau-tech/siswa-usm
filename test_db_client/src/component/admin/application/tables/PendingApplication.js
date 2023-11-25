@@ -15,6 +15,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import StickyNote2RoundedIcon from '@mui/icons-material/StickyNote2Rounded';
 import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 function PendingList({roles}) {
@@ -27,6 +28,9 @@ function PendingList({roles}) {
 
   const [requests, setRequests] = useState([]);
   const [userDetailsMap, setUserDetailsMap] = useState({});
+
+  const navigate = useNavigate();
+    const location = useLocation();
 
   const columns = [
     {
@@ -127,7 +131,6 @@ function PendingList({roles}) {
       width: 100,
       sortable: false,
       renderCell: (params) => (
-        <Link to={`/ArchivePage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
         <Button
           style={{
             backgroundColor: "#fafafa",
@@ -141,11 +144,11 @@ function PendingList({roles}) {
             display: "flex",
           }}
           variant="contained"
+          onClick={() => handleToArchieve(params)}
         >
           <span >{getStatusButtonText(params.row.request_status).icon}</span>
           {getStatusButtonText(params.row.request_status).text}
         </Button>
-        </Link>
       ),
     },
     {
@@ -250,7 +253,18 @@ function PendingList({roles}) {
       });
   }, [userDetailsMap]);
 
-
+  function handleToArchieve(params) {
+    // <Link to={`/ArchivePage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
+    
+    
+      const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
+        tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc } = params.row;
+      const user_role = roles;
+    
+      // Navigate to the ArchivePage with request details and userRole
+      navigate('/ArchivePage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
+        tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role } });
+      }
 
   const downloadDataAsCSV = () => {
     // Create a header row with column names
