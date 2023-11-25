@@ -28,6 +28,19 @@ function LandingPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [userDetails, setUserDetails] = useState({});
 
+  const commonButtonStyle = {
+    display: 'inline-block',
+    padding: '10px 15px',
+    textDecoration: 'none',
+    color: '#fff',
+    borderRadius: '4px',
+    transition: 'background-color 0.3s',
+    backgroundColor: '#491E6E',
+    '&:hover': {
+      backgroundColor: '#8945c5',
+    },
+  };
+
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
   };
@@ -187,7 +200,7 @@ function LandingPage() {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ marginRight: '10px' }}
+                sx={{ ...commonButtonStyle, marginRight: '10px' }}
                 onClick={handleMohonMakanan}
               >
                 Mohon
@@ -195,7 +208,7 @@ function LandingPage() {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ marginLeft: '10px' }} // Add margin to the left side of the button
+                sx={{ ...commonButtonStyle, marginLeft: '10px' }}
                 onClick={handleGoToBaucarMakanan}
               >
                 Guna

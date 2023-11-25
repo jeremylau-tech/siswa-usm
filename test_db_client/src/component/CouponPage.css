@@ -1,4 +1,11 @@
 /* CouponPage.css */
+@font-face {
+    font-family: 'Barlow Condensed';
+    src: url('font/Barlow_Condensed/BarlowCondensed-Medium.ttf') format('truetype');
+    font-weight: 500; /* Regular */
+    font-style: normal;
+    font-display: swap;
+  }
 
 /* Style the coupon page */
 .coupon-page {
@@ -7,8 +14,10 @@
 
 /* Style the coupon title */
 .coupon-title {
-    font-size: 30px;
     margin-top: 50px; /* Adjust margin for smaller screens */
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
 }
 
 .coupon-title::before {
