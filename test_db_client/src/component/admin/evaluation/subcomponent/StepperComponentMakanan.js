@@ -12,7 +12,8 @@ import RejectDialog from "./RejectDialog";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
 
 
-function StepperComponentMakanan({ requestId, userId, userRole, reqType, isArchive }) {
+function StepperComponentMakanan({ requestId, userId, userRole, reqType, adminId, bhepaId, 
+  tncId, adminRemark,bhepaRemark,tncRemark,isArchive}) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [requests, setRequests] = useState([]);
   const [foodApplication, setFoodApplication] = useState([]);
@@ -67,7 +68,13 @@ function StepperComponentMakanan({ requestId, userId, userRole, reqType, isArchi
     {
       label: isArchive ? 'Langkah 4 : Semakan Catatan' : 'Langkah 4 : Keputusan Semakan & Catatan',
       content: isArchive ? (
-        <ResultStepArchive />
+        <ResultStepArchive 
+        adminId={adminId}
+        bhepaId={bhepaId}
+        tncId={tncId}
+        adminRemark={adminRemark}
+        bhepaRemark={bhepaRemark}
+        tncRemark={tncRemark}/>
       ) : (
         <ResultStep />
       ) 

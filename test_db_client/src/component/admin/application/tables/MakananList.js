@@ -174,7 +174,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 // <Link to={`/ArchivePage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
 
 
-alert(params.row.request_remark_admin)
   const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
     tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc } = params.row;
   const user_role = roles;

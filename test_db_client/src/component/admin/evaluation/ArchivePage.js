@@ -28,12 +28,6 @@ function EvaluationPage() {
   const { request_id, requestor_id, request_type, admin_approver_id, bhepa_approver_id, 
     tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role} = location.state;
 
-    alert(request_remark_bhepa)
-
-  const rowId = request_id;
-  const userId = requestor_id;
-  const rowReqType = request_type;
-  const userRole = user_role;
   const isArchive = true;
 
   return (
@@ -54,8 +48,20 @@ function EvaluationPage() {
               <Box sx={centerStyle}> {/* Center the content */}
                 {/* Include the StepperComponent here */}
               
-                {rowReqType === "makanan" ? (
-                <StepperComponentMakanan requestId={rowId} userId={userId} userRole={userRole} reqType={rowReqType} isArchive={isArchive}/>
+                {request_type === "makanan" ? (
+                 <StepperComponentMakanan
+                 requestId={request_id}
+                 userId={requestor_id}
+                 userRole={user_role}
+                 reqType={request_type}
+                 adminId={admin_approver_id}
+                 bhepaId={bhepa_approver_id}
+                 tncId={tnc_approver_id}
+                 adminRemark={request_remark_admin}
+                 bhepaRemark={request_remark_bhepa}
+                 tncRemark={request_remark_tnc}
+                 isArchive={isArchive}
+               />
               ) : (
                 /* Render a different stepper component here for other cases */
                 <StepperComponent />

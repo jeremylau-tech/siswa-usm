@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'reac
 export default function ApprovedDialog({ requestId, userId, userRole }) {
   // alert(requestId)
   const navigate = useNavigate(); // Initialize the useNavigate hook
-  const data = { roles: userRole };
 
   const [open, setOpen] = React.useState(false);
   const [textFieldValue, setTextFieldValue] = useState(''); // State to store text field value
@@ -66,7 +65,7 @@ export default function ApprovedDialog({ requestId, userId, userRole }) {
       alert("An error occurred while submitting the text field value.");
     }
 
-    navigate('/adminDashboard', { state: { ...data } });
+    navigate('/adminDashboard', { state: { roles: userRole }});
 
     // navigate('/adminDashboard'); // Use navigate for redirection
 
