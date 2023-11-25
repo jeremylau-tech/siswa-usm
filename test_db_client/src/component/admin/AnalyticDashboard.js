@@ -76,31 +76,32 @@ function AnalyticDashboard() {
     
     <div className="analyticDashboard pb pt pt-md">
       <Container maxWidth="xl">
-        <h2 className="status-title">Dashboard BHEPA</h2>
+        <h2 className="section-title">Statistik Permohonan Kebajikan Pelajar</h2>
         <br></br>
         <div className="analyticDashboard-body">
           <Grid container spacing={3}>
+
           <Grid item lg={3} xl={3}>
-              <Card className="card card-lift--hover">
-                <CardContent className="card-body">
-                  <div className="row">
-                    <div className="col-9">
-                      <div className="row">
-                        <div className="col-12">
-                          <Typography variant="h6">Baharu</Typography>
-                        </div>
-                        <div className="col-12">
-                          <Typography variant="h4">{baharuCount}</Typography> 
-                        </div>
-                      </div>
+            <Card className="card card-lift--hover">
+              <CardContent className="card-body">
+                <Grid container alignItems="center">
+                  <Grid item xs={9}>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Typography variant="h6">Baharu</Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography variant="h4">{baharuCount}</Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={3} textAlign="right">
+                    <div className="icon bg-orange text-white rounded-circle shadow">
+                      <PendingActionsIcon />
                     </div>
-                    <div className="col-3 text-right">
-                      <div className="icon bg-orange text-white rounded-circle shadow">
-                        <MoreTimeIcon />
-                      </div>
-                    </div>
-                  </div>
-                  {/* <div className="row mt-3">
+                  </Grid>
+                </Grid>
+                {/* <div className="row mt-3">
                     <div className="col-12">
                       <Typography variant="subtitle1" color="textSecondary">
                         <span className="text-success mr-2">
@@ -110,31 +111,31 @@ function AnalyticDashboard() {
                       </Typography>
                     </div>
                   </div> */}
-                </CardContent>
-              </Card>
-            </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
 
-            <Grid item lg={3} xl={3}>
-              <Card className="card card-lift--hover">
-                <CardContent className="card-body">
-                  <div className="row">
-                    <div className="col-9">
-                      <div className="row">
-                        <div className="col-12">
-                          <Typography variant="h6">Dalam Proses</Typography>
-                        </div>
-                        <div className="col-12">
-                          <Typography variant="h4">{dalamProsesCount}</Typography>
-                        </div>
-                      </div>
+          <Grid item lg={3} xl={3}>
+            <Card className="card card-lift--hover">
+              <CardContent className="card-body">
+                <Grid container alignItems="center">
+                  <Grid item xs={9}>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Typography variant="h6">Dalam Proses</Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography variant="h4">{dalamProsesCount}</Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={3} textAlign="right">
+                    <div className="icon bg-blue text-white rounded-circle shadow">
+                      <PendingActionsIcon />
                     </div>
-                    <div className="col-3 text-right">
-                      <div className="icon bg-blue text-white rounded-circle shadow">
-                        <PendingActionsIcon />
-                      </div>
-                    </div>
-                  </div>
-                  {/* <div className="row mt-3">
+                  </Grid>
+                </Grid>
+                {/* <div className="row mt-3">
                     <div className="col-12">
                       <Typography variant="subtitle1" color="textSecondary">
                         <span className="text-warning mr-2">
@@ -144,31 +145,31 @@ function AnalyticDashboard() {
                       </Typography>
                     </div>
                   </div> */}
-                </CardContent>
-              </Card>
-            </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
 
-            <Grid item lg={3} xl={3}>
-              <Card className="card card-lift--hover">
-                <CardContent className="card-body">
-                  <div className="row">
-                    <div className="col-9">
-                      <div className="row">
-                        <div className="col-12">
-                          <Typography variant="h6">Lulus</Typography>
-                        </div>
-                        <div className="col-12">
+          <Grid item lg={3} xl={3}>
+            <Card className="card card-lift--hover">
+              <CardContent className="card-body">
+                <Grid container alignItems="center">
+                  <Grid item xs={9}>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Typography variant="h6">Lulus</Typography>
+                      </Grid>
+                      <Grid item xs={12}>
                         <Typography variant="h4">{lulusCount}</Typography>
-                        </div>
-                      </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={3} textAlign="right">
+                    <div className="icon bg-green text-white rounded-circle shadow">
+                      <PendingActionsIcon />
                     </div>
-                    <div className="col-3 text-right">
-                      <div className="icon bg-green text-white rounded-circle shadow">
-                        <DoneAllIcon />
-                      </div>
-                    </div>
-                  </div>
-                  {/* <div className="row mt-3">
+                  </Grid>
+                </Grid>
+                {/* <div className="row mt-3">
                     <div className="col-12">
                       <Typography variant="subtitle1" color="textSecondary">
                         <span className="text-warning mr-2">
@@ -178,43 +179,34 @@ function AnalyticDashboard() {
                       </Typography>
                     </div>
                   </div> */}
-                </CardContent>
-              </Card>
-            </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
 
-            <Grid item lg={3} xl={3}>
-              <Card className="card card-lift--hover">
-                <CardContent className="card-body">
-                  <div className="row">
-                    <div className="col-9">
-                      <div className="row">
-                        <div className="col-12">
-                          <Typography variant="h6">Ditolak</Typography>
-                        </div>
-                        <div className="col-12">
+          <Grid item lg={3} xl={3}>
+            <Card className="card card-lift--hover">
+              <CardContent className="card-body">
+                <Grid container alignItems="center">
+                  <Grid item xs={9}>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Typography variant="h6">Ditolak</Typography>
+                      </Grid>
+                      <Grid item xs={12}>
                         <Typography variant="h4">{tolakCount}</Typography>
-                        </div>
-                      </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={3} textAlign="right">
+                    <div className="icon bg-red text-white rounded-circle shadow">
+                      <PendingActionsIcon />
                     </div>
-                    <div className="col-3 text-right">
-                      <div className="icon bg-red text-white rounded-circle shadow">
-                        <ThumbDownOffAltIcon />
-                      </div>
-                    </div>
-                  </div>
-                  {/* <div className="row mt-3">
-                    <div className="col-12">
-                      <Typography variant="subtitle1" color="textSecondary">
-                        <span className="text-success mr-2">
-                          <ArrowUpwardIcon /> 12%
-                        </span>{" "}
-                        Sejak bulan lepas
-                      </Typography>
-                    </div>
-                  </div> */}
-                </CardContent>
-              </Card>
-            </Grid>
+                  </Grid>
+                </Grid>
+                {/* Additional content */}
+              </CardContent>
+            </Card>
+          </Grid>
 
           </Grid>
         </div>

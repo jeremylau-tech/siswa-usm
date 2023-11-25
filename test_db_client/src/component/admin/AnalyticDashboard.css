@@ -1,7 +1,23 @@
 /* AnalyticDashboard.css */
+.section-title::before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  top: calc(-0.15 * 1em); /* Adjusted for a higher position */
+  vertical-align: middle;
+  height: calc(6px + 0.7em); /* Increased height */
+  margin-right: calc(7px + 0.3em); /* Increased gap */
+  border-left: calc(5px + 0.1em) solid #fca31e;
+}
+
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+}
 
 .analyticDashboard {
-  padding: 1rem;
+  padding: 5rem;
 }
 
 .pt-md {
