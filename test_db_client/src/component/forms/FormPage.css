@@ -26,22 +26,6 @@
   background-color: #ffffff;
 }
 
-/* Add media queries for responsive layout adjustments */
-@media (max-width: 768px) {
-  .form-column-left,
-  .form-column-right {
-    width: 100%; /* Make both columns take full width on small screens */
-    margin-top: -50px; /* Add margin to separate the columns */
-  }
-
-  .form-group input[type="text"],
-  .form-group input[type="email"] {
-    width: 100%; /* Full width for input fields on small screens */
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-}
-
 /* FormPage.css */
 .left-header {
     color: white;
@@ -56,12 +40,14 @@
 
   .right-header-para {
     text-align: center;
-    padding-bottom: 20px;
+    padding-bottom: 5px;
+    margin-top: 0;
   }
-  
 
   .right-header {
     text-align: center;
+    margin-top: 70px;
+    margin-bottom: 10px;
   }
   
  /* Style for the form */
@@ -138,3 +124,29 @@ button[type="submit"] {
   .button-container-form {
     margin-top: 30px;
   }
+
+  /* Add media queries for responsive layout adjustments */
+@media (max-width: 768px) {
+  .form-column-left,
+  .form-column-right {
+    width: 100%; /* Make both columns take full width on small screens */
+    margin-top: -20px; /* Add margin to separate the columns */
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"] {
+    width: 100%; /* Full width for input fields on small screens */
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .left-header-para{
+    padding-top: 0 ;
+  }
+
+  .right-header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+}

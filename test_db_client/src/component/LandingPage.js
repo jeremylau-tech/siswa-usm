@@ -173,7 +173,7 @@ function LandingPage() {
         <div className="new-services-container">
           {/* New Service Card 1 */}
           <Card className="new-service-card">
-            <CardMedia component="img" alt="Service 1 Banner" height="140" image="wang-pic.jpg" />
+            <CardMedia component="img" alt="Service 1 Banner" height="140" image="welfare.jpeg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Wang Ihsan
@@ -181,15 +181,15 @@ function LandingPage() {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Keupayaan pelajar untuk menerusi pemebelajaran.
               </Typography>
-              <Button component={Link} to='/Wang_FormPage' variant="contained" color="primary">
-                Mohon
+              <Button component={Link} to='/Wang_FormPage' variant="contained" color="primary" disabled>
+                Akan Datang
               </Button>
             </CardContent>
           </Card>
 
           {/* New Service Card 2 */}
           <Card className="new-service-card">
-            <CardMedia component="img" alt="Service 2 Banner" height="140" image="kupon-pic.jpg" />
+            <CardMedia component="img" alt="Service 2 Banner" height="140" image="makanan.png" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Baucar Makanan
@@ -218,7 +218,7 @@ function LandingPage() {
 
           {/* New Service Card 3 */}
           <Card className="new-service-card">
-            <CardMedia component="img" alt="Service 3 Banner" height="140" image="death-pic.jpg" />
+            <CardMedia component="img" alt="Service 3 Banner" height="140" image="kematian.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Khairat Kematian
@@ -226,8 +226,8 @@ function LandingPage() {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Keprihatinan terhadap setiap keluarga USM.
               </Typography>
-              <Button component={Link} to='/Khairat_FormPage' variant="contained" color="primary">
-                Mohon
+              <Button component={Link} to='/Khairat_FormPage' variant="contained" color="primary" disabled>
+                Akan Datang
               </Button>
             </CardContent>
           </Card>
@@ -242,8 +242,8 @@ function LandingPage() {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Kesediaan untuk cemerlang dalam pembelajaran.
               </Typography>
-              <Button component={Link} to='/Peranti_FormPage' variant="contained" color="primary">
-                Mohon
+              <Button component={Link} to='/Peranti_FormPage' variant="contained" color="primary" disabled>
+                Akan Datang
               </Button>
             </CardContent>
           </Card>
