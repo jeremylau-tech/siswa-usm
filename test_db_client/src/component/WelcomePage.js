@@ -6,6 +6,7 @@ import { Card, CardContent, CardMedia, Typography, Button } from "@mui/material"
 import { Link as ScrollLink } from "react-scroll";
 import Footer from './footer/Footer';
 import { useNavigate, useLocation } from 'react-router-dom';
+import AutoAwesomeMosaicSharpIcon from '@mui/icons-material/AutoAwesomeMosaicSharp';
 
 function WelcomePage(props) { 
   const currentDate = new Date().toISOString();
@@ -57,18 +58,20 @@ function WelcomePage(props) {
         <div className="container">
           <div className="hero-content">
             <h1>Selamat <span>Datang!</span></h1>
-            <p>A leading university, in Malaysia.</p>
+            <p>Laman Sesawang Kebajikan Pelajar USM</p>
             <div className="d-flex">
-              <ScrollLink
-                to="new-services-section"
-                spy={true}
-                smooth={true}
-                duration={500}
-                offset={-70}
-                className="btn-get-started scrollto"
-              >
-                Buat Permohonan Sekarang
-              </ScrollLink>
+            <ScrollLink
+              to="new-services-section"
+              spy={true}
+              smooth={true}
+              duration={500}
+              offset={-70}
+              className="btn-get-started scrollto"
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
+              <AutoAwesomeMosaicSharpIcon style={{ fontSize: '20px', marginRight: '5px' }} />
+              Buat Permohonan Sekarang
+            </ScrollLink>
             </div>
           </div>
         </div>
@@ -80,7 +83,7 @@ function WelcomePage(props) {
         <div className="new-services-container">
           {/* New Service Card 1 */}
           <Card className="new-service-card">
-            <CardMedia component="img" alt="Service 1 Banner" height="140" image="wang-pic.jpg" />
+            <CardMedia component="img" alt="Service 1 Banner" height="140" image="welfare.jpeg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Wang Ihsan
@@ -96,7 +99,7 @@ function WelcomePage(props) {
 
           {/* New Service Card 2 */}
           <Card className="new-service-card">
-            <CardMedia component="img" alt="Service 2 Banner" height="140" image="kupon-pic.jpg" />
+            <CardMedia component="img" alt="Service 2 Banner" height="140" image="makanan.png" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Baucar Makanan
@@ -154,7 +157,7 @@ function WelcomePage(props) {
 
           {/* New Service Card 3 */}
           <Card className="new-service-card">
-            <CardMedia component="img" alt="Service 3 Banner" height="140" image="death-pic.jpg" />
+            <CardMedia component="img" alt="Service 3 Banner" height="140" image="kematian.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Khairat Kematian
