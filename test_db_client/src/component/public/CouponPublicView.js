@@ -2,7 +2,36 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../NavBar';
 import { Container, Card, CardContent, Typography, Grid, Box, Button, Menu, MenuItem } from "@mui/material";
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import { useParams } from 'react-router-dom';
+
 function CouponPublicView() {
+    const { vendorId } = useParams();
+
+    useEffect(() => {
+        // Data to send in the request body
+        const requestBody = {
+          vendorId: vendorId
+        };
+    
+        fetch('http://localhost:8000/baucar-all-vendor', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.baucars) {
+                alert('ef')
+                console.log(data.baucars)
+            //   setBaucar(data.coupons);
+            }
+          })
+          .catch((error) => {
+            console.error('Error fetching coupons:', error);
+          });
+      }, [vendorId]);
 
     const [coupons, setCoupons] = useState([
         {

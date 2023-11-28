@@ -180,6 +180,24 @@ app.post('/get-user-name', (req, res) => {
   });
 });
 
+app.post('/baucar-all-vendor', (req, res) => {
+  const { vendorId } = req.body;
+
+  // SQL query to select all records from the "invoice" table for a specific vendor
+  const sql = 'SELECT * FROM baucar WHERE vendor_id = ?';
+
+  // Execute the query with parameter binding
+  db.query(sql, [vendorId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ baucars: results });
+    }
+  });
+});
+
 app.post('/invoice-all-vendor', (req, res) => {
   const { vendorId } = req.body;
 

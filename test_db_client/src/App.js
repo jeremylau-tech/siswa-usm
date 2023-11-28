@@ -85,7 +85,7 @@ function App() {
           <Route path="/InvoicePage" element={<InvoicePage />} />
           <Route path="/ClaimedInvoicePage" element={<ClaimedInvoicePage />} />
           <Route path="/UsedCouponList" element={<UsedCouponList />} />
-          <Route path="/CouponPublicView" element={<CouponPublicView />} />
+          <Route path="/CouponPublicView/:vendorId" element={<CouponPublicView />} />
 
 
           {/* Add new Landing Page route */}

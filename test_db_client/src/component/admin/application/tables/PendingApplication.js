@@ -30,7 +30,6 @@ function PendingList({roles}) {
   const [userDetailsMap, setUserDetailsMap] = useState({});
 
   const navigate = useNavigate();
-    const location = useLocation();
 
   const columns = [
     {

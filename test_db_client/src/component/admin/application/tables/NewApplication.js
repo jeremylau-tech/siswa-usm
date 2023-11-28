@@ -15,10 +15,11 @@ import AssignmentTurnedInRoundedIcon from '@mui/icons-material/AssignmentTurnedI
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function NewApplication({roles}){
 const validRoles = ['admin', 'bhepa', 'tnc'];
-
+const navigate = useNavigate();
   
 const columns = [
   {
@@ -119,8 +120,6 @@ const columns = [
     width: 100,
     sortable: false,
     renderCell: (params) => (
-      <Link to={`/EvaluationPage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
-
       <Button
         style={{
           backgroundColor: "#fafafa",
@@ -134,11 +133,12 @@ const columns = [
           display: "flex",
         }}
         variant="contained"
+        onClick={() => handleToEvaluation(params)}
+
       >
         <span >{getStatusButtonText(params.row.request_status).icon}</span>
         {getStatusButtonText(params.row.request_status).text}
       </Button>
-      </Link>
     ),
   },
   {
@@ -176,6 +176,17 @@ const getStatusButtonText = (status) => {
   return { text: buttonText, icon: icon };
 };
 
+
+function handleToEvaluation(params) {
+  // <Link to={`/EvaluationPage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
+    const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
+      tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc } = params.row;
+    const user_role = roles;
+  
+    // Navigate to the ArchivePage with request details and userRole
+    navigate('/EvaluationPage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
+      tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role } });
+    }
 
   const [open, setOpen] = useState(false); // State variable to control the dialog
 
