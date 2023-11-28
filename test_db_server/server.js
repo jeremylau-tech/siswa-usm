@@ -66,6 +66,10 @@ app.get("/check-db", (req, res) => {
   }
 });
 
+app.get("/message", (req, res) => {
+  res.json({ message: 'Hello from the /message endpoint!' });
+});
+
 app.get("/check-backend", (req, res) => {
     res.json({ message: 'If you\'re seeing this, connection is working! ' });
 });
