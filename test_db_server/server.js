@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const multer = require("multer"); // For handling file uploads
 const path = require("path");
 const fs = require("fs");
@@ -34,6 +34,8 @@ function generateCouponCode(length) {
 let isDbConnected = false; // Variable to store the connection state
 
 //MySQL connection configuration
+
+// MySQL connection configuration
 const db = mysql.createConnection({
   host: 'docker.usm.my:3306',
   user: 'root',
@@ -41,7 +43,12 @@ const db = mysql.createConnection({
   database: 'bhepa_test',
   });
 
-
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'Admin@12345',
+//   database: 'bhepa_test',
+//   });
 
 // Connect to MySQL
 db.connect((err) => {
@@ -71,10 +78,6 @@ app.get('/test-connection', (req, res) => {
   }
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
 app.get("/check-backend", (req, res) => {
     res.json({ message: 'If you\'re seeing this, connection is working! ' });
