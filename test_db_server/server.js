@@ -40,7 +40,7 @@ let isDbConnected = false; // Variable to store the connection state
 //   });
 
   const db = mysql.createConnection({
-    host: 'docker.usm.my',
+    host: 'bhepa_test',
     user: 'root',
     password: 'pelajardatabase',
     database: 'bhepa_test',
