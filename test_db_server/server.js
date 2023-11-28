@@ -33,21 +33,14 @@ function generateCouponCode(length) {
 
 let isDbConnected = false; // Variable to store the connection state
 
-// MySQL connection configuration
-// const db = mysql.createConnection({
-//   host: 'docker.usm.my:3306',
-//   user: 'root',
-//   password: 'pelajardatabase',
-//   database: 'bhepa_test',
-//   });
+//MySQL connection configuration
+const db = mysql.createConnection({
+  host: 'docker.usm.my:3306',
+  user: 'root',
+  password: 'pelajardatabase',
+  database: 'bhepa_test',
+  });
 
-  const db = mysql.createConnection({
-    host: 'bhepa_test',
-    user: 'root',
-    password: 'pelajardatabase',
-    database: 'bhepa_test',
-    port: 3306,
-    });
 
 
 // Connect to MySQL
