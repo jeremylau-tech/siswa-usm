@@ -78,7 +78,6 @@ app.get('/check-db1', (req, res) => {
   }
 });
 
-
 // Route to test the connection
 app.get('/test-connection', (req, res) => {
   // Check if the MySQL connection is successful
@@ -1222,6 +1221,6 @@ app.post("/insert-users", (req, res) => {
   });
   
 
-app.listen(8000, () => {
-  console.log(`Server is running on port 8000.`);
-});
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
