@@ -6,6 +6,7 @@ services:
     image: mysql:8.0
     container_name: bhepa_test
     environment:
+      MYSQL_HOST: localhost
       MYSQL_ROOT_PASSWORD: pelajardatabase
       MYSQL_DATABASE: bhepa_test
     ports:
@@ -24,6 +25,8 @@ services:
       MYSQL_HOST_IP: bhepa_test
     ports:
       - 8000:8000
+    expose: 
+      - "8000"
     volumes:
       - ./test_db_server:/app
     links:

@@ -37,7 +37,7 @@ let isDbConnected = false; // Variable to store the connection state
 
 // MySQL connection configuration
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: 'bhepa_test',
   user: 'root',
   password: 'pelajardatabase',
   database: 'bhepa_test',
