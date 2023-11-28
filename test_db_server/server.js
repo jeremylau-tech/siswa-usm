@@ -44,6 +44,7 @@ let isDbConnected = false; // Variable to store the connection state
     user: 'root',
     password: 'pelajardatabase',
     database: 'bhepa_test',
+    port: 3306,
     });
 
 // Connect to MySQL
