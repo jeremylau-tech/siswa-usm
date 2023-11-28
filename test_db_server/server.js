@@ -41,6 +41,7 @@ const db = mysql.createConnection({
   user: 'root',
   password: 'pelajardatabase',
   database: 'bhepa_test',
+  socketPath: '/var/lib/mysql/mysql.sock'
   });
 
 // const db = mysql.createConnection({
