@@ -37,11 +37,13 @@ let isDbConnected = false; // Variable to store the connection state
 
 // MySQL connection configuration
 const db = mysql.createConnection({
-  host: 'docker.usm.my',
+  host: 'bhepa_test' || 'localhost',
+  port: 3306,
   user: 'root',
   password: 'pelajardatabase',
   database: 'bhepa_test',
-  port: 3306,
+  waitForConnections: true,
+  connectionLimit: 10,
   socketPath: '/var/lib/mysql/mysql.sock'
   });
 
