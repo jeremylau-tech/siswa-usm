@@ -44,7 +44,7 @@ const db = mysql.createConnection({
   database: 'bhepa_test',
   waitForConnections: true,
   connectionLimit: 10,
-  socketPath: '/var/lib/mysql/mysql.sock'
+  socketPath: '/var/run/mysqld/mysqld.sock'
   });
 
 // const db = mysql.createConnection({
