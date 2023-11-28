@@ -32,7 +32,6 @@ function generateCouponCode(length) {
 }
 
 let isDbConnected = false; // Variable to store the connection state
-let defaultPORT = 3306;
 
 // MySQL connection configuration
 // const db = mysql.createConnection({
@@ -61,15 +60,6 @@ db.connect((err) => {
   }
   });
 
-connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-    if (error) throw error;
-    console.log('The solution is: ', results[0].solution);
-});
-
-var server = app.listen( defaultPORT, function() {
-    console.log( defaultPORT)
-});
-
 app.get("/check-db", (req, res) => {
   if (isDbConnected) {
     res.json({ message: 'Database connection is successful!' });
@@ -91,10 +81,6 @@ app.get('/test-connection', (req, res) => {
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-});
-
-app.get("/message", (req, res) => {
-  res.json({ message: 'Hello from the /message endpoint!' });
 });
 
 app.get("/check-backend", (req, res) => {
