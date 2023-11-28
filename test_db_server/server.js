@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const multer = require("multer"); // For handling file uploads
 const path = require("path");
 const fs = require("fs");
@@ -12,8 +12,8 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json());
- 
-const port = 8000; //test
+
+const port = 8000;
 
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 const bodyParser = require('body-parser');
@@ -32,6 +32,7 @@ function generateCouponCode(length) {
 }
 
 let isDbConnected = false; // Variable to store the connection state
+let defaultPORT = 3306;
 
 // MySQL connection configuration
 // const db = mysql.createConnection({
@@ -49,6 +50,7 @@ let isDbConnected = false; // Variable to store the connection state
     port: 3306,
     });
 
+
 // Connect to MySQL
 db.connect((err) => {
   if (err) {
@@ -58,7 +60,15 @@ db.connect((err) => {
       console.log('Connected to MySQL');
   }
   });
-  
+
+connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results[0].solution);
+});
+
+var server = app.listen( defaultPORT, function() {
+    console.log( defaultPORT)
+});
 
 app.get("/check-db", (req, res) => {
   if (isDbConnected) {
