@@ -37,10 +37,11 @@ let isDbConnected = false; // Variable to store the connection state
 
 // MySQL connection configuration
 const db = mysql.createConnection({
-  host: 'docker.usm.my:3306',
+  host: 'docker.usm.my',
   user: 'root',
   password: 'pelajardatabase',
   database: 'bhepa_test',
+  port: 3306,
   socketPath: '/var/lib/mysql/mysql.sock'
   });
 
@@ -68,6 +69,15 @@ app.get("/check-db", (req, res) => {
       res.status(500).json({ error: 'Database connection failed.' });
   }
 });
+
+app.get('/check-db1', (req, res) => {
+  if (db.state === 'authenticated') {
+    res.json({ message: 'Database connection is successful!' });
+  } else {
+    res.status(500).json({ error: 'Database connection failed.' });
+  }
+});
+
 
 // Route to test the connection
 app.get('/test-connection', (req, res) => {
