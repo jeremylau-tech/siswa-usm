@@ -26,19 +26,19 @@ function VendorList() {
   const location = useLocation();
   const [vendorMap, setVendorMap] = useState({});
 
-  useEffect(() => {
-  // Create a dummy data entry
-  const dummyData = {
-    vendor_id: 1, // You can use any unique ID
-    vendor_name: "Dummy Vendor",
-    vendor_location: "Dummy Location",
-    baucarToClaim: 10,
-    baucarCountRedeemed: 5,
-  };
+  // useEffect(() => {
+  // // Create a dummy data entry
+  // const dummyData = {
+  //   vendor_id: 1, // You can use any unique ID
+  //   vendor_name: "Dummy Vendor",
+  //   vendor_location: "Dummy Location",
+  //   baucarToClaim: 10,
+  //   baucarCountRedeemed: 5,
+  // };
 
-  // Set the dummy data in the vendorMap
-  setVendorMap({ 1: dummyData }); // Use a unique key like vendor_id for the entry
-  }, []);
+  // // Set the dummy data in the vendorMap
+  // setVendorMap({ 1: dummyData }); // Use a unique key like vendor_id for the entry
+  // }, []);
 
   const handleDoubleClickVendorName = (row) => {
     // Handle double-click on the vendor name
@@ -87,12 +87,13 @@ function VendorList() {
     // Make an HTTP GET request to the /vendor-all endpoint
         // fetch('http://localhost:8000/vendor-table') // Replace with the appropriate URL
     // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }vendor-table`)
-    fetch('http://docker.usm.my:8000/vendor-table') // Replace with the appropriate URL
+    // fetch('http://docker.usm.my:8000/vendor-table') // Replace with the appropriate URL
+        fetch('http://localhost:8000/vendor-table') // Replace with the appropriate URL
+
       .then(res => res.json())
       .then(data => {
         // Update the state with the retrieved data
         setVendorMap(data.vendors);
-        console.error('Error????', error);
       })
       .catch(error => {
         console.error('Error fetching data from the server:', error);

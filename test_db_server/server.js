@@ -32,12 +32,19 @@ function generateCouponCode(length) {
 let isDbConnected = false; // Variable to store the connection state
 
 // MySQL connection configuration
-const db = mysql.createConnection({
-  host: 'docker.usm.my:3306',
-  user: 'root',
-  password: 'pelajardatabase',
-  database: 'bhepa_test',
-  });
+// const db = mysql.createConnection({
+//   host: 'docker.usm.my:3306',
+//   user: 'root',
+//   password: 'pelajardatabase',
+//   database: 'bhepa_test',
+//   });
+
+  const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'Admin@12345',
+    database: 'bhepa_test',
+    });
 
 // Connect to MySQL
 db.connect((err) => {
@@ -133,6 +140,42 @@ app.get('/get-pdf', (req, res) => {
     if (err) {
       console.error('Error sending PDF file:', err);
       res.status(404).send('PDF file not found');
+    }
+  });
+});
+
+app.post('/get-user', (req, res) => {
+  const { userId } = req.body;
+
+  // SQL query to select all records from the "invoice" table for a specific vendor
+  const sql = 'SELECT * FROM users_details WHERE unique_id = ?';
+
+  // Execute the query with parameter binding
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ user: results });
+    }
+  });
+});
+
+app.post('/get-user-name', (req, res) => {
+  const { userId } = req.body;
+
+  // SQL query to select all records from the "invoice" table for a specific vendor
+  const sql = 'SELECT name FROM users_details WHERE unique_id = ?';
+
+  // Execute the query with parameter binding
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ user: results });
     }
   });
 });
@@ -551,6 +594,29 @@ app.get("/request-requestid", (req, res) => {
   });
 });
 
+
+app.get("/request-user", (req, res) => {
+  // Extract the request_status query parameter from the request
+  const userId = req.query.user_id;
+  // console.log(requestStatus)
+
+  // Define the SQL query with a placeholder
+  const sql = `
+    SELECT * FROM request 
+    WHERE requestor_id = ?
+  `;
+
+  // Execute the query with parameterized values
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ request: results });
+    }
+  });
+});
 
 app.get("/request-type", (req, res) => {
   // Extract the request_status query parameter from the request
