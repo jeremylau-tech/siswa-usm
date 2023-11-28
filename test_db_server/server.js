@@ -832,7 +832,8 @@ app.post("/coupons-redeem", (req, res) => {
   const baucarStatus = "tebus";
 
   // Update the request in the database based on the requestId
-  const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = NOW(), vendor_id = ?  WHERE baucar_id = ?`;
+  // const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = NOW(), vendor_id = ?  WHERE baucar_id = ?`;
+  const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = CURRENT_DATE, baucar_redeem_time = CURRENT_TIME, vendor_id = ? WHERE baucar_id = ?`;
 
   db.query(sql, [baucarStatus, vendorId, baucarId], (err, results) => {
     if (err) {
