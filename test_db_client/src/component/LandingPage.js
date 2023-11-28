@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './LandingPage.css';
+// import './LandingPage.css';
+import './WelcomePage.css';
+
 import NavBar from './NavBar';
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
 import ApplicationStatus from "./student/ApplicationStatus";
-import footerLogo from '../img/footer_logo.jpg';
+import Footer from './footer/Footer';
 import { Tr, Table, Grid, Container, Box, Card, CardContent, CardMedia, Typography, Button, Divider, IconButton } from "@mui/material";
 import { useNavigate, useLocation } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
@@ -15,6 +17,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import EditRounded from '@mui/icons-material/EditRounded';
 
+import { Paper } from '@mui/material';
+
 function LandingPage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,6 +28,19 @@ function LandingPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [userDetails, setUserDetails] = useState({});
 
+  const commonButtonStyle = {
+    display: 'inline-block',
+    padding: '10px 15px',
+    textDecoration: 'none',
+    color: '#fff',
+    borderRadius: '4px',
+    transition: 'background-color 0.3s',
+    backgroundColor: '#491E6E',
+    '&:hover': {
+      backgroundColor: '#8945c5',
+    },
+  };
+
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
   };
@@ -31,7 +48,6 @@ function LandingPage() {
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
-
 
   function handleMohonMakanan() {
     // Merge the existing location state with your data
@@ -70,6 +86,7 @@ function LandingPage() {
 
       {/* Navigation Bar */}
       <NavBar />
+      
       {/* Services Section */}
       <Box
         align="center"
@@ -150,42 +167,40 @@ function LandingPage() {
         </Card>
       </Box>
 
-
-
       {/* Services Section */}
-      <section className="services-section">
-        <h2 className="status-title">Buat Permohonan Disini</h2>
-        <div className="services-container">
+      <section className="new-services-section">
+        <h2 className="section-title">Buat Permohonan Disini</h2>
+        <div className="new-services-container">
           {/* New Service Card 1 */}
-          <Card className="service-card">
-            <CardMedia component="img" alt="Service 1 Banner" height="140" image="wang-pic.jpg" />
+          <Card className="new-service-card">
+            <CardMedia component="img" alt="Service 1 Banner" height="140" image="welfare.jpeg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Wang Ihsan
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Keupayaan pelajar untuk menerusi pemebelajaran.
               </Typography>
-              <Button component={Link} to='/Wang_FormPage' variant="contained" color="primary">
-                Mohon
+              <Button component={Link} to='/Wang_FormPage' variant="contained" color="primary" disabled>
+                Akan Datang
               </Button>
             </CardContent>
           </Card>
 
           {/* New Service Card 2 */}
-          <Card className="service-card">
-            <CardMedia component="img" alt="Service 2 Banner" height="140" image="kupon-pic.jpg" />
+          <Card className="new-service-card">
+            <CardMedia component="img" alt="Service 2 Banner" height="140" image="makanan.png" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Baucar Makanan
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Keperluan asas dalam rutin seharian.
               </Typography>
               <Button
                 variant="contained"
                 color="primary"
-                style={{ marginRight: '10px' }}
+                sx={{ ...commonButtonStyle, marginRight: '10px' }}
                 onClick={handleMohonMakanan}
               >
                 Mohon
@@ -193,7 +208,7 @@ function LandingPage() {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ marginLeft: '10px' }} // Add margin to the left side of the button
+                sx={{ ...commonButtonStyle, marginLeft: '10px' }}
                 onClick={handleGoToBaucarMakanan}
               >
                 Guna
@@ -202,33 +217,33 @@ function LandingPage() {
           </Card>
 
           {/* New Service Card 3 */}
-          <Card className="service-card">
-            <CardMedia component="img" alt="Service 3 Banner" height="140" image="death-pic.jpg" />
+          <Card className="new-service-card">
+            <CardMedia component="img" alt="Service 3 Banner" height="140" image="kematian.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Khairat Kematian
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Keprihatinan terhadap setiap keluarga USM.
               </Typography>
-              <Button component={Link} to='/Khairat_FormPage' variant="contained" color="primary">
-                Mohon
+              <Button component={Link} to='/Khairat_FormPage' variant="contained" color="primary" disabled>
+                Akan Datang
               </Button>
             </CardContent>
           </Card>
 
           {/* New Service Card 4 */}
-          <Card className="service-card">
+          <Card className="new-service-card">
             <CardMedia component="img" alt="Service 4 Banner" height="140" image="laptop-pic.jpg" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Kerosakan Peranti
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Kesediaan untuk cemerlang dalam pembelajaran.
               </Typography>
-              <Button component={Link} to='/Peranti_FormPage' variant="contained" color="primary">
-                Mohon
+              <Button component={Link} to='/Peranti_FormPage' variant="contained" color="primary" disabled>
+                Akan Datang
               </Button>
             </CardContent>
           </Card>
@@ -236,58 +251,61 @@ function LandingPage() {
       </section>
 
       {/* Status Permohonan Section */}
-      <section className="status-permohonan">
-        <div className="container" >
-          <h2 className="status-title">Status Permohonan</h2>
-          <section>
-            <Box
-              style={{
-                paddingBottom: '50px',
-              }}
-            >
-              <ApplicationStatus userId={userId}></ApplicationStatus>
-            </Box>
-          </section>
-        </div>
-        <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
-          <DialogTitle>Kemaskini No Telefon</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Sila ke laman
-            </DialogContentText>
-            <DialogContentText
-              style={{
-                color: 'blue',
-                textDecoration: 'underline',
-              }}
-            >
-              <a href='https://campusonline.usm.my'> CampusOnline {'>'} Student Profile {'>'} Email & Mobile </a>
-            </DialogContentText>
-            <DialogContentText>
-              untuk mengemaskini no telefon anda
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog} color="primary">
-              Tutup
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </section>
+      <h2 className="section-title">Status Permohonan</h2>
+      <Container
+      sx={{
+        width: '100%',
+        borderRadius: '10px',
+        padding: '10px',
+        height: '500px',
+        marginTop: '20px',
+      }}
+    >
+      <Paper elevation={3} sx={{ padding: '20px' }}>
+        <Box
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            margin: '10px',
+          }}
+        >
+          <Box
+            sx={{
+              flexGrow: 1,
+              margin: 1,
+              textAlign: 'left',
+            }}
+          >
+            {/* Add any additional content or components as needed */}
+          </Box>
+        </Box>
+        <ApplicationStatus userId={userId} />
+      </Paper>
+
+      <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+        <DialogTitle>Kemaskini No Telefon</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Sila ke laman</DialogContentText>
+          <DialogContentText
+            style={{
+              color: 'blue',
+              textDecoration: 'underline',
+            }}
+          >
+            <a href="https://campusonline.usm.my"> CampusOnline {'>'} Student Profile {'>'} Email & Mobile </a>
+          </DialogContentText>
+          <DialogContentText>untuk mengemaskini no telefon anda</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Tutup
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Container>
 
       {/* Copyright Footnote Section */}
-      <footer className="copyright">
-        <div className="container">
-          <div className="d-flex justify-content-center align-items-center">
-            <img src={footerLogo} alt="Footer Logo" className="footer-logo-small" />
-            <div className="footer-text white-text">
-              <p>&copy; 2023 Universiti Sains Malaysia</p>
-              <p>All Rights Reserved</p>
-            </div>
-          </div>
-        </div>
-      </footer>
-
+      <Footer />
     </div>
   );
 }

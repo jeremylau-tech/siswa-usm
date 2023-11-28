@@ -41,7 +41,6 @@ import UsedCouponList from "./component/admin/vendor/record/UsedCouponList";
 import CouponPublicView from "./component/public/CouponPublicView";
 
 
-
 // Pay attention to this function
 
 const firebaseConfig = {

@@ -1,0 +1,25 @@
+.footer-logo-small {
+    width: 50px;
+    height: auto;
+    margin-bottom: 5px;
+  }
+  
+  .footer-text {
+    text-align: center;
+    margin-left: 10px;
+  }
+  
+  .footer-text p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .copyright {
+    text-align: center;
+    background-color: #491E6E; /* Set the background color */
+    padding: 20px; /* Add padding to create space between sections */
+  }
+  
+  .white-text p {
+    color: white;
+  }
