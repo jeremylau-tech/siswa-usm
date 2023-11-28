@@ -8,7 +8,7 @@
 
   .select-food-label {
     font-size: 16px;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
   }
 
 .select-food {
@@ -19,4 +19,16 @@
     font-size: 16px;
     padding: 10px;
   }
+  
+  .customOptiontext {
+    margin-top: 10px;
+  }
+
+  .subtext {
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 2px;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+  }  
   
