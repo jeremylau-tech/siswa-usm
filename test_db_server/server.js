@@ -37,15 +37,15 @@ let isDbConnected = false; // Variable to store the connection state
 
 // MySQL connection configuration
 const db = mysql.createConnection({
-  host: 'bhepa_test' || 'localhost',
-  port: 3306,
+  host: 'localhost',
   user: 'root',
   password: 'pelajardatabase',
   database: 'bhepa_test',
-  waitForConnections: true,
-  connectionLimit: 10,
-  socketPath: '/var/run/mysqld/mysqld.sock'
+  port: 3306
+  // socketPath: '/var/run/mysqld/mysqld.sock'
   });
+
+  // socketPath: '/var/run/mysqld/mysqld.sock'
 
 // const db = mysql.createConnection({
 //   host: 'localhost',
