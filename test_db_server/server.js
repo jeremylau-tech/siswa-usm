@@ -43,7 +43,7 @@ let defaultPORT = 3306;
 //   });
 
   const db = mysql.createConnection({
-    host: '127.0.0.1',
+    host: 'bhepa_test',
     user: 'root',
     password: 'pelajardatabase',
     database: 'bhepa_test',
