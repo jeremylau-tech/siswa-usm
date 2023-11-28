@@ -12,6 +12,8 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json());
+ 
+const port = 8000; //test
 
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 const bodyParser = require('body-parser');
@@ -64,6 +66,21 @@ app.get("/check-db", (req, res) => {
   } else {
       res.status(500).json({ error: 'Database connection failed.' });
   }
+});
+
+// Route to test the connection
+app.get('/test-connection', (req, res) => {
+  // Check if the MySQL connection is successful
+  if (db.state === 'authenticated') {
+    res.json({ message: 'Success! Connected to MySQL and bhepa_test database.' });
+  } else {
+    res.status(500).json({ error: 'Error connecting to MySQL or bhepa_test database.' });
+  }
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 
 app.get("/message", (req, res) => {
