@@ -42,7 +42,7 @@ let isDbConnected = false; // Variable to store the connection state
 //   });
 
   const db = mysql.createConnection({
-    host: 'bhepa_test',
+    host: '127.0.0.1',
     user: 'root',
     password: 'pelajardatabase',
     database: 'bhepa_test',
