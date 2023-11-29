@@ -20,11 +20,13 @@ services:
     depends_on:
       - mysql
     environment:
-      NODE_ENV: production
+      MYSQL_HOST_IP: mysql
     ports:
       - 8000:8000
     expose:
       - "8000"
+    links:
+      - mysql
     volumes:
       - ./test_db_server:/app
     command: node server.js
