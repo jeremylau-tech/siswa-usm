@@ -5,10 +5,10 @@ const multer = require("multer"); // For handling file uploads
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
-// const corsOptions = {
-//   origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
-//   credentials: true,
-// };
+const corsOptions = {
+  origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
+  credentials: true,
+};
 
 
 const app = express();
@@ -20,27 +20,23 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // MySQL connection configuration
-// const db = mysql.createConnection({
-//   host: 'mysql',
-//   user: 'root',
-//   password: 'pelajardatabase',
-//   database: 'bhepa_test',
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0
-//   // socketPath: '/var/run/mysqld/mysqld.sock'
-//   });
-
-const dbConfig = {
-  host: 'mysql',
+const db = mysql.createConnection({
+  host: 'bhepa_test',
   user: 'root',
   password: 'pelajardatabase',
   database: 'bhepa_test',
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0,
-};
+  queueLimit: 0
+  // socketPath: '/var/run/mysqld/mysqld.sock'
+  });
 
+  // const db = mysql.createConnection({
+  // host: 'localhost',
+  // user: 'root',
+  // password: 'Admin@12345',
+  // database: 'bhepa_test',
+  // });
 
 
 app.get("/test-mysql", async (req, res) => {
@@ -107,14 +103,14 @@ app.get('/get', (req, res) => {
 //   });
 
 // Connect to MySQL
-db.connect((err) => {
-  if (err) {
-      console.error('Error connecting to MySQL:', err);
-  } else {
-    isDbConnected = true; // Set the connection state to true
-      console.log('Connected to MySQL');
-  }
-  });
+// db.connect((err) => {
+//   if (err) {
+//       console.error('Error connecting to MySQL:', err);
+//   } else {
+//     isDbConnected = true; // Set the connection state to true
+//       console.log('Connected to MySQL');
+//   }
+//   });
 
 app.get("/check-db", (req, res) => {
   if (isDbConnected) {
