@@ -36,7 +36,6 @@ const dbConfig = {
   user: 'root',
   password: 'pelajardatabase',
   database: 'bhepa_test',
-  port: 3306,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
