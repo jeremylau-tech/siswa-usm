@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
 const mysql = require('mysql2');
 const multer = require("multer"); // For handling file uploads
 const path = require("path");
@@ -10,6 +9,36 @@ const corsOptions = {
   origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
   credentials: true,
 };
+
+const app = express();
+
+// MySQL connection configuration
+const db = mysql.createConnection({
+  host: 'bhepa_test',
+  user: 'root',
+  password: 'pelajardatabase',
+  database: 'bhepa_test',
+  port: 3306,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+  // socketPath: '/var/run/mysqld/mysqld.sock'
+  });
+
+app.get("/test-mysql", async (req, res) => {
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+    const [rows] = await connection.execute("SELECT 1 + 1 as result");
+    connection.end();
+
+    res.json({ message: `MySQL connection successful. Result: ${rows[0].result}` });
+  } catch (error) {
+    console.error("Error connecting to MySQL:", error);
+    res.status(500).json({ error: "MySQL connection failed." });
+  }
+});
+
+app.use(cors())
 app.use(cors(corsOptions));
 app.use(express.json());
 
@@ -33,17 +62,28 @@ function generateCouponCode(length) {
 
 let isDbConnected = false; // Variable to store the connection state
 
-//MySQL connection configuration
+//testout
 
-// MySQL connection configuration
-const db = mysql.createConnection({
-  host: 'bhepa_test',
-  user: 'root',
-  password: 'pelajardatabase',
-  database: 'bhepa_test',
-  port: 3306
-  // socketPath: '/var/run/mysqld/mysqld.sock'
-  });
+app.get('/omg', (req, res) => {
+  res.send('Hi There')
+});
+
+app.get('/done', (req, res) => {
+  const SelectQuery = " SELECT * FROM users";
+  db.query(SelectQuery, (err, result) => {
+    res.send(result)
+  })
+})
+
+
+app.get('/get', (req, res) => {
+  const SelectQuery = " SELECT * FROM books_reviews";
+  db.query(SelectQuery, (err, result) => {
+    res.send(result)
+  })
+})
+
+//MySQL connection configuration
 
   // socketPath: '/var/run/mysqld/mysqld.sock'
 
