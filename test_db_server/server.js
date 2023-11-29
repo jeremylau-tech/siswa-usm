@@ -35,7 +35,7 @@ let isDbConnected = false; // Variable to store the connection state
 
 //MySQL connection configuration
 const db = mysql.createPool({
-  host: '10.202.14.43', // Docker service name
+  host: 'https://10.202.14.43/', // Docker service name
   user: 'root',
   password: 'pelajardatabase',
   database: 'bhepa_test',
