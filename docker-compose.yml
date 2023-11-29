@@ -2,34 +2,31 @@ version: "3.4"
 
 services:
 
-  bhepa_test:
+  mysql:
     image: mysql:8.0
-    container_name: bhepa_test
+    container_name: mysql
     environment:
-      MYSQL_HOST: localhost
       MYSQL_ROOT_PASSWORD: pelajardatabase
       MYSQL_DATABASE: bhepa_test
     ports:
       - "3306:3306"
     restart: unless-stopped
     volumes:
-          - ./sql:/docker-entrypoint-initdb.d
+      - ./sql:/docker-entrypoint-initdb.d
 
   test_db_server:
     build: ./test_db_server
     container_name: test_db_server
     depends_on:
-      - bhepa_test
+      - mysql
     environment:
-      MYSQL_HOST_IP: bhepa_test
+      NODE_ENV: production
     ports:
       - 8000:8000
-    expose: 
+    expose:
       - "8000"
     volumes:
       - ./test_db_server:/app
-    links:
-      - bhepa_test
     command: node server.js
 
   test_db_client:
@@ -41,6 +38,6 @@ services:
       - 8090:3000
     volumes:
       - ./test_db_client/src:/app/src
-    links:
+    depends_on:
       - test_db_server
     command: npm start

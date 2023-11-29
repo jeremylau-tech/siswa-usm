@@ -1,29 +1,48 @@
 const express = require("express");
 const cors = require("cors");
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 const multer = require("multer"); // For handling file uploads
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
-const corsOptions = {
-  origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
+//   credentials: true,
+// };
+
 
 const app = express();
 
+const port = 8000;
+
+app.use(cors())
+app.use(cors(corsOptions));
+app.use(express.json());
+
 // MySQL connection configuration
-const db = mysql.createConnection({
-  host: 'bhepa_test',
+// const db = mysql.createConnection({
+//   host: 'mysql',
+//   user: 'root',
+//   password: 'pelajardatabase',
+//   database: 'bhepa_test',
+//   waitForConnections: true,
+//   connectionLimit: 10,
+//   queueLimit: 0
+//   // socketPath: '/var/run/mysqld/mysqld.sock'
+//   });
+
+const dbConfig = {
+  host: 'mysql',
   user: 'root',
   password: 'pelajardatabase',
   database: 'bhepa_test',
   port: 3306,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
-  // socketPath: '/var/run/mysqld/mysqld.sock'
-  });
+  queueLimit: 0,
+};
+
+
 
 app.get("/test-mysql", async (req, res) => {
   try {
@@ -37,12 +56,6 @@ app.get("/test-mysql", async (req, res) => {
     res.status(500).json({ error: "MySQL connection failed." });
   }
 });
-
-app.use(cors())
-app.use(cors(corsOptions));
-app.use(express.json());
-
-const port = 8000;
 
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 const bodyParser = require('body-parser');
