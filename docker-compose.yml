@@ -26,7 +26,7 @@ services:
     expose:
       - "8000"
     links:
-      - mysql
+      - bhepa_test
     volumes:
       - ./test_db_server:/app
     command: node server.js
