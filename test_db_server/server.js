@@ -32,7 +32,6 @@ const db = mysql.createConnection({
   });
 
 
-
 app.get("/test-mysql", async (req, res) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
@@ -1264,7 +1263,6 @@ app.post("/insert-users", (req, res) => {
 
   });
   
-port = 8000;
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
