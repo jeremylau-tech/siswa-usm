@@ -31,7 +31,6 @@ const db = mysql.createConnection({
   // socketPath: '/var/run/mysqld/mysqld.sock'
   });
 
-
 app.get("/test-mysql", async (req, res) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
