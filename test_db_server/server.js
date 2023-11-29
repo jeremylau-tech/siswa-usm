@@ -34,7 +34,7 @@ function generateCouponCode(length) {
 let isDbConnected = false; // Variable to store the connection state
 
 //MySQL connection configuration
-const db = mysql.createPool({
+const db = mysql.createConnection({
   host: 'bhepa_test', // Docker service name
   user: 'root',
   password: 'pelajardatabase',
