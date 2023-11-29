@@ -34,16 +34,15 @@ function generateCouponCode(length) {
 let isDbConnected = false; // Variable to store the connection state
 
 //MySQL connection configuration
-
-// MySQL connection configuration
-const db = mysql.createConnection({
-  host: 'bhepa_test',
+const db = mysql.createPool({
+  host: '10.202.14.43', // Docker service name
   user: 'root',
   password: 'pelajardatabase',
   database: 'bhepa_test',
-  port: 3306
-  // socketPath: '/var/run/mysqld/mysqld.sock'
-  });
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
   // socketPath: '/var/run/mysqld/mysqld.sock'
 
