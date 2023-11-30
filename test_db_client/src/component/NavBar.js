@@ -33,12 +33,10 @@ function Navbar() {
     if (!isResponsive) {
       return (
         <div>
-          <Link href="https://hac.usm.my">
-            <Button style={{ color: 'white' }}>Penginapan | </Button>
-          </Link>
-          <Link href="https://www.instagram.com/unitkaunselingusm/?hl=en">
-            <Button style={{ color: 'white' }}>Kaunseling</Button>
-          </Link>
+              <Button  component={Link} to={`https://www.instagram.com/unitkaunselingusm/?hl=en`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none'}}>
+                Kaunseling
+              </Button>
+              <br/>
         </div>
       );
     }
@@ -62,8 +60,11 @@ function Navbar() {
       );
     } else if (!isResponsive) {
       return (
-        <Button className="p-4" style={{ color: 'white' }} onClick={authenticateWithADFS}>
-          Log Masuk
+        // <Button className="p-4" style={{ color: 'white' }} onClick={authenticateWithADFS}>
+        //   Log Masuk
+        // </Button>
+        <Button  component={Link} to={`https://hac.usm.my/`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none'}}>
+                Penginapan
         </Button>
       );
     }
@@ -114,14 +115,14 @@ function Navbar() {
       <Drawer anchor="right" open={isResponsive && isDrawerOpen} onClose={handleDrawerToggle}>
         <List>
           <ListItem component="a" href="https://hac.usm.my">
-            <ListItemText primary="Penginapan | " />
+            <ListItemText primary="Penginapan " />
           </ListItem>
           <ListItem component="a" href="https://www.instagram.com/unitkaunselingusm/?hl=en">
             <ListItemText primary="Kaunseling" />
           </ListItem>
-          <ListItem button component="a" href={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
+          {/* <ListItem button component="a" href={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
             <ListItemText primary="Log Masuk" />
-          </ListItem>
+          </ListItem> */}
           <Divider />
           {renderLoginLogoutLink()}
         </List>

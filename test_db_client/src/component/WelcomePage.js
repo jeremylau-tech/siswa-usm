@@ -152,6 +152,7 @@ function WelcomePage(props) {
                 <Button  component={Link} to={`https://bit.ly/baucar-makanan-permohonan`} variant="contained" color="primary">
                 {/* <Button  component={Link} to={`/Login`} variant="contained" color="primary">
                 Mohon */}
+                Mohon
               </Button>
             </CardContent>
           </Card>
