@@ -32,6 +32,8 @@ function Navbar() {
     Cookies.remove('email');
     Cookies.remove('password');
     // authenticateWithADFS();
+    navigate('/Login');
+
   };
 
   const renderItemLinks = () => {
