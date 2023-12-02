@@ -23,9 +23,9 @@ services:
     environment:
       MYSQL_HOST_IP: bhepa_test
     ports:
-      - 8000:8000
+      - 9000:9000
     expose: 
-      - "8000"
+      - "9000"
     volumes:
       - ./test_db_server:/app
     links:
