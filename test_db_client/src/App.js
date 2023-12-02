@@ -24,6 +24,7 @@ import NavBar from "./component/NavBar";
 import TermsConditions from "./component/TermsCondition";
 import ApplicationListPage from "./component/admin/application/ApplicationListPage";
 import EvaluationPage from "./component/admin/evaluation/EvaluationPage";
+import BhepaEvaluationPage from "./component/admin/evaluation/BhepaEvaluationPage";
 import ArchivePage from "./component/admin/evaluation/ArchivePage";
 import AnalyticDashboard from "./component/admin/AnalyticDashboard";
 import AdminDashboard from "./component/admin/AdminDashboard";
@@ -72,6 +73,7 @@ function App() {
           <Route path="/ApplicationListPage" element={<ApplicationListPage />} />
           <Route path="/TermsConditions" element={<TermsConditions />} />
           <Route path="/EvaluationPage" element={<EvaluationPage />} />
+          <Route path="/BhepaEvaluationPage" element={<BhepaEvaluationPage />} />
           <Route path="/ArchivePage" element={<ArchivePage />} />
           <Route path="/AnalyticDashboard" element={<AnalyticDashboard />} />
           <Route path="/AdminDashboard" element={<AdminDashboard />} />

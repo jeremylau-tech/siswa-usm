@@ -19,7 +19,7 @@ function StudentInfoStep({ name, phone, year, ic, matric }) {
   return (
     <Container>
       <div>
-        <h3>Maklumat Pelajar</h3>
+        <h2>Maklumat Pelajar</h2>
         <br></br>
         <div style={gridContainerStyle}>
           <div>
