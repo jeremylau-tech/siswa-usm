@@ -1,20 +1,41 @@
-const express = require('express');
-const mysql = require('mysql2');
-
+const express = require("express");
+const cors = require("cors");
 const app = express();
-const port = 8000;
+const mysql = require('mysql2');
+const multer = require("multer"); // For handling file uploads
+const path = require("path");
+const fs = require("fs");
+const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
+const corsOptions = {
+  origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.use(express.json());
 
-const db = mysql.createConnection({
-  host: 'bhepa_test',
-  user: 'root',
-  password: 'pelajardatabase',
-  database: 'bhepa_test'
-});
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
+function generateCouponCode(length) {
+  const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // You can customize this character set
+  let couponCode = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    couponCode += charset[randomIndex];
+  }
+
+  return couponCode;
+}
+
+let isDbConnected = false; // Variable to store the connection state
+
+// MySQL connection configuration
 // const db = mysql.createConnection({
-//   host: 'localhost',
+//   host: 'docker.usm.my:3306',
 //   user: 'root',
-//   password: 'Admin@12345',
+//   password: 'pelajardatabase',
 //   database: 'bhepa_test',
 //   });
 
@@ -938,15 +959,263 @@ app.get("/user-details", (req, res) => {
           // Send the retrieved data as a JSON response with "userDetails" key
           res.json({ userDetails: results });
       }
-
-// app.get('/', (req, res) => {
-//   db.query('SELECT * FROM USERS', (err, results) => {
-//     if (err) throw err;
-//     res.json(results);
-
   });
 });
 
-app.listen(port, () => {
-  console.log(`Node.js app listening at http://localhost:${port}`);
+app.get("/user-details-uniqueid", (req, res) => {
+  const uniqueId = req.query.unique_id;
+
+  // SQL query to select all records from the "users_details" table
+  const sql = "SELECT * FROM users_details WHERE unique_id = ?";
+
+  // Execute the query
+  db.query(sql, [uniqueId], (err, results) => {          if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response with "userDetails" key
+          res.json({ userDetails: results });
+      }
+  });
+});
+
+app.get("/food-applications-requestid", (req, res) => {
+  const requestId = req.query.request_id;
+
+  // SQL query to select all records from the "users_details" table
+  const sql = "SELECT * FROM food_application WHERE request_id = ?";
+
+  // Execute the query
+  db.query(sql, [requestId], (err, results) => {          if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response with "userDetails" key
+          res.json({ foodDetails: results });
+      }
+  });
+});
+
+// Route to get the count of food applications based on status
+// Route to get the count of applications based on status and table
+app.post('/countByStatus', (req, res) => {
+  const table = req.body.table;
+  const status = req.body.status;
+  const req_type = req.body.req_type;
+
+  if (!table || !status) {
+    return res.status(400).json({ message: 'Table and status are required in the request body.' });
+  }
+  
+  let sql;
+  let special_param = false; // need to cater other status dalam process
+
+  if (req_type === "all") {
+    if (status === "dalam proses") {
+      sql = `
+        SELECT COUNT(*) AS count
+        FROM ?? 
+        WHERE request_status = 'semak' OR request_status = 'syor'
+      `;
+    } else {
+      sql = `
+        SELECT COUNT(*) AS count
+        FROM ?? 
+        WHERE request_status = ?
+      `;
+    }
+  } else {
+    if (status === "dalam proses") {
+      special_param = true;
+      sql = `
+        SELECT COUNT(*) AS count
+        FROM ?? 
+        WHERE (request_status = 'semak' OR request_status = 'syor') AND request_type = ?
+      `;
+    } else {
+      sql = `
+        SELECT COUNT(*) AS count
+        FROM ?? 
+        WHERE request_status = ? AND request_type = ?
+      `;
+    }
+  }
+  
+  if (!special_param) {
+    db.query(sql, [table, status, req_type], (err, results) => {
+      // console.log(sql);
+    
+      if (err) {
+        console.error('Error fetching data from MySQL:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        // Send the retrieved data as a JSON response
+        res.json(results);
+      }
+    });
+  } else {
+    db.query(sql, [table, req_type], (err, results) => {
+      // console.log(sql);
+    
+      if (err) {
+        console.error('Error fetching data from MySQL:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        // Send the retrieved data as a JSON response
+        res.json(results);
+      }
+    });
+  }
+  
+});
+
+
+app.post("/insert-users", (req, res) => {
+  const { unique_id, email, password, name, ic_num, phone_num, school, course, student_status, study_year } = req.body;
+
+  // Check if required fields are provided
+  if (!unique_id) {
+    res.status(400).json({ message: 'Missing required fields' });
+    return;
+  }
+
+  const student_roles = "student";
+
+  // SQL query to insert a new user into the "user" table
+  let sql = "INSERT INTO users (unique_id, email, password, roles) VALUES (?, ?, ?, ?)";
+
+  // Execute the query
+  db.query(sql, [unique_id, email, password, student_roles], (err, result) => {
+    if (err) {
+      console.error('Error inserting user data into MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // If the user is successfully inserted into the "user" table, proceed to insert details
+      sql = "INSERT INTO users_details (unique_id, email, name, ic_num, phone_num, school, course, student_status, study_year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      
+      // Execute the query for inserting user details
+      db.query(sql, [unique_id, email, name, ic_num, phone_num, school, course, student_status, study_year], (err, result) => {
+        if (err) {
+          console.error('Error inserting user details into MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+        } else {
+          res.status(201).json({ message: 'User data inserted successfully' });
+        }
+      });
+    }
+  });
+});
+
+  app.post("/insert-request", (req, res) => {
+    // console.log( req.body);
+      const {
+      requestor_id,
+      request_type,
+      admin_approver_id,
+      bhepa_approver_id,
+      tnc_approver_id,
+
+      sponsor_type,
+      req_relationship,
+      death_cert_file,
+      ic_num_file,
+      bank_statement_file,
+      payment_slip_file,
+      transport_fare_file,
+      support_doc_file,
+      device_type,
+      device_details,
+      device_pic_file,
+      food_justification
+    } = req.body;
+  
+    // Check if requestor_id is empty or not provided
+    if (!requestor_id) {
+      res.status(400).json({ message: 'Missing requestor_id' });
+      return;
+    }
+  
+    const request_id = uuidv4();
+    const new_req_status = "baharu";
+
+    // SQL query to insert a new request into the "request" table
+    sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time) VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), CURTIME())";
+    // Execute the query
+    db.query(
+      sql,
+      [
+        request_id,     // Use the generated request_id
+        requestor_id,
+        admin_approver_id || null, // Set approver_id to null if not provided
+        bhepa_approver_id || null, // Set approver_id to null if not provided
+        tnc_approver_id || null, // Set approver_id to null if not provided
+        request_type,
+        new_req_status
+      ],
+      (err, result) => {
+        if (err) {
+          console.error('Error inserting request data into MySQL:', err);
+        } 
+      }
+    );
+
+    if (request_type === "makanan")
+    {
+      sql = "INSERT INTO food_application (request_id, sponsor_type, ic_num_file, payment_slip_file, food_justification) VALUES (?, ?, ?, ?, ?)";
+    // Execute the query
+    db.query(
+      sql,
+      [
+        request_id,
+        sponsor_type,
+        ic_num_file,
+        payment_slip_file,
+        food_justification
+      ],
+      (err, result) => {
+        if (err) {
+          console.error('Error inserting request data into MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+        } else {
+          res.status(201).json({ message: 'Request data inserted successfully' });
+        }
+      }
+    );
+    }
+
+    /*db.query(
+      sql,
+      [
+        requestor_id,
+        approver_id || null, // Set approver_id to null if not provided
+        sponsor_type || null, 
+        req_relationship || null,
+        death_cert_file || null,
+        ic_num_file || null,
+        bank_statement_file || null,
+        payment_slip_file || null,
+        transport_fare_file || null,
+        support_doc_file || null,
+        request_type || null,
+        device_type || null,
+        device_details || null,
+        device_pic_file || null
+      ],
+      (err, result) => {
+        if (err) {
+          console.error('Error inserting request data into MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+        } else {
+          res.status(201).json({ message: 'Request data inserted successfully' });
+        }
+      }
+    );*/
+  
+    //const sql = "INSERT INTO request (requestor_id, approver_id, sponsor_type, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, support_doc_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+  });
+  
+
+app.listen(8000, () => {
+  console.log(`Server is running on port 8000.`);
 });

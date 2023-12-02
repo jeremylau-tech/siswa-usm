@@ -70,6 +70,8 @@ function Login() {
       } else {
         // Handle other HTTP error codes
         alert("An error occurred while logging in.");
+        console.log( JSON.stringify({ email, password }))
+
       }
     } catch (error) {
       // Handle network errors or other issues
