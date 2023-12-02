@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 
 const app = express();
-const port = 3000;
+const port = 8000;
 
 const db = mysql.createConnection({
   host: 'bhepa_test',
@@ -10,6 +10,13 @@ const db = mysql.createConnection({
   password: 'pelajardatabase',
   database: 'bhepa_test'
 });
+
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'Admin@12345',
+//   database: 'bhepa_test',
+//   });
 
 app.get('/', (req, res) => {
   db.query('SELECT * FROM USERS', (err, results) => {
