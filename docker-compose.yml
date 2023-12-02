@@ -15,22 +15,22 @@ services:
   #   volumes:
   #         - ./sql:/docker-entrypoint-initdb.d
 
-  test_db_server:
-    build: ./test_db_server
-    container_name: test_db_server
-    depends_on:
-      - bhepa_test
-    environment:
-      MYSQL_HOST_IP: bhepa_test
-    ports:
-      - 9000:9000
-    expose: 
-      - "9000"
-    volumes:
-      - ./test_db_server:/app
-    links:
-      - bhepa_test
-    command: node server.js
+  # test_db_server:
+  #   build: ./test_db_server
+  #   container_name: test_db_server
+  #   depends_on:
+  #     - bhepa_test
+  #   environment:
+  #     MYSQL_HOST_IP: bhepa_test
+  #   ports:
+  #     - 9000:9000
+  #   expose: 
+  #     - "9000"
+  #   volumes:
+  #     - ./test_db_server:/app
+  #   links:
+  #     - bhepa_test
+  #   command: node server.js
 
   test_db_client:
     build: ./test_db_client
@@ -41,6 +41,4 @@ services:
       - 8090:3000
     volumes:
       - ./test_db_client/src:/app/src
-    links:
-      - test_db_server
     command: npm start
