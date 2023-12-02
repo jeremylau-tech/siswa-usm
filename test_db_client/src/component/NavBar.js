@@ -23,10 +23,15 @@ function Navbar() {
     setDrawerOpen(!isDrawerOpen);
   };
 
+  const handleLogin = () => {
+    // Merge the existing location state with your data
+    navigate('/Login');
+  };
+
   const handleLogout = () => {
     Cookies.remove('email');
     Cookies.remove('password');
-    authenticateWithADFS();
+    // authenticateWithADFS();
   };
 
   const renderItemLinks = () => {
@@ -35,7 +40,7 @@ function Navbar() {
         <div>
               <Button  component={Link} to={`https://www.instagram.com/unitkaunselingusm/?hl=en`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none'}}>
                 Kaunseling
-              </Button>
+              </Button>          
               <br/>
         </div>
       );
@@ -60,13 +65,19 @@ function Navbar() {
       );
     } else if (!isResponsive) {
       return (
-        // <Button className="p-4" style={{ color: 'white' }} onClick={authenticateWithADFS}>
-        //   Log Masuk
-        // </Button>
-        <Button  component={Link} to={`https://hac.usm.my/`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none'}}>
-                Penginapan
-        </Button>
-      );
+        <>
+          {/* <Button className="p-4" style={{ color: 'white' }} onClick={authenticateWithADFS}>
+            Log Masuk
+          </Button> */}
+          <Button component={Link} to={`https://hac.usm.my/`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}>
+            Penginapan
+          </Button>
+      
+          <Button variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }} onClick={handleLogin}>
+            Log Masuk
+          </Button>
+        </>
+      )      
     }
     return null;
   };
@@ -123,8 +134,12 @@ function Navbar() {
           {/* <ListItem button component="a" href={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
             <ListItemText primary="Log Masuk" />
           </ListItem> */}
+
+<ListItem button component={Link} to="/Login">
+  <ListItemText primary="Log Masuk" />
+          </ListItem>
           <Divider />
-          {renderLoginLogoutLink()}
+          {/* {renderLoginLogoutLink()} */}
         </List>
       </Drawer>
     </>
