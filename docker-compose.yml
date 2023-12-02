@@ -2,18 +2,18 @@ version: "3.4"
 
 services:
 
-  bhepa_test:
-    image: mysql:8.0
-    container_name: bhepa_test
-    environment:
-      MYSQL_HOST: bhepa_test
-      MYSQL_ROOT_PASSWORD: pelajardatabase
-      MYSQL_DATABASE: bhepa_test
-    ports:
-      - "3306:3306"
-    restart: unless-stopped
-    volumes:
-          - ./sql:/docker-entrypoint-initdb.d
+  # bhepa_test:
+  #   image: mysql:8.0
+  #   container_name: bhepa_test
+  #   environment:
+  #     MYSQL_HOST: bhepa_test
+  #     MYSQL_ROOT_PASSWORD: pelajardatabase
+  #     MYSQL_DATABASE: bhepa_test
+  #   ports:
+  #     - "3306:3306"
+  #   restart: unless-stopped
+  #   volumes:
+  #         - ./sql:/docker-entrypoint-initdb.d
 
   test_db_server:
     build: ./test_db_server
