@@ -7,7 +7,7 @@ const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
 const corsOptions = {
-  origin: 'http://docker.usm.my:8090', // Replace with the actual origin of your frontend
+  origin: ['http://docker.usm.my:8090', 'https://kebajikansiswa.usm.my'], // Replace with the actual origins of your frontends
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -40,9 +40,9 @@ let isDbConnected = false; // Variable to store the connection state
 //   });
 
   const db = mysql.createConnection({
-    host: 'localhost',
+    host: 'docker.usm.my',
     user: 'root',
-    password: 'Admin@12345',
+    password: 'pelajardatabase',
     database: 'bhepa_test',
     });
 
