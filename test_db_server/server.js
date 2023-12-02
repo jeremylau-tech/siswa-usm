@@ -7,7 +7,7 @@ const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
 const corsOptions = {
-  origin: 'http://localhost:3000', // Replace with the actual origin of your frontend
+  origin: 'http://docker.usm.my:8090', // Replace with the actual origin of your frontend
   credentials: true,
 };
 app.use(cors(corsOptions));
