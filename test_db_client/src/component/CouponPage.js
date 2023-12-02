@@ -114,7 +114,11 @@ function CouponPage() {
     };
 
 
-    fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-redeem`, {
+    // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-redeem`, {
+
+    // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-redeem`, {
+      fetch("http://localhost:8000/coupons-redeem", {
+
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -141,7 +145,9 @@ function CouponPage() {
     // Data to send in the request body
     const requestData = { userId };
     
-    fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-userid`, {
+    // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-userid`, {
+      fetch("http://localhost:8000/coupons-userid", {
+
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -163,7 +169,9 @@ function CouponPage() {
       
   useEffect(() => {
     // Make an HTTP GET request to the /vendor-all endpoint
-    fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }vendor-all`)
+    // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }vendor-all`)
+    fetch('http://localhost:8000/vendor-all') // Replace with the appropriate URL
+
       .then(res => res.json())
       .then(data => {
         // Update the state with the retrieved data

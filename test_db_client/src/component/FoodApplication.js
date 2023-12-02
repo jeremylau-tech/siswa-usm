@@ -144,7 +144,7 @@ const handleSponsorTypeChange = (e) => {
   return (
     <div className="mt-5 form-page">
       <div className="form-column form-column-left">
-        <h2 className="left-header">Borang Permohonan<br />Baucar Makanan</h2>
+        <h2 className="left-header">Borang Permohonan<br />Kupon Makanan</h2>
         <p className="left-header-para">#USMCares</p>
       </div>
       <div className="form-column form-column-right">
@@ -154,18 +154,20 @@ const handleSponsorTypeChange = (e) => {
           
         <div className="form-group select-food-container">
             <label htmlFor="options-food" className="select-food-label">Jenis Tajaan:</label>
+            <p className="subtext">Choose the Sponsorship Type:</p>
             <div className="select-food-wrapper">
             <select id="sponsor_type" name="sponsor_type" className="select" onChange={handleSponsorTypeChange} value={sponsorType}>
                 <option value="">Sila Pilih Jenis Tajaan</option>
                 <option value="PTPTN">PTPTN</option>
                 <option value="JPA">JPA</option>
                 <option value="KPM">KPM</option>
-                <option value="Lain">Lain-lain</option>
+                <option value="Lain">Lain-lain <span className="subtext">(Other Sponsorship Type)</span></option>
               </select>
             </div>
             {sponsorType.includes("Lain") && (
               <div className="form-group">
-                <label htmlFor="customOption">Sila Nyatakan Jenis Tajaan Lain:</label>
+                <label htmlFor="customOption" className="customOptiontext">Sila Nyatakan Jenis Tajaan Lain:</label>
+                <p className="subtext">Specify the Other Sponsorship Type</p>
                 <input
                   type="text"
                   id="customOption"
@@ -179,17 +181,20 @@ const handleSponsorTypeChange = (e) => {
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Kad Pengenalan:</label>
+            <p className="subtext">Photocopy of Identity Card:</p>
             <DragDrop selectedFile={icNumFile} setSelectedFile={setIcNumFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
           </div>
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa:</label>
+            <p className="subtext">Copy of Parent's Salary Slip:</p>
             <DragDrop selectedFile={paymentSlipFile} setSelectedFile={setPaymentSlipFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
           </div>
 
           {/* Justification textarea */}
           <div className="form-group">
             <label htmlFor="justification">Justifikasi Untuk Menyokong Permohonan:</label>
+            <p className="subtext">Provide a Brief Justification for the Application:</p>
             <textarea
               id="food_justification"
               name="food_justification"

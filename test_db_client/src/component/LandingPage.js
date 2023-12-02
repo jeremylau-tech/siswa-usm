@@ -192,7 +192,7 @@ function LandingPage() {
             <CardMedia component="img" alt="Service 2 Banner" height="140" image="makanan.png" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                Baucar Makanan
+                Kupon Makanan
               </Typography>
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Keperluan asas dalam rutin seharian.
