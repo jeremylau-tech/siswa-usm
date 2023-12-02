@@ -4,7 +4,7 @@ import xml2js from 'xml2js';
 
 const authenticateWithADFS = () => {
   const currentDate = new Date().toISOString();
-  const adfsLoginUrl = `https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`;
+  const adfsLoginUrl = "/login";
   window.location.href = adfsLoginUrl;
   console.log(window.location.href)
 };
