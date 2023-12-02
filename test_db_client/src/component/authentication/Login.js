@@ -48,30 +48,27 @@ function Login() {
 
       if (response.status === 200) {
         const data = await response.json();
-
+      
         // Authentication successful, show an alert message
         alert("Login successful");
-        // Save credentials as secure cookies
-        Cookies.set('email', email, { secure: true });
-        Cookies.set('password', password, { secure: true });
-        
-        // console.log(data.user)
-
-        // window.location.href = '/AdminDashboard';
+      
+        // Save credentials as cookies (remove secure: true)
+        Cookies.set('email', email);
+        Cookies.set('password', password);
+      
+        // Redirect based on user roles
         if (data.user.roles === "student")
           navigate('/landingPage', { state: { ...location.state, ...data.user } });
         else
           navigate('/adminDashboard', { state: { ...location.state, ...data.user } });
-
-
+      
       } else if (response.status === 401) {
         // Handle authentication failure, show an error message in an alert
         alert("Login failed. Invalid email or password.");
       } else {
         // Handle other HTTP error codes
         alert("An error occurred while logging in.");
-        console.log( JSON.stringify({ email, password }))
-
+        console.log(JSON.stringify({ email, password }));
       }
     } catch (error) {
       // Handle network errors or other issues
