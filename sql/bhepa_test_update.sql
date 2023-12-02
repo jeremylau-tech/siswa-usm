@@ -18,6 +18,11 @@
 --
 -- Table structure for table `baucar`
 --
+CREATE DATABASE bhepa_test;
+USE bhepa_test;
+
+-- ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'pelajardatabase';
+-- FLUSH PRIVILEGES;
 
 DROP TABLE IF EXISTS `baucar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

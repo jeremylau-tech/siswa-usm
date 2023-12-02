@@ -6,14 +6,14 @@ services:
     image: mysql:8.0
     container_name: bhepa_test
     environment:
+      MYSQL_HOST: bhepa_test
       MYSQL_ROOT_PASSWORD: pelajardatabase
+      MYSQL_DATABASE: bhepa_test
     ports:
       - "3306:3306"
     restart: unless-stopped
     volumes:
           - ./sql:/docker-entrypoint-initdb.d
-    command: --init-file /docker-entrypoint-initdb.d/bhepa_test_update.sql
-
 
   test_db_server:
     build: ./test_db_server
@@ -24,6 +24,8 @@ services:
       MYSQL_HOST_IP: bhepa_test
     ports:
       - 8000:8000
+    expose: 
+      - "8000"
     volumes:
       - ./test_db_server:/app
     links:
