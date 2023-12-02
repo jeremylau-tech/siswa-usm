@@ -139,7 +139,7 @@ const columns = [
     const [requestTable, setRequestTable] = useState({});
 
     useEffect(() => {
-      fetch(`http://localhost:8000/request-user?user_id=${userId}`) // Replace with the appropriate URL
+      fetch(`http://docker.usm.my:8000/request-user?user_id=${userId}`) // Replace with the appropriate URL
 
     .then(res => res.json())
     .then(data => {

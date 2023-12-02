@@ -173,7 +173,7 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
         const vendorId = recordDialogData.vendor_id;  // Replace with the actual vendorId
     
         // Make an HTTP POST request to the /invoice-all-vendor endpoint
-        fetch('http://localhost:8000/invoice-all-vendor', {
+        fetch('http://docker.usm.my:8000/invoice-all-vendor', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

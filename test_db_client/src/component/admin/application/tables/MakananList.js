@@ -214,7 +214,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
     
   useEffect(() => {
     // Fetch user details from the server
-    fetch("http://localhost:8000/user-details")
+    fetch("http://docker.usm.my:8000/user-details")
       .then((res) => res.json())
       .then((data) => {
         if (data.userDetails) {
@@ -234,7 +234,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
   useEffect(() => {
     const statusParam = "complete"; // Replace with the desired status parameter
     const typeparam = "makanan"; 
-    const apiUrl = `http://localhost:8000/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
+    const apiUrl = `http://docker.usm.my:8000/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)

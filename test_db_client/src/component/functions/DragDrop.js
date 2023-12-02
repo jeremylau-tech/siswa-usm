@@ -42,7 +42,7 @@ function DragDrop({ selectedFile, setSelectedFile }) {
         const formData = new FormData();
         formData.append("file", file);
 
-        const response = await fetch("http://localhost:8000/upload", {
+        const response = await fetch("http://docker.usm.my:8000/upload", {
           method: "POST",
           body: formData,
         });

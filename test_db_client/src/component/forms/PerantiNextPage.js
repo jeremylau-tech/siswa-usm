@@ -45,7 +45,7 @@ function PerantiNextPage() {
         uploadData.append("file", file);
         
 
-        const response = await fetch("http://localhost:8000/upload", {
+        const response = await fetch("http://docker.usm.my:8000/upload", {
           method: "POST",
           body: uploadData,
         });
@@ -100,7 +100,7 @@ function PerantiNextPage() {
         sponsor_type: sponsorType
       };
 
-      const apiUrl = "http://localhost:8000/insert-request"; // Update with your server's URL
+      const apiUrl = "http://docker.usm.my:8000/insert-request"; // Update with your server's URL
   
       // Create a POST request to send the formData to the server
       const response = await fetch(apiUrl, {

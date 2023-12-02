@@ -201,7 +201,7 @@ function PendingList({roles}) {
 
   useEffect(() => {
     // Fetch user details from the server
-    fetch("http://localhost:8000/user-details")
+    fetch("http://docker.usm.my:8000/user-details")
       .then((res) => res.json())
       .then((data) => {
         if (data.userDetails) {
@@ -219,7 +219,7 @@ function PendingList({roles}) {
   }, []);
 
   useEffect(() => {
-    const apiUrl = `http://localhost:8000/request-all-admin`;
+    const apiUrl = `http://docker.usm.my:8000/request-all-admin`;
 
     // Fetch requests from the server
     console.log("Fetching requests from the server...");
