@@ -119,7 +119,7 @@ function Navbar() {
           <ListItem component="a" href="https://www.instagram.com/unitkaunselingusm/?hl=en">
             <ListItemText primary="Kaunseling" />
           </ListItem>
-          <ListItem button component={Link} to="/login">
+          <ListItem button component="a" href={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
             <ListItemText primary="Log Masuk" />
           </ListItem>
           <Divider />
