@@ -50,7 +50,7 @@ function a11yProps(index) {
 function ApplicationListPage(user_roles, unique_id) {
   const roles = user_roles.user_roles
 
-  const user_id = unique_id.unique_id;
+  const user_id = unique_id;
 
   alert(user_id)
 
