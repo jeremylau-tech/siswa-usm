@@ -47,12 +47,12 @@ function a11yProps(index) {
   };
 }
 
-function ApplicationListPage(user_roles, user_id) {
+function ApplicationListPage({ user_roles, unique_id }) {
   const roles = user_roles.user_roles
-  alert(roles)
-  alert(user_id)
-  console.log('etst')
-  console.log(user_id)
+
+  const unique_id = unique_id.unique_id;
+
+  alert(unique_id)
 
   const [value, setValue] = React.useState(0);
   const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
