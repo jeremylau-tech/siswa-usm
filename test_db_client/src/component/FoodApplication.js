@@ -117,6 +117,7 @@ const handleSponsorTypeChange = (e) => {
         setIcNumFile(null)
         setPaymentSlipFile(null);
         setFoodJustification("");
+        navigate('/LandingPage', { state: { ...user } });
       } else {
         console.log(formData);
         // Handle errors or display error messages here
