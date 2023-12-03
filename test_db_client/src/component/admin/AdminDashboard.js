@@ -10,6 +10,7 @@ function AdminDashboard(props) {
   const location = useLocation();
   const user = location.state;
 
+  alert (user.unique_id)
   return ( 
     <div className="App">
         <AnalyticDashboard /> 
