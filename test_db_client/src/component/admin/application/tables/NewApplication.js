@@ -184,9 +184,24 @@ function handleToEvaluation(params) {
     const user_role = roles;
   
     // Navigate to the ArchivePage with request details and userRole
-    navigate('/EvaluationPage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
-      tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role } });
+    // navigate('/EvaluationPage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
+    //   tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role } });
+
+    if (user_role === 'admin') {
+      navigate('/EvaluationPage', { state: {request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
+          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role,
+        },
+      });
+    } else if (user_role === 'bhepa') {
+      navigate('/BhepaEvaluationPage', { state: { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id,
+          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role,
+        },
+      });
+    } else {
+      // Handle other roles or provide a default navigation
+      console.error('Unsupported role:', user_role);
     }
+}
 
   const [open, setOpen] = useState(false); // State variable to control the dialog
 
