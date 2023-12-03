@@ -131,7 +131,7 @@ app.post("/login", (req, res) => {
       const token = jwt.sign({ unique_id: user.unique_id, email: user.email, roles: user.roles }, secretKey, { expiresIn: '1h' });
 
       // Send the token and user information back to the client
-      res.json({ token, user: { id: user.id, email: user.email, roles: user.roles } });
+      res.json({ token, user: { unique_id: user.unique_id, email: user.email, roles: user.roles } });
     }
   });
 });

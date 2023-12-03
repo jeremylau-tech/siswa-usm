@@ -63,7 +63,6 @@ function Login() {
         setErrorMessage("Login failed. Invalid email or password.");
       } else {
         setErrorMessage("An error occurred while logging in.");
-        console.log(JSON.stringify({ email, password }));
       }
     } catch (error) {
       console.error("Error logging in:", error);
