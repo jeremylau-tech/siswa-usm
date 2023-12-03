@@ -14,8 +14,12 @@ function FoodApplication() {
   const user = location.state;
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
-  // alert(user.unique_id);
-  // console.log(user);
+  const handleHome = () => {
+    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    alert('asd')
+    navigate('/LandingPage', { state: { ...user } });
+  };
+
 
   const [formData, setFormData] = useState({
     requestor_id: user.unique_id,
@@ -59,12 +63,7 @@ const handleSponsorTypeChange = (e) => {
     }
   };
 
-  const handleHome = () => {
-    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    alert('asd')
-    navigate('/LandingPage', { state: { ...user } });
-  };
-
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
