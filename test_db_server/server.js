@@ -340,6 +340,7 @@ app.post('/insert-vendor', (req, res) => {
     vendorBankAccName,
     vendorBankAccNo,
     vendorBankName,
+    vendorCompanyName
   } = req.body;
 
   // Validate required fields
@@ -352,7 +353,8 @@ app.post('/insert-vendor', (req, res) => {
     !vendorEmail ||
     !vendorBankAccName ||
     !vendorBankAccNo ||
-    !vendorBankName
+    !vendorBankName ||
+    !vendorCompanyName
   ) {
     return res.status(400).json({ message: 'All fields are required' });
   }
@@ -363,7 +365,7 @@ app.post('/insert-vendor', (req, res) => {
   const sql = `
     INSERT INTO vendor 
     (vendor_location, vendor_name, vendor_status, vendor_description, vendor_fullname, 
-    vendor_phone, vendor_email, vendor_register_date, vendor_bank, vendor_bank_acc, vendor_bank_acc_name)
+    vendor_phone, vendor_email, vendor_register_date, vendor_bank, vendor_bank_acc, vendor_bank_acc_name, vendor_company_name)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
@@ -379,6 +381,7 @@ app.post('/insert-vendor', (req, res) => {
     vendorBankName,
     vendorBankAccNo,
     vendorBankAccName,
+    vendorCompanyName
   ];
 
   // Execute the query

@@ -50,6 +50,7 @@ function EvaluationPage() {
                 {request_type === "makanan" ? (
                 <StepperComponentMakanan
                 requestId={request_id}
+                requestorId={requestor_id}
                 userId={user_id}
                 userRole={user_role}
                 reqType={request_type}

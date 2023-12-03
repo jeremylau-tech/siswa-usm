@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'reac
 
 
 function ArchiveStepperComponentMakanan({ requestId, userId, userRole, reqType, adminId, bhepaId, 
-  tncId, adminRemark,bhepaRemark,tncRemark,isArchive}) {
+  tncId, adminRemark,bhepaRemark,tncRemark,isArchive, requestorId}) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [requests, setRequests] = useState([]);
   const [foodApplication, setFoodApplication] = useState([]);
@@ -27,7 +27,7 @@ function ArchiveStepperComponentMakanan({ requestId, userId, userRole, reqType, 
   
 useEffect(() => {
   // Fetch user details from the server
-  fetch(`http://docker.usm.my:8000/user-details-uniqueid?unique_id=${userId}`)
+  fetch(`http://docker.usm.my:8000/user-details-uniqueid?unique_id=${requestorId}`)
     .then((res) => res.json())
     .then((data) => {
       if (data.userDetails) {

@@ -8,8 +8,6 @@ import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
 
 export default function ApprovedDialog({ requestId, userId, userRole, requestType, requestorId}) {
-  alert(userId)
-  alert(requestorId)
   const navigate = useNavigate(); // Initialize the useNavigate hook
   const data = { roles: userRole };
 

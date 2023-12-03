@@ -12,7 +12,7 @@ import RejectDialog from "./RejectDialog";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
 
 
-function StepperComponentMakanan({ requestId, userId, userRole, reqType, adminId, bhepaId, 
+function StepperComponentMakanan({ requestId, requestorId, userId, userRole, reqType, adminId, bhepaId, 
   tncId, adminRemark,bhepaRemark,tncRemark,isArchive}) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [requests, setRequests] = useState([]);
@@ -85,7 +85,7 @@ function StepperComponentMakanan({ requestId, userId, userRole, reqType, adminId
   
 useEffect(() => {
   // Fetch user details from the server
-  fetch(`http://docker.usm.my:8000/user-details-uniqueid?unique_id=${userId}`)
+  fetch(`http://docker.usm.my:8000/user-details-uniqueid?unique_id=${requestorId}`)
     .then((res) => res.json())
     .then((data) => {
       if (data.userDetails) {
@@ -197,13 +197,13 @@ useEffect(() => {
             <>
                     <Box sx={{m:3}}>
                         {requests[0] ? (
-                      <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requests[0].requestor_id}></ApprovedDialog>
+                      <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requestorId}></ApprovedDialog>
                       ) : (
                         'Loading...' // or any dummy value you prefer
                       )}
                     </Box>
                     <Box sx={{mb:2}}> 
-                    <RejectDialog requestId={requestId} userId={userId} userRole={userRole}></RejectDialog>
+                    <RejectDialog requestId={requestId} userId={userId} userRole={userRole} ></RejectDialog>
                       </Box>
                     </>
           ) : (

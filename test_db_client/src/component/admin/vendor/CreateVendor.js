@@ -35,6 +35,7 @@ export default function CreateVendor() {
     vendorBankAccName: '',
     vendorBankAccNo: '',
     vendorBankName: '',
+    vendorCompanyName: '',
   });
 
   const handleClickOpen = () => {
@@ -228,6 +229,17 @@ export default function CreateVendor() {
             variant="outlined"
             value={formData.vendorBankName}
             onChange={handleChange('vendorBankName')}
+          />
+           <TextField
+            autoFocus
+            margin="dense"
+            id="outlined-basic"
+            label="Nama Company Vendor"
+            type="companyName"
+            fullWidth
+            variant="outlined"
+            value={formData.vendorCompanyName}
+            onChange={handleChange('vendorCompanyName')}
           />
         </DialogContent>
         <DialogActions>

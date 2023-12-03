@@ -59,6 +59,7 @@ function EvaluationPage() {
                 adminRemark={request_remark_admin}
                 bhepaRemark={request_remark_bhepa}
                 tncRemark={request_remark_tnc}
+                requestorId = {requestor_id}
               />
               ) : (
                 /* Render a different stepper component here for other cases */
