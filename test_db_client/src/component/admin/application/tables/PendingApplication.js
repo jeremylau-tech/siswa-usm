@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 
-function PendingList({roles}) {
+function PendingList({roles, user_id}) {
 
   const [open, setOpen] = useState(false); // State variable to control the dialog
 
@@ -262,7 +262,7 @@ function PendingList({roles}) {
     
       // Navigate to the ArchivePage with request details and userRole
       navigate('/ArchivePage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
-        tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role } });
+        tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id } });
       }
 
   const downloadDataAsCSV = () => {

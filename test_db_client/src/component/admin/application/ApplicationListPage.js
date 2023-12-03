@@ -137,7 +137,7 @@ function ApplicationListPage({ user_roles, unique_id }) {
                 alignItems: "center",
               }}
             >
-              <PendingList roles={roles} />
+              <PendingList roles={roles} user_id={user_id}/>
             </Box>
           )}
           {value === 2 && (
@@ -181,7 +181,7 @@ function ApplicationListPage({ user_roles, unique_id }) {
                 alignItems: "center",
               }}
             >
-              <MakananList roles={roles} />
+              <MakananList roles={roles} user_id={user_id}/>
             </Box>
           )}
         </Box>

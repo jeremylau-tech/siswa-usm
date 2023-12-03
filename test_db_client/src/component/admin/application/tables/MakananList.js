@@ -17,7 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-   function NewApplication({roles}){
+   function NewApplication({roles, user_id}){
     const columns = [
       {
         field: "request_id",
@@ -180,7 +180,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
   // Navigate to the ArchivePage with request details and userRole
   navigate('/ArchivePage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
-    tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role } });
+    tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id } });
   }
 
     const getStatusButtonText = (status) => {

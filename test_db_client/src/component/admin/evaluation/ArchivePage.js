@@ -26,7 +26,7 @@ const centerStyle = {
 function ArchivePage() {
   const location = useLocation();
   const { request_id, requestor_id, request_type, admin_approver_id, bhepa_approver_id, 
-    tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role} = location.state;
+    tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id} = location.state;
 
   const isArchive = true;
 
@@ -51,7 +51,7 @@ function ArchivePage() {
                 {request_type === "makanan" ? (
                  <ArchiveStepperComponentMakanan
                  requestId={request_id}
-                 userId={requestor_id}
+                 userId={user_id}
                  userRole={user_role}
                  reqType={request_type}
                  adminId={admin_approver_id}
@@ -61,6 +61,7 @@ function ArchivePage() {
                  bhepaRemark={request_remark_bhepa}
                  tncRemark={request_remark_tnc}
                  isArchive={isArchive}
+                 requestorId={requestor_id}
                />
               ) : (
                 /* Render a different stepper component here for other cases */
