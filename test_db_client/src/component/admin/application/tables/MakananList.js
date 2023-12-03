@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import { saveAs } from 'file-saver';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import Paper from '@mui/material/Paper';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import Typography from "@mui/material/Typography";
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
