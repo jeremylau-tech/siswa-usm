@@ -10,8 +10,7 @@ import { processToken, authenticateWithADFS } from './Auth.js';
 import "./NavBar.css"; // Import your CSS file
 
 function Navbar() {
-  const email = Cookies.get('email');
-  const password = Cookies.get('password');
+  const jwtToken = Cookies.get('jwtToken');
   const navigate = useNavigate();
   const theme = useTheme();
   const isResponsive = useMediaQuery(theme.breakpoints.down("md"));
@@ -29,8 +28,7 @@ function Navbar() {
   };
 
   const handleLogout = () => {
-    Cookies.remove('email');
-    Cookies.remove('password');
+    Cookies.remove('jwtToken');
     // authenticateWithADFS();
     navigate('/Login');
 
@@ -50,7 +48,7 @@ function Navbar() {
   };
 
   const renderLoginLogoutLink = () => {
-    if (email && password) {
+    if (jwtToken) {
       return (
         <Button
           style={{

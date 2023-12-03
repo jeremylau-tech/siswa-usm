@@ -6,6 +6,8 @@ const multer = require("multer"); // For handling file uploads
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
+const jwt = require('jsonwebtoken');
+
 const corsOptions = {
   origin: ['http://docker.usm.my:8090', 'https://kebajikansiswa.usm.my'], // Replace with the actual origins of your frontends
   // origin: "*",
@@ -105,10 +107,13 @@ app.post("/upload/:category", (req, res) => {
 
 
 // Define a route to handle user login
+const secretKey = 'random123';
+
+// Login endpoint
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
-  // Implement your login logic here, e.g., query the database to verify credentials
+  // Implement your login logic here, query the database to verify credentials
   const query = "SELECT * FROM users WHERE email = ? AND password = ?";
   db.query(query, [email, password], (err, results) => {
     if (err) {
@@ -121,10 +126,12 @@ app.post("/login", (req, res) => {
       // User not found or incorrect credentials
       res.status(401).json({ message: "Invalid email or password" });
     } else {
-      // User successfully authenticated
-      res.json({ user: results[0] });
+      // User successfully authenticated, generate JWT token
+      const user = results[0];
+      const token = jwt.sign({ userId: user.id, email: user.email, roles: user.roles }, secretKey, { expiresIn: '1h' });
 
-      // res.status(200).json({ message: "Login successful" });
+      // Send the token and user information back to the client
+      res.json({ token, user: { id: user.id, email: user.email, roles: user.roles } });
     }
   });
 });
