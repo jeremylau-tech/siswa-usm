@@ -51,6 +51,8 @@ function Login() {
         // Save JWT token in a secure cookie
         Cookies.set('jwtToken', token, { secure: true, sameSite: 'Strict' });
 
+        console.log(data.user)
+
         // Redirect based on user roles
         if (data.user.roles === "student")
           navigate('/landingPage', { state: { ...location.state, ...data.user } });
