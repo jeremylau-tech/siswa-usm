@@ -16,7 +16,6 @@ function FoodApplication() {
 
   const handleHome = () => {
     // setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    alert('asd')
     navigate('/LandingPage', { state: { ...user } });
   };
 

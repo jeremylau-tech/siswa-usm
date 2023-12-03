@@ -97,6 +97,7 @@ function DragDrop({ selectedFile, setSelectedFile }) {
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={handleFileInputChange}
+          accept=".pdf" // Only accept PDF files
           disabled={selectedFile !== null} // Disable the input when a file is selected
         />
         {selectedFile ? (
