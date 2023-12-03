@@ -23,7 +23,7 @@ function InvoicePage({ }) {
   const navigate = useNavigate();
   const user = location.state;
   const data = { userId: user.unique_id };
-  let totalInvoice = row.baucarToClaim * 5;
+  let totalInvoice = row.baucarToClaim * 3.5;
   let date = new Date().toLocaleDateString();
   let invoiceId = generateRandomId(8);
 
