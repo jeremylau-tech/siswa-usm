@@ -151,7 +151,7 @@ export default function CreateVendor() {
             autoFocus
             margin="dense"
             id="outlined-basic"
-            label="Nama Company Vendor"
+            label="Nama Syarikat Vendor"
             type="companyName"
             fullWidth
             variant="outlined"
