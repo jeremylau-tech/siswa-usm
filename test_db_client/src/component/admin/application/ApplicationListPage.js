@@ -47,13 +47,11 @@ function a11yProps(index) {
   };
 }
 
-function ApplicationListPage(user_roles, unique_id) {
+function ApplicationListPage(user_roles, user_id) {
   const roles = user_roles.user_roles
-
-  const user_id = unique_id;
   alert(roles)
-  alert(unique_id)
-  alert(unique_id.unique_id)
+  alert(user_id)
+  console.log('etst')
   console.log(user_id)
 
   const [value, setValue] = React.useState(0);
