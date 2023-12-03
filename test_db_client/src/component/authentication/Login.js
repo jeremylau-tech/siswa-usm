@@ -1,9 +1,9 @@
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import Cookies from 'js-cookie';
-import { CardMedia } from "@mui/material";
+import { CardMedia } from '@mui/material';
 import Box from '@mui/material/Box';
 import RegistrationDialog from './RegisterDialog';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -11,9 +11,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -36,39 +36,39 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://docker.usm.my:8000/login", {
-        method: "POST",
+      const response = await fetch('http://docker.usm.my:8000/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-        credentials: "include", // Send cookies with the request
+        credentials: 'include', // Send cookies with the request
       });
 
-
-      if (response.status === 200) {
+      if (response.ok) {
         const data = await response.json();
         const token = data.token;
 
         // Save JWT token in a secure cookie
-        Cookies.set('jwtToken', token, { secure: true, sameSite: 'Strict' });
+        Cookies.set('jwtToken', token);
 
-        console.log(data.user)
+        // Log the token to verify it's received correctly
+        console.log('JWT Token:', token);
 
         // Redirect based on user roles
-        if (data.user.roles === "student")
+        if (data.user.roles === 'student') {
           navigate('/landingPage', { state: { ...location.state, ...data.user } });
-        else
+        } else {
           navigate('/adminDashboard', { state: { ...location.state, ...data.user } });
-
+        }
       } else if (response.status === 401) {
-        setErrorMessage("Login failed. Invalid email or password.");
+        setErrorMessage('Login failed. Invalid email or password.');
       } else {
-        setErrorMessage("An error occurred while logging in.");
+        setErrorMessage('An error occurred while logging in.');
       }
     } catch (error) {
-      console.error("Error logging in:", error);
-      setErrorMessage("An error occurred while logging in.");
+      console.error('Error logging in:', error);
+      setErrorMessage('An error occurred while logging in.');
     }
   };
 
@@ -90,7 +90,9 @@ function Login() {
         >
           <Form id="sign-in-form" className="text-center p-3 w-100" style={{ maxWidth: '400px' }} onSubmit={handleLogin}>
             <CardMedia component="img" alt="Service 1 Banner" height="140" image="wang-pic.jpg" />
-            <h1 className="mb-4 fs-3 fw-normal" style={{ padding: '10px' }}>Log Masuk</h1>
+            <h1 className="mb-4 fs-3 fw-normal" style={{ padding: '10px' }}>
+              Log Masuk
+            </h1>
             <Form.Group controlId="sign-in-email-address">
               <Form.Control
                 type="email"
