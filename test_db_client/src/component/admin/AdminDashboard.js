@@ -10,13 +10,15 @@ function AdminDashboard(props) {
   const location = useLocation();
   const user = location.state;
 
+  alert(user.unique_id)
+
   return ( 
     <div className="App">
         <AnalyticDashboard /> 
         <Divider style={{ margin: '30px 0' }} />
         <AnalyticGraph />
         <Divider style={{ margin: '30px 0' }} />
-        <ApplicationListPage user_roles={user.roles}/>
+        <ApplicationListPage user_roles={user.roles} unique_id={user.unique_id}/>
         <Divider style={{ margin: '30px 0' }} />
         <VendorListPage />
     </div>
