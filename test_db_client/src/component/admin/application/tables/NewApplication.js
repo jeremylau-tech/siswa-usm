@@ -189,12 +189,12 @@ function handleToEvaluation(params) {
 
     if (user_role === 'admin') {
       navigate('/EvaluationPage', { state: {request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
-          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role,
+          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id
         },
       });
     } else if (user_role === 'bhepa') {
       navigate('/BhepaEvaluationPage', { state: { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id,
-          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role,
+          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id
         },
       });
     } else {
