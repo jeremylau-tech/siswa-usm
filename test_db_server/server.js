@@ -487,7 +487,7 @@ app.post('/request-edit-lulus', (req, res) => {
     const baucar_stat = "aktif";
     let baucar_code = "";
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 4; i++) {
     baucar_code = generateCouponCode(6);
     sql = "INSERT INTO baucar  (baucar_code, baucar_apply_date, baucar_apply_time, baucar_due_date, baucar_status, user_id) VALUES (?, ?, CURTIME(), ?, ?, ?)";
     db.query(sql, [baucar_code, formattedCurrentDate, fixDueDate, baucar_stat, requestorId], (err, results) => {
