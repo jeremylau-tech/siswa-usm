@@ -36,6 +36,7 @@ export default function CreateVendor() {
     vendorBankAccNo: '',
     vendorBankName: '',
     vendorCompanyName: '',
+    vendorAddress: ''
   });
 
   const handleClickOpen = () => {
@@ -146,6 +147,28 @@ export default function CreateVendor() {
             value={formData.vendorDescription}
             onChange={handleChange('vendorDescription')}
           />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="outlined-basic"
+            label="Nama Company Vendor"
+            type="companyName"
+            fullWidth
+            variant="outlined"
+            value={formData.vendorCompanyName}
+            onChange={handleChange('vendorCompanyName')}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="outlined-basic"
+            label="Alamat Vendor"
+            type="companyAddress"
+            fullWidth
+            variant="outlined"
+            value={formData.vendorAddress}
+            onChange={handleChange('vendorAddress')}
+          />
         {/* <Box style={{  alignContent: 'center', paddingTop:'20px' }}>
         <Typography variant="h7" gutterBottom> Logo </Typography>
         <Button 
@@ -229,17 +252,6 @@ export default function CreateVendor() {
             variant="outlined"
             value={formData.vendorBankName}
             onChange={handleChange('vendorBankName')}
-          />
-           <TextField
-            autoFocus
-            margin="dense"
-            id="outlined-basic"
-            label="Nama Company Vendor"
-            type="companyName"
-            fullWidth
-            variant="outlined"
-            value={formData.vendorCompanyName}
-            onChange={handleChange('vendorCompanyName')}
           />
         </DialogContent>
         <DialogActions>
