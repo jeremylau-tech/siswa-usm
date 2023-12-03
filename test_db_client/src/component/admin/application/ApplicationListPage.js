@@ -48,6 +48,8 @@ function a11yProps(index) {
 }
 
 function ApplicationListPage(unique_id, user_roles) {
+  const roles = user_roles.user_roles
+  const user_id = unique_id.unique_id
 
   const [value, setValue] = React.useState(0);
   const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
@@ -124,7 +126,7 @@ function ApplicationListPage(unique_id, user_roles) {
                 alignItems: "center",
               }}
             >
-              <NewApplication roles={user_roles.user_roles} unique_id={unique_id.unique_id} />
+              <NewApplication roles={roles} unique_id={user_id} />
             </Box>
           )}
           {value === 1 && (
