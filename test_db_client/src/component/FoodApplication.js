@@ -22,10 +22,6 @@ function FoodApplication() {
     request_type: "makanan"
   });
 
-  const handleHome = () => {
-    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    navigate('/LandingPage', { state: { ...user } });
-  };
 
 const handleSponsorTypeChange = (e) => {
   const selectedOption = e.target.value;
@@ -62,6 +58,13 @@ const handleSponsorTypeChange = (e) => {
       }
     }
   };
+
+  const handleHome = () => {
+    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    alert('asd')
+    navigate('/LandingPage', { state: { ...user } });
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -218,9 +221,7 @@ const handleSponsorTypeChange = (e) => {
               }>
                 Kembali
               </button>
-            <button type="submit" style={hantarButtonStyle} onClick={
-                handleHome()
-              }>
+            <button type="submit" style={hantarButtonStyle} >
               Hantar
             </button>
           </div>
