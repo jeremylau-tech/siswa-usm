@@ -26,7 +26,7 @@ const centerStyle = {
 function EvaluationPage() {
   const location = useLocation();
   const { request_id, requestor_id, request_type, admin_approver_id, bhepa_approver_id, 
-    tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id} = location.state;
+    tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role} = location.state;zz
 
 
   return (
@@ -50,7 +50,7 @@ function EvaluationPage() {
                 {request_type === "makanan" ? (
                 <StepperComponentMakanan
                 requestId={request_id}
-                userId={user_id}
+                userId={requestor_id}
                 userRole={user_role}
                 reqType={request_type}
                 adminId={admin_approver_id}
