@@ -73,7 +73,7 @@ function Navbar() {
             Penginapan
           </Button>
       
-          <Button variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }} onClick={handleLogin}>
+          <Button variant="contained" style={{ backgroundColor: 'lightblue', color: 'white', border: 'none' }} onClick={handleLogin}>
             Log Masuk
           </Button>
         </>
@@ -135,9 +135,12 @@ function Navbar() {
             <ListItemText primary="Log Masuk" />
           </ListItem> */}
 
-<ListItem button component={Link} to="/Login">
-  <ListItemText primary="Log Masuk" />
-          </ListItem>
+{!jwtToken && (
+              <ListItem component={Link} to="/Login">
+              <ListItemText primary="Log Masuk" />
+                      </ListItem>
+            )}
+
           <Divider />
           {/* {renderLoginLogoutLink()} */}
         </List>
