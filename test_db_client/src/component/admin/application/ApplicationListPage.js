@@ -129,7 +129,7 @@ function ApplicationListPage({ user_roles, unique_id }) {
                 alignItems: "center",
               }}
             >
-              <NewApplication roles={roles} />
+              <NewApplication roles={roles} unique_id={unique_id}/>
             </Box>
           )}
           {value === 1 && (
