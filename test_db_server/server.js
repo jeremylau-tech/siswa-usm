@@ -128,7 +128,7 @@ app.post("/login", (req, res) => {
     } else {
       // User successfully authenticated, generate JWT token
       const user = results[0];
-      const token = jwt.sign({ userId: user.id, email: user.email, roles: user.roles }, secretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user.unique_id, email: user.email, roles: user.roles }, secretKey, { expiresIn: '1h' });
 
       // Send the token and user information back to the client
       res.json({ token, user: { id: user.id, email: user.email, roles: user.roles } });
