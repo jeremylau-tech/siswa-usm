@@ -12,6 +12,7 @@ function FoodApplication() {
   const [customOption, setCustomOption] = useState(""); // State for custom "Jenis Tajaan"
   const location = useLocation();
   const user = location.state;
+  const navigate = useNavigate(); // Initialize the useNavigate hook
 
   // alert(user.unique_id);
   // console.log(user);
@@ -20,6 +21,11 @@ function FoodApplication() {
     requestor_id: user.unique_id,
     request_type: "makanan"
   });
+
+  const handleHome = () => {
+    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    navigate('/LandingPage', { state: { ...user } });
+  };
 
 const handleSponsorTypeChange = (e) => {
   const selectedOption = e.target.value;
@@ -207,12 +213,14 @@ const handleSponsorTypeChange = (e) => {
 
           {/* Button container */}
           <div className="button-container">
-            <Link to="/WelcomePage">
-              <button type="button" style={kembaliButtonStyle}>
+              <button type="button" style={kembaliButtonStyle} onClick={
+                handleHome()
+              }>
                 Kembali
               </button>
-            </Link>
-            <button type="submit" style={hantarButtonStyle}>
+            <button type="submit" style={hantarButtonStyle} onClick={
+                handleHome()
+              }>
               Hantar
             </button>
           </div>
