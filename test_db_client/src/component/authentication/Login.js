@@ -36,7 +36,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://docker.usm.my:8000/login', {
+      const response = await fetch('http://localhost:3000//login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,10 +89,10 @@ function Login() {
           }}
         >
           <Form id="sign-in-form" className="text-center p-3 w-100" style={{ maxWidth: '400px' }} onSubmit={handleLogin}>
-            <CardMedia component="img" alt="Service 1 Banner" height="140" image="wang-pic.jpg" />
-            <h1 className="mb-4 fs-3 fw-normal" style={{ padding: '10px' }}>
+            <CardMedia component="img" alt="Service 1 Banner" height="140" image="wang-pic.jpg" style={{ marginTop: '60px', borderRadius: '8px' }}/>
+            <h2 className="mb-4 fs-3 fw-normal" style={{ fontSize: '30px' }}>
               Log Masuk
-            </h1>
+            </h2>
             <Form.Group controlId="sign-in-email-address">
               <Form.Control
                 type="email"
@@ -100,6 +100,7 @@ function Login() {
                 placeholder="Emel Pelajar"
                 autoComplete="username"
                 className="position-relative"
+                style={{ width: '250px', padding: '10px', borderRadius: '8px', marginBottom: '8px'}}
                 value={email}
                 onChange={handleEmailChange}
               />
@@ -111,12 +112,10 @@ function Login() {
                 placeholder="Kata Laluan"
                 autoComplete="current-password"
                 className="position-relative"
+                style={{ width: '250px', padding: '10px', borderRadius: '8px'}}
                 value={password}
                 onChange={handlePasswordChange}
               />
-            </Form.Group>
-            <Form.Group className="d-flex justify-content-center mb-3 #FFFFFF" controlId="remember-me">
-              <Form.Check label="Ingat Kata Laluan" />
             </Form.Group>
             <div className="d-grid">
               <Button style={buttonStyle} type="submit">

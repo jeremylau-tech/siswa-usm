@@ -73,7 +73,7 @@ function Navbar() {
             Penginapan
           </Button>
       
-          <Button variant="contained" style={{ backgroundColor: '#007BFF', color: 'white', border: 'none' }} onClick={handleLogin}>
+          <Button variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }} onClick={handleLogin}>
             Log Masuk
           </Button>
         </>
