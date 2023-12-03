@@ -8,7 +8,8 @@ import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
 
 export default function ApprovedDialog({ requestId, userId, userRole, requestType, requestorId}) {
-  // alert(requestId)
+  alert(userId)
+  alert(requestorId)
   const navigate = useNavigate(); // Initialize the useNavigate hook
   const data = { roles: userRole };
 
@@ -32,7 +33,6 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
       return;
     }
     
-    alert(userId)
     // Define the data to send
     const formDataJSON = {
       inputRemark: textFieldValue,
