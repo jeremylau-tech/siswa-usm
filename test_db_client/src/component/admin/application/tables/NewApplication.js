@@ -17,11 +17,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-function NewApplication({roles}){
+function NewApplication({roles, user_id}){
 const validRoles = ['admin', 'bhepa', 'tnc'];
 const navigate = useNavigate();
-
-const user_id = 'xx';
+  
 const columns = [
   {
     field: "request_id",
@@ -195,7 +194,7 @@ function handleToEvaluation(params) {
       });
     } else if (user_role === 'bhepa') {
       navigate('/BhepaEvaluationPage', { state: { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id,
-          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role,user_id
+          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id
         },
       });
     } else {
