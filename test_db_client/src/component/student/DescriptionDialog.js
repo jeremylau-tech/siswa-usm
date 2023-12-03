@@ -55,17 +55,18 @@ export default function DescriptionDialog() {
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>
-            Sukacita dimaklumkan permohonan anda telah diterima pada 5/8/2023 dan sedang diproses.
+            Work in progress
+            {/* Sukacita dimaklumkan permohonan anda telah diterima pada 5/8/2023 dan sedang diproses. */}
           </Typography>
           <br/>
           <Typography gutterBottom>
-            Amaun yang diluluskan adalah RM500.00.
+            {/* Amaun yang diluluskan adalah RM500.00.
             Transaksi akan dibuat dalam 5 hari waktu bekerja selepas tarikh diluluskan 
-            dan akan dihantar ke akaun bank anda.
+            dan akan dihantar ke akaun bank anda. */}
           </Typography>
           <br/>
           <Typography gutterBottom>
-            Sila hubungi pihak kami jika terdapat sebarang kelewatan atau pertanyaan di talian 03-12345678.
+            {/* Sila hubungi pihak kami jika terdapat sebarang kelewatan atau pertanyaan di talian 03-12345678. */}
           </Typography>
         </DialogContent>
       </BootstrapDialog>

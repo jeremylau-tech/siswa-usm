@@ -31,7 +31,8 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
       alert("Please fill in the remark.");
       return;
     }
-  
+    
+    alert(userId)
     // Define the data to send
     const formDataJSON = {
       inputRemark: textFieldValue,
