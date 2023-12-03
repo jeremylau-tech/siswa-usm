@@ -50,9 +50,9 @@ function a11yProps(index) {
 function ApplicationListPage({ user_roles, unique_id }) {
   const roles = user_roles.user_roles
 
-  const unique_id = unique_id.unique_id;
+  const user_id = unique_id.unique_id;
 
-  alert(unique_id)
+  alert(user_id)
 
   const [value, setValue] = React.useState(0);
   const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
@@ -129,7 +129,7 @@ function ApplicationListPage({ user_roles, unique_id }) {
                 alignItems: "center",
               }}
             >
-              <NewApplication roles={roles} unique_id={unique_id}/>
+              <NewApplication roles={roles} user_id={user_id}/>
             </Box>
           )}
           {value === 1 && (

@@ -17,7 +17,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-function NewApplication({roles}){
+function NewApplication({roles, user_id}){
+
+  alert('this is id:' + user_id)
 const validRoles = ['admin', 'bhepa', 'tnc'];
 const navigate = useNavigate();
   
