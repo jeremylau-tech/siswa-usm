@@ -52,7 +52,7 @@ function ApplicationListPage(user_roles, unique_id) {
 
   const user_id = unique_id;
 
-  alert(user_id)
+  alert(unique_id.unique_id)
   console.log(user_id)
 
   const [value, setValue] = React.useState(0);
