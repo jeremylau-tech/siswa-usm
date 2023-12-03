@@ -216,7 +216,7 @@ const handleSponsorTypeChange = (e) => {
           {/* Button container */}
           <div className="button-container">
               <button type="button" style={kembaliButtonStyle} onClick={
-                handleHome()
+                handleHome
               }>
                 Kembali
               </button>
