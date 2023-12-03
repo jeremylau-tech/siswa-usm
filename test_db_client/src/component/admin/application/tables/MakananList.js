@@ -185,7 +185,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
     const getStatusButtonText = (status) => {
       let buttonText = "";
-      let icon = <AssignmentTurnedInRoundedIcon />;
+      let icon = <VisibilityIcon />;
       return { text: buttonText, icon: icon };
     };
     
