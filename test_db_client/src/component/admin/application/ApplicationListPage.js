@@ -51,8 +51,11 @@ function ApplicationListPage({ user_roles, unique_id }) {
   const roles = user_roles.user_roles
 
   const user_id = unique_id.unique_id;
-
-  alert(user_id)
+  alert(unique_id)
+  alert(unique_id.unique_id)
+  alert(user_roles.user_roles)
+  console.log(user_roles)
+  console.log(unique_id)
 
   const [value, setValue] = React.useState(0);
   const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
