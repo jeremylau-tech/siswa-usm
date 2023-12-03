@@ -17,7 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-function NewApplication({roles}){
+function NewApplication({unique_id, roles}){
 const validRoles = ['admin', 'bhepa', 'tnc'];
 const navigate = useNavigate();
   
@@ -182,19 +182,20 @@ function handleToEvaluation(params) {
     const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
       tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc } = params.row;
     const user_role = roles;
-  
+    const user_id = unique_id;
+
     // Navigate to the ArchivePage with request details and userRole
     // navigate('/EvaluationPage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
     //   tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role } });
 
     if (user_role === 'admin') {
       navigate('/EvaluationPage', { state: {request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
-          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role,
+          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id
         },
       });
     } else if (user_role === 'bhepa') {
       navigate('/BhepaEvaluationPage', { state: { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id,
-          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role,
+          tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id
         },
       });
     } else {

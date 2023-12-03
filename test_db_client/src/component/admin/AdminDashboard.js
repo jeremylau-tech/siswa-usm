@@ -16,7 +16,7 @@ function AdminDashboard(props) {
         <Divider style={{ margin: '30px 0' }} />
         <AnalyticGraph />
         <Divider style={{ margin: '30px 0' }} />
-        <ApplicationListPage user_roles={user.roles}/>
+        <ApplicationListPage user_roles={user.roles} unique_id={user.unique_id}/>
         <Divider style={{ margin: '30px 0' }} />
         <VendorListPage />
     </div>
