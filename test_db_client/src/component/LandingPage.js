@@ -62,7 +62,7 @@ function LandingPage() {
   useEffect(() => {
 
     // Make an HTTP POST request to the /invoice-all-vendor endpoint
-    fetch('http://localhost:8000/get-user', {
+    fetch('http://docker.usm.my:8000/get-user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

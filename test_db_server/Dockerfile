@@ -16,7 +16,7 @@ COPY ./ .
 # COPY test_db_server/ .
 
 # Expose the port your server is listening on
-EXPOSE 8000
+EXPOSE 9000
 
 # Command to start your Node.js application
 CMD [ "node", "server.js" ]

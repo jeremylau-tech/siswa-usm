@@ -6,7 +6,7 @@ function UsersPage() {
 
   useEffect(() => {
     // Fetch all users from the server
-    fetch("http://localhost:8000/users")
+    fetch("http://docker.usm.my:8000/users")
       .then((res) => res.json())
       .then((data) => {
         if (data.users) {
@@ -18,7 +18,7 @@ function UsersPage() {
       });
 
     // Fetch user details for each user and store them in userDetails state
-    fetch("http://localhost:8000/user-details")
+    fetch("http://docker.usm.my:8000/user-details")
     .then((res) => res.json())
     .then((data) => {
       if (data.userDetails) {

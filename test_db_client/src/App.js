@@ -40,7 +40,7 @@ import InvoicePage from "./component/admin/vendor/InvoicePage";
 import ClaimedInvoicePage from "./component/admin/vendor/record/ClaimedInvoicePage";
 import UsedCouponList from "./component/admin/vendor/record/UsedCouponList";
 import CouponPublicView from "./component/public/CouponPublicView";
-
+import CheckBackend from "./component/CheckBackend";
 
 // Pay attention to this function
 
@@ -88,6 +88,8 @@ function App() {
           <Route path="/ClaimedInvoicePage" element={<ClaimedInvoicePage />} />
           <Route path="/UsedCouponList" element={<UsedCouponList />} />
           <Route path="/CouponPublicView/:vendorId" element={<CouponPublicView />} />
+          <Route path="/CheckBackend" element={<CheckBackend />} />
+
 
 
           {/* Add new Landing Page route */}

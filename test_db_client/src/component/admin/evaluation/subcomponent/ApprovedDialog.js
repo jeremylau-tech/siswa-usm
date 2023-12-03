@@ -44,7 +44,7 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
 
     console.log(formDataJSON);
   
-    const apiUrl = "http://localhost:8000/request-edit-lulus"; // Update with your server's URL
+    const apiUrl = "http://docker.usm.my:8000/request-edit-lulus"; // Update with your server's URL
 
     try {
       // Send a POST request to the server with only the textFieldValue

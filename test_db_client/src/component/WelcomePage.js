@@ -30,7 +30,7 @@ function WelcomePage(props) {
 
     // Function to make the GET request to get coupon count
   //   const fetchCouponCount = () => {
-  //     fetch(`http://localhost:8000/coupons-count?userId=${data.userId}`)
+  //     fetch(`http://docker.usm.my:8000/coupons-count?userId=${data.userId}`)
   //       .then((res) => res.json())
   //       .then((data) => {
   //         if (data.couponCount !== undefined) {

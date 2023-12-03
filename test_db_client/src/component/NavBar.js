@@ -10,8 +10,7 @@ import { processToken, authenticateWithADFS } from './Auth.js';
 import "./NavBar.css"; // Import your CSS file
 
 function Navbar() {
-  const email = Cookies.get('email');
-  const password = Cookies.get('password');
+  const jwtToken = Cookies.get('jwtToken');
   const navigate = useNavigate();
   const theme = useTheme();
   const isResponsive = useMediaQuery(theme.breakpoints.down("md"));
@@ -23,10 +22,16 @@ function Navbar() {
     setDrawerOpen(!isDrawerOpen);
   };
 
+  const handleLogin = () => {
+    // Merge the existing location state with your data
+    navigate('/Login');
+  };
+
   const handleLogout = () => {
-    Cookies.remove('email');
-    Cookies.remove('password');
-    authenticateWithADFS();
+    Cookies.remove('jwtToken');
+    // authenticateWithADFS();
+    navigate('/Login');
+
   };
 
   const renderItemLinks = () => {
@@ -35,7 +40,7 @@ function Navbar() {
         <div>
               <Button  component={Link} to={`https://www.instagram.com/unitkaunselingusm/?hl=en`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none'}}>
                 Kaunseling
-              </Button>
+              </Button>          
               <br/>
         </div>
       );
@@ -43,7 +48,7 @@ function Navbar() {
   };
 
   const renderLoginLogoutLink = () => {
-    if (email && password) {
+    if (jwtToken) {
       return (
         <Button
           style={{
@@ -60,13 +65,19 @@ function Navbar() {
       );
     } else if (!isResponsive) {
       return (
-        // <Button className="p-4" style={{ color: 'white' }} onClick={authenticateWithADFS}>
-        //   Log Masuk
-        // </Button>
-        <Button  component={Link} to={`https://hac.usm.my/`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none'}}>
-                Penginapan
-        </Button>
-      );
+        <>
+          {/* <Button className="p-4" style={{ color: 'white' }} onClick={authenticateWithADFS}>
+            Log Masuk
+          </Button> */}
+          <Button component={Link} to={`https://hac.usm.my/`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}>
+            Penginapan
+          </Button>
+      
+          <Button variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }} onClick={handleLogin}>
+            Log Masuk
+          </Button>
+        </>
+      )      
     }
     return null;
   };
@@ -123,8 +134,15 @@ function Navbar() {
           {/* <ListItem button component="a" href={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`}>
             <ListItemText primary="Log Masuk" />
           </ListItem> */}
+
+{!jwtToken && (
+              <ListItem component={Link} to="/Login">
+              <ListItemText primary="Log Masuk" />
+                      </ListItem>
+            )}
+
           <Divider />
-          {renderLoginLogoutLink()}
+          {/* {renderLoginLogoutLink()} */}
         </List>
       </Drawer>
     </>

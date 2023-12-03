@@ -85,7 +85,7 @@ function StepperComponentMakanan({ requestId, userId, userRole, reqType, adminId
   
 useEffect(() => {
   // Fetch user details from the server
-  fetch(`http://localhost:8000/user-details-uniqueid?unique_id=${userId}`)
+  fetch(`http://docker.usm.my:8000/user-details-uniqueid?unique_id=${userId}`)
     .then((res) => res.json())
     .then((data) => {
       if (data.userDetails) {
@@ -104,7 +104,7 @@ useEffect(() => {
 
 useEffect(() => {
   // Fetch user details from the server
-  fetch(`http://localhost:8000/food-applications-requestid?request_id=${requestId}`)
+  fetch(`http://docker.usm.my:8000/food-applications-requestid?request_id=${requestId}`)
     .then((res) => res.json())
     .then((data) => {
       if (data.foodDetails) {
@@ -122,7 +122,7 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  const apiUrl = `http://localhost:8000/request-requestid?request_id=${requestId}`;
+  const apiUrl = `http://docker.usm.my:8000/request-requestid?request_id=${requestId}`;
 
   // Fetch requests from the server
   fetch(apiUrl)

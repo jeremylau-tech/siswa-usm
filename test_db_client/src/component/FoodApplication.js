@@ -12,14 +12,19 @@ function FoodApplication() {
   const [customOption, setCustomOption] = useState(""); // State for custom "Jenis Tajaan"
   const location = useLocation();
   const user = location.state;
+  const navigate = useNavigate(); // Initialize the useNavigate hook
 
-  // alert(user.unique_id);
-  // console.log(user);
+  const handleHome = () => {
+    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    navigate('/LandingPage', { state: { ...user } });
+  };
+
 
   const [formData, setFormData] = useState({
     requestor_id: user.unique_id,
     request_type: "makanan"
   });
+
 
 const handleSponsorTypeChange = (e) => {
   const selectedOption = e.target.value;
@@ -35,7 +40,7 @@ const handleSponsorTypeChange = (e) => {
         
         const uploadData = new FormData();
         uploadData.append("file", file);
-        const url = "http://localhost:8000/upload/" + category
+        const url = "http://docker.usm.my:8000/upload/" + category
         const response = await fetch(url, {
           method: "POST",
           body: uploadData,
@@ -56,6 +61,8 @@ const handleSponsorTypeChange = (e) => {
       }
     }
   };
+
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -87,7 +94,7 @@ const handleSponsorTypeChange = (e) => {
         request_type: formData.request_type,
       };
 
-      const apiUrl = "http://localhost:8000/insert-request"; // Update with your server's URL
+      const apiUrl = "http://docker.usm.my:8000/insert-request"; // Update with your server's URL
       console.log(formDataJSON)
 
 
@@ -109,6 +116,7 @@ const handleSponsorTypeChange = (e) => {
         setIcNumFile(null)
         setPaymentSlipFile(null);
         setFoodJustification("");
+        navigate('/LandingPage', { state: { ...user } });
       } else {
         console.log(formData);
         // Handle errors or display error messages here
@@ -207,12 +215,12 @@ const handleSponsorTypeChange = (e) => {
 
           {/* Button container */}
           <div className="button-container">
-            <Link to="/WelcomePage">
-              <button type="button" style={kembaliButtonStyle}>
+              <button type="button" style={kembaliButtonStyle} onClick={
+                handleHome
+              }>
                 Kembali
               </button>
-            </Link>
-            <button type="submit" style={hantarButtonStyle}>
+            <button type="submit" style={hantarButtonStyle} >
               Hantar
             </button>
           </div>

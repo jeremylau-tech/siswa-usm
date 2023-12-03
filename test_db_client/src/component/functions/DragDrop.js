@@ -42,7 +42,7 @@ function DragDrop({ selectedFile, setSelectedFile }) {
         const formData = new FormData();
         formData.append("file", file);
 
-        const response = await fetch("http://localhost:8000/upload", {
+        const response = await fetch("http://docker.usm.my:8000/upload", {
           method: "POST",
           body: formData,
         });
@@ -97,6 +97,7 @@ function DragDrop({ selectedFile, setSelectedFile }) {
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={handleFileInputChange}
+          accept=".pdf" // Only accept PDF files
           disabled={selectedFile !== null} // Disable the input when a file is selected
         />
         {selectedFile ? (

@@ -227,7 +227,7 @@ function handleToEvaluation(params) {
     
   useEffect(() => {
     // Fetch user details from the server
-    fetch("http://localhost:8000/user-details")
+    fetch("http://docker.usm.my:8000/user-details")
       .then((res) => res.json())
       .then((data) => {
         if (data.userDetails) {
@@ -252,7 +252,7 @@ function handleToEvaluation(params) {
       statusParam = "semak";
     else if (roles == "tnc")
       statusParam = "syor";
-    const apiUrl = `http://localhost:8000/request-status-admin?request_status=${statusParam}`;
+    const apiUrl = `http://docker.usm.my:8000/request-status-admin?request_status=${statusParam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)

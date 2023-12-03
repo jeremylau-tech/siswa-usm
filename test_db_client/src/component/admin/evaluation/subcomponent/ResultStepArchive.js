@@ -23,7 +23,7 @@ function ResultStepArchive({adminId, bhepaId, tncId, adminRemark,bhepaRemark,tnc
       if (userId[0]) {
         console.log(userId)
       try {
-        const response = await fetch('http://localhost:8000/get-user-name', {
+        const response = await fetch('http://docker.usm.my:8000/get-user-name', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

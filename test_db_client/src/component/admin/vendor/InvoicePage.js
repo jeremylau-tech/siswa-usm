@@ -50,7 +50,7 @@ function InvoicePage({ }) {
       numClaimed: row.baucarToClaim
     };
 
-    fetch("http://localhost:8000/coupons-claimed", {
+    fetch("http://docker.usm.my:8000/coupons-claimed", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
