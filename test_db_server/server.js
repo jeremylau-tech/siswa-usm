@@ -60,7 +60,7 @@ db.connect((err) => {
   });
   
 
-app.get("check-db", (req, res) => {
+app.get("test", (req, res) => {
   if (isDbConnected) {
     res.json({ message: 'Database connection is successful!' });
   } else {
@@ -68,7 +68,7 @@ app.get("check-db", (req, res) => {
   }
 });
 
-app.get("api/check-backend", (req, res) => {
+app.get("api/test-backend", (req, res) => {
     res.json({ message: 'If you\'re seeing this, connection is working! ' });
 });
 
@@ -1231,6 +1231,11 @@ app.post("api/insert-users", (req, res) => {
 
 
   //Will be here front end
+//   app.use(express.static('test_db_client/build'));
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'test_db_client', 'build', 'index.html'));
+// });
   
 
 app.listen(8000, () => {
