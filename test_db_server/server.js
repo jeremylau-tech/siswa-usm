@@ -9,12 +9,17 @@ const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating u
 const jwt = require('jsonwebtoken');
 
 const corsOptions = {
-  origin: ['http://docker.usm.my:8090', 'https://kebajikansiswa.usm.my'], // Replace with the actual origins of your frontends
+  origin: ['http://docker.usm.my:8090', 'http://docker.usm.my:8090', 'https://kebajikansiswa.usm.my'], // Replace with the actual origins of your frontends
   // origin: "*",
   credentials: true,
 };
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.static('test_db_client/build'));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'test_db_client', 'build', 'index.html'));
+});
 
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 const bodyParser = require('body-parser');
@@ -60,7 +65,7 @@ db.connect((err) => {
   });
   
 
-app.get("/check-db", (req, res) => {
+app.get("api/check-db", (req, res) => {
   if (isDbConnected) {
     res.json({ message: 'Database connection is successful!' });
   } else {
@@ -68,7 +73,7 @@ app.get("/check-db", (req, res) => {
   }
 });
 
-app.get("/check-backend", (req, res) => {
+app.get("api/check-backend", (req, res) => {
     res.json({ message: 'If you\'re seeing this, connection is working! ' });
 });
 
@@ -86,7 +91,7 @@ const getStorage = (category) => {
 };
 
 // Handle file upload for a specific category
-app.post("/upload/:category", (req, res) => {
+app.post("api/upload/:category", (req, res) => {
   const category = req.params.category; // Access the 'category' from the URL
 
   // Create a new multer instance with the dynamic storage
@@ -110,7 +115,7 @@ app.post("/upload/:category", (req, res) => {
 const secretKey = 'random123';
 
 // Login endpoint
-app.post("/login", (req, res) => {
+app.post("api/login", (req, res) => {
   const { email, password } = req.body;
 
   // Implement your login logic here, query the database to verify credentials
@@ -136,7 +141,7 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.get('/get-pdf', (req, res) => {
+app.get('api/get-pdf', (req, res) => {
   const pdfPath = req.query.pdfPath; // Extract the PDF file path from the URL
   // console.log(pdfPath)
 
@@ -152,7 +157,7 @@ app.get('/get-pdf', (req, res) => {
   });
 });
 
-app.post('/get-user', (req, res) => {
+app.post('api/get-user', (req, res) => {
   const { userId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
@@ -170,7 +175,7 @@ app.post('/get-user', (req, res) => {
   });
 });
 
-app.post('/get-user-name', (req, res) => {
+app.post('api/get-user-name', (req, res) => {
   const { userId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
@@ -188,7 +193,7 @@ app.post('/get-user-name', (req, res) => {
   });
 });
 
-app.post('/baucar-all-vendor', (req, res) => {
+app.post('api/baucar-all-vendor', (req, res) => {
   const { vendorId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
@@ -206,7 +211,7 @@ app.post('/baucar-all-vendor', (req, res) => {
   });
 });
 
-app.post('/invoice-all-vendor', (req, res) => {
+app.post('api/invoice-all-vendor', (req, res) => {
   const { vendorId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
@@ -224,7 +229,7 @@ app.post('/invoice-all-vendor', (req, res) => {
   });
 });
 
-app.post('/invoice-baucar', (req, res) => {
+app.post('api/invoice-baucar', (req, res) => {
   const { invoiceId } = req.body;
 
   // SQL query to select data using UNION from multiple tables
@@ -249,7 +254,7 @@ app.post('/invoice-baucar', (req, res) => {
 });
 
 
-app.post('/get-vendor', (req, res) => {
+app.post('api/get-vendor', (req, res) => {
   const { vendorId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
@@ -267,7 +272,7 @@ app.post('/get-vendor', (req, res) => {
   });
 });
 
-app.get("/vendor-all", (req, res) => {
+app.get("api/vendor-all", (req, res) => {
   // SQL query to select all records from the "user" table
   const sql = "SELECT * FROM vendor";
 
@@ -283,7 +288,7 @@ app.get("/vendor-all", (req, res) => {
   });
 });
 
-app.get("/vendor-all-aktif", (req, res) => {
+app.get("api/vendor-all-aktif", (req, res) => {
   // SQL query to select all records from the "user" table
   const sql = "SELECT * FROM vendor WHERE vendor_status = 'Active'";
 
@@ -299,7 +304,7 @@ app.get("/vendor-all-aktif", (req, res) => {
   });
 });
 
-app.get("/vendor-table", (req, res) => {
+app.get("api/vendor-table", (req, res) => {
   // SQL query to select all records from the "vendor" table and count of matching records in "baucar" table
   const sql = `
     SELECT 
@@ -329,7 +334,7 @@ app.get("/vendor-table", (req, res) => {
   });
 });
 
-app.post('/insert-vendor', (req, res) => {
+app.post('api/insert-vendor', (req, res) => {
   const {
     vendorName,
     vendorLocation,
@@ -400,7 +405,7 @@ app.post('/insert-vendor', (req, res) => {
 });
 
 // Define the route to handle the PUT request for request editing
-app.post('/request-edit-tolak', (req, res) => {
+app.post('api/request-edit-tolak', (req, res) => {
   const { inputRemark, userRole, approverId, requestId } = req.body;
 
   let user_remark = '';
@@ -436,7 +441,7 @@ app.post('/request-edit-tolak', (req, res) => {
   });
 });
 
-app.post('/request-edit-lulus', (req, res) => {
+app.post('api/request-edit-lulus', (req, res) => {
   const { inputRemark, userRole, approverId, requestId, requestType, requestorId } = req.body;
 
   // console.log(requestType);
@@ -510,7 +515,7 @@ app.post('/request-edit-lulus', (req, res) => {
 });
 
 
-app.get("/request-all", (req, res) => {
+app.get("api/request-all", (req, res) => {
   // SQL query to select all records from the "user" table
   const sql = "SELECT * FROM request";
 
@@ -526,7 +531,7 @@ app.get("/request-all", (req, res) => {
   });
 });
 
-app.get("/request-all-admin", (req, res) => {
+app.get("api/request-all-admin", (req, res) => {
   // SQL query to select all records from the "user" table
   // const sql = "SELECT * FROM request";
 
@@ -552,7 +557,7 @@ app.get("/request-all-admin", (req, res) => {
   });
 });
 
-app.get("/request-status", (req, res) => {
+app.get("api/request-status", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestStatus = req.query.request_status;
   // console.log(requestStatus)
@@ -575,7 +580,7 @@ app.get("/request-status", (req, res) => {
   });
 });
 
-app.get("/request-status-admin", (req, res) => {
+app.get("api/request-status-admin", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestStatus = req.query.request_status;
   // console.log(requestStatus)
@@ -605,7 +610,7 @@ app.get("/request-status-admin", (req, res) => {
   });
 });
 
-app.get("/request-requestid", (req, res) => {
+app.get("api/request-requestid", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestId = req.query.request_id;
   // Define the SQL query with a placeholder
@@ -627,7 +632,7 @@ app.get("/request-requestid", (req, res) => {
 });
 
 
-app.get("/request-user", (req, res) => {
+app.get("api/request-user", (req, res) => {
   // Extract the request_status query parameter from the request
   const userId = req.query.user_id;
   // console.log(requestStatus)
@@ -650,7 +655,7 @@ app.get("/request-user", (req, res) => {
   });
 });
 
-app.get("/request-type", (req, res) => {
+app.get("api/request-type", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestStatus = req.query.request_status;
   // console.log(requestStatus)
@@ -673,7 +678,7 @@ app.get("/request-type", (req, res) => {
   });
 });
 
-app.get("/request-type-status", (req, res) => {
+app.get("api/request-type-status", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestType = req.query.request_type;
   const requestStatus = req.query.request_status;
@@ -717,7 +722,7 @@ app.get("/request-type-status", (req, res) => {
   }
 });
 
-app.get("/request-type-status-admin", (req, res) => {
+app.get("api/request-type-status-admin", (req, res) => {
   // Extract the request_status query parameter from the request
   const requestType = req.query.request_type;
   const requestStatus = req.query.request_status;
@@ -764,7 +769,7 @@ app.get("/request-type-status-admin", (req, res) => {
     });
 });
 
-app.post("/coupons-userid", (req, res) => {
+app.post("api/coupons-userid", (req, res) => {
   const { userId } = req.body;
   // console.log(userId)
 
@@ -787,7 +792,7 @@ app.post("/coupons-userid", (req, res) => {
   });
 });
 
-app.post("/coupons-userid-status", (req, res) => {
+app.post("api/coupons-userid-status", (req, res) => {
   const { userId, baucarStatus } = req.body;
   // console.log(userId)
 
@@ -811,7 +816,7 @@ app.post("/coupons-userid-status", (req, res) => {
   });
 });
 
-app.get("/coupons-count", (req, res) => {
+app.get("api/coupons-count", (req, res) => {
   const { userId } = req.query;
 
   if (!userId) {
@@ -835,7 +840,7 @@ app.get("/coupons-count", (req, res) => {
   });
 });
 
-app.post("/coupons-redeem", (req, res) => {
+app.post("api/coupons-redeem", (req, res) => {
   const { baucarId, vendorId } = req.body;
   // console.log(baucarVendor)
 
@@ -860,7 +865,7 @@ app.post("/coupons-redeem", (req, res) => {
 });
 
 
-app.post("/coupons-claimed", (req, res) => {
+app.post("api/coupons-claimed", (req, res) => {
   const { vendorId, numClaimed } = req.body;
 
   if (!vendorId) {
@@ -944,7 +949,7 @@ app.post("/coupons-claimed", (req, res) => {
 // });
 
 
-app.get("/users", (req, res) => {
+app.get("api/users", (req, res) => {
     // SQL query to select all records from the "user" table
     const sql = "SELECT * FROM users";
 
@@ -960,7 +965,7 @@ app.get("/users", (req, res) => {
     });
 });
 
-app.get("/user-details", (req, res) => {
+app.get("api/user-details", (req, res) => {
   // SQL query to select all records from the "users_details" table
   const sql = "SELECT * FROM users_details";
 
@@ -976,7 +981,7 @@ app.get("/user-details", (req, res) => {
   });
 });
 
-app.get("/user-details-uniqueid", (req, res) => {
+app.get("api/user-details-uniqueid", (req, res) => {
   const uniqueId = req.query.unique_id;
 
   // SQL query to select all records from the "users_details" table
@@ -993,7 +998,7 @@ app.get("/user-details-uniqueid", (req, res) => {
   });
 });
 
-app.get("/food-applications-requestid", (req, res) => {
+app.get("api/food-applications-requestid", (req, res) => {
   const requestId = req.query.request_id;
 
   // SQL query to select all records from the "users_details" table
@@ -1012,7 +1017,7 @@ app.get("/food-applications-requestid", (req, res) => {
 
 // Route to get the count of food applications based on status
 // Route to get the count of applications based on status and table
-app.post('/countByStatus', (req, res) => {
+app.post('api/countByStatus', (req, res) => {
   const table = req.body.table;
   const status = req.body.status;
   const req_type = req.body.req_type;
@@ -1084,7 +1089,7 @@ app.post('/countByStatus', (req, res) => {
 });
 
 
-app.post("/insert-users", (req, res) => {
+app.post("api/insert-users", (req, res) => {
   const { unique_id, email, password, name, ic_num, phone_num, school, course, student_status, study_year } = req.body;
 
   // Check if required fields are provided
@@ -1120,7 +1125,7 @@ app.post("/insert-users", (req, res) => {
   });
 });
 
-  app.post("/insert-request", (req, res) => {
+  app.post("api/insert-request", (req, res) => {
     // console.log( req.body);
       const {
       requestor_id,
