@@ -57,7 +57,7 @@ export default function CreateVendor() {
   const handleSave = async () => {
     // Make an API request to save the data to the backend
     try {
-      const response = await fetch('http://docker.usm.my:8000/api/insert-vendor', {
+      const response = await fetch('http://docker.usm.my:8090/api/insert-vendor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

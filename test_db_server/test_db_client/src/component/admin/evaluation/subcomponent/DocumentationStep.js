@@ -50,7 +50,7 @@ function DocumentationStep({ sponsor, requestType, justification, pdfPath }) {
           </div>
           <iframe
             title="Wage Certificate"
-            src={`http://docker.usm.my:8000/api/get-pdf?pdfPath=${pdfPath}`}
+            src={`http://docker.usm.my:8090/api/get-pdf?pdfPath=${pdfPath}`}
             style={{ border:"none", width: "90%", height: "700px" }}
           ></iframe>
         </div>

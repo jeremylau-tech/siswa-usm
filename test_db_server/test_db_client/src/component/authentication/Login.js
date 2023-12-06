@@ -36,7 +36,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://docker.usm.my:8000/api/login', {
+      const response = await fetch('http://docker.usm.my:8090/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

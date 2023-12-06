@@ -27,7 +27,7 @@ function KhairatNextPage() {
         uploadData.append("file", file);
         
 
-        const response = await fetch("http://docker.usm.my:8000/upload", {
+        const response = await fetch("http://docker.usm.my:8090/upload", {
           method: "POST",
           body: uploadData,
         });
@@ -84,7 +84,7 @@ function KhairatNextPage() {
           request_type: formData.request_type
         };
 
-        const apiUrl = "http://docker.usm.my:8000/insert-request"; // Update with your server's URL
+        const apiUrl = "http://docker.usm.my:8090/insert-request"; // Update with your server's URL
     
         // Create a POST request to send the formData to the server
         const response = await fetch(apiUrl, {

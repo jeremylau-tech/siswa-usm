@@ -40,7 +40,7 @@ const handleSponsorTypeChange = (e) => {
         
         const uploadData = new FormData();
         uploadData.append("file", file);
-        const url = "http://docker.usm.my:8000/api/upload/" + category
+        const url = "http://docker.usm.my:8090/api/upload/" + category
         const response = await fetch(url, {
           method: "POST",
           body: uploadData,
@@ -94,7 +94,7 @@ const handleSponsorTypeChange = (e) => {
         request_type: formData.request_type,
       };
 
-      const apiUrl = "http://docker.usm.my:8000/api/insert-request"; // Update with your server's URL
+      const apiUrl = "http://docker.usm.my:8090/api/insert-request"; // Update with your server's URL
       console.log(formDataJSON)
 
 

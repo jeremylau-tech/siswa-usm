@@ -15,7 +15,7 @@ function InsertPage() {
     const handleSubmit = (e) => {
       e.preventDefault();
         // Define the URL for your server's /users endpoint
-    const apiUrl = "http://docker.usm.my:8000/api/insert"; // Update with your server's URL
+    const apiUrl = "http://docker.usm.my:8090/api/insert"; // Update with your server's URL
 
     // Create a POST request to send the formData to the server
     fetch(apiUrl, {

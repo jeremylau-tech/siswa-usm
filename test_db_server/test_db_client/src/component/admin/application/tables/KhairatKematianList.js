@@ -136,7 +136,7 @@ const columns = [
           padding: "3px",
         }}
         variant="contained"
-        href="http://docker.usm.my:8000/EvaluationPage"
+        href="http://docker.usm.my:8090/EvaluationPage"
         onClick={() => handleButtonClick(params.row.request_id)}
       >
         <span style={{ marginRight: "20px" }}>{getStatusButtonText(params.row.request_status).icon}</span>
@@ -188,7 +188,7 @@ const columns = [
     
   useEffect(() => {
     // Fetch user details from the server
-    fetch("http://docker.usm.my:8000/api/user-details")
+    fetch("http://docker.usm.my:8090/api/user-details")
       .then((res) => res.json())
       .then((data) => {
         if (data.userDetails) {
@@ -208,7 +208,7 @@ const columns = [
   useEffect(() => {
     const statusParam = "complete"; // Replace with the desired status parameter
     const typeparam = "khairat"; 
-    const apiUrl = `http://docker.usm.my:8000/api/request-type-status?request_status=${statusParam}&request_type=${typeparam}`;
+    const apiUrl = `http://docker.usm.my:8090/api/request-type-status?request_status=${statusParam}&request_type=${typeparam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)

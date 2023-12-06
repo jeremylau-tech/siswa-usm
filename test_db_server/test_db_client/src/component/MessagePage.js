@@ -4,7 +4,7 @@ function MessagePage() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetch("http://docker.usm.my:8000/api/message")
+    fetch("http://docker.usm.my:8090/api/message")
       .then((res) => res.json())
       .then((data) => setMessage(data.message));
   }, []);

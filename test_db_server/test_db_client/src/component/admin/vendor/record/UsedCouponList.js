@@ -97,7 +97,7 @@ function UsedCouponList({ }) {
         const invoiceId = row.invoice_id;  // Replace with the actual vendorId
     
         // Make an HTTP POST request to the /invoice-all-vendor endpoint
-        fetch('http://docker.usm.my:8000/api/invoice-baucar', {
+        fetch('http://docker.usm.my:8090/api/invoice-baucar', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

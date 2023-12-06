@@ -117,7 +117,7 @@ function CouponPage() {
     // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-redeem`, {
 
     // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-redeem`, {
-      fetch("http://docker.usm.my:8000/api/coupons-redeem", {
+      fetch("http://docker.usm.my:8090/api/coupons-redeem", {
 
       method: "POST",
       headers: {
@@ -146,7 +146,7 @@ function CouponPage() {
     const requestData = { userId };
     
     // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-userid`, {
-      fetch("http://docker.usm.my:8000/api/coupons-userid", {
+      fetch("http://docker.usm.my:8090/api/coupons-userid", {
 
       method: "POST",
       headers: {
@@ -170,7 +170,7 @@ function CouponPage() {
   useEffect(() => {
     // Make an HTTP GET request to the /vendor-all endpoint
     // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }vendor-all`)
-    fetch('http://docker.usm.my:8000/api/vendor-all') // Replace with the appropriate URL
+    fetch('http://docker.usm.my:8090/api/vendor-all') // Replace with the appropriate URL
 
       .then(res => res.json())
       .then(data => {

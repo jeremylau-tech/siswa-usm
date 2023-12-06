@@ -24,7 +24,7 @@ function HistoryFood() {
       baucarStatus: baucarStatus
     };
     
-    fetch("http://docker.usm.my:8000/api/coupons-userid-status", {
+    fetch("http://docker.usm.my:8090/api/coupons-userid-status", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
