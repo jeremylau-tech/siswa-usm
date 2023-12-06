@@ -17,10 +17,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('test_db_client/build'));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'test_db_client', 'build', 'index.html'));
-});
-
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -1233,6 +1229,11 @@ app.post("api/insert-users", (req, res) => {
     //const sql = "INSERT INTO request (requestor_id, approver_id, sponsor_type, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, support_doc_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   });
+
+  
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'test_db_client', 'build', 'index.html'));
+});
   
 
 app.listen(8000, () => {
