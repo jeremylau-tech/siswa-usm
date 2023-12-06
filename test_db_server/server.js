@@ -60,7 +60,7 @@ db.connect((err) => {
   });
   
 
-app.get("/check-db", (req, res) => {
+app.get("api/check-db", (req, res) => {
   if (isDbConnected) {
     res.json({ message: 'Database connection is successful!' });
   } else {
@@ -68,7 +68,7 @@ app.get("/check-db", (req, res) => {
   }
 });
 
-app.get("/check-backend", (req, res) => {
+app.get("api/check-backend", (req, res) => {
     res.json({ message: 'If you\'re seeing this, connection is working! ' });
 });
 
@@ -1228,6 +1228,15 @@ app.post("/insert-users", (req, res) => {
     //const sql = "INSERT INTO request (requestor_id, approver_id, sponsor_type, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, support_doc_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   });
+  
+
+  
+  //Will be here front end
+//   app.use(express.static('test_db_client/build'));
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'test_db_client', 'build', 'index.html'));
+// });
   
 
 app.listen(8000, () => {
