@@ -136,6 +136,11 @@ app.post("/api/login", (req, res) => {
   });
 });
 
+app.post("/api/login_sso", (req, res) => {
+  console.log(req.body);
+  // Additional code for handling the login SSO (Single Sign-On) request goes here
+});
+
 app.get('/api/get-pdf', (req, res) => {
   const pdfPath = req.query.pdfPath; // Extract the PDF file path from the URL
   // console.log(pdfPath)

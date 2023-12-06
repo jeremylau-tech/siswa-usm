@@ -135,7 +135,7 @@ function Navbar() {
           </ListItem> */}
 
 {!jwtToken && (
-              <ListItem component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS9hcGkvbG9naW46`}>
+              <ListItem component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS9hcGkvbG9naW5fc3NvOg==`}>
               <ListItemText primary="Log Masuk" />
                       </ListItem>
             )}
