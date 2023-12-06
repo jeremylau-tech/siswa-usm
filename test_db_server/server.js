@@ -9,7 +9,7 @@ const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating u
 const jwt = require('jsonwebtoken');
 
 const corsOptions = {
-  origin: ['http://docker.usm.my:8090', 'http://docker.usm.my:8090', 'https://kebajikansiswa.usm.my'], // Replace with the actual origins of your frontends
+  origin: ['http://docker.usm.my:8090', 'http://docker.usm.my:8000', 'https://kebajikansiswa.usm.my'], // Replace with the actual origins of your frontends
   // origin: "*",
   credentials: true,
 };
