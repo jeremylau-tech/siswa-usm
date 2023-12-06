@@ -9,7 +9,7 @@ const CheckBackend = () => {
     // Function to fetch data from "/check-db" endpoint
     const checkDbConnection = async () => {
       try {
-        const response = await fetch('http://docker.usm.my:8090/api/check-db');
+        const response = await fetch('https://kebajikansiswa.usm.my/api/check-db');
         const data = await response.json();
 
         if (response.ok) {
@@ -25,7 +25,7 @@ const CheckBackend = () => {
     // Function to fetch data from "/check-backend" endpoint
     const checkBackendConnection = async () => {
       try {
-        const response = await fetch('http://docker.usm.my:8090/api/check-backend');
+        const response = await fetch('https://kebajikansiswa.usm.my/api/check-backend');
         const data = await response.json();
 
         if (response.ok) {

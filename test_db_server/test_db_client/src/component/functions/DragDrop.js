@@ -42,7 +42,7 @@ function DragDrop({ selectedFile, setSelectedFile }) {
         const formData = new FormData();
         formData.append("file", file);
 
-        const response = await fetch("http://docker.usm.my:8090/api/upload", {
+        const response = await fetch("https://kebajikansiswa.usm.my/api/upload", {
           method: "POST",
           body: formData,
         });

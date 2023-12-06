@@ -16,7 +16,7 @@ function CouponPublicView() {
                   vendorId: vendorId
                 };
           
-                const response = await fetch('http://docker.usm.my:8090/api/baucar-all-vendor', {
+                const response = await fetch('https://kebajikansiswa.usm.my/api/baucar-all-vendor', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ function CouponPublicView() {
             const fetchData = async () => {
               try {
                 // Make a POST request to your server
-                const response = await fetch('http://docker.usm.my:8090/api/get-vendor', {
+                const response = await fetch('https://kebajikansiswa.usm.my/api/get-vendor', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',

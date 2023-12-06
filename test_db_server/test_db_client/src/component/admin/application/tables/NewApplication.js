@@ -227,7 +227,7 @@ function handleToEvaluation(params) {
     
   useEffect(() => {
     // Fetch user details from the server
-    fetch("http://docker.usm.my:8090/api/user-details")
+    fetch("https://kebajikansiswa.usm.my/api/user-details")
       .then((res) => res.json())
       .then((data) => {
         if (data.userDetails) {
@@ -252,7 +252,7 @@ function handleToEvaluation(params) {
       statusParam = "semak";
     else if (roles == "tnc")
       statusParam = "syor";
-    const apiUrl = `http://docker.usm.my:8090/api/request-status-admin?request_status=${statusParam}`;
+    const apiUrl = `https://kebajikansiswa.usm.my/api/request-status-admin?request_status=${statusParam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)

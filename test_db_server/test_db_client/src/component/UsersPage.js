@@ -6,7 +6,7 @@ function UsersPage() {
 
   useEffect(() => {
     // Fetch all users from the server
-    fetch("http://docker.usm.my:8090/api/users")
+    fetch("https://kebajikansiswa.usm.my/api/users")
       .then((res) => res.json())
       .then((data) => {
         if (data.users) {
@@ -18,7 +18,7 @@ function UsersPage() {
       });
 
     // Fetch user details for each user and store them in userDetails state
-    fetch("http://docker.usm.my:8090/api/user-details")
+    fetch("https://kebajikansiswa.usm.my/api/user-details")
     .then((res) => res.json())
     .then((data) => {
       if (data.userDetails) {

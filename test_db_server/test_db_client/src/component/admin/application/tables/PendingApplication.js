@@ -201,7 +201,7 @@ function PendingList({roles, user_id}) {
 
   useEffect(() => {
     // Fetch user details from the server
-    fetch("http://docker.usm.my:8090/api/user-details")
+    fetch("https://kebajikansiswa.usm.my/api/user-details")
       .then((res) => res.json())
       .then((data) => {
         if (data.userDetails) {
@@ -219,7 +219,7 @@ function PendingList({roles, user_id}) {
   }, []);
 
   useEffect(() => {
-    const apiUrl = `http://docker.usm.my:8090/api/request-all-admin`;
+    const apiUrl = `https://kebajikansiswa.usm.my/api/request-all-admin`;
 
     // Fetch requests from the server
     console.log("Fetching requests from the server...");

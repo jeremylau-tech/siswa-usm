@@ -22,7 +22,7 @@ function AnalyticDashboard() {
   const [tolakCount, setTolakCount] = useState(null);
 
   useEffect(() => {
-    const apiUrl = 'http://docker.usm.my:8090/api/countByStatus'; // Update the URL to match your server route
+    const apiUrl = 'https://kebajikansiswa.usm.my/api/countByStatus'; // Update the URL to match your server route
 
     const statusData = [
       { status: 'baharu', stateSetter: setBaharuCount },

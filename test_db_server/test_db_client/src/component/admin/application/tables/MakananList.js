@@ -215,7 +215,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
     
   useEffect(() => {
     // Fetch user details from the server
-    fetch("http://docker.usm.my:8090/api/user-details")
+    fetch("https://kebajikansiswa.usm.my/api/user-details")
       .then((res) => res.json())
       .then((data) => {
         if (data.userDetails) {
@@ -235,7 +235,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
   useEffect(() => {
     const statusParam = "complete"; // Replace with the desired status parameter
     const typeparam = "makanan"; 
-    const apiUrl = `http://docker.usm.my:8090/api/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
+    const apiUrl = `https://kebajikansiswa.usm.my/api/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)

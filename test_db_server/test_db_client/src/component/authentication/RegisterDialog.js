@@ -82,7 +82,7 @@ function RegistrationDialog({ open, handleClose }) {
       console.log('Input values:', formDataJSON);
       
 
-      const apiUrl = "http://docker.usm.my:8090/api/insert-users"; // Update with your server's URL
+      const apiUrl = "https://kebajikansiswa.usm.my/api/insert-users"; // Update with your server's URL
       // console.log(formDataJSON)
 
 
