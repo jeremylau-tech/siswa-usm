@@ -15,7 +15,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.static('test_db_client/build'));
 
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 const bodyParser = require('body-parser');
@@ -1230,10 +1229,8 @@ app.post("api/insert-users", (req, res) => {
 
   });
 
-  
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'test_db_client', 'build', 'index.html'));
-});
+
+  //Will be here front end
   
 
 app.listen(8000, () => {
