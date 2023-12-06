@@ -60,7 +60,7 @@ db.connect((err) => {
   });
   
 
-app.get("api/check-db", (req, res) => {
+app.get("/api/check-db", (req, res) => {
   if (isDbConnected) {
     res.json({ message: 'Database connection is successful!' });
   } else {
@@ -68,7 +68,7 @@ app.get("api/check-db", (req, res) => {
   }
 });
 
-app.get("api/check-backend", (req, res) => {
+app.get("/api/check-backend", (req, res) => {
     res.json({ message: 'If you\'re seeing this, connection is working! ' });
 });
 
