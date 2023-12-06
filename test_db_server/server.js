@@ -136,7 +136,7 @@ app.post("/api/login", (req, res) => {
   });
 });
 
-app.get('/get-pdf', (req, res) => {
+app.get('/api/get-pdf', (req, res) => {
   const pdfPath = req.query.pdfPath; // Extract the PDF file path from the URL
   // console.log(pdfPath)
 
@@ -152,7 +152,7 @@ app.get('/get-pdf', (req, res) => {
   });
 });
 
-app.post('/get-user', (req, res) => {
+app.post('/api/get-user', (req, res) => {
   const { userId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
@@ -170,7 +170,7 @@ app.post('/get-user', (req, res) => {
   });
 });
 
-app.post('/get-user-name', (req, res) => {
+app.post('/api/get-user-name', (req, res) => {
   const { userId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
@@ -188,7 +188,7 @@ app.post('/get-user-name', (req, res) => {
   });
 });
 
-app.post('/baucar-all-vendor', (req, res) => {
+app.post('/api/baucar-all-vendor', (req, res) => {
   const { vendorId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
@@ -206,7 +206,7 @@ app.post('/baucar-all-vendor', (req, res) => {
   });
 });
 
-app.post('/invoice-all-vendor', (req, res) => {
+app.post('/api/invoice-all-vendor', (req, res) => {
   const { vendorId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
@@ -224,7 +224,7 @@ app.post('/invoice-all-vendor', (req, res) => {
   });
 });
 
-app.post('/invoice-baucar', (req, res) => {
+app.post('/api/invoice-baucar', (req, res) => {
   const { invoiceId } = req.body;
 
   // SQL query to select data using UNION from multiple tables
@@ -249,7 +249,7 @@ app.post('/invoice-baucar', (req, res) => {
 });
 
 
-app.post('/get-vendor', (req, res) => {
+app.post('/api/get-vendor', (req, res) => {
   const { vendorId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
@@ -329,7 +329,7 @@ app.get("/api/vendor-table", (req, res) => {
   });
 });
 
-app.post('/insert-vendor', (req, res) => {
+app.post('/api/insert-vendor', (req, res) => {
   const {
     vendorName,
     vendorLocation,
@@ -400,7 +400,7 @@ app.post('/insert-vendor', (req, res) => {
 });
 
 // Define the route to handle the PUT request for request editing
-app.post('/request-edit-tolak', (req, res) => {
+app.post('/api/request-edit-tolak', (req, res) => {
   const { inputRemark, userRole, approverId, requestId } = req.body;
 
   let user_remark = '';
@@ -436,7 +436,7 @@ app.post('/request-edit-tolak', (req, res) => {
   });
 });
 
-app.post('/request-edit-lulus', (req, res) => {
+app.post('/api/request-edit-lulus', (req, res) => {
   const { inputRemark, userRole, approverId, requestId, requestType, requestorId } = req.body;
 
   // console.log(requestType);
@@ -1012,7 +1012,7 @@ app.get("/api/food-applications-requestid", (req, res) => {
 
 // Route to get the count of food applications based on status
 // Route to get the count of applications based on status and table
-app.post('/countByStatus', (req, res) => {
+app.post('/api/countByStatus', (req, res) => {
   const table = req.body.table;
   const status = req.body.status;
   const req_type = req.body.req_type;
