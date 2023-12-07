@@ -22,14 +22,11 @@ function LoginSSO() {
 
   useEffect(() => {
     const token = Cookies.get('jwtToken');
-    console.log(token);
   
     const fetchData = async () => {
       try {
         if (token) {
-          const { roles, ic } = getUserDataFromToken(token);
-          console.log('User Roles:', roles);
-          console.log('User IC:', ic);
+          const { ic } = getUserDataFromToken(token);
   
           // Make a request to your API endpoint or server
           const response = await fetch('/api/get-sso-user', {
@@ -49,7 +46,7 @@ function LoginSSO() {
           // Parse the JSON response
           const result = await response.json();
           const user = result.user;
-          navigate('/landingPage', { state: { ...user, roles, ic } });
+          navigate('/landingPage', { state: { ...user} });
         }
       } catch (error) {
         // Handle errors appropriately

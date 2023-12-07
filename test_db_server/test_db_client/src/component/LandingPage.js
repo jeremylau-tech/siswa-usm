@@ -23,14 +23,10 @@ function LandingPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = location.state;
-
-
-  console.log(user)
   const userId = user.matrik;
   const data = { userId:  userId};
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [userDetails, setUserDetails] = useState({});
-
+  
   const commonButtonStyle = {
     display: 'inline-block',
     padding: '10px 15px',
@@ -62,28 +58,6 @@ function LandingPage() {
     navigate('/CouponPage', { state: { ...location.state, ...data } });
   }
 
-  useEffect(() => {
-
-    // Make an HTTP POST request to the /invoice-all-vendor endpoint
-    fetch('https://kebajikansiswa.usm.my/api/get-user', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ userId }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        // Update the state with the retrieved data
-        // setInvoiceMap(data.invoices);
-        // setVendorMap(data.vendors[0])
-        setUserDetails(data.user[0])
-      })
-      .catch(error => {
-        console.error('Error fetching data from the server:', error);
-      });
-  }, []);
-
   return (
     <div className="landing-page">
 
@@ -110,7 +84,7 @@ function LandingPage() {
               Selamat Datang!
             </Typography>
             <Typography gutterBottom variant="h5" component="div" >
-              {userDetails.name}
+              {user.nama}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Sila pastikan maklumat anda tepat dan telah dikemaskini
@@ -145,7 +119,8 @@ function LandingPage() {
                       align='center'
                       padding={0.5}
                     >
-                      {userDetails.phone_num}
+                      {/* {user.phone_num} */}
+                      xxxx
                     </Typography>
                   </Container>
                   </td>
