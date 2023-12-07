@@ -1,11 +1,11 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
-import jwt from 'jsonwebtoken';
+import * as jwt_decode from 'jwt-decode';
 
 const getUserDataFromToken = (token) => {
   try {
-    const decodedToken = jwt.decode(token);
+    const decodedToken = jwt_decode(token);
     return {
       roles: decodedToken.roles || 'default',
       ic: decodedToken.ic || null,
