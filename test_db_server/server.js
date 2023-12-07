@@ -280,7 +280,7 @@ app.post('/api/baucar-all-vendor', (req, res) => {
   const { vendorId } = req.body;
 
   // SQL query to select all records from the "invoice" table for a specific vendor
-  const sql = 'SELECT * FROM baucar WHERE vendor_id = ?';
+  const sql = 'SELECT * FROM baucar WHERE vendor_id = ? ORDER BY baucar_redeem_date DESC, baucar_redeem_time DESC';
 
   // Execute the query with parameter binding
   db.query(sql, [vendorId], (err, results) => {
