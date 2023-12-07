@@ -141,7 +141,14 @@ app.post("/", (req, res) => {
 
     // Log the 'saml:Attribute' part
     const samlAttributes = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['saml:AttributeStatement']['saml:Attribute'];
-    console.log('saml:Attribute:', samlAttributes);
+    const lastValueIndex = samlAttributes.length - 1;
+    const lastValue = samlAttributes[lastValueIndex];
+
+    if (lastValue) {
+      console.log('Last Value:', lastValue['saml:AttributeValue']);
+    } else {
+      console.log('Array is empty.');
+    }
 
   });
     
