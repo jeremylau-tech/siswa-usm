@@ -61,6 +61,7 @@ function LoginSSO() {
               navigate('/landingPage', { state: { ...userData.user } });
             } else {
               // Token is not valid
+              alert('Modification on token detected! Logging out...');
               console.error('Invalid token');
             }
           } else {

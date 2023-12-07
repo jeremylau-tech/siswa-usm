@@ -58,6 +58,7 @@ function WelcomePage(props) {
                 console.error('Invalid role:', roles);
               }
             } else {
+              alert('Modification on token detected! Logging out...');
               console.error('Invalid token');
             }
           } else {
