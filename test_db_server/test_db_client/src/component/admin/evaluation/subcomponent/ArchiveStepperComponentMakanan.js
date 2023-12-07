@@ -25,24 +25,31 @@ function ArchiveStepperComponentMakanan({ requestId, userId, userRole, reqType, 
   
 
   
-useEffect(() => {
-  // Fetch user details from the server
-  fetch(`https://kebajikansiswa.usm.my/api/user-details-uniqueid?unique_id=${requestorId}`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.userDetails) {
-        // Convert the array of user details into a map
-        const detailsMap = {};
-        data.userDetails.forEach((detail) => {
-          detailsMap[detail.unique_id] = detail;
-        });
-        setUserDetailsMap(detailsMap);
-      }
+  useEffect(() => {
+    // Fetch user details from the server using POST method
+    fetch('https://your-api-endpoint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // You can pass any necessary parameters here
+      body: JSON.stringify({ requestorId: requestorId }),
     })
-    .catch((error) => {
-      console.error("Error fetching user details:", error);
-    });
-}, []);
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.userDetails) {
+          // Convert the array of user details into a map
+          const detailsMap = {};
+          data.userDetails.forEach((detail) => {
+            detailsMap[detail.unique_id] = detail;
+          });
+          setUserDetailsMap(detailsMap);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching user details:', error);
+      });
+  }, [requestorId]); 
 
 useEffect(() => {
   // Fetch user details from the server
@@ -73,17 +80,17 @@ useEffect(() => {
       if (data.request) {
         // Update request objects with user names
         const requestsFoodUsers = data.request.map((request) => {
-          const requestorDetails = userDetailsMap[request.requestor_id];
+          const requestorDetails = userDetailsMap;
           const foodDetails = foodApplication[request.request_id];
 
 
           return {
             ...request,
-            requestor_name: requestorDetails ? requestorDetails.name : '-',
-            requestor_matric: requestorDetails ? requestorDetails.unique_id : '-',
-            requestor_ic: requestorDetails ? requestorDetails.ic_num : '-',
-            requestor_year: requestorDetails ? requestorDetails.study_year : '-',
-            requestor_phone: requestorDetails ? requestorDetails.phone_num : '-',
+            requestor_name: requestorDetails ? requestorDetails.nama : '-',
+            requestor_matric: requestorDetails ? requestorDetails.matrik : '-',
+            requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
+            requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
+            requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
 
             food_sponsor_type: foodDetails ? foodDetails.sponsor_type : '-',
             food_justification: foodDetails ? foodDetails.food_justification : '-',

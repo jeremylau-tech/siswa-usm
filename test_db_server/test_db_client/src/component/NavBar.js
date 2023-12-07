@@ -76,7 +76,7 @@ function Navbar() {
     if (jwtToken) {
       if (isResponsive) {
         // Render "Log Keluar" only in the drawer for responsive mode
-        if (roles == 'admin' || roles == 'admin' || roles == 'tnc') {
+        if (roles == 'admin' || roles == 'bhepa' || roles == 'tnc') {
           return (
             <ListItem
               component={Link} 
@@ -99,7 +99,7 @@ function Navbar() {
         
       }
       // Render "Log Keluar" in the navbar for non-responsive mode
-      if (roles == 'admin' || roles == 'admin' || roles == 'tnc') {
+      if (roles == 'admin' || roles == 'bhepa' || roles == 'tnc') {
         return (
           <Button
             component={Link} 
@@ -134,7 +134,7 @@ function Navbar() {
             Penginapan
           </Button>
 
-          {!jwtToken && (roles != 'admin' && roles != 'admin' && roles != 'tnc') && (
+          {!jwtToken && (roles != 'admin' && roles != 'bhepa' && roles != 'tnc') && (
               <Button 
               component={Link} 
               to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
@@ -203,7 +203,7 @@ function Navbar() {
             <ListItemText primary="Log Masuk" />
           </ListItem> */}
 
-{!jwtToken && (roles != 'admin' && roles != 'admin' && roles != 'tnc') && (
+{!jwtToken && (roles != 'admin' && roles != 'bhepa' && roles != 'tnc') && (
               <ListItem component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}>
               <ListItemText primary="Log Masuk" />
                       </ListItem>
