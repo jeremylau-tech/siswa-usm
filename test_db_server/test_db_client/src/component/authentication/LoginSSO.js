@@ -41,7 +41,12 @@ function LoginSSO() {
     // }
   }, [navigate, location.state]);
 
-  return <div>Placeholder content for LoginSSO component</div>;
+  return (
+    <div>
+      <h1>LoginSSO Page</h1>
+      <p>This is a placeholder content for the LoginSSO component.</p>
+    </div>
+  );
 }
 
 export default LoginSSO;
