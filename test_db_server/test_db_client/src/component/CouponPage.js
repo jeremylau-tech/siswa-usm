@@ -23,7 +23,6 @@ function CouponPage() {
 
 
   const navToHistory = () => {
-    alert(userId)
     navigate('/HistoryFood', { state: { userId: userId }});
   };
 
