@@ -21,26 +21,33 @@ function LoginSSO() {
   const location = useLocation();
 
   useEffect(() => {
-    const token = Cookies.get('jwtToken');
-    console.log(token)
+    const fetchData = async () => {
+      alert('asd');
+      const token = Cookies.get('jwtToken');
+      alert(token);
+      console.log(token);
 
-    if (token) {
-      const { roles, ic } = getUserDataFromToken(token);
-      console.log('User Roles:', roles);
-      console.log('User IC:', ic);
+      if (token) {
+        const { roles, ic } = getUserDataFromToken(token);
+        console.log('User Roles:', roles);
+        console.log('User IC:', ic);
 
-      // Uncomment and modify the navigation logic based on user roles
-      // if (roles === 'student') {
-      //   navigate('/landingPage', { state: { ...location.state, roles, ic } });
-      // } else {
-      //   navigate('/adminDashboard', { state: { ...location.state, roles, ic } });
+        // Uncomment and modify the navigation logic based on user roles
+        // if (roles === 'student') {
+        //   navigate('/landingPage', { state: { ...location.state, roles, ic } });
+        // } else {
+        //   navigate('/adminDashboard', { state: { ...location.state, roles, ic } });
+        // }
+      }
+      // else {
+      //   navigate('/login');
       // }
-    } 
-    // else {
-    //   navigate('/login');
-    // }
+    };
+
+    fetchData();
   }, [navigate, location.state]);
 
+  // Render some content
   return (
     <div>
       <h1>LoginSSO Page</h1>
