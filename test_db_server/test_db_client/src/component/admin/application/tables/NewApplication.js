@@ -222,27 +222,6 @@ function handleToEvaluation(params) {
 
   const [selectedCatatan, setSelectedCatatan] = useState(null);
   const [requests, setRequests] = useState([]);
-  const [userDetailsMap, setUserDetailsMap] = useState({});
-  
-    
-  useEffect(() => {
-    // Fetch user details from the server
-    fetch("https://kebajikansiswa.usm.my/api/user-details")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.userDetails) {
-          // Convert the array of user details into a map
-          const detailsMap = {};
-          data.userDetails.forEach((detail) => {
-            detailsMap[detail.unique_id] = detail;
-          });
-          setUserDetailsMap(detailsMap);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching user details:", error);
-      });
-  }, []);
 
   useEffect(() => {
     let statusParam = ""
@@ -259,33 +238,14 @@ function handleToEvaluation(params) {
       .then((res) => res.json())
       .then((data) => {
         if (data.request) {
-          // Update request objects with user names
-          const requestsWithUserNames = data.request.map((request) => {
-            request.request_date = request.request_date.split('T')[0];
-            const requestorDetails = userDetailsMap[request.requestor_id];
-            const adminDetails = userDetailsMap[request.admin_approver_id];
-            const bhepaDetails = userDetailsMap[request.bhepa_approver_id];
-            const tncDetails = userDetailsMap[request.tnc_approver_id];
-
-            return {
-              ...request,
-              requestor_name: requestorDetails ? requestorDetails.name : '-',
-              admin_name: adminDetails ? adminDetails.name : '-',
-              bhepa_name: bhepaDetails ? bhepaDetails.name : '-',
-              tnc_name: tncDetails ? tncDetails.name : '-',
-            };
-          });
-
-          setRequests(requestsWithUserNames);
-          console.log('asdsadas')
-          console.log(requests)
-
+          setRequests(data.request);
+          console.log(data.request);
         }
       })
       .catch((error) => {
         console.error("Error fetching requests data:", error);
       });
-  }, [userDetailsMap]);
+  }, []);
   
   // const filteredRequest = requests.filter(request => request.request_status === "baharu");
 

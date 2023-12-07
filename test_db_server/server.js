@@ -1212,6 +1212,7 @@ app.post("/api/insert-users", (req, res) => {
     // console.log( req.body);
       const {
       requestor_id,
+      requestor_name,
       request_type,
       admin_approver_id,
       bhepa_approver_id,
@@ -1241,7 +1242,7 @@ app.post("/api/insert-users", (req, res) => {
     const new_req_status = "baharu";
 
     // SQL query to insert a new request into the "request" table
-    sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time) VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), CURTIME())";
+    sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time, requestor_name) VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), CURTIME(), ?)";
     // Execute the query
     db.query(
       sql,
@@ -1252,7 +1253,8 @@ app.post("/api/insert-users", (req, res) => {
         bhepa_approver_id || null, // Set approver_id to null if not provided
         tnc_approver_id || null, // Set approver_id to null if not provided
         request_type,
-        new_req_status
+        new_req_status,
+        requestor_name
       ],
       (err, result) => {
         if (err) {

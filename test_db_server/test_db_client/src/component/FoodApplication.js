@@ -21,6 +21,7 @@ function FoodApplication() {
 
   const [formData, setFormData] = useState({
     requestor_id: user.nokp,
+    requestor_name: user.nama,
     request_type: "makanan"
   });
 
