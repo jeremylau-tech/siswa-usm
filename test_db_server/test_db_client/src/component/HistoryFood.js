@@ -14,6 +14,7 @@ function HistoryFood() {
   const navigate = useNavigate();
 
   const { userId } = location.state;
+  console.log(userId)
   const baucarStatus = "tebus";
   const [baucar, setBaucar] = useState([]);
 
