@@ -8,6 +8,7 @@ import { Link as ScrollLink } from "react-scroll";
 import Footer from './footer/Footer';
 import AutoAwesomeMosaicSharpIcon from '@mui/icons-material/AutoAwesomeMosaicSharp';
 import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 import IconButton from "@mui/material/IconButton";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
