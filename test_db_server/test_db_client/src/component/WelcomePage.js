@@ -17,9 +17,13 @@ function WelcomePage(props) {
   const currentDate = new Date().toISOString();
   const navigate = useNavigate();
 
-  const token = Cookies.get('jwtToken');
-  if (token)
-  navigate('/LoginSSO');
+  useEffect(() => {
+    const token = Cookies.get('jwtToken');
+
+    if (token) {
+      navigate('/LoginSSO');
+    }
+  }, [navigate]);
 
   return (
     <div className="welcome-page">
