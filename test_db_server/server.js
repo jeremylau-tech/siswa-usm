@@ -151,12 +151,17 @@ app.post("/", (req, res) => {
   
   // Function to extract public key from X.509 certificate
   function extractPublicKeyFromCertificate(certificate) {
-    const cert = forge.pki.certificateFromPem(certificate);
-    const publicKey = forge.pki.publicKeyToPem(cert.publicKey);
+    // Remove line breaks and extra whitespaces from the certificate string
+    const cleanedCert = certificate.replace(/\s+/g, '');
   
-    return publicKey;
+    // Check if the certificate is in PEM format
+    if (cleanedCert.startsWith('-----BEGIN CERTIFICATE-----') && cleanedCert.endsWith('-----END CERTIFICATE-----')) {
+      return cleanedCert;
+    } else {
+      console.error('Invalid PEM formatted message.');
+      return null;
+    }
   }
-    
 
   //   // Extract public key from X509Certificate
   //   const x509Certificate = result.RequestSecurityTokenResponse.RequestedSecurityToken.Assertion.KeyInfo.X509Data.X509Certificate;
