@@ -162,8 +162,13 @@ app.post("/", (req, res) => {
     // Log and send the fetched data back as a response
     console.log(userData);
 
-    
-    
+    const token = jwt.sign({ unique_id: userData.matrik, email: userData.emel, roles: 'student' }, secretKey, { expiresIn: '1h' });
+    // res.json({ token, user: { unique_id: userData.matrik, email: userData.emel, roles: 'student' } });
+
+    console.log(token);
+
+    // Send the token and user information back to the client
+
     // res.redirect(302, "/");
 
   });
@@ -194,7 +199,7 @@ app.post("/api/login", (req, res) => {
       const token = jwt.sign({ unique_id: user.unique_id, email: user.email, roles: user.roles }, secretKey, { expiresIn: '1h' });
 
       // Send the token and user information back to the client
-      res.json({ token, user: { unique_id: user.unique_id, email: user.email, roles: user.roles } });
+      res.json({ token, user: { unique_id: user.unique_id, email: user.email, roles: user.roles} });
     }
   });
 });
