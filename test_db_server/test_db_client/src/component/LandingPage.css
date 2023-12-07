@@ -1,0 +1,88 @@
+  /* Add margin between sections */
+  .status-permohonan {
+    margin-bottom: 50px;
+    margin-top: 20px;
+  }
+
+  .status-permohonan h2 {
+    margin-bottom: 30px;
+  }
+
+  /* Add subtle shadow effect to the table */
+  .table {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  /* Style the table header */
+  .table th {
+    background-color: #f2f2f2;
+    padding: 12px;
+    text-align: left;
+  }
+
+  /* Style the table rows */
+  .table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* Style the "Approved" status */
+.approved {
+    background-color: #ec921c;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Style the "Rejected" status */
+  .rejected {
+    background-color: #f44336;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Style the "Ongoing" status */
+  .ongoing {
+    background-color: rgb(17, 17, 17);
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Style the "Complete" status */
+  .complete {
+    background-color: #46ce4a;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  /* Darker title text */
+  h2 {
+    color: #333;
+  }
+
+  /* Responsive styles for smaller screens */
+  @media screen and (max-width: 600px) {
+    .table {
+      box-shadow: none;
+      border: 1px solid #ddd;
+    }
+
+    .table th,
+    .table td {
+      padding: 6px;
+    }
+  }

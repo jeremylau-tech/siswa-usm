@@ -1,0 +1,34 @@
+.select-food-wrapper,
+.select-wrapper-wang {
+    display: flex;
+    align-items: center; /* Vertically center the label and select element */
+    justify-content: left; /* Horizontally center the select element */
+    height: 100%; /* Set the height to 100% to center vertically */
+  }
+
+  .select-food-label {
+    font-size: 16px;
+    /* margin-bottom: 5px; */
+  }
+
+.select-food {
+    width: 500px; /* Adjust the width as needed */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  .customOptiontext {
+    margin-top: 10px;
+  }
+
+  .subtext {
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 2px;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+  }  
+  

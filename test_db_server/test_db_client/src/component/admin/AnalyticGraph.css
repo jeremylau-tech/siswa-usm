@@ -1,0 +1,74 @@
+/* AnalyticGraph.css */
+
+/* Container for the chart and legend */
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    max-width: 100%; /* Allow the chart container to grow to the screen width */
+    margin-top: -5px;
+    margin-bottom: 2rem;
+  }
+  
+  /* Chart header */
+  .chart-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Legend container */
+  .legend {
+    display: flex;
+    flex-direction: row; /* Display legends horizontally */
+    justify-content: center; /* Center legends horizontally */
+    margin-top: 10px; /* Adjust margin as needed */
+  }
+  
+  /* Legend item container */
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Adjust the margin as needed to separate items */
+  }
+  
+  /* Styling for legend colors */
+  .legend-color {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px; /* Adjust the margin as needed */
+  }
+  
+  /* Color classes for legend items */
+  .new-color {
+    background-color: #ff9100;
+  }
+  
+  .pending-color {
+    background-color: #16adf3;
+  }
+  
+  .completed-color {
+    background-color: #51f830;
+  }
+  
+  .rejected-color {
+    background-color: #f5365c;
+  }
+  
+  /* Responsive CSS */
+@media (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    .legend {
+      flex-wrap: wrap; /* Wrap legend items on smaller screens */
+      justify-content: flex-start; /* Align legends to the left on smaller screens */
+    }
+  
+    /* Reduce margin between legend items */
+    .legend-item {
+      margin-right: 10px;
+      margin-bottom: 5px; /* Add some space between rows of legend items */
+    }
+  }
+  
