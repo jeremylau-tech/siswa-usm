@@ -48,12 +48,12 @@ function LandingPage() {
 
   function handleMohonMakanan() {
     // Merge the existing location state with your data
-    navigate('/FoodApplication', { state: { user } });
+    navigate('/FoodApplication', { state: { ...user } });
   }
 
   function handleGoToBaucarMakanan() {
     // Merge the existing location state with your data
-    navigate('/CouponPage', { state: { user } });
+    navigate('/CouponPage', { state: { ...user } });
   }
 
   return (
