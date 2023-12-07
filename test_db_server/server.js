@@ -317,7 +317,7 @@ app.post('/api/invoice-baucar', (req, res) => {
 
   // SQL query to select data using UNION from multiple tables
   const sql = `
-    SELECT b.*, v.vendor_name, v.vendor_location,
+    SELECT b.*, v.vendor_name, v.vendor_location
     FROM baucar b
     JOIN vendor v ON b.vendor_id = v.vendor_id
     WHERE b.invoice_id = ?;
