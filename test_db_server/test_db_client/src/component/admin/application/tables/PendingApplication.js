@@ -204,13 +204,6 @@ function PendingList({roles, user_id}) {
   const [selectedCatatan, setSelectedCatatan] = useState(null);
 
   useEffect(() => {
-    let statusParam = ""
-    if (roles == "admin")
-      statusParam = "baharu"; // Replace with the desired status parameter
-    else if (roles == "bhepa")
-      statusParam = "semak";
-    else if (roles == "tnc")
-      statusParam = "syor";
     const apiUrl = `https://kebajikansiswa.usm.my/api/request-all-admin`;
 
     // Fetch requests from the server

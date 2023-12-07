@@ -213,14 +213,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
       const [userDetailsMap, setUserDetailsMap] = useState({});
 
   useEffect(() => {
-    let statusParam = ""
-    if (roles == "admin")
-      statusParam = "baharu"; // Replace with the desired status parameter
-    else if (roles == "bhepa")
-      statusParam = "semak";
-    else if (roles == "tnc")
-      statusParam = "syor";
-      const apiUrl = `https://kebajikansiswa.usm.my/api/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
+    const statusParam = "complete"; // Replace with the desired status parameter
+    const typeparam = "makanan"; 
+    const apiUrl = `https://kebajikansiswa.usm.my/api/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)
