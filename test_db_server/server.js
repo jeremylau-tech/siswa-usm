@@ -100,18 +100,16 @@ app.post("/api/upload/:category", (req, res) => {
 app.use(bodyParser.text({ type: 'text/xml' }));
 
 function validateDigest(messageDigest, publicKey) {
-  // Load the public key
-  const publicKeyBuffer = Buffer.from(publicKey, 'base64');
-  const publicKeyPEM = `-----BEGIN CERTIFICATE-----\n${publicKeyBuffer.toString('base64')}\n-----END CERTIFICATE-----`;
+  try {
+    const verifier = crypto.createVerify('sha256');
+    verifier.update(messageDigest);
 
-  // Create a verifier with the public key
-  const verifier = crypto.createVerify('sha256');
-  verifier.update(messageDigest);
-
-  // Verify the signature using the public key
-  const isValid = verifier.verify(publicKeyPEM, messageDigest, 'base64');
-
-  return isValid;
+    const isValid = verifier.verify(publicKey, messageDigest, 'base64');
+    return isValid;
+  } catch (error) {
+    console.error('Error during verification:', error.message);
+    return false;
+  }
 }
 
 
@@ -147,19 +145,16 @@ app.post("/", (req, res) => {
     // const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     // console.log('Public Key:', publicKey);
 
-    const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['ds:SignatureValue'];
-    console.log('Message Digest:', messageDigest);
+    const messageDigest = 'gRXHzpuGD1U5a4W+yKvl75EfsqhE/HXAMUWU3rDiGrEEYPXwzcFJf77I4fBWIBw/fysTtGPp6bqbWK+Lx0ykRvgsnHvEHMdWJFWr0JNR87ApD/+fjEB4KiTAsxe5DDGdP7oVElQ8DMWSV1of0FM8yUE0bJvMuqG8JS0W7FpgXnHNnSnb/9q9MUkT2wOyJWpu2V689CT/MxhWI+NRvgSjDYAgZ2Csm4Ip32tX4TqnIPOgXreVyQ2hMf/HDErG61GGHji7D4dIqKjf25YINXj7cmmkVuNUMDftgicI80D46kld0yT2rrb2FJZOdIqOAUtAaGv7qn09vT0FBLt6cwoheQ==';
+const publicKey = '-----BEGIN CERTIFICATE-----\nMIIC1DCCAbygAwIBAgIQH/4T8mFLZ6pEMGy2DyBfCzANBgkqhkiG9w0BAQsFADAmMSQwIgYDVQQDExtBREZTIFNpZ25pbmcgLSBsb2dpbi51c20ubXkwHhcNMjMwNDAxMTIyNDU2WhcNMjQwMzMxMTIyNDU2WjAmMSQwIgYDVQQDExtBREZTIFNpZ25pbmcgLSBsb2dpbi51c20ubXkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQClUMALev2xi7NcxlfkQnJTKaRGNPHGSFWLgzIBoO99WOBFLBL2Mku/lStFR9gsq7NleFBcX7NzYWDge/aMRhPw6xP2TWkzRpWI/jkyg8KsbTNuXpGzqVwSrvn4C2XICk/tTASBOhBCz+hH+S+HZ1irrkk72TlyUvDGK7LyVubNYs8PMwUdHcpApM9UkVFG8jf7RYzvz/0Nwy/7Tz5jjMAY4Sw41fE9k+7iud9I2IDdqqPDraznn4djot9jsLMq/mInlDM0B/qyogFEnVO55/G5kk91VEi+Xa0okasCE7YEMj7tRjHwC3lV7oD55XuWTLv3uGGo14/6lDwHbgVKKxEdAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAH42VM27jPOMr/EZedmkbJK1N5Rfccbj98CsAoo37taqGdegkQluXmOzvVHbzdwhN0eC5R7XC5IvBehwvgvkMHkfVmZkaKNqADjHRHFCB7JspqBPkI7ysoyIajQcM/Kj8mJ0pxIjeAGDuuUqtI0UOObOjisR5S43vEloWkIfECIPKcqpIrAZ1H5lgP9mpQ0ICJvKGjZk8zfMFl4n2WEZqxx3j2Na1pHB5RVOxZ6zBXykB/3I1xki317WWCO3o2Fi9lRpHGuDHiN3Wq1IjrrzR7iPmXp9D71jHxBti8dW0BqLAkutldo7LWGGlFB11QKLUwor+sA8eaeJZxL405s3Y1s=\n-----END CERTIFICATE-----';
 
-    // Extract the public key from KeyInfo
-    const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
-    console.log('Public Key:', publicKey);
-
-    const isValid = validateDigest(messageDigest, publicKey);
+const isValid = validateDigest(messageDigest, publicKey);
 
 if (isValid) {
   console.log('Validation successful.');
 } else {
   console.log('Validation failed.');
+}
 }
 
     // console.log(JSON.stringify(result, null, 2));
