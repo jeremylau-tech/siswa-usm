@@ -101,10 +101,8 @@ const handleSponsorTypeChange = (e) => {
       return;
     }
     
-    console.log("Before: " + foodJustification)
     // Count words in the justification
     const justificationWords = foodJustification.split(/\s+/).filter(Boolean).length;
-    console.log("After: " +  justificationWords)
 
     // Check if the justification exceeds the word limit
     if (justificationWords > MAX_WORDS_IN_JUSTIFICATION) {
@@ -133,7 +131,7 @@ const handleSponsorTypeChange = (e) => {
       };
 
       const apiUrl = "https://kebajikansiswa.usm.my/api/insert-request"; // Update with your server's URL
-      console.log(formDataJSON)
+      // console.log(formDataJSON)
 
 
       const response = await fetch(apiUrl, {
@@ -156,7 +154,7 @@ const handleSponsorTypeChange = (e) => {
         setFoodJustification("");
         navigate('/LandingPage', { state: { ...user } });
       } else {
-        console.log(formData);
+        // console.log(formData);
         // Handle errors or display error messages here
         console.error("Form data submission failed.");
         alert("Something wrong on the backend!");

@@ -203,7 +203,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
       };
     
       const handleCatatanButton = (remark) => {
-        console.log(`Button clicked for row with ID: ${remark}`);
+        // console.log(`Button clicked for row with ID: ${remark}`);
         setOpen(true);
         setSelectedCatatan(remark); // Store the rowId in the state
       };
@@ -223,7 +223,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
       .then((data) => {
         if (data.request) {
           setRequests(data.request);
-          console.log(data.request);
+          // console.log(data.request);
         }
       })
       .catch((error) => {

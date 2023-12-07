@@ -212,7 +212,7 @@ function PendingList({roles, user_id}) {
       .then((data) => {
         if (data.request) {
           setRequests(data.request);
-          console.log(data.request);
+          // console.log(data.request);
         }
       })
       .catch((error) => {
