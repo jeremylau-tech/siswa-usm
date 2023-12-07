@@ -155,8 +155,10 @@ app.post("/", (req, res) => {
     // console.log('Message Digest:', messageDigest);
 
     // Extract the public key from KeyInfo
-    const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
-    console.log('Public Key:', publicKey);
+    // const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
+    // console.log('Public Key:', publicKey);
+
+    console.log(result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken'])
 
     console.log(JSON.stringify(result, null, 2));
 
