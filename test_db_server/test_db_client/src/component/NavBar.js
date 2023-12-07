@@ -30,7 +30,9 @@ function Navbar() {
   const handleLogout = () => {
     Cookies.remove('jwtToken');
     // authenticateWithADFS();
-    navigate('https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=');
+    // navigate('https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=');
+    // window.location.href
+    navigate('/');
   };
 
   const renderItemLinks = () => {
@@ -50,13 +52,8 @@ function Navbar() {
     if (jwtToken) {
       return (
         <Button
-          style={{
-            color: "#0d6efd",
-            textDecoration: "underline",
-            transition: "color 0.3s",
-          }}
-          onMouseEnter={(e) => (e.target.style.color = "#1752c5")}
-          onMouseLeave={(e) => (e.target.style.color = "#0d6efd")}
+          variant="contained" 
+          style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}
           onClick={handleLogout}
         >
           Log Keluar
@@ -73,13 +70,13 @@ function Navbar() {
           </Button>
 
           {!jwtToken && (
-              <button 
+              <Button 
               component={Link} 
               to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
               variant="contained" 
               style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}>
                 Log Masuk
-              </button>
+              </Button>
             )}
         </>
       )      
@@ -147,17 +144,9 @@ function Navbar() {
             )}
 
 {jwtToken && (
-              <ListItem
-              style={{
-                color: "#0d6efd",
-                textDecoration: "underline",
-                transition: "color 0.3s",
-              }}
-              onMouseEnter={(e) => (e.target.style.color = "#1752c5")}
-              onMouseLeave={(e) => (e.target.style.color = "#0d6efd")}
-              onClick={handleLogout}>
+              <ListItem onClick={handleLogout}>
                 <ListItemText primary="Log Keluar" />
-                      </ListItem>
+              </ListItem>
             )}
 
           <Divider />
