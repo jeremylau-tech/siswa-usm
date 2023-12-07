@@ -12,6 +12,7 @@ function AdminDashboard(props) {
   const navigate = useNavigate();
 
   if (!user) {
+    console.log(user)
     navigate('/WelcomePage');
     return null; // Ensure the component doesn't render further
   }
