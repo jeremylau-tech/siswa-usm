@@ -139,8 +139,9 @@ app.post("/", (req, res) => {
       return;
     }
 
-    const requestedSecurityToken = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken'];
-    console.log('t:RequestedSecurityToken:', requestedSecurityToken);
+    // Log the 'saml:Attribute' part
+    const samlAttributes = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['saml:AttributeStatement']['saml:Attribute'];
+    console.log('saml:Attribute:', samlAttributes);
 
   });
     
