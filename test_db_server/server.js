@@ -116,75 +116,26 @@ app.post("/", (req, res) => {
 
     // Get IC
     const samlAttributes = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['saml:AttributeStatement']['saml:Attribute'];
-    const lastValueIndex = samlAttributes.length - 1;
-    const lastValue = samlAttributes[lastValueIndex];
+    const icValueIndex = samlAttributes.length - 1;
+    const ic = samlAttributes[icValueIndex];
 
     if (lastValue) {
-      console.log('Last Value:', lastValue['saml:AttributeValue']);
+      console.log('Last Value:', ic);
     } else {
       console.log('Array is empty.');
     }
 
-    // Get digest
-    const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['ds:SignatureValue'];
-    console.log('Message Digest:', messageDigest);
+    // // Get digest
+    // const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['ds:SignatureValue'];
+    // console.log('Message Digest:', messageDigest);
 
-    // Extract the public key from KeyInfo
-    const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
-    console.log('Public Key:', publicKeyCert);
+    // // Extract the public key from KeyInfo
+    // const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
+    // console.log('Public Key:', publicKeyCert);
 
     const publicKey = extractPublicKeyFromCertificate(publicKeyCert);
     console.log(publicKey)
-
-    // // Verify the message digest
-    // const verifier = crypto.createVerify('sha256');
-    // verifier.update(xmlResponse); // Use the original XML content
-  
-    // if (verifier.verify(publicKey, messageDigest, 'base64')) {
-    //   console.log('Message Digest is valid!');
-    //   console.log('Message Digest:', messageDigest);
-    //   console.log('Public Key:', publicKey);
-    // } else {
-    //   console.error('Message Digest is not valid.');
-    // }
   });
-  
-  // Function to extract public key from X.509 certificate
-  function extractPublicKeyFromCertificate(certificate) {
-    // Remove line breaks and extra whitespaces from the certificate string
-    const cleanedCert = certificate.replace(/\s+/g, '');
-  
-    // Check if the certificate is in PEM format
-    if (cleanedCert.startsWith('-----BEGIN CERTIFICATE-----') && cleanedCert.endsWith('-----END CERTIFICATE-----')) {
-      return cleanedCert;
-    } else {
-      console.error('Invalid PEM formatted message.');
-      return null;
-    }
-  }
-
-  //   // Extract public key from X509Certificate
-  //   const x509Certificate = result.RequestSecurityTokenResponse.RequestedSecurityToken.Assertion.KeyInfo.X509Data.X509Certificate;
-  //   const publicKey = extractPublicKeyFromCertificate(x509Certificate);
-
-  //   if (!publicKey) {
-  //     console.error('Error extracting public key from certificate.');
-  //     res.status(500).send('Internal Server Error');
-  //     return;
-  //   }
-
-  //   // Verify the integrity of the message digest
-  //   const messageDigest = result.RequestSecurityTokenResponse.RequestedSecurityToken['ds:Signature']['ds:SignedInfo']['ds:DigestValue'];
-  //   const isIntegrityOkay = verifyIntegrity(xmlData, publicKey, messageDigest);
-
-  //   if (isIntegrityOkay) {
-  //     console.log('Integrity check passed. OK');
-  //     res.redirect(302, "/"); 
-  //   } else {
-  //     console.error('Integrity check failed.');
-  //     res.status(400).send('Integrity check failed.');
-  //   }
-  // });
 });
 
 // Define a route to handle user login
