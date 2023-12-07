@@ -224,8 +224,8 @@ const handleSponsorTypeChange = (e) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email2">Salinan Kad Pengenalan:</label>
-            <p className="subtext">Photocopy of Identity Card:</p>
+            <label htmlFor="email2">Salinan Kad Pengenalan (Saiz Fail Maksimum: 1MB):</label>
+            <p className="subtext">Photocopy of Identity Card (Max File Size: 1MB):</p>
             <DragDrop
               selectedFile={icNumFile}
               setSelectedFile={(file) => handleFileChange(file, setIcNumFile, "ic")}
@@ -233,8 +233,8 @@ const handleSponsorTypeChange = (e) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa:</label>
-            <p className="subtext">Copy of Parent's Salary Slip:</p>
+            <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa (Saiz Fail Maksimum: 1MB):</label>
+            <p className="subtext">Copy of Parent's Salary Slip (Max File Size: 1MB):</p>
             <DragDrop
               selectedFile={paymentSlipFile}
               setSelectedFile={(file) => handleFileChange(file, setPaymentSlipFile, "paymentslip")}
@@ -243,8 +243,8 @@ const handleSponsorTypeChange = (e) => {
 
           {/* Justification textarea */}
           <div className="form-group">
-            <label htmlFor="justification">Justifikasi Untuk Menyokong Permohonan:</label>
-            <p className="subtext">Provide a Brief Justification for the Application:</p>
+            <label htmlFor="justification">Justifikasi Untuk Menyokong Permohonan (Maksimum 250 Patah Perkataan):</label>
+            <p className="subtext">Provide a Brief Justification for the Application (Max 250 Words):</p>
             <textarea
               id="food_justification"
               name="food_justification"
