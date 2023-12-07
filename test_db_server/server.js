@@ -165,7 +165,7 @@ app.post("/", (req, res) => {
     const token = jwt.sign({ ic: userData.ic, unique_id: userData.matrik, email: userData.emel, roles: 'student' }, secretKey, { expiresIn: '1h' });
     // res.json({ token, user: { unique_id: userData.matrik, email: userData.emel, roles: 'student' } });
 
-    res.cookie('jwtToken', token, { maxAge: 3600000, httpOnly: true });
+    res.cookie('jwtToken', token);
     // Send the token and user information back to the client
 
     res.redirect(302, "/LoginSSO");
