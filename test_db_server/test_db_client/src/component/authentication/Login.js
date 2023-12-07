@@ -123,9 +123,9 @@ function Login() {
               </Button>
             </div>
             <div className="d-grid" style={{ marginTop: '10px' }}>
-              <Button variant="outlined" style={{ borderColor: '#491E6E', padding: '5px' }} onClick={handleOpen}>
+              {/* <Button variant="outlined" style={{ borderColor: '#491E6E', padding: '5px' }} onClick={handleOpen}>
                 Daftar Pengguna
-              </Button>
+              </Button> */}
               <RegistrationDialog open={open} handleClose={handleClose} />
             </div>
             {errorMessage && <div className="text-danger mt-3">{errorMessage}</div>}
