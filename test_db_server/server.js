@@ -105,6 +105,15 @@ app.post("/api/upload/:category", (req, res) => {
 });
 
 
+app.post("/", (req, res) => {
+  console.log(req.body);
+
+  // Additional code for handling the login SSO (Single Sign-On) request goes here
+
+  // Redirect to the GET request for "/"
+  res.redirect(302, "/");
+});
+
 
 // Define a route to handle user login
 const secretKey = 'random123';
@@ -136,10 +145,6 @@ app.post("/api/login", (req, res) => {
   });
 });
 
-app.post("/api/login_sso", (req, res) => {
-  console.log(req.body);
-  // Additional code for handling the login SSO (Single Sign-On) request goes here
-});
 
 app.get('/api/get-pdf', (req, res) => {
   const pdfPath = req.query.pdfPath; // Extract the PDF file path from the URL
