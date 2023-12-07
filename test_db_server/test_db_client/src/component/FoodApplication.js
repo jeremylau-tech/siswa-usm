@@ -13,6 +13,7 @@ function FoodApplication() {
   const location = useLocation();
   const user = location.state;
   const navigate = useNavigate(); // Initialize the useNavigate hook
+  const [isSubmit, isSubmitSet] = useState(false);
 
   const handleHome = () => {
     // setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -89,6 +90,10 @@ const handleSponsorTypeChange = (e) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isSubmit) {
+      // Update state to mark the button as clicked
+      isSubmitSet(true);}
 
     if (
       !sponsorType ||
@@ -262,7 +267,7 @@ const handleSponsorTypeChange = (e) => {
               }>
                 Kembali
               </button>
-            <button type="submit" style={hantarButtonStyle} >
+            <button type="submit" style={hantarButtonStyle}  disabled={isSubmit}>
               Hantar
             </button>
           </div>

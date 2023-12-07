@@ -90,17 +90,17 @@ const columns = [
           </Paper>
         );},
     },
-    {
-      field: "actions",
-      headerName: "Catatan",
-      width: 100,
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <DescriptionDialog/>
-        );
-      },
-    },
+    // {
+    //   field: "actions",
+    //   headerName: "Catatan",
+    //   width: 100,
+    //   sortable: false,
+    //   renderCell: (params) => {
+    //     return (
+    //       <DescriptionDialog/>
+    //     );
+    //   },
+    // },
   ];
   
   

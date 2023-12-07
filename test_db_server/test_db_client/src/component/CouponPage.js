@@ -20,8 +20,6 @@ function CouponPage() {
   const [redeemIndex, setRedeemIndex] = useState(null);
   const [selectedVendor, setSelectedVendor] = useState("");
   const [vendorMap, setVendorMap] = useState({});
-  const [isConfirmationButtonClicked, setIsConfirmationButtonClicked] = useState(false);
-
 
   const navToHistory = () => {
     navigate('/HistoryFood', { state: { userId: userId }});
@@ -55,9 +53,6 @@ function CouponPage() {
     // alert(redeemIndex)
     // console.log(baucar)
     // alert(baucar[redeemIndex].baucar_id)
-    if (!isConfirmationButtonClicked) {
-      // Update state to mark the button as clicked
-      setIsConfirmationButtonClicked(true);}
     const requestData = {
       baucarId: baucar[redeemIndex].baucar_id,
       vendorId: vendorMap[selectedVendor].vendor_id,
@@ -193,7 +188,7 @@ function CouponPage() {
               key={vendor.vendor_id}
               value={index}
               control={<Radio />}
-              label={`${vendor.vendor_location} (${vendor.vendor_name})`}
+              label={`${vendor.vendor_location} : ${vendor.vendor_name}`}
             />
           ))}
         </RadioGroup>
@@ -239,9 +234,7 @@ function CouponPage() {
             <Button onClick={handleConfirmationBack} color="primary">
             Kembali
             </Button>
-            <Button onClick={handleConfirmationConfirm} 
-              disabled={isConfirmationButtonClicked}
-              color="primary">
+            <Button onClick={handleConfirmationConfirm} color="primary">
             Sah
             </Button>
         </DialogActions>
