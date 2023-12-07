@@ -163,10 +163,10 @@ app.post("/", (req, res) => {
     // Log and send the fetched data back as a response
     console.log(userData);
 
-    // const token = jwt.sign({ ic: userData.nokp, unique_id: userData.matrik, email: userData.emel, roles: 'student' }, secretKey, { expiresIn: '1h' });
+    const token = jwt.sign({ ic: userData.nokp, unique_id: userData.matrik, email: userData.emel, roles: 'student' }, secretKey, { expiresIn: '1h' });
     // res.json({ token, user: { unique_id: userData.matrik, email: userData.emel, roles: 'student' } });
 
-    // res.cookie('jwtToken', token);
+    res.cookie('jwtToken', token);
     // Send the token and user information back to the client
 
     res.redirect(302, "/LoginSSO");
