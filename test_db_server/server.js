@@ -111,7 +111,7 @@ app.post("/", (req, res) => {
   // Additional code for handling the login SSO (Single Sign-On) request goes here
 
   // Redirect to the GET request for "/"
-  res.redirect(302, "/");
+  res.redirect(302, "/"); 
 });
 
 
