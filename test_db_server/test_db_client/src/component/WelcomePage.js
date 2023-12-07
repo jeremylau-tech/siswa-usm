@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './WelcomePage.css';
 import NavBar from './NavBar';
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
 import { Link as ScrollLink } from "react-scroll";
 import Footer from './footer/Footer';
-import { useNavigate, useLocation } from 'react-router-dom';
 import AutoAwesomeMosaicSharpIcon from '@mui/icons-material/AutoAwesomeMosaicSharp';
+import Cookies from 'js-cookie';
 
 import IconButton from "@mui/material/IconButton";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -14,42 +15,11 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 function WelcomePage(props) { 
   const currentDate = new Date().toISOString();
+  const navigate = useNavigate();
 
-  // const navigate = useNavigate();
-  // const location = useLocation();
-  // const user = location.state;
-  // // if (user)
-  // // alert(user.unique_id)
-  // // console.log(user)
- 
-  // const data = { userId: user.unique_id };
-  // const [couponCount, setCouponCount] = useState(0);
-
-  function handleClick() {
-    // Merge the existing location state with your data
-    // navigate('/CouponPage', { state: { ...location.state, ...data } });
-  }
-
-  // useEffect(() => {
-
-    // Function to make the GET request to get coupon count
-  //   const fetchCouponCount = () => {
-  //     fetch(`https://kebajikansiswa.usm.my/api/coupons-count?userId=${data.userId}`)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         if (data.couponCount !== undefined) {
-  //           setCouponCount(data.couponCount);
-  //         } else {
-  //           console.error("No coupon count data received.");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching coupon count:", error);
-  //       });
-  //   };
-
-  //   fetchCouponCount();
-  // }, []);
+  const token = Cookies.get('jwtToken');
+  if (token)
+  navigate('/LoginSSO');
 
   return (
     <div className="welcome-page">
