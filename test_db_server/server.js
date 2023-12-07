@@ -101,6 +101,35 @@ app.post("/api/upload/:category", (req, res) => {
 
 app.use(bodyParser.text({ type: 'text/xml' }));
 
+const fetchDataFromAPI = async (ic) => {
+  try {
+    // Set your API key
+    const apiKey = "CACP144jTEHNghQQzhvOEyzRHJsSYlKb";
+
+    // Make a request to the API endpoint with the custom header
+    const apiUrl = `https://test.com/api/v1/student/${ic}`;
+    const apiResponse = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "x-api-key": apiKey,
+        "Content-Type": "application/json", // Adjust if needed based on your API requirements
+      },
+    });
+
+    // Check if the request was successful (status code 200)
+    if (apiResponse.ok) {
+      const data = await apiResponse.json();
+      return data;
+    } else {
+      // Handle the case where the API request was not successful
+      console.error(`Error: ${apiResponse.status} - ${apiResponse.statusText}`);
+      throw new Error("Error fetching data from the API");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    throw new Error("Internal Server Error");
+  }
+};
 
 app.post("/", (req, res) => {
   const { wresult } = req.body;
@@ -128,34 +157,12 @@ app.post("/", (req, res) => {
     // const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     // console.log('Public Key:', publicKeyCert);
 
-    try {  
-      // Make a request to the API endpoint
-      const apiUrl = ` https://api.usm.my/v2/student/Kebajikan_siswa/student/id/${ic}`;
-      const apiKey = "CACP144jTEHNghQQzhvOEyzRHJsSYlKb";
-      const apiResponse = await fetch(apiUrl, {
-        method: "GET",
-        headers: {
-          "x-api-key": apiKey,
-          "Content-Type": "application/json", // Adjust if needed based on your API requirements
-        },
-      });
-  
-      // Check if the request was successful (status code 200)
-      if (apiResponse.ok) {
-        const data = await apiResponse.json();
-        console.log(data);
-  
-        // Send the fetched data back as a response
-        // res.json(data);
-      } else {
-        // Handle the case where the API request was not successful
-        console.error(`Error: ${apiResponse.status} - ${apiResponse.statusText}`);
-        // res.status(apiResponse.status).send("Error fetching data from the API");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Internal Server Error");
-    }
+    const userData = await fetchDataFromAPI(ic);
+
+    // Log and send the fetched data back as a response
+    console.log(userData);
+
+    
     
     // res.redirect(302, "/");
 
