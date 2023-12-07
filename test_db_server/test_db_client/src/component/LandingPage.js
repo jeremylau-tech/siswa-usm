@@ -24,6 +24,33 @@ function LandingPage() {
   const location = useLocation();
   const user = location.state;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [hasRequests, setHasRequests] = useState(null);
+
+  const handleCheckRequests = async () => {
+    try {
+      const response = await fetch('/api/check-requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ unique_id: user.nokp }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      setHasRequests(result.hasRequests);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Call the check requests function when the component mounts
+    handleCheckRequests();
+  }, []);
   
   const commonButtonStyle = {
     display: 'inline-block',
@@ -185,6 +212,7 @@ function LandingPage() {
                 color="primary"
                 sx={{ ...commonButtonStyle, marginLeft: '10px' }}
                 onClick={handleGoToBaucarMakanan}
+                disabled={hasRequests}
               >
                 Guna
               </Button>

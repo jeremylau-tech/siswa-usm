@@ -276,6 +276,27 @@ app.post('/api/get-user-name', (req, res) => {
   });
 });
 
+app.post('/api/check-requests', (req, res) => {
+  const { unique_id } = req.body;
+
+  // SQL query to check if the user has any requests
+  const sql = 'SELECT * FROM request WHERE requestor_id = ?';
+
+  // Execute the query with parameter binding
+  db.query(sql, [unique_id], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Check if there are any rows returned
+      const hasRequests = results.length > 0;
+
+      // Send the result as a JSON response
+      res.json({ hasRequests });
+    }
+  });
+});
+
 app.post('/api/baucar-all-vendor', (req, res) => {
   const { vendorId } = req.body;
 
