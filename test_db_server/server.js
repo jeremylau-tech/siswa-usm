@@ -125,11 +125,11 @@ app.post("/", (req, res) => {
     }
 
     // Get digest
-    const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['ds:SignedInfo']['ds:DigestValue'];
+    const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['ds:SignatureValue'];
     console.log('Message Digest:', messageDigest);
 
     // Extract the public key from KeyInfo
-    const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
+    const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     console.log('Public Key:', publicKey);
 
     const verifier = crypto.createVerify('sha256');
