@@ -63,7 +63,7 @@ function Navbar() {
     if (!isResponsive) {
       return (
         <div>
-              <Button  component={Link} to={`https://www.instagram.com/unitkaunselingusm/?hl=en`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none'}}>
+              <Button  component={Link} to={`https://www.instagram.com/unitkaunselingusm/?hl=en`} style={{ backgroundColor: '#491E6E', color: 'white', border: 'none'}}>
                 Kaunseling
               </Button>          
               <br/>
@@ -104,7 +104,6 @@ function Navbar() {
           <Button
             component={Link} 
             to={'/Login'}
-            variant="contained"
             style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}
             onClick={handleLogout}
           >
@@ -116,7 +115,6 @@ function Navbar() {
           <Button
             component={Link} 
             to={`https://login.usm.my/adfs/ls/?wa=wsignout1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wreply=https://kebajikansiswa.usm.my&wctx=`}
-            variant="contained"
             style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}
             onClick={handleLogout}
           >
@@ -132,7 +130,7 @@ function Navbar() {
           {/* <Button className="p-4" style={{ color: 'white' }} onClick={authenticateWithADFS}>
             Log Masuk
           </Button> */}
-          <Button component={Link} to={`https://hac.usm.my/`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}>
+          <Button component={Link} to={`https://hac.usm.my/`} style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}>
             Penginapan
           </Button>
 
@@ -140,7 +138,6 @@ function Navbar() {
               <Button 
               component={Link} 
               to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
-              variant="contained" 
               style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}>
                 Log Masuk
               </Button>

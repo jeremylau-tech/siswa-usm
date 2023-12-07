@@ -51,7 +51,7 @@ function WelcomePage(props) {
       <NavBar />
 
       {/* Hero Banner Section */}
-      <section className="hero" style={{ backgroundImage: 'url("banner2.jpg")' }}>
+      <section className="hero" style={{ backgroundImage: 'url("banner3.jpg")' }}>
         <div className="overlay"></div>
         <div className="container">
           <div className="hero-content">
