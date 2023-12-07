@@ -530,9 +530,6 @@ app.post('/api/request-edit-tolak', (req, res) => {
 
 app.post('/api/request-edit-lulus', (req, res) => {
   const { inputRemark, userRole, approverId, requestId, requestType, requestorId, requestorName } = req.body;
-
-  console.log(requestorName);
-
   // console.log(requestType);
 
   let user_remark = '';
@@ -591,15 +588,15 @@ app.post('/api/request-edit-lulus', (req, res) => {
     const baucar_stat = "aktif";
     let baucar_code = "";
 
-  //   for (let i = 0; i < 15; i++) {
-  //   baucar_code = generateCouponCode(6);
-  //   sql = "INSERT INTO baucar  (baucar_code, baucar_apply_date, baucar_apply_time, baucar_due_date, baucar_status, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?)";
-  //   db.query(sql, [baucar_code, dateOnly, timeOnly, fixDueDate, baucar_stat, requestorId, requestorName], (err, results) => {
-  //     if (err) {
-  //       console.error('Error updating request:', err);
-  //     }
-  //   });
-  // }
+    for (let i = 0; i < 15; i++) {
+    baucar_code = generateCouponCode(6);
+    sql = "INSERT INTO baucar  (baucar_code, baucar_apply_date, baucar_apply_time, baucar_due_date, baucar_status, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    db.query(sql, [baucar_code, dateOnly, timeOnly, fixDueDate, baucar_stat, requestorId, requestorName], (err, results) => {
+      if (err) {
+        console.error('Error updating request:', err);
+      }
+    });
+  }
   return res.status(200).json({ message: 'Request updated and baucar generated successfully' });
 } else {
   // Send a success response for non-'lulus' requests
