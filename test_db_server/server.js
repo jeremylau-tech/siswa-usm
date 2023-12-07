@@ -132,16 +132,16 @@ app.post("/", (req, res) => {
     const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     console.log('Public Key:', publicKey);
 
-    const verifier = crypto.createVerify('sha256');
-  verifier.update(xmlData); // Use the original XML content
+  //   const verifier = crypto.createVerify('sha256');
+  // verifier.update(xmlData); // Use the original XML content
 
-  if (verifier.verify(publicKey, messageDigest, 'base64')) {
-    console.log('Message Digest is valid!');
-    console.log('Message Digest:', messageDigest);
-    console.log('Public Key:', publicKey);
-  } else {
-    console.error('Message Digest is not valid.');
-  }
+  // if (verifier.verify(publicKey, messageDigest, 'base64')) {
+  //   console.log('Message Digest is valid!');
+  //   console.log('Message Digest:', messageDigest);
+  //   console.log('Public Key:', publicKey);
+  // } else {
+  //   console.error('Message Digest is not valid.');
+  // }
 
     
 
