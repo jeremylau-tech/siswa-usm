@@ -119,7 +119,7 @@ const fetchDataFromAPI = async (ic) => {
     // Check if the request was successful (status code 200)
     if (apiResponse.ok) {
       const data = await apiResponse.json();
-      return data;
+      return data[0];
     } else {
       // Handle the case where the API request was not successful
       console.error(`Error: ${apiResponse.status} - ${apiResponse.statusText}`);
@@ -162,7 +162,7 @@ app.post("/", (req, res) => {
     // Log and send the fetched data back as a response
     console.log(userData);
 
-    const token = jwt.sign({ ic: userData[0].nokp, unique_id: userData[0].matrik, email: userData[0].emel, roles: 'student' }, secretKey, { expiresIn: '1h' });
+    const token = jwt.sign({ ic: userData.nokp, unique_id: userData.matrik, email: userData.emel, roles: 'student' }, secretKey, { expiresIn: '1h' });
     // res.json({ token, user: { unique_id: userData.matrik, email: userData.emel, roles: 'student' } });
 
     res.cookie('jwtToken', token);
