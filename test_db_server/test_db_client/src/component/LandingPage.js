@@ -23,8 +23,6 @@ function LandingPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = location.state;
-  const userId = user.matrik;
-  const data = { userId:  userId};
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   
   const commonButtonStyle = {
@@ -50,12 +48,12 @@ function LandingPage() {
 
   function handleMohonMakanan() {
     // Merge the existing location state with your data
-    navigate('/FoodApplication', { state: { ...location.state } });
+    navigate('/FoodApplication', { state: { user } });
   }
 
   function handleGoToBaucarMakanan() {
     // Merge the existing location state with your data
-    navigate('/CouponPage', { state: { ...location.state, ...data } });
+    navigate('/CouponPage', { state: { user } });
   }
 
   return (
@@ -257,7 +255,7 @@ function LandingPage() {
             {/* Add any additional content or components as needed */}
           </Box>
         </Box>
-        <ApplicationStatus userId={userId} />
+        <ApplicationStatus userId={user.nokp} />
       </Paper>
 
       <Dialog open={isDialogOpen} onClose={handleCloseDialog}>

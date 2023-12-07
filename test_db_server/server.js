@@ -180,7 +180,7 @@ app.post("/", (req, res) => {
     const userData = data['data'][0]
 
     // Log and send the fetched data back as a response
-    console.log(userData);
+    // console.log(userData);
 
     const token = jwt.sign({ ic: userData.nokp, unique_id: userData.matrik, email: userData.emel, roles: 'student' }, secretKey, { expiresIn: '1h' });
     // res.json({ token, user: { unique_id: userData.matrik, email: userData.emel, roles: 'student' } });
