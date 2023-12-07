@@ -166,6 +166,7 @@ app.post("/", (req, res) => {
     // res.json({ token, user: { unique_id: userData.matrik, email: userData.emel, roles: 'student' } });
 
     res.cookie('jwtToken', token);
+    res.cookie('test', 'asd');
     // Send the token and user information back to the client
 
     res.redirect(302, "/LoginSSO");
