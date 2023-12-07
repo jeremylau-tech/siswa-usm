@@ -36,15 +36,6 @@ function generateCouponCode(length) {
 }
 
 let isDbConnected = false; // Variable to store the connection state
-
-// MySQL connection configuration
-// const db = mysql.createConnection({
-//   host: 'docker.usm.my:3306',
-//   user: 'root',
-//   password: 'pelajardatabase',
-//   database: 'bhepa_test',
-//   });
-
   const db = mysql.createConnection({
     host: 'docker.usm.my',
     user: 'root',
@@ -139,36 +130,38 @@ app.post("/", (req, res) => {
   const { wresult } = req.body;
   const xmlData = wresult;
 
-  // Parse XML to JavaScript object
-  xml2js.parseString(xmlData, { explicitArray: false, ignoreAttrs: true }, (err, result) => {
-    if (err) {
-      console.error('Error parsing XML:', err);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
+  console.log(xmlData)
 
-    // Extract public key from X509Certificate
-    const x509Certificate = result.RequestSecurityTokenResponse.RequestedSecurityToken.Assertion.KeyInfo.X509Data.X509Certificate;
-    const publicKey = extractPublicKeyFromCertificate(x509Certificate);
+  // // Parse XML to JavaScript object
+  // xml2js.parseString(xmlData, { explicitArray: false, ignoreAttrs: true }, (err, result) => {
+  //   if (err) {
+  //     console.error('Error parsing XML:', err);
+  //     res.status(500).send('Internal Server Error');
+  //     return;
+  //   }
 
-    if (!publicKey) {
-      console.error('Error extracting public key from certificate.');
-      res.status(500).send('Internal Server Error');
-      return;
-    }
+  //   // Extract public key from X509Certificate
+  //   const x509Certificate = result.RequestSecurityTokenResponse.RequestedSecurityToken.Assertion.KeyInfo.X509Data.X509Certificate;
+  //   const publicKey = extractPublicKeyFromCertificate(x509Certificate);
 
-    // Verify the integrity of the message digest
-    const messageDigest = result.RequestSecurityTokenResponse.RequestedSecurityToken['ds:Signature']['ds:SignedInfo']['ds:DigestValue'];
-    const isIntegrityOkay = verifyIntegrity(xmlData, publicKey, messageDigest);
+  //   if (!publicKey) {
+  //     console.error('Error extracting public key from certificate.');
+  //     res.status(500).send('Internal Server Error');
+  //     return;
+  //   }
 
-    if (isIntegrityOkay) {
-      console.log('Integrity check passed. OK');
-      res.redirect(302, "/"); 
-    } else {
-      console.error('Integrity check failed.');
-      res.status(400).send('Integrity check failed.');
-    }
-  });
+  //   // Verify the integrity of the message digest
+  //   const messageDigest = result.RequestSecurityTokenResponse.RequestedSecurityToken['ds:Signature']['ds:SignedInfo']['ds:DigestValue'];
+  //   const isIntegrityOkay = verifyIntegrity(xmlData, publicKey, messageDigest);
+
+  //   if (isIntegrityOkay) {
+  //     console.log('Integrity check passed. OK');
+  //     res.redirect(302, "/"); 
+  //   } else {
+  //     console.error('Integrity check failed.');
+  //     res.status(400).send('Integrity check failed.');
+  //   }
+  // });
 });
 
 // Define a route to handle user login
