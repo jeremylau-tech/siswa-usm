@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ApplicationListPage from "./application/ApplicationListPage";
 import AnalyticDashboard from "./AnalyticDashboard";
 import Divider from '@mui/material/Divider';
