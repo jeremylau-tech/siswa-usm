@@ -30,7 +30,7 @@ function Navbar() {
   const handleLogout = () => {
     Cookies.remove('jwtToken');
     // authenticateWithADFS();
-    navigate('/Login');
+    navigate('https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=');
   };
 
   const renderItemLinks = () => {
@@ -71,10 +71,16 @@ function Navbar() {
           <Button component={Link} to={`https://hac.usm.my/`} variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}>
             Penginapan
           </Button>
-      
-          <Button variant="contained" style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }} onClick={handleLogin}>
-            Log Masuk
-          </Button>
+
+          {!jwtToken && (
+              <button 
+              component={Link} 
+              to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
+              variant="contained" 
+              style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}>
+                Log Masuk
+              </button>
+            )}
         </>
       )      
     }
@@ -137,6 +143,20 @@ function Navbar() {
 {!jwtToken && (
               <ListItem component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}>
               <ListItemText primary="Log Masuk" />
+                      </ListItem>
+            )}
+
+{jwtToken && (
+              <ListItem
+              style={{
+                color: "#0d6efd",
+                textDecoration: "underline",
+                transition: "color 0.3s",
+              }}
+              onMouseEnter={(e) => (e.target.style.color = "#1752c5")}
+              onMouseLeave={(e) => (e.target.style.color = "#0d6efd")}
+              onClick={handleLogout}>
+                <ListItemText primary="Log Keluar" />
                       </ListItem>
             )}
 
