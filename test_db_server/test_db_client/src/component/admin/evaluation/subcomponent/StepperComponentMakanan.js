@@ -131,6 +131,7 @@ useEffect(() => {
     .then((res) => res.json())
     .then((data) => {
       if (data.request) {
+        console.log(userDetailsMap)
         // Update request objects with user names
         const requestsFoodUsers = data.request.map((request) => {
           const requestorDetails = userDetailsMap[request.requestor_id];
@@ -160,7 +161,7 @@ useEffect(() => {
     });
   }, [userDetailsMap, requestId]);
 
-  console.log(requests);
+  // console.log(requests);
 
   const handleHome = () => {
     // setActiveStep((prevActiveStep) => prevActiveStep + 1);
