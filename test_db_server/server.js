@@ -139,7 +139,8 @@ app.post("/", (req, res) => {
       return;
     }
 
-    console.log(result)
+    const requestedSecurityToken = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken'];
+    console.log('t:RequestedSecurityToken:', requestedSecurityToken);
 
   });
     
