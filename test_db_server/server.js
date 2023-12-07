@@ -157,7 +157,8 @@ app.post("/", (req, res) => {
     // const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     // console.log('Public Key:', publicKeyCert);
 
-    const userData = await fetchDataFromAPI(ic);
+    const data = await fetchDataFromAPI(ic);
+    const userData = data['data']
 
     // Log and send the fetched data back as a response
     console.log(userData);
