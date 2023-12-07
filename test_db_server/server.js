@@ -1243,13 +1243,13 @@ app.post("/api/insert-users", (req, res) => {
 
     const currentDate = new Date();
 
-// Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
-const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
-
+  // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
+    const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
+    const dateOnly = currentDate.toISOString().split('T')[0];
     const timeOnly = currentDate.toLocaleTimeString('en-MY', options);    
 
     // SQL query to insert a new request into the "request" table
-    sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time, requestor_name) VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), ?, ?)";
+    sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time, requestor_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     // Execute the query
     db.query(
       sql,
@@ -1261,6 +1261,7 @@ const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
         tnc_approver_id || null, // Set approver_id to null if not provided
         request_type,
         new_req_status,
+        dateOnly,
         timeOnly,
         requestor_name
       ],
