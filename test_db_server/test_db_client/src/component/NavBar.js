@@ -50,9 +50,18 @@ function Navbar() {
 
   const renderLoginLogoutLink = () => {
     if (jwtToken) {
+      if (isResponsive) {
+        // Render "Log Keluar" only in the drawer for responsive mode
+        return (
+          <ListItem onClick={handleLogout}>
+            <ListItemText primary="Log Keluar" />
+          </ListItem>
+        );
+      }
+      // Render "Log Keluar" in the navbar for non-responsive mode
       return (
         <Button
-          variant="contained" 
+          variant="contained"
           style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}
           onClick={handleLogout}
         >
@@ -143,12 +152,12 @@ function Navbar() {
                       </ListItem>
             )}
 
-{jwtToken && (
+{/* {jwtToken && (
               <ListItem onClick={handleLogout}>
                 <ListItemText primary="Log Keluar" />
               </ListItem>
-            )}
-
+            )} */}
+          {renderLoginLogoutLink()}
           <Divider />
           {/* {renderLoginLogoutLink()} */}
         </List>
