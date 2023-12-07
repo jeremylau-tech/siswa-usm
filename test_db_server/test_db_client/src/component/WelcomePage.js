@@ -38,7 +38,7 @@ function WelcomePage(props) {
       const decodedToken = jwtDecode(token); // decode your token here
       const roles = decodedToken.roles;
       const unique_id = decodedToken.unique_id;
-      if (roles == 'admin' || roles == 'admin' || roles == 'tnc')
+      if (roles == 'admin' || roles == 'bhepa' || roles == 'tnc')
       navigate('/adminDashboard', { state: { roles, unique_id } });
       else if (roles == 'student')
       navigate('/LoginSSO');
