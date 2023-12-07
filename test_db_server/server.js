@@ -117,13 +117,7 @@ app.post("/", (req, res) => {
     // Get IC
     const samlAttributes = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['saml:AttributeStatement']['saml:Attribute'];
     const icValueIndex = samlAttributes.length - 1;
-    const ic = samlAttributes[icValueIndex];
-
-    if (ic) {
-      console.log('Last Value:', ic);
-    } else {
-      console.log('Array is empty.');
-    }
+    const ic = samlAttributes[icValueIndex]['saml:AttributeValue'];
 
     // // Get digest
     // const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['ds:SignatureValue'];
@@ -132,6 +126,11 @@ app.post("/", (req, res) => {
     // // Extract the public key from KeyInfo
     // const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     // console.log('Public Key:', publicKeyCert);
+
+
+    
+    res.redirect(302, "/");
+
   });
 });
 
