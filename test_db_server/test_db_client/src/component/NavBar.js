@@ -31,8 +31,8 @@ function Navbar() {
     Cookies.remove('jwtToken');
     // authenticateWithADFS();
     // navigate('https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=');
-    // window.location.href
-    navigate('/');
+    window.location.href (`login.usm.my/adfs/ls/?wa=wsignout1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wreply=https://kebajikansiswa.usm.my&wctx=`)
+    // navigate('/');
   };
 
   const renderItemLinks = () => {
