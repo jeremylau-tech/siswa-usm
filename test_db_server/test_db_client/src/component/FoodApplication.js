@@ -19,7 +19,7 @@ function FoodApplication() {
     navigate('/LandingPage', { state: { ...user } });
   };
 
-
+  alert( user.nokp)
   const [formData, setFormData] = useState({
     requestor_id: user.nokp,
     request_type: "makanan"
