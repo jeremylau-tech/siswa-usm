@@ -159,11 +159,11 @@ function WelcomePage(props) {
               >
                 Guna
               </Button> */}
-                {/* <Button  component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`} variant="contained" color="primary"> */}
-                <Button  component={Link} to={`https://bit.ly/baucar-makanan-permohonan`} variant="contained" color="primary">
+                <Button  component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`} variant="contained" color="primary">
+                {/* <Button  component={Link} to={`https://bit.ly/baucar-makanan-permohonan`} variant="contained" color="primary"> */}
                 {/* <Button  component={Link} to={`/Login`} variant="contained" color="primary">
                 Mohon */}
-                Mohon Dengan Email Pelajar
+                Mohon
               </Button>
             </CardContent>
           </Card>
