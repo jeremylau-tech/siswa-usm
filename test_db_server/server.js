@@ -119,7 +119,7 @@ app.post("/", (req, res) => {
     const icValueIndex = samlAttributes.length - 1;
     const ic = samlAttributes[icValueIndex];
 
-    if (lastValue) {
+    if (ic) {
       console.log('Last Value:', ic);
     } else {
       console.log('Array is empty.');
@@ -132,9 +132,6 @@ app.post("/", (req, res) => {
     // // Extract the public key from KeyInfo
     // const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     // console.log('Public Key:', publicKeyCert);
-
-    const publicKey = extractPublicKeyFromCertificate(publicKeyCert);
-    console.log(publicKey)
   });
 });
 
