@@ -24,6 +24,29 @@ function FoodApplication() {
     request_type: "makanan"
   });
 
+  const MAX_FILE_SIZE_MB = 5;
+
+  const handleFileChange = (file, setFileState, category) => {
+    // Check if the file is a PDF
+    if (file && file.type !== "application/pdf") {
+      alert("Please upload only PDF files.");
+      return;
+    }
+
+    // Check if the file size is below 5MB
+    if (file && file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      alert(`Please upload a file smaller than ${MAX_FILE_SIZE_MB} MB.`);
+      return;
+    }
+
+    // Set the file state
+    setFileState(file);
+
+    // If the file is valid, upload it
+    if (file) {
+      uploadFile(file, category);
+    }
+  };
 
 const handleSponsorTypeChange = (e) => {
   const selectedOption = e.target.value;
@@ -61,16 +84,28 @@ const handleSponsorTypeChange = (e) => {
     }
   };
 
- 
+  const MAX_WORDS_IN_JUSTIFICATION = 250;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!sponsorType || (sponsorType === "Lain" && !customOption) ||
+    if (
+      !sponsorType ||
+      (sponsorType === "Lain" && !customOption) ||
       !icNumFile ||
       !paymentSlipFile ||
-      !foodJustification) {
+      !foodJustification
+    ) {
       alert("Please fill in all the required fields.");
+      return;
+    }
+
+    // Count words in the justification
+    const justificationWords = foodJustification.split(/\s+/).filter(Boolean).length;
+
+    // Check if the justification exceeds the word limit
+    if (justificationWords > MAX_WORDS_IN_JUSTIFICATION) {
+      alert(`Justification cannot exceed ${MAX_WORDS_IN_JUSTIFICATION} words.`);
       return;
     }
   
@@ -189,13 +224,19 @@ const handleSponsorTypeChange = (e) => {
           <div className="form-group">
             <label htmlFor="email2">Salinan Kad Pengenalan:</label>
             <p className="subtext">Photocopy of Identity Card:</p>
-            <DragDrop selectedFile={icNumFile} setSelectedFile={setIcNumFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
+            <DragDrop
+              selectedFile={icNumFile}
+              setSelectedFile={(file) => handleFileChange(file, setIcNumFile, "ic")}
+            />
           </div>
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa:</label>
             <p className="subtext">Copy of Parent's Salary Slip:</p>
-            <DragDrop selectedFile={paymentSlipFile} setSelectedFile={setPaymentSlipFile} /> {/* Pass selectedFile and setSelectedFile as props */}       
+            <DragDrop
+              selectedFile={paymentSlipFile}
+              setSelectedFile={(file) => handleFileChange(file, setPaymentSlipFile, "paymentslip")}
+            />
           </div>
 
           {/* Justification textarea */}
