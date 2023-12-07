@@ -96,8 +96,7 @@ function StepperComponentMakanan({ requestId, requestorId, userId, userRole, req
         if (data.user) {
           // Convert the array of user details into a map
           console.log("user---------")
-          console.log(data.user)
-          setUserDetailsMap(detailsMap);
+          setUserDetailsMap(data.user);
         }
       })
       .catch((error) => {
