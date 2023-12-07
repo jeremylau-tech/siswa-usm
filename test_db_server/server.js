@@ -158,9 +158,9 @@ app.post("/", (req, res) => {
     // const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     // console.log('Public Key:', publicKey);
 
-    // console.log(result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken'])
+    console.log(result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken'])
 
-    console.log(JSON.stringify(result, null, 2));
+    // console.log(JSON.stringify(result, null, 2));
 
 
   });
