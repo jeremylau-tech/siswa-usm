@@ -134,18 +134,19 @@ app.post("/", (req, res) => {
     console.log('Public Key:', publicKeyCert);
 
     const publicKey = extractPublicKeyFromCertificate(publicKeyCert);
+    console.log(publicKey)
 
-    // Verify the message digest
-    const verifier = crypto.createVerify('sha256');
-    verifier.update(xmlResponse); // Use the original XML content
+    // // Verify the message digest
+    // const verifier = crypto.createVerify('sha256');
+    // verifier.update(xmlResponse); // Use the original XML content
   
-    if (verifier.verify(publicKey, messageDigest, 'base64')) {
-      console.log('Message Digest is valid!');
-      console.log('Message Digest:', messageDigest);
-      console.log('Public Key:', publicKey);
-    } else {
-      console.error('Message Digest is not valid.');
-    }
+    // if (verifier.verify(publicKey, messageDigest, 'base64')) {
+    //   console.log('Message Digest is valid!');
+    //   console.log('Message Digest:', messageDigest);
+    //   console.log('Public Key:', publicKey);
+    // } else {
+    //   console.error('Message Digest is not valid.');
+    // }
   });
   
   // Function to extract public key from X.509 certificate
