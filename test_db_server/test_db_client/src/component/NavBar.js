@@ -55,7 +55,7 @@ function Navbar() {
         return (
           <ListItem
             component={Link} 
-            to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
+            to={`https://login.usm.my/adfs/ls/?wa=wsignout1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wreply=https://kebajikansiswa.usm.my&wctx=`}
             onClick={handleLogout}>
               <ListItemText primary="Log Keluar" />
           </ListItem>
@@ -65,7 +65,7 @@ function Navbar() {
       return (
         <Button
           component={Link} 
-          to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
+          to={`https://login.usm.my/adfs/ls/?wa=wsignout1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wreply=https://kebajikansiswa.usm.my&wctx=`}
           variant="contained"
           style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}
           onClick={handleLogout}
