@@ -8,9 +8,23 @@ import { Link as ScrollLink } from "react-scroll";
 import Footer from './footer/Footer';
 import AutoAwesomeMosaicSharpIcon from '@mui/icons-material/AutoAwesomeMosaicSharp';
 import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 import IconButton from "@mui/material/IconButton";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+
+const getDataFromToken = function (token) {
+  try {
+    const decodedToken = jwtDecode(token); // decode your token here
+    return {
+      unique_id: decodedToken.unique_id || null,
+      roles: decodedToken.roles || 'default',
+    };
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    return { roles: 'default', ic: null };
+  }
+};
 
 
 function WelcomePage(props) { 
@@ -21,6 +35,12 @@ function WelcomePage(props) {
     const token = Cookies.get('jwtToken');
 
     if (token) {
+      const decodedToken = jwtDecode(token); // decode your token here
+      const roles = decodedToken.roles;
+      const unique_id = decodedToken.unique_id;
+      if (roles == 'admin' || roles == 'admin' || roles == 'tnc')
+      navigate('/adminDashboard', { state: { roles, unique_id } });
+      else if (roles == 'student')
       navigate('/LoginSSO');
     }
   }, [navigate]);

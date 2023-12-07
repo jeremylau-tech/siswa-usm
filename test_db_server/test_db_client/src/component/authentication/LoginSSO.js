@@ -26,7 +26,7 @@ function LoginSSO() {
     const fetchData = async () => {
       try {
         if (token) {
-          const { ic } = getUserDataFromToken(token);
+          const { ic } = getUserDataFromToken(token); 
   
           // Make a request to your API endpoint or server
           const response = await fetch('/api/get-sso-user', {
