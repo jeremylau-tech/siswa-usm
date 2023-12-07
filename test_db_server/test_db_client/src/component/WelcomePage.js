@@ -12,6 +12,18 @@ import Cookies from 'js-cookie';
 import IconButton from "@mui/material/IconButton";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
+const getRolesFromToken = function (token) {
+  try {
+    const decodedToken = jwtDecode(token); // decode your token here
+    return {
+      roles: decodedToken.roles || 'default',
+    };
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    return { roles: 'default', ic: null };
+  }
+};
+
 
 function WelcomePage(props) { 
   const currentDate = new Date().toISOString();
@@ -21,6 +33,11 @@ function WelcomePage(props) {
     const token = Cookies.get('jwtToken');
 
     if (token) {
+      const decodedToken = jwtDecode(token); // decode your token here
+      const roles = decodedToken.roles;
+      if (roles == 'admin' || roles == 'admin' || roles == 'tnc')
+      navigate('/adminDashboard')
+      else if (roles == 'student')
       navigate('/LoginSSO');
     }
   }, [navigate]);
