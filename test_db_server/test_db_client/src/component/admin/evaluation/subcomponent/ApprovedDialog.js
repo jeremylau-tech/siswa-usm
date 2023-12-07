@@ -41,10 +41,6 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
       requestorId: requestorId,
       requestorName: requestorName
     };
-
-    alert(requestorName)
-
-    console.log(formDataJSON);
   
     const apiUrl = "https://kebajikansiswa.usm.my/api/request-edit-lulus"; // Update with your server's URL
 

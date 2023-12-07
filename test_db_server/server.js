@@ -531,6 +531,8 @@ app.post('/api/request-edit-tolak', (req, res) => {
 app.post('/api/request-edit-lulus', (req, res) => {
   const { inputRemark, userRole, approverId, requestId, requestType, requestorId, requestorName } = req.body;
 
+  console.log(requestorName);
+
   // console.log(requestType);
 
   let user_remark = '';
