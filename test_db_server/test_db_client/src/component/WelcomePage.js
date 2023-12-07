@@ -56,13 +56,6 @@ function WelcomePage(props) {
       {/* Navigation Bar */}
       <NavBar />
 
-      {/* Circular Icon to Redirect to Login Page */}
-      <Link to="/login" className="login-icon">
-        <IconButton style={{ position: "fixed", top: 10, right: 10, zIndex: 1000 }} color="primary">
-          <ExitToAppIcon />
-        </IconButton>
-      </Link>
-
       {/* Hero Banner Section */}
       <section className="hero" style={{ backgroundImage: 'url("banner2.jpg")' }}>
         <div className="overlay"></div>
@@ -87,6 +80,13 @@ function WelcomePage(props) {
           </div>
         </div>
       </section>
+
+      {/* Circular Icon to Redirect to Login Page */}
+      <Link to="/login" className="login-icon">
+        <IconButton style={{ position: "fixed", top: 10, right: 10, zIndex: 1000 }} color="primary">
+          <ExitToAppIcon />
+        </IconButton>
+      </Link>
 
       {/* Services Section */}
       <section className="new-services-section">
