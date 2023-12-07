@@ -19,9 +19,6 @@ const getUserDataFromToken = function (token) {
 function LoginSSO() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const token = Cookies.get('jwtToken');
@@ -52,27 +49,19 @@ function LoginSSO() {
           // Parse the JSON response
           const result = await response.json();
 
-          // Update the state with the fetched user data
-          console.log(result.user)
-          setUserData(result.user);
+          console.log(result.user);
 
-          // Uncomment and modify the navigation logic based on user roles
-          // if (roles === 'student') {
-          //   navigate('/landingPage', { state: { ...location.state, roles, ic } });
-          // } else {
-          //   navigate('/adminDashboard', { state: { ...location.state, roles, ic } });
-          // }
+          if (roles === 'student') {
+            navigate('/landingPage', { state: { ...result.user, roles, ic } });
+          } else {
+            navigate('/adminDashboard', { state: { ...result.user, roles, ic } });
+          }
         } else {
-          // Handle the case where the token is not available
-          navigate('/login');
-        }
+          // Handle the case where the token is absent, for example, navigate to login
+pass        }
       } catch (error) {
-        // Handle errors and update the error state
         console.error('Error:', error.message);
-        setError(error.message);
-      } finally {
-        // Update the loading state regardless of success or failure
-        setLoading(false);
+        // Handle errors, for example, navigate to an error page
       }
     };
 
