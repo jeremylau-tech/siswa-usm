@@ -204,6 +204,7 @@ function LandingPage() {
                 color="primary"
                 sx={{ ...commonButtonStyle, marginRight: '10px' }}
                 onClick={handleMohonMakanan}
+                disabled={hasRequests}
               >
                 Mohon
               </Button>
@@ -211,9 +212,7 @@ function LandingPage() {
                 variant="contained"
                 color="primary"
                 sx={{ ...commonButtonStyle, marginLeft: '10px' }}
-                onClick={handleGoToBaucarMakanan}
-                disabled={hasRequests}
-              >
+                onClick={handleGoToBaucarMakanan}              >
                 Guna
               </Button>
             </CardContent>
