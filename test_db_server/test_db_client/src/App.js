@@ -92,7 +92,7 @@ function App() {
           <Route path="/Wang_NextPage" element={<WangNextPage />} />
           <Route path="/Peranti_FormPage" element={<PerantiFormPage />} />
           <Route path="/Peranti_NextPage" element={<PerantiNextPage />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/Login" element={<Login />} /> 
         </Routes>
       </div>
     </Router>
