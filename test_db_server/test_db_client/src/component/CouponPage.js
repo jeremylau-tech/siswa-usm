@@ -7,66 +7,12 @@ import {
 } from "@mui/material";
 import './CouponPage.css';
 
-// const coupons = [
-//   {
-//     id: 1,
-//     title: "Coupon 1",
-//     code: "SAMPLECODE1",
-//     expiration: "Tamat Tempoh: 2023-12-31",
-//     price: "Menu Rahmah",
-//   },
-//   {
-//     id: 2,
-//     title: "Coupon 2",
-//     code: "SAMPLECODE2",
-//     expiration: "Tamat Tempoh: 2023-12-15",
-//     price: "Menu Rahmah",
-//   },
-//   {
-//     id: 3,
-//     title: "Coupon 3",
-//     code: "SAMPLECODE3",
-//     expiration: "Tamat Tempoh: 2023-11-05",
-//     price: "Menu Rahmah",
-//   },
-//   {
-//     id: 4,
-//     title: "Coupon 4",
-//     code: "SAMPLECODE4",
-//     expiration: "Tamat Tempoh: 2023-12-13",
-//     price: "Menu Rahmah",
-//   },
-//   {
-//     id: 5,
-//     title: "Coupon 5",
-//     code: "SAMPLECODE5",
-//     expiration: "Tamat Tempoh: 2023-11-28",
-//     price: "Menu Rahmah",
-//   },
-//   {
-//     id: 6,
-//     title: "Coupon 6",
-//     code: "SAMPLECODE6",
-//     expiration: "Tamat Tempoh: 2023-12-02",
-//     price: "Menu Rahmah",
-//   },
-//   {
-//     id: 7,
-//     title: "Coupon 7",
-//     code: "SAMPLECODE7",
-//     expiration: "Tamat Tempoh: 2023-10-25",
-//     price: "Menu Rahmah",
-//   },
-//   // Add more coupon objects as needed
-// ];
-
 function CouponPage() {
-  // const { userId } = props.location.state;
-  // const { userId } = props.location.state;
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { userId } = location.state;
+  const user = location.state;
+  const userId = user.nokp;
 
   const [useDialogOpen, setUseDialogOpen] = useState(false);
   const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);

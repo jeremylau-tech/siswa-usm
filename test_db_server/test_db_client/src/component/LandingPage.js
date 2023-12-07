@@ -105,7 +105,8 @@ function LandingPage() {
                       No Telefon
                     </Typography>
                   </td>
-                  <td><Container
+                      {/* {user.phone_num} */}
+                  {/* <td><Container
                     sx={{
                       display: 'flex',
                       backgroundColor: '#CCCCCC',
@@ -117,12 +118,11 @@ function LandingPage() {
                       align='center'
                       padding={0.5}
                     >
-                      {/* {user.phone_num} */}
                       xxxx
                     </Typography>
                   </Container>
-                  </td>
-                  <td>
+                  </td> */}
+                  {/* <td>
                     <div onClick={handleOpenDialog}>
                       <IconButton
                         aria-label="edit"
@@ -134,7 +134,7 @@ function LandingPage() {
                         <EditRounded />
                       </IconButton>
                     </div>
-                  </td>
+                  </td> */}
                 </tr>
               </table>
 

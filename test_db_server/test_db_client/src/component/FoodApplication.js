@@ -12,7 +12,6 @@ function FoodApplication() {
   const [customOption, setCustomOption] = useState(""); // State for custom "Jenis Tajaan"
   const location = useLocation();
   const user = location.state;
-  console.log(user)
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
   const handleHome = () => {
@@ -22,7 +21,7 @@ function FoodApplication() {
 
 
   const [formData, setFormData] = useState({
-    requestor_id: user.unique_id,
+    requestor_id: user.nokp,
     request_type: "makanan"
   });
 
