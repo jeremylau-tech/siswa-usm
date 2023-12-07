@@ -45,6 +45,13 @@ const columns = [
     headerName: "Tarikh Permohonan",
     width: 150,
     editable: false,
+    valueGetter: (params) => {
+      // Convert the ISO date string to a Date object
+      const date = new Date(params.row.request_date);
+
+      // Format the date as a string in your desired format
+      return date.toLocaleDateString(); // You can also pass options to customize the format
+    },
   },
   {
     field: "request_count_per_user",
