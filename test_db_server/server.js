@@ -158,7 +158,7 @@ app.post("/", (req, res) => {
     // console.log('Public Key:', publicKeyCert);
 
     const data = await fetchDataFromAPI(ic);
-    const userData = data['data']
+    const userData = data['data'][0]
 
     // Log and send the fetched data back as a response
     console.log(userData);
