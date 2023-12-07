@@ -1242,6 +1242,7 @@ app.post("/api/insert-users", (req, res) => {
     const new_req_status = "baharu";
     const currentDate = new Date();
     const timeOnly = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+    console.log(timeOnly)
 
     // SQL query to insert a new request into the "request" table
     sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time, requestor_name) VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), ?, ?)";
