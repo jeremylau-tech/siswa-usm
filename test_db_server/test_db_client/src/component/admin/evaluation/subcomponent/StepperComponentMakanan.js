@@ -134,16 +134,16 @@ useEffect(() => {
         console.log(userDetailsMap)
         // Update request objects with user names
         const requestsFoodUsers = data.request.map((request) => {
-          const requestorDetails = userDetailsMap[request.requestor_id];
+          const requestorDetails = userDetailsMap;
           const foodDetails = foodApplication[request.request_id];
 
 
           return {
             ...request,
-            requestor_name: requestorDetails ? requestorDetails.name : '-',
-            requestor_matric: requestorDetails ? requestorDetails.unique_id : '-',
-            requestor_ic: requestorDetails ? requestorDetails.ic_num : '-',
-            requestor_year: requestorDetails ? requestorDetails.study_year : '-',
+            requestor_name: requestorDetails ? requestorDetails.nama : '-',
+            requestor_matric: requestorDetails ? requestorDetails.matrik : '-',
+            requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
+            requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
             requestor_phone: requestorDetails ? requestorDetails.phone_num : '-',
 
             food_sponsor_type: foodDetails ? foodDetails.sponsor_type : '-',
