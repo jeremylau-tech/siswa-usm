@@ -151,12 +151,15 @@ app.post("/", (req, res) => {
     }
 
     // Get digest
-    const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['ds:SignedInfo']['ds:DigestValue'];
-    console.log('Message Digest:', messageDigest);
+    // const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['ds:SignedInfo']['ds:DigestValue'];
+    // console.log('Message Digest:', messageDigest);
 
     // Extract the public key from KeyInfo
     const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     console.log('Public Key:', publicKey);
+
+    console.log(JSON.stringify(result, null, 2));
+
 
   });
     
