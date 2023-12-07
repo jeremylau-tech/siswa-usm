@@ -48,14 +48,14 @@ function LoginSSO() {
 
           // Parse the JSON response
           const result = await response.json();
+          const user = result.user;
+          navigate('/landingPage', { state: { ...user, roles, ic } });
 
-          console.log(result.user);
 
-          if (roles === 'student') {
-            navigate('/landingPage', { state: { ...result.user, roles, ic } });
-          } else {
-            navigate('/adminDashboard', { state: { ...result.user, roles, ic } });
-          }
+          // if (roles === 'student') {
+          // } else {
+          //   navigate('/adminDashboard', { state: { ...result.user, roles, ic } });
+          // }
         } else {
           // Handle the case where the token is absent, for example, navigate to login
 pass        }

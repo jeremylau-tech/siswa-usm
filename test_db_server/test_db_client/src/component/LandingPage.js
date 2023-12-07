@@ -23,7 +23,7 @@ function LandingPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = location.state;
-  const userId = user.unique_id;
+  const userId = user.matrik;
   const data = { userId:  userId};
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [userDetails, setUserDetails] = useState({});
