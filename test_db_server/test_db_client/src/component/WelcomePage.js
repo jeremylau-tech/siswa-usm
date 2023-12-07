@@ -8,6 +8,10 @@ import Footer from './footer/Footer';
 import { useNavigate, useLocation } from 'react-router-dom';
 import AutoAwesomeMosaicSharpIcon from '@mui/icons-material/AutoAwesomeMosaicSharp';
 
+import IconButton from "@mui/material/IconButton";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+
+
 function WelcomePage(props) { 
   const currentDate = new Date().toISOString();
 
@@ -51,6 +55,13 @@ function WelcomePage(props) {
     <div className="welcome-page">
       {/* Navigation Bar */}
       <NavBar />
+
+      {/* Circular Icon to Redirect to Login Page */}
+      <Link to="/login" className="login-icon">
+        <IconButton style={{ position: "fixed", top: 10, right: 10, zIndex: 1000 }} color="primary">
+          <ExitToAppIcon />
+        </IconButton>
+      </Link>
 
       {/* Hero Banner Section */}
       <section className="hero" style={{ backgroundImage: 'url("banner2.jpg")' }}>
