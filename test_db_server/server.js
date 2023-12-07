@@ -107,7 +107,7 @@ const fetchDataFromAPI = async (ic) => {
     const apiKey = "CACP144jTEHNghQQzhvOEyzRHJsSYlKb";
 
     // Make a request to the API endpoint with the custom header
-    const apiUrl = `https://test.com/api/v1/student/${ic}`;
+    const apiUrl = ` https://api.usm.my/v2/student/Kebajikan_siswa/student/id/${ic}`;
     const apiResponse = await fetch(apiUrl, {
       method: "GET",
       headers: {
@@ -157,10 +157,10 @@ app.post("/", (req, res) => {
     // const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     // console.log('Public Key:', publicKeyCert);
 
-    // const userData = await fetchDataFromAPI(ic);
+    const userData = await fetchDataFromAPI(ic);
 
-    // // Log and send the fetched data back as a response
-    // console.log(userData);
+    // Log and send the fetched data back as a response
+    console.log(userData);
 
     
     
