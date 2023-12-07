@@ -24,32 +24,29 @@ function ArchiveStepperComponentMakanan({ requestId, userId, userRole, reqType, 
 
   
 
-  
   useEffect(() => {
     // Fetch user details from the server using POST method
-    fetch('https://your-api-endpoint', {
+    fetch('/api/get-sso-user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       // You can pass any necessary parameters here
-      body: JSON.stringify({ requestorId: requestorId }),
+      body: JSON.stringify({ ic: requestorId }),
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.userDetails) {
+        if (data.user) {
           // Convert the array of user details into a map
-          const detailsMap = {};
-          data.userDetails.forEach((detail) => {
-            detailsMap[detail.unique_id] = detail;
-          });
-          setUserDetailsMap(detailsMap);
+          console.log("user---------")
+          setUserDetailsMap(data.user);
         }
       })
       .catch((error) => {
         console.error('Error fetching user details:', error);
       });
   }, [requestorId]); 
+  
 
 useEffect(() => {
   // Fetch user details from the server
@@ -72,6 +69,7 @@ useEffect(() => {
 
 useEffect(() => {
   const apiUrl = `https://kebajikansiswa.usm.my/api/request-requestid?request_id=${requestId}`;
+  console.log(userDetailsMap)
 
   // Fetch requests from the server
   fetch(apiUrl)
@@ -98,7 +96,6 @@ useEffect(() => {
             food_payment_slip_file: foodDetails ? foodDetails.payment_slip_file : '-',
           };
         });
-        console.log(requestsFoodUsers)
 
         setRequests(requestsFoodUsers);
       }
