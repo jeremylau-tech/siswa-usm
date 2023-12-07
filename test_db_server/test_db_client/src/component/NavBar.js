@@ -129,7 +129,9 @@ function Navbar() {
             </a>
             <div className="right-section">
               {renderItemLinks()}
-              {renderLoginLogoutLink()}
+              
+              {/* Render "Log Keluar" only in the navbar for responsive mode */}
+              {!isResponsive && renderLoginLogoutLink()}
             </div>
           </div>
         </Toolbar>
@@ -157,6 +159,7 @@ function Navbar() {
                 <ListItemText primary="Log Keluar" />
               </ListItem>
             )} */}
+
           {renderLoginLogoutLink()}
           <Divider />
           {/* {renderLoginLogoutLink()} */}
