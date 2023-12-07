@@ -7,6 +7,9 @@ const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
 const jwt = require('jsonwebtoken');
+const xml2js = require('xml2js');
+const forge = require('node-forge');
+const crypto = require('crypto');
 
 const corsOptions = {
   origin: ['http://docker.usm.my:8090', 'https://kebajikansiswa.usm.my'], // Replace with the actual origins of your frontends
@@ -108,8 +111,8 @@ app.use(bodyParser.text({ type: 'text/xml' }));
 
 function extractPublicKeyFromCertificate(certificate) {
   try {
-    const parsedCert = x509.parseCert(certificate);
-    const publicKey = parsedCert.publicKey.n;
+    const cert = forge.pki.certificateFromPem('-----BEGIN CERTIFICATE-----\n' + certificate + '\n-----END CERTIFICATE-----');
+    const publicKey = forge.pki.publicKeyToPem(cert.publicKey);
 
     return publicKey;
   } catch (error) {
