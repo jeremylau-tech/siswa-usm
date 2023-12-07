@@ -9,6 +9,7 @@ const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating u
 const jwt = require('jsonwebtoken');
 const xml2js = require('xml2js');
 const crypto = require('crypto');
+const forge = require('node-forge');
 
 const corsOptions = {
   origin: ['http://docker.usm.my:8090', 'https://kebajikansiswa.usm.my'], // Replace with the actual origins of your frontends
@@ -129,28 +130,31 @@ app.post("/", (req, res) => {
     console.log('Message Digest:', messageDigest);
 
     // Extract the public key from KeyInfo
-    const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
+    const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     console.log('Public Key:', publicKey);
 
-  //   const verifier = crypto.createVerify('sha256');
-  // verifier.update(xmlData); // Use the original XML content
+    const publicKey = extractPublicKeyFromCertificate(publicKeyCert);
 
-  // if (verifier.verify(publicKey, messageDigest, 'base64')) {
-  //   console.log('Message Digest is valid!');
-  //   console.log('Message Digest:', messageDigest);
-  //   console.log('Public Key:', publicKey);
-  // } else {
-  //   console.error('Message Digest is not valid.');
-  // }
-
-    
-
+    // Verify the message digest
+    const verifier = crypto.createVerify('sha256');
+    verifier.update(xmlResponse); // Use the original XML content
   
-
-    // console.log(JSON.stringify(result, null, 2));
-
-
+    if (verifier.verify(publicKey, messageDigest, 'base64')) {
+      console.log('Message Digest is valid!');
+      console.log('Message Digest:', messageDigest);
+      console.log('Public Key:', publicKey);
+    } else {
+      console.error('Message Digest is not valid.');
+    }
   });
+  
+  // Function to extract public key from X.509 certificate
+  function extractPublicKeyFromCertificate(certificate) {
+    const cert = forge.pki.certificateFromPem(certificate);
+    const publicKey = forge.pki.publicKeyToPem(cert.publicKey);
+  
+    return publicKey;
+  }
     
 
   //   // Extract public key from X509Certificate
