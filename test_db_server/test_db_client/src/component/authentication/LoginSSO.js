@@ -23,14 +23,14 @@ function LoginSSO() {
   useEffect(() => {
     const token = Cookies.get('jwtToken');
     console.log(token);
-
+  
     const fetchData = async () => {
       try {
         if (token) {
           const { roles, ic } = getUserDataFromToken(token);
           console.log('User Roles:', roles);
           console.log('User IC:', ic);
-
+  
           // Make a request to your API endpoint or server
           const response = await fetch('/api/get-sso-user', {
             method: 'POST',
@@ -40,31 +40,23 @@ function LoginSSO() {
             // You can pass any necessary parameters here
             body: JSON.stringify({ ic: ic }),
           });
-
+  
           if (!response.ok) {
             // Handle the case where the request was not successful
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
           }
-
+  
           // Parse the JSON response
           const result = await response.json();
           const user = result.user;
           navigate('/landingPage', { state: { ...user, roles, ic } });
-
-
-          // if (roles === 'student') {
-          // } else {
-          //   navigate('/adminDashboard', { state: { ...result.user, roles, ic } });
-          // }
-        } else {
-          // Handle the case where the token is absent, for example, navigate to login
-pass        }
+        }
       } catch (error) {
-        console.error('Error:', error.message);
-        // Handle errors, for example, navigate to an error page
+        // Handle errors appropriately
+        console.error(error);
       }
     };
-
+  
     // Call the fetchData function
     fetchData();
   }, [navigate, location.state]);
@@ -72,8 +64,7 @@ pass        }
   // Render some content
   return (
     <div>
-      <h1>LoginSSO Page</h1>
-      <p>This is a placeholder content for the LoginSSO component.</p>
+      <p>Redirecting...</p>
     </div>
   );
 }
