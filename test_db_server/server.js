@@ -139,7 +139,7 @@ app.post("/", (req, res) => {
       return;
     }
 
-    // Log the 'saml:Attribute' part
+    // Get IC
     const samlAttributes = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['saml:AttributeStatement']['saml:Attribute'];
     const lastValueIndex = samlAttributes.length - 1;
     const lastValue = samlAttributes[lastValueIndex];
@@ -149,6 +149,14 @@ app.post("/", (req, res) => {
     } else {
       console.log('Array is empty.');
     }
+
+    // Get digest
+    const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['ds:SignedInfo']['ds:DigestValue'];
+    console.log('Message Digest:', messageDigest);
+
+    // Extract the public key from KeyInfo
+    const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
+    console.log('Public Key:', publicKey);
 
   });
     
