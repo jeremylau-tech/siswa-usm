@@ -50,7 +50,7 @@ const columns = [
       const date = new Date(params.row.request_date);
 
       // Format the date as a string in your desired format
-      return date.toLocaleDateString(); // You can also pass options to customize the format
+      return date.toISOString().split('T')[0];
     },
   },
   {

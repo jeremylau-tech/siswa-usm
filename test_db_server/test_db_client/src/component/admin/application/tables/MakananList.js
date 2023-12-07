@@ -211,62 +211,30 @@ import { useNavigate, useLocation } from 'react-router-dom';
       const [selectedCatatan, setSelectedCatatan] = useState(null);
       const [requests, setRequests] = useState([]);
       const [userDetailsMap, setUserDetailsMap] = useState({});
-  
-    
-  useEffect(() => {
-    // Fetch user details from the server
-    fetch("https://kebajikansiswa.usm.my/api/user-details")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.userDetails) {
-          // Convert the array of user details into a map
-          const detailsMap = {};
-          data.userDetails.forEach((detail) => {
-            detailsMap[detail.unique_id] = detail;
-          });
-          setUserDetailsMap(detailsMap);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching user details:", error);
-      });
-  }, []);
 
   useEffect(() => {
-    const statusParam = "complete"; // Replace with the desired status parameter
-    const typeparam = "makanan"; 
-    const apiUrl = `https://kebajikansiswa.usm.my/api/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
+    let statusParam = ""
+    if (roles == "admin")
+      statusParam = "baharu"; // Replace with the desired status parameter
+    else if (roles == "bhepa")
+      statusParam = "semak";
+    else if (roles == "tnc")
+      statusParam = "syor";
+      const apiUrl = `https://kebajikansiswa.usm.my/api/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
         if (data.request) {
-          // Update request objects with user names
-          const requestsWithUserNames = data.request.map((request) => {
-            request.request_date = request.request_date.split('T')[0];
-            const requestorDetails = userDetailsMap[request.requestor_id];
-            const adminDetails = userDetailsMap[request.admin_approver_id];
-            const bhepaDetails = userDetailsMap[request.bhepa_approver_id];
-            const tncDetails = userDetailsMap[request.tnc_approver_id];
-
-            return {
-              ...request,
-              requestor_name: requestorDetails ? requestorDetails.name : '-',
-              admin_name: adminDetails ? adminDetails.name : '-',
-              bhepa_name: bhepaDetails ? bhepaDetails.name : '-',
-              tnc_name: tncDetails ? tncDetails.name : '-',
-            };
-          });
-
-          setRequests(requestsWithUserNames);
-          console.log(requests)
+          setRequests(data.request);
+          console.log(data.request);
         }
       })
       .catch((error) => {
         console.error("Error fetching requests data:", error);
       });
-  }, [userDetailsMap]);
+  }, []);
   
   // console.log(requests)
   // const filteredRequest = requests.filter(request => request.request_status === "baharu");
