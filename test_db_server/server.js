@@ -101,6 +101,25 @@ app.post("/api/upload/:category", (req, res) => {
 
 app.use(bodyParser.text({ type: 'text/xml' }));
 
+app.post("/api/get-sso-user", async (req, res) => {
+  try {
+    const { ic } = req.body;
+
+    // Fetch data from the API
+    const data = await fetchDataFromAPI(ic);
+
+    // Extract user data from the API response
+    const userData = data['data'][0];
+
+    // Send the user data as a JSON response
+    res.json({ user: userData });
+  } catch (error) {
+    // Handle errors and send an appropriate response
+    console.error("Error:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 const fetchDataFromAPI = async (ic) => {
   try {
     // Set your API key
