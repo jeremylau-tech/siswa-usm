@@ -119,7 +119,7 @@ const fetchDataFromAPI = async (ic) => {
     // Check if the request was successful (status code 200)
     if (apiResponse.ok) {
       const data = await apiResponse.json();
-      return data[0];
+      return data;
     } else {
       // Handle the case where the API request was not successful
       console.error(`Error: ${apiResponse.status} - ${apiResponse.statusText}`);
