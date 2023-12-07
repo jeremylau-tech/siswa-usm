@@ -200,7 +200,7 @@ useEffect(() => {
             <>
                     <Box sx={{m:3}}>
                         {requests[0] ? (
-                      <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requestorId}></ApprovedDialog>
+                      <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requestorId} requestorName={requests[0].requestor_name}></ApprovedDialog>
                       ) : (
                         'Loading...' // or any dummy value you prefer
                       )}
