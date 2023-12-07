@@ -1244,7 +1244,7 @@ app.post("/api/insert-users", (req, res) => {
     const currentDate = new Date();
 
 // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
-    const options = { timeZone: 'Asia/Kuala_Lumpur' };
+const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
 
     const timeOnly = currentDate.toLocaleTimeString('en-MY', options);    
 
