@@ -8,7 +8,6 @@ const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
 const jwt = require('jsonwebtoken');
 const xml2js = require('xml2js');
-const forge = require('node-forge');
 const crypto = require('crypto');
 
 const corsOptions = {
@@ -100,29 +99,19 @@ app.post("/api/upload/:category", (req, res) => {
 
 app.use(bodyParser.text({ type: 'text/xml' }));
 
-function extractPublicKeyFromCertificate(certificate) {
-  try {
-    const cert = forge.pki.certificateFromPem('-----BEGIN CERTIFICATE-----\n' + certificate + '\n-----END CERTIFICATE-----');
-    const publicKey = forge.pki.publicKeyToPem(cert.publicKey);
+function validateDigest(messageDigest, publicKey) {
+  // Load the public key
+  const publicKeyBuffer = Buffer.from(publicKey, 'base64');
+  const publicKeyPEM = `-----BEGIN CERTIFICATE-----\n${publicKeyBuffer.toString('base64')}\n-----END CERTIFICATE-----`;
 
-    return publicKey;
-  } catch (error) {
-    console.error('Error extracting public key from certificate:', error);
-    return null;
-  }
-}
+  // Create a verifier with the public key
+  const verifier = crypto.createVerify('sha256');
+  verifier.update(messageDigest);
 
-function verifyIntegrity(xmlData, publicKey, expectedDigest) {
-  const verifier = crypto.createVerify('RSA-SHA256');
-  verifier.update(xmlData);
+  // Verify the signature using the public key
+  const isValid = verifier.verify(publicKeyPEM, signature, 'base64');
 
-  // Convert the expected digest from base64 to Buffer
-  const expectedBuffer = Buffer.from(expectedDigest, 'base64');
-
-  // Verify the signature
-  const isSignatureValid = verifier.verify(publicKey, expectedBuffer);
-
-  return isSignatureValid;
+  return isValid;
 }
 
 
@@ -164,6 +153,14 @@ app.post("/", (req, res) => {
     // Extract the public key from KeyInfo
     const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     console.log('Public Key:', publicKey);
+
+    const isValid = validateDigest(messageDigest, publicKey);
+
+if (isValid) {
+  console.log('Validation successful.');
+} else {
+  console.log('Validation failed.');
+}
 
     // console.log(JSON.stringify(result, null, 2));
 
