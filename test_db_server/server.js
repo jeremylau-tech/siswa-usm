@@ -109,7 +109,7 @@ function validateDigest(messageDigest, publicKey) {
   verifier.update(messageDigest);
 
   // Verify the signature using the public key
-  const isValid = verifier.verify(publicKeyPEM, signature, 'base64');
+  const isValid = verifier.verify(publicKeyPEM, messageDigest, 'base64');
 
   return isValid;
 }
