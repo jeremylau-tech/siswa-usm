@@ -135,38 +135,42 @@ app.post("/", (req, res) => {
   const { wresult } = req.body;
   const xmlData = wresult;
 
-  console.log(xmlData)
 
-  // // Parse XML to JavaScript object
-  // xml2js.parseString(xmlData, { explicitArray: false, ignoreAttrs: true }, (err, result) => {
-  //   if (err) {
-  //     console.error('Error parsing XML:', err);
-  //     res.status(500).send('Internal Server Error');
-  //     return;
-  //   }
+  // Parse XML to JavaScript object
+  xml2js.parseString(xmlData, { explicitArray: false, ignoreAttrs: true }, async (err, result) => {
+    if (err) {
+      console.error('Error parsing XML:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
 
-  //   // Extract public key from X509Certificate
-  //   const x509Certificate = result.RequestSecurityTokenResponse.RequestedSecurityToken.Assertion.KeyInfo.X509Data.X509Certificate;
-  //   const publicKey = extractPublicKeyFromCertificate(x509Certificate);
+    // Get IC
+    const samlAttributes = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['saml:AttributeStatement']['saml:Attribute'];
+    const icValueIndex = samlAttributes.length - 1;
+    const ic = samlAttributes[icValueIndex]['saml:AttributeValue'];
 
-  //   if (!publicKey) {
-  //     console.error('Error extracting public key from certificate.');
-  //     res.status(500).send('Internal Server Error');
-  //     return;
-  //   }
+    // // Get digest
+    // const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['ds:SignatureValue'];
+    // console.log('Message Digest:', messageDigest);
 
-  //   // Verify the integrity of the message digest
-  //   const messageDigest = result.RequestSecurityTokenResponse.RequestedSecurityToken['ds:Signature']['ds:SignedInfo']['ds:DigestValue'];
-  //   const isIntegrityOkay = verifyIntegrity(xmlData, publicKey, messageDigest);
+    // // Extract the public key from KeyInfo
+    // const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
+    // console.log('Public Key:', publicKeyCert);
 
-  //   if (isIntegrityOkay) {
-  //     console.log('Integrity check passed. OK');
-  //     res.redirect(302, "/"); 
-  //   } else {
-  //     console.error('Integrity check failed.');
-  //     res.status(400).send('Integrity check failed.');
-  //   }
-  // });
+    const userData = await fetchDataFromAPI(ic);
+
+    // Log and send the fetched data back as a response
+    console.log(userData);
+
+    const token = jwt.sign({ ic: userData.ic, unique_id: userData.matrik, email: userData.emel, roles: 'student' }, secretKey, { expiresIn: '1h' });
+    // res.json({ token, user: { unique_id: userData.matrik, email: userData.emel, roles: 'student' } });
+
+    res.cookie('jwtToken', token);
+    // Send the token and user information back to the client
+
+    res.redirect(302, "/LoginSSO");
+
+  });
 });
 
 // Define a route to handle user login

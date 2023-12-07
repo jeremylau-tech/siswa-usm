@@ -1,12 +1,12 @@
 
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; 
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import MessagePage from "./component/MessagePage";
 import UsersPage from "./component/UsersPage";
 import InsertPage from "./component/InsertPage";
 import Login from "./component/authentication/Login";
-// import LoginSSO from "./component/authentication/LoginSSO";
+import LoginSSO from "./component/authentication/LoginSSO";
 
 // Import new page down here (Follow this format to import new page)
 import NewPageTest from "./component/NewPageTest";
@@ -95,7 +95,7 @@ function App() {
           <Route path="/Peranti_FormPage" element={<PerantiFormPage />} />
           <Route path="/Peranti_NextPage" element={<PerantiNextPage />} />
           <Route path="/Login" element={<Login />} />
-          {/* <Route path="/LoginSSO" element={<LoginSSO />} /> */}
+          <Route path="/LoginSSO" element={<LoginSSO />} />
         </Routes>
       </div>
     </Router>
