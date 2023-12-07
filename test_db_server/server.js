@@ -131,7 +131,7 @@ app.post("/", (req, res) => {
 
     // Extract the public key from KeyInfo
     const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
-    console.log('Public Key:', publicKey);
+    console.log('Public Key:', publicKeyCert);
 
     const publicKey = extractPublicKeyFromCertificate(publicKeyCert);
 
