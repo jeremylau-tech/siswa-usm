@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
 
-export default function ApprovedDialog({ requestId, userId, userRole, requestType, requestorId}) {
+export default function ApprovedDialog({ requestId, userId, userRole, requestType, requestorId, requestorName}) {
   const navigate = useNavigate(); // Initialize the useNavigate hook
   const data = { roles: userRole };
 
@@ -38,7 +38,8 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
       approverId: userId,
       requestId: requestId,
       requestType: requestType,
-      requestorId: requestorId
+      requestorId: requestorId,
+      requestorName: requestorName
     };
 
     console.log(formDataJSON);

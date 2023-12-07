@@ -30,14 +30,14 @@ function UsedCouponList({ }) {
         },
 
         {
-            field: "name",
+            field: "user_name",
             headerName: "Nama Pelajar",
             width: 100,
             editable: false,
         },
         {
-            field: "unique_id",
-            headerName: "No Matrik",
+            field: "user_id",
+            headerName: "Nombor IC",
             width: 100,
             editable: false,
         },

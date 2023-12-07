@@ -13,7 +13,7 @@ function ClaimedInvoicePage({ }) {
   const [vendorMap, setVendorMap] = useState({});
 
   console.log(row);
-  let totalInvoice = row.num_baucar_claimed * 3.5;
+  let totalInvoice = row.num_baucar_claimed * 3.50;
   let date = new Date().toLocaleDateString();
 
 

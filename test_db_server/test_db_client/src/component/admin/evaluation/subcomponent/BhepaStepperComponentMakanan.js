@@ -38,7 +38,7 @@ function BhepaStepperComponentMakanan({ requestId, userId, userRole, reqType, ad
           <ResultStep />
           <Box sx={{m:3}}>
             {requests[0] ? (
-              <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requests[0].requestor_id}></ApprovedDialog>
+              <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requests[0].requestor_id} requestorName={requests[0].requestor_name}></ApprovedDialog>
             ) : (
               'Loading...' // or any dummy value you prefer
             )}

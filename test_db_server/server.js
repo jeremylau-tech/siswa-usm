@@ -317,10 +317,9 @@ app.post('/api/invoice-baucar', (req, res) => {
 
   // SQL query to select data using UNION from multiple tables
   const sql = `
-    SELECT b.*, v.vendor_name, v.vendor_location, u.unique_id, u.name
+    SELECT b.*, v.vendor_name, v.vendor_location,
     FROM baucar b
     JOIN vendor v ON b.vendor_id = v.vendor_id
-    JOIN users_details u ON b.user_id = u.unique_id
     WHERE b.invoice_id = ?;
   `;
 
@@ -449,7 +448,12 @@ app.post('/api/insert-vendor', (req, res) => {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
-  const currentDate = new Date().toISOString().slice(0, 10);
+  const currentDate = new Date();
+
+  // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
+    const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
+    const dateOnly = currentDate.toISOString().split('T')[0];
+
   const vendorStatus = 'active';
 
   const sql = `
@@ -467,7 +471,7 @@ app.post('/api/insert-vendor', (req, res) => {
     vendorFullname,
     vendorPhoneNo,
     vendorEmail,
-    currentDate,
+    dateOnly,
     vendorBankName,
     vendorBankAccNo,
     vendorBankAccName,
@@ -525,7 +529,7 @@ app.post('/api/request-edit-tolak', (req, res) => {
 });
 
 app.post('/api/request-edit-lulus', (req, res) => {
-  const { inputRemark, userRole, approverId, requestId, requestType, requestorId } = req.body;
+  const { inputRemark, userRole, approverId, requestId, requestType, requestorId, requestorName } = req.body;
 
   // console.log(requestType);
 
@@ -568,7 +572,11 @@ app.post('/api/request-edit-lulus', (req, res) => {
   
   if (req_status == "lulus") {
     const currentDate = new Date();
-    const formattedCurrentDate = currentDate.toISOString().split('T')[0];
+
+  // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
+    const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
+    const dateOnly = currentDate.toISOString().split('T')[0];
+    const timeOnly = currentDate.toLocaleTimeString('en-MY', options); 
 
     const fixDueDate = '2023-12-31';
     // const threeMonthsLater = new Date(currentDate);
@@ -583,8 +591,8 @@ app.post('/api/request-edit-lulus', (req, res) => {
 
     for (let i = 0; i < 15; i++) {
     baucar_code = generateCouponCode(6);
-    sql = "INSERT INTO baucar  (baucar_code, baucar_apply_date, baucar_apply_time, baucar_due_date, baucar_status, user_id) VALUES (?, ?, CURTIME(), ?, ?, ?)";
-    db.query(sql, [baucar_code, formattedCurrentDate, fixDueDate, baucar_stat, requestorId], (err, results) => {
+    sql = "INSERT INTO baucar  (baucar_code, baucar_apply_date, baucar_apply_time, baucar_due_date, baucar_status, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?)";
+    db.query(sql, [baucar_code, dateOnly, timeOnly, fixDueDate, baucar_stat, requestorId, requestorName], (err, results) => {
       if (err) {
         console.error('Error updating request:', err);
       }
@@ -932,12 +940,18 @@ app.post("/api/coupons-redeem", (req, res) => {
   }
 
   const baucarStatus = "tebus";
+  const currentDate = new Date();
+
+  // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
+    const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
+    const dateOnly = currentDate.toISOString().split('T')[0];
+    const timeOnly = currentDate.toLocaleTimeString('en-MY', options); 
 
   // Update the request in the database based on the requestId
   // const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = NOW(), vendor_id = ?  WHERE baucar_id = ?`;
-  const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = CURRENT_DATE, baucar_redeem_time = CURRENT_TIME, vendor_id = ? WHERE baucar_id = ?`;
+  const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = ?, baucar_redeem_time = ?, vendor_id = ? WHERE baucar_id = ?`;
 
-  db.query(sql, [baucarStatus, vendorId, baucarId], (err, results) => {
+  db.query(sql, [baucarStatus, dateOnly, timeOnly, vendorId, baucarId], (err, results) => {
     if (err) {
       console.error('Error updating request:', err);
       res.status(500).json({ message: 'Internal Server Error' });
@@ -958,9 +972,15 @@ app.post("/api/coupons-claimed", (req, res) => {
   // Generate a unique invoice_id using uuidv4
   let unique_invoice_id = uuidv4();
 
+  const currentDate = new Date();
+
+  // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
+    const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
+    const dateOnly = currentDate.toISOString().split('T')[0];
+
   // Insert a new invoice record
-  let insertSql = `INSERT INTO invoice (invoice_id, claimed_date, num_baucar_claimed, vendor_id) VALUES (?, CURRENT_DATE, ?, ?)`;
-  db.query(insertSql, [unique_invoice_id, numClaimed, vendorId], (insertErr, insertResults) => {
+  let insertSql = `INSERT INTO invoice (invoice_id, claimed_date, num_baucar_claimed, vendor_id) VALUES (?, ?, ?, ?)`;
+  db.query(insertSql, [unique_invoice_id, dateOnly, numClaimed, vendorId], (insertErr, insertResults) => {
     if (insertErr) {
       console.error('Error inserting invoice:', insertErr);
       return res.status(500).json({ message: 'Internal Server Error' });
