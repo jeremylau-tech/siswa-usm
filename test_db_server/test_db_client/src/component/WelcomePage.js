@@ -30,21 +30,47 @@ const getDataFromToken = function (token) {
 function WelcomePage(props) { 
   const currentDate = new Date().toISOString();
   const navigate = useNavigate();
-
   useEffect(() => {
     const token = Cookies.get('jwtToken');
 
-    if (token) {
-      const decodedToken = jwtDecode(token); // decode your token here
-      const roles = decodedToken.roles;
-      const unique_id = decodedToken.unique_id;
-      if (roles == 'admin' || roles == 'bhepa' || roles == 'tnc')
-      navigate('/adminDashboard', { state: { roles, unique_id } });
-      else if (roles == 'student')
-      navigate('/LoginSSO');
-    }
-  }, [navigate]);
+    const fetchData = async () => {
+      try {
+        if (token) {
+          // Send a request to backend for token verification
+          const response = await fetch('/api/verify-jwt', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ jwtToken: token }),
+          });
 
+          if (response.ok) {
+            const { valid, decodedData } = await response.json();
+
+            if (valid) {
+              const { roles, unique_id } = getDataFromToken(token);
+              if (roles == 'admin' || roles == 'bhepa' || roles == 'tnc')
+              navigate('/adminDashboard', { state: { roles, unique_id } }); 
+              else if (roles == 'student')
+              navigate('/LoginSSO');
+               else {
+                console.error('Invalid role:', roles);
+              }
+            } else {
+              console.error('Invalid token');
+            }
+          } else {
+            console.error('Error fetching verification result:', response.statusText);
+          }
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
   return (
     <div className="welcome-page">
       {/* Navigation Bar */}

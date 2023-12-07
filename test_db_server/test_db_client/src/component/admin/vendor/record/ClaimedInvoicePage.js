@@ -82,7 +82,7 @@ function ClaimedInvoicePage({ }) {
               <table style={styles.table}>
                 <tr>
                   <td style={styles.tableTd}>
-                    {vendorMap.vendor_fullname} <br />
+                    <br />
                     {vendorMap.vendor_company_name} <br />
                     {vendorMap.vendor_address}<br />
                     Phone: {vendorMap.vendor_phone}<br />

@@ -22,6 +22,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 const bodyParser = require('body-parser');
+const { verify } = require("crypto");
 app.use(bodyParser.json());
 
 function generateCouponCode(length) {
@@ -194,7 +195,7 @@ app.post("/", (req, res) => {
 });
 
 // Define a route to handle user login
-const secretKey = 'random123';
+const secretKey = '7vsKPsyZk6UJ8xD3RH';
 
 // Login endpoint
 app.post("/api/login", (req, res) => {
@@ -223,6 +224,26 @@ app.post("/api/login", (req, res) => {
   });
 });
 
+app.post('/api/verify-jwt', (req, res) => {
+  const { jwtToken } = req.body;
+
+  if (!jwtToken) {
+    return res.status(400).json({ error: 'Bad Request: Missing jwtToken in the request body' });
+  }
+
+  try {
+    // Verify the token
+    const decodedToken = jwt.verify(jwtToken, secretKey);
+
+    // If the token is valid, return true
+    res.json({ valid: true, decodedData: decodedToken });
+  } catch (error) {
+    console.error('Error verifying or decoding token:', error);
+
+    // If the token is invalid, return false
+    res.json({ valid: false });
+  }
+});
 
 app.get('/api/get-pdf', (req, res) => {
   const pdfPath = req.query.pdfPath; // Extract the PDF file path from the URL
