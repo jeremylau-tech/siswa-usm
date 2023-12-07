@@ -131,7 +131,14 @@ app.post("/", (req, res) => {
     try {  
       // Make a request to the API endpoint
       const apiUrl = ` https://api.usm.my/v2/student/Kebajikan_siswa/student/id/${ic}`;
-      const apiResponse = await fetch(apiUrl);
+      const apiKey = "CACP144jTEHNghQQzhvOEyzRHJsSYlKb";
+      const apiResponse = await fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          "x-api-key": apiKey,
+          "Content-Type": "application/json", // Adjust if needed based on your API requirements
+        },
+      });
   
       // Check if the request was successful (status code 200)
       if (apiResponse.ok) {
