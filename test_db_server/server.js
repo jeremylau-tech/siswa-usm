@@ -8,8 +8,9 @@ const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); // Use the UUID library for generating unique filenames
 const jwt = require('jsonwebtoken');
 const xml2js = require('xml2js');
-const crypto = require('crypto');
-const forge = require('node-forge');
+// const crypto = require('crypto');
+// const forge = require('node-forge');
+const fetch = require("node-fetch"); // Make sure to install the 'node-fetch' package
 
 const corsOptions = {
   origin: ['http://docker.usm.my:8090', 'https://kebajikansiswa.usm.my'], // Replace with the actual origins of your frontends
@@ -107,7 +108,7 @@ app.post("/", (req, res) => {
 
 
   // Parse XML to JavaScript object
-  xml2js.parseString(xmlData, { explicitArray: false, ignoreAttrs: true }, (err, result) => {
+  xml2js.parseString(xmlData, { explicitArray: false, ignoreAttrs: true }, async (err, result) => {
     if (err) {
       console.error('Error parsing XML:', err);
       res.status(500).send('Internal Server Error');
@@ -127,9 +128,29 @@ app.post("/", (req, res) => {
     // const publicKeyCert = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     // console.log('Public Key:', publicKeyCert);
 
-
+    try {  
+      // Make a request to the API endpoint
+      const apiUrl = ` https://api.usm.my/v2/student/Kebajikan_siswa/student/id/${ic}`;
+      const apiResponse = await fetch(apiUrl);
+  
+      // Check if the request was successful (status code 200)
+      if (apiResponse.ok) {
+        const data = await apiResponse.json();
+        console.log(data);
+  
+        // Send the fetched data back as a response
+        // res.json(data);
+      } else {
+        // Handle the case where the API request was not successful
+        console.error(`Error: ${apiResponse.status} - ${apiResponse.statusText}`);
+        // res.status(apiResponse.status).send("Error fetching data from the API");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send("Internal Server Error");
+    }
     
-    res.redirect(302, "/");
+    // res.redirect(302, "/");
 
   });
 });
