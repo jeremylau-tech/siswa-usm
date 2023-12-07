@@ -129,6 +129,7 @@ const handleSponsorTypeChange = (e) => {
         food_justification: foodJustification,
         requestor_id: formData.requestor_id,
         request_type: formData.request_type,
+        requestor_name: formData.requestor_name
       };
 
       const apiUrl = "https://kebajikansiswa.usm.my/api/insert-request"; // Update with your server's URL
