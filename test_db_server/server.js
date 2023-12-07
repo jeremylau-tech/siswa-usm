@@ -130,15 +130,19 @@ app.post("/", (req, res) => {
   const { wresult } = req.body;
   const xmlData = wresult;
 
-  console.log(xmlData)
 
-  // // Parse XML to JavaScript object
-  // xml2js.parseString(xmlData, { explicitArray: false, ignoreAttrs: true }, (err, result) => {
-  //   if (err) {
-  //     console.error('Error parsing XML:', err);
-  //     res.status(500).send('Internal Server Error');
-  //     return;
-  //   }
+  // Parse XML to JavaScript object
+  xml2js.parseString(xmlData, { explicitArray: false, ignoreAttrs: true }, (err, result) => {
+    if (err) {
+      console.error('Error parsing XML:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    console.log(result)
+
+  });
+    
 
   //   // Extract public key from X509Certificate
   //   const x509Certificate = result.RequestSecurityTokenResponse.RequestedSecurityToken.Assertion.KeyInfo.X509Data.X509Certificate;
