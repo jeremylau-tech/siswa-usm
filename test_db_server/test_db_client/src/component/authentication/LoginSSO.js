@@ -22,6 +22,7 @@ function LoginSSO() {
 
   useEffect(() => {
     const token = Cookies.get('jwtToken');
+    console.log(token)
 
     if (token) {
       const { roles, ic } = getUserDataFromToken(token);
