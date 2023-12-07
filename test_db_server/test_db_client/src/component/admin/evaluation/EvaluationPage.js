@@ -28,6 +28,8 @@ function EvaluationPage() {
   const { request_id, requestor_id, request_type, admin_approver_id, bhepa_approver_id, 
     tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id} = location.state;
 
+    console.log(location.state)
+
 
   return (
     <Box sx={{ flexGrow: 1,}}>
