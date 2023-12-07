@@ -31,7 +31,7 @@ function Navbar() {
     Cookies.remove('jwtToken');
     // authenticateWithADFS();
     // navigate('https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=');
-    window.location.href = `https://login.usm.my/adfs/ls/?wa=wsignout1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wreply=https://kebajikansiswa.usm.my&wctx=`;
+    // window.location.href = `https://login.usm.my/adfs/ls/?wa=wsignout1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wreply=https://kebajikansiswa.usm.my&wctx=`;
     // navigate('/');
   };
 
@@ -53,14 +53,19 @@ function Navbar() {
       if (isResponsive) {
         // Render "Log Keluar" only in the drawer for responsive mode
         return (
-          <ListItem onClick={handleLogout}>
-            <ListItemText primary="Log Keluar" />
+          <ListItem
+            component={Link} 
+            to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
+            onClick={handleLogout}>
+              <ListItemText primary="Log Keluar" />
           </ListItem>
         );
       }
       // Render "Log Keluar" in the navbar for non-responsive mode
       return (
         <Button
+          component={Link} 
+          to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
           variant="contained"
           style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}
           onClick={handleLogout}
