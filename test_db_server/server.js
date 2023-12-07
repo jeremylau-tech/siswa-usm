@@ -158,7 +158,12 @@ app.post("/", (req, res) => {
     // const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
     // console.log('Public Key:', publicKey);
 
-    console.log(result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken'])
+    const messageDigest = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['ds:SignedInfo']['ds:DigestValue'];
+    console.log('Message Digest:', messageDigest);
+
+    // Extract the public key from KeyInfo
+    const publicKey = result['t:RequestSecurityTokenResponse']['t:RequestedSecurityToken']['saml:Assertion']['ds:Signature']['KeyInfo']['X509Data']['X509Certificate'];
+    console.log('Public Key:', publicKey);
 
     // console.log(JSON.stringify(result, null, 2));
 
