@@ -24,7 +24,7 @@ function FoodApplication() {
     request_type: "makanan"
   });
 
-  const MAX_FILE_SIZE_MB = 5;
+  const MAX_FILE_SIZE_MB = 1;
 
   const handleFileChange = (file, setFileState, category) => {
     // Check if the file is a PDF
@@ -99,9 +99,11 @@ const handleSponsorTypeChange = (e) => {
       alert("Please fill in all the required fields.");
       return;
     }
-
+    
+    console.log("Before: " + foodJustification)
     // Count words in the justification
     const justificationWords = foodJustification.split(/\s+/).filter(Boolean).length;
+    console.log("After: " +  justificationWords)
 
     // Check if the justification exceeds the word limit
     if (justificationWords > MAX_WORDS_IN_JUSTIFICATION) {
