@@ -155,7 +155,7 @@ if (isValid) {
 } else {
   console.log('Validation failed.');
 }
-}
+
 
     // console.log(JSON.stringify(result, null, 2));
 
