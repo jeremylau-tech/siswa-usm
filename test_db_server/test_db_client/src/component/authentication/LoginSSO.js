@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import * as jwt_decode from 'jwt-decode';
 
-const getUserDataFromToken = (token) => {
+const getUserDataFromToken = function (token) {
   try {
     const decodedToken = jwt_decode(token);
     return {
