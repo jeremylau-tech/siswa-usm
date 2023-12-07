@@ -1240,12 +1240,10 @@ app.post("/api/insert-users", (req, res) => {
   
     const request_id = uuidv4();
     const new_req_status = "baharu";
-    const currentDate = new Date();
-    const options = { timeZone: 'Asia/Kuala_Lumpur' };
-    const timeOnly = currentDate.toLocaleTimeString('en-MY', options);
+    
 
     // SQL query to insert a new request into the "request" table
-    sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time, requestor_name) VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), ?, ?)";
+    sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time, requestor_name) VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), CURTIME(), ?)";
     // Execute the query
     db.query(
       sql,
@@ -1257,7 +1255,6 @@ app.post("/api/insert-users", (req, res) => {
         tnc_approver_id || null, // Set approver_id to null if not provided
         request_type,
         new_req_status,
-        timeOnly,
         requestor_name
       ],
       (err, result) => {
