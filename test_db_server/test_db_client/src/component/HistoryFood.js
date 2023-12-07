@@ -51,7 +51,7 @@ function HistoryFood() {
   }
   
   const navToHistory = () => {
-    navigate('/CouponPage', { state: location.state });
+    navigate('/CouponPage', { state: {nokp: userId} });
   };
 
   return (
