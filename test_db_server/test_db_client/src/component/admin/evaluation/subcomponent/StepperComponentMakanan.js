@@ -131,7 +131,6 @@ useEffect(() => {
     .then((res) => res.json())
     .then((data) => {
       if (data.request) {
-        console.log(userDetailsMap)
         // Update request objects with user names
         const requestsFoodUsers = data.request.map((request) => {
           const requestorDetails = userDetailsMap;
@@ -152,6 +151,7 @@ useEffect(() => {
             food_payment_slip_file: foodDetails ? foodDetails.payment_slip_file : '-',
           };
         });
+        console.log(requestsFoodUsers);
 
         setRequests(requestsFoodUsers);
       }
