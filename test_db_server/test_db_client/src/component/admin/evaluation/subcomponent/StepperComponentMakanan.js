@@ -81,26 +81,29 @@ function StepperComponentMakanan({ requestId, requestorId, userId, userRole, req
     },
   ];
   
-
-  
-useEffect(() => {
-  // Fetch user details from the server
-  fetch(`https://kebajikansiswa.usm.my/api/user-details-uniqueid?unique_id=${requestorId}`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.userDetails) {
-        // Convert the array of user details into a map
-        const detailsMap = {};
-        data.userDetails.forEach((detail) => {
-          detailsMap[detail.unique_id] = detail;
-        });
-        setUserDetailsMap(detailsMap);
-      }
+  useEffect(() => {
+    // Fetch user details from the server using POST method
+    fetch('/api/get-sso-user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // You can pass any necessary parameters here
+      body: JSON.stringify({ ic: requestorId }),
     })
-    .catch((error) => {
-      console.error("Error fetching user details:", error);
-    });
-}, []);
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.user) {
+          // Convert the array of user details into a map
+          console.log("user---------")
+          console.log(data.user)
+          setUserDetailsMap(detailsMap);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching user details:', error);
+      });
+  }, [requestorId]); 
 
 useEffect(() => {
   // Fetch user details from the server
