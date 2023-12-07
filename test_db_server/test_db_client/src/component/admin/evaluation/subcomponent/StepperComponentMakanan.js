@@ -143,7 +143,7 @@ useEffect(() => {
             requestor_matric: requestorDetails ? requestorDetails.matrik : '-',
             requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
             requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
-            requestor_phone: requestorDetails ? requestorDetails.phone_num : '-',
+            requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
 
             food_sponsor_type: foodDetails ? foodDetails.sponsor_type : '-',
             food_justification: foodDetails ? foodDetails.food_justification : '-',
