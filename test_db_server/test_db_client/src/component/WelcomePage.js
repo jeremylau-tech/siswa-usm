@@ -60,6 +60,9 @@ function WelcomePage(props) {
             } else {
               alert('Modification on token detected! Logging out...');
               console.error('Invalid token');
+              Cookies.remove('jwtToken');
+              window.location.href = `https://login.usm.my/adfs/ls/?wa=wsignout1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wreply=https://kebajikansiswa.usm.my&wctx=`;
+
             }
           } else {
             console.error('Error fetching verification result:', response.statusText);

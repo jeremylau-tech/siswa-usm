@@ -26,6 +26,11 @@ function LandingPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [hasRequests, setHasRequests] = useState(null);
 
+  if (!user) {
+    navigate('/WelcomePage');
+    return null; // Ensure the component doesn't render further
+  }
+
   const handleCheckRequests = async () => {
     try {
       const response = await fetch('/api/check-requests', {

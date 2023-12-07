@@ -11,8 +11,10 @@ function AdminDashboard(props) {
   const user = location.state;
   const navigate = useNavigate();
 
-  if (!user)
-  navigate('/WelcomePage');
+  if (!user) {
+    navigate('/WelcomePage');
+    return null; // Ensure the component doesn't render further
+  }
 
   return ( 
     <div className="App">

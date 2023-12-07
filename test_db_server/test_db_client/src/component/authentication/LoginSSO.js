@@ -19,6 +19,8 @@ const getUserDataFromToken = function (token) {
 function LoginSSO() {
   const navigate = useNavigate();
   const location = useLocation();
+  const currentDate = new Date().toISOString();
+
 
   useEffect(() => {
     const token = Cookies.get('jwtToken');
@@ -63,6 +65,9 @@ function LoginSSO() {
               // Token is not valid
               alert('Modification on token detected! Logging out...');
               console.error('Invalid token');
+              Cookies.remove('jwtToken');
+              window.location.href = `https://login.usm.my/adfs/ls/?wa=wsignout1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wreply=https://kebajikansiswa.usm.my&wctx=`;
+
             }
           } else {
             // Handle fetch error for token verification
