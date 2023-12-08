@@ -65,6 +65,7 @@ function LandingPage() {
 
   if (location.state) {
     const user = location.state;
+    console.log(user)
 
     const handleCheckRequests = async () => {
       try {
