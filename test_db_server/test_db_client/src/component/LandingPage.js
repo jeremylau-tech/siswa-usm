@@ -53,19 +53,17 @@ function LandingPage() {
     setIsDialogOpen(false);
   };
 
-  function handleMohonMakanan() {
-    // Merge the existing location state with your data
-    navigate('/FoodApplication', { state: { ...user } });
-  }
-
-  function handleGoToBaucarMakanan() {
-    // Merge the existing location state with your data
-    navigate('/CouponPage', { state: { ...user } });
-  }
-
   if (location.state) {
     const user = location.state;
-    console.log(user)
+    function handleMohonMakanan() {
+      // Merge the existing location state with your data
+      navigate('/FoodApplication', { state: { ...user } });
+    }
+  
+    function handleGoToBaucarMakanan() {
+      // Merge the existing location state with your data
+      navigate('/CouponPage', { state: { ...user } });
+    }
 
     const handleCheckRequests = async () => {
       try {
