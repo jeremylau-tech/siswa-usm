@@ -91,9 +91,10 @@ const handleSponsorTypeChange = (e) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const isConfirmed = window.confirm(`Dengan ini saya mengesahkan bahawa semua maklumat yang telah saya isytihar ini adalah SAHIH, BENAR dan TERKINI serta di isytihar di atas persetujuan saya. Saya memahami dan bersetuju bahawa jika terdapat mana-mana maklumat yang dinyatakan adalah PALSU atau TIDAK BENAR , pihak Universiti Sains Malaysia berhak mengambil tindakan disiplin terhadap saya di samping tindakan pembatalan apa jua kemudahan yang telah atau akan diberikan kepada saya lanjutan daripada PEMALSUAN maklumat yang saya berikan.
-    -----------------------------------------------------
-    I hereby confirm that all the information declared is ORIGINAL, ACCURATE and UP TO DATE with my consent. I understand and agree that if there is any information that is FALSE or INCORRECT, Universiti Sains Malaysia reserves the right to take disciplinary action against me and withdraw any assistance that have been or will be given to me in relevance to the FALSE submission.`.trim())
+    const isConfirmed = window.confirm(
+    "Dengan ini saya mengesahkan bahawa semua maklumat yang telah saya isytihar ini adalah SAHIH, BENAR dan TERKINI serta di isytihar di atas persetujuan saya. Saya memahami dan bersetuju bahawa jika terdapat mana-mana maklumat yang dinyatakan adalah PALSU atau TIDAK BENAR , pihak Universiti Sains Malaysia berhak mengambil tindakan disiplin terhadap saya di samping tindakan pembatalan apa jua kemudahan yang telah atau akan diberikan kepada saya lanjutan daripada PEMALSUAN maklumat yang saya berikan.\n"+
+    "-----------------------------------------------------\n"+
+    "I hereby confirm that all the information declared is ORIGINAL, ACCURATE and UP TO DATE with my consent. I understand and agree that if there is any information that is FALSE or INCORRECT, Universiti Sains Malaysia reserves the right to take disciplinary action against me and withdraw any assistance that have been or will be given to me in relevance to the FALSE submission.")
 
     if (!isConfirmed)
     return
