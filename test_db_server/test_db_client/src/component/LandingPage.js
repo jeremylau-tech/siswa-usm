@@ -22,40 +22,15 @@ import { Paper } from '@mui/material';
 function LandingPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const user = location.state;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [hasRequests, setHasRequests] = useState(null);
 
-  if (!user) {
-    navigate('/WelcomePage');
-    return null; // Ensure the component doesn't render further
-  }
-
-  const handleCheckRequests = async () => {
-    try {
-      const response = await fetch('/api/check-requests', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ unique_id: user.nokp }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} - ${response.statusText}`);
-      }
-
-      const result = await response.json();
-      setHasRequests(result.hasRequests);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
   useEffect(() => {
-    // Call the check requests function when the component mounts
-    handleCheckRequests();
-  }, []);
+    // Use a conditional check before navigating
+    if (!location.state) {
+      navigate('/WelcomePage');
+    }
+  }, [location.state, navigate]);
   
   const commonButtonStyle = {
     display: 'inline-block',
@@ -87,6 +62,35 @@ function LandingPage() {
     // Merge the existing location state with your data
     navigate('/CouponPage', { state: { ...user } });
   }
+
+  if (location.state) {
+    const user = location.state;
+
+    const handleCheckRequests = async () => {
+      try {
+        const response = await fetch('/api/check-requests', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ unique_id: user.nokp }),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+  
+        const result = await response.json();
+        setHasRequests(result.hasRequests);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+    useEffect(() => {
+      // Call the check requests function when the component mounts
+      handleCheckRequests();
+    }, []);
 
   return (
     <div className="landing-page">
@@ -315,6 +319,9 @@ function LandingPage() {
       <Footer />
     </div>
   );
+    } else {
+      return null;
+    }
 }
 
 export default LandingPage;

@@ -8,17 +8,19 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 function AdminDashboard(props) {
   const location = useLocation();
-  const user = location.state;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
+    // Use a conditional check before navigating
+    if (!location.state) {
       navigate('/WelcomePage');
     }
-  }, [user, navigate]);
+  }, [location.state, navigate]);
 
-  return ( 
-    <div className="App">
+    if (location.state) {
+    const user = location.state;
+    return ( 
+      <div className="App">
         <AnalyticDashboard /> 
         <Divider style={{ margin: '30px 0' }} />
         <AnalyticGraph />
@@ -26,8 +28,12 @@ function AdminDashboard(props) {
         <ApplicationListPage user_roles={user.roles} unique_id={user.unique_id}/>
         <Divider style={{ margin: '30px 0' }} />
         <VendorListPage />
-    </div>
-  );
+      </div>
+    );
+  } else {
+    // If location state is undefined or null, do not render anything
+    return null;
+  }
 }
 
 export default AdminDashboard;
