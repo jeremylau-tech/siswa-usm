@@ -124,7 +124,7 @@ function WelcomePage(props) {
                 Wang Ihsan
               </Typography>
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
-                  Keupayaan pelajar untuk menerusi pemebelajaran.
+                  Keupayaan pelajar untuk menerusi pembelajaran.
               </Typography>
               <Button disabled component={Link} to='/Wang_FormPage' variant="contained" color="primary">
                 Akan Datang
