@@ -180,8 +180,9 @@ app.post("/", (req, res) => {
     const data = await fetchDataFromAPI(ic);
     const userData = data['data'][0]
 
-    // Log and send the fetched data back as a response
-    // console.log(userData);
+    if (!userData.nokp || !userData.matrik || !userData.emel) {
+      return res.redirect(302, "/");
+    }
 
     const token = jwt.sign({ ic: userData.nokp, unique_id: userData.matrik, email: userData.emel, roles: 'student' }, secretKey, { expiresIn: '1h' });
     // res.json({ token, user: { unique_id: userData.matrik, email: userData.emel, roles: 'student' } });

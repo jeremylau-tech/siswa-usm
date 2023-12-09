@@ -58,7 +58,7 @@ function WelcomePage(props) {
                 console.error('Invalid role:', roles);
               }
             } else {
-              alert('Modification on token detected! Logging out...');
+              alert('Token invalid! Redirecting...');
               console.error('Invalid token');
               Cookies.remove('jwtToken');
               window.location.href = `https://login.usm.my/adfs/ls/?wa=wsignout1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wreply=https://kebajikansiswa.usm.my&wctx=`;
