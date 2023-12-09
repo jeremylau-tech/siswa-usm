@@ -676,6 +676,7 @@ app.get("/api/request-all-admin", (req, res) => {
       FROM request
       GROUP BY requestor_id
     ) rc ON r.requestor_id = rc.requestor_id
+    ORDER BY r.request_date DESC, r.request_time DESC;
   `;
 
   // Execute the query
@@ -728,7 +729,8 @@ app.get("/api/request-status-admin", (req, res) => {
       WHERE request_status = ?
       GROUP BY requestor_id
     ) rc ON r.requestor_id = rc.requestor_id
-    WHERE r.request_status = ?;
+    WHERE r.request_status = ?
+    ORDER BY r.request_date DESC, r.request_time DESC;
   `;
 
   // Execute the query with parameterized values
@@ -888,6 +890,7 @@ app.get("/api/request-type-status-admin", (req, res) => {
       GROUP BY requestor_id
     ) rc ON r.requestor_id = rc.requestor_id
     ${sec_half_sql};
+    ORDER BY r.request_date DESC, r.request_time DESC;
     `;
     
   
