@@ -179,8 +179,9 @@ app.post("/", (req, res) => {
 
     const data = await fetchDataFromAPI(ic);
     const userData = data['data'][0]
+    console.log(userData)
 
-    if (!userData.nokp || !userData.matrik || !userData.emel) {
+    if (!userData) {
       return res.redirect(302, "/");
     }
 
