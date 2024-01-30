@@ -22,21 +22,18 @@ function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath 
         <h2>Semakan Dokumen</h2>
         <div style={gridContainerStyle}>
           <div>
-          <Typography textAlign={"right"} padding={1}>Jenis Tajaan:</Typography>
+            <Typography textAlign={"right"} padding={1}>Jenis Tajaan:</Typography>
           </div>
           <input style={inputStyle} type="text" value={sponsor} readOnly />
 
           <div>
-          <Typography textAlign={"right"} padding={1}>Jenis Bantuan Diperlukan:</Typography>
+            <Typography textAlign={"right"} padding={1}>Jenis Bantuan Diperlukan:</Typography>
           </div>
           <input style={inputStyle} type="text" value={requestType} readOnly />
 
+          {/* Removed commented code and fixed formatting */}
           <div>
-          {/* <Typography textAlign={"right"} padding={1}>Amaun Diperlukan:</Typography>
-          </div>
-          <input style={inputStyle} type="text" value="$10,000" readOnly />
-          <div> */}
-          <Typography textAlign={"right"} padding={1}>Justifikasi:</Typography>
+            <Typography textAlign={"right"} padding={1}>Justifikasi:</Typography>
           </div>
           <input
             style={inputStyle}
@@ -45,6 +42,7 @@ function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath 
             readOnly
           />
           <div>
+            {/* Mapping over pdfsPath to render each PDF */}
             {pdfsPath.map((pdf, index) => (
               <div key={index}>
                 <Typography textAlign="right" padding={1}>{pdf.name}:</Typography>
