@@ -170,7 +170,7 @@ function ApplicationListPage({ user_roles, unique_id }) {
                 alignItems: "center",
               }}
             >
-              <KewanganList />
+              <KewanganList roles={roles} user_id={user_id}/>
             </Box>
           )}
           {value === 5 && (
