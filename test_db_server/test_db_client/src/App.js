@@ -11,6 +11,7 @@ import LoginSSO from "./component/authentication/LoginSSO";
 // Import new page down here (Follow this format to import new page)
 import NewPageTest from "./component/NewPageTest";
 import Makanan from "./component/MakananPage";
+import MaintainancePage from "./component/MaintainancePage";
 
 // Insert new import statement here
 import LandingPage from "./component/LandingPage";
@@ -52,7 +53,9 @@ function App() {
       <div className="App">
         <NavBar />
         <Routes>
-          <Route path="/" element={<WelcomePage />} />
+          <Route path="/" element={<MaintainancePage />} />
+
+          {/* <Route path="/" element={<WelcomePage />} /> */}
           {/* <Route path="/message" element={<MessagePage />} /> */}
           <Route path="/makanan" element={<Makanan />} />
           <Route path="/users" element={<UsersPage />} />
