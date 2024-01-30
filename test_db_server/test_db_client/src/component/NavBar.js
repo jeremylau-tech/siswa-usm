@@ -135,12 +135,16 @@ function Navbar() {
           </Button>
 
           {!jwtToken && (roles != 'admin' && roles != 'bhepa' && roles != 'tnc') && (
-              <Button 
-              component={Link} 
-              to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
-              style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}>
-                Log Masuk
-              </Button>
+            //for maintainance
+              (window.location.pathname === '/' && (
+                <Button 
+                  component={Link} 
+                  to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
+                  style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}
+                >
+                  Log Masuk
+                </Button>
+              ))
             )}
         </>
       )      
@@ -203,11 +207,14 @@ function Navbar() {
             <ListItemText primary="Log Masuk" />
           </ListItem> */}
 
-{!jwtToken && (roles != 'admin' && roles != 'bhepa' && roles != 'tnc') && (
-              <ListItem component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}>
-              <ListItemText primary="Log Masuk" />
-                      </ListItem>
-            )}
+{!jwtToken && 
+  (roles !== 'admin' && roles !== 'bhepa' && roles !== 'tnc') && 
+  (window.location.pathname === '/' && (
+    <ListItem component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}>
+    <ListItemText primary="Log Masuk" />
+    </ListItem>
+  ))
+}
 
 {/* {jwtToken && (
               <ListItem onClick={handleLogout}>
