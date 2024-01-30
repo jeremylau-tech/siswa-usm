@@ -26,12 +26,11 @@ const getRolesFromToken = function (token) {
 
 
 function Navbar() {
-  if (window.location.href === 'https://kebajikansiswa.usm.my') {
+  if (useLocation().pathname === '/') {
     alert('asdsada')
     return null;
   }
 
-  alert(useLocation().pathname)
   const jwtToken = Cookies.get('jwtToken');
   const navigate = useNavigate();
   const theme = useTheme();
