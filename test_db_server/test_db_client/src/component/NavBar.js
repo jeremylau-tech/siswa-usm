@@ -31,8 +31,7 @@ function Navbar() {
     return null;
   }
 
-  alert('uhuhu')
-
+  alert(useLocation().pathname)
   const jwtToken = Cookies.get('jwtToken');
   const navigate = useNavigate();
   const theme = useTheme();
