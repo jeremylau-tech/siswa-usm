@@ -105,7 +105,7 @@ function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType,
 
 useEffect(() => {
   // Fetch user details from the server
-  fetch(`https://kebajikansiswa.usm.my/api/food-applications-requestid?request_id=${requestId}`)
+  fetch(`https://kebajikansiswa.usm.my/api/wang-ihsan-applications-requestid?request_id=${requestId}`)
     .then((res) => res.json())
     .then((data) => {
       if (data.wangIhsanDetails) {
@@ -134,7 +134,7 @@ useEffect(() => {
         // Update request objects with user names
         const requestsFoodUsers = data.request.map((request) => {
           const requestorDetails = userDetailsMap;
-          const foodDetails = foodApplication[request.request_id];
+          const wangIhsanDetails = wangIhsanApplication[request.request_id];
 
           return {
             ...request,
