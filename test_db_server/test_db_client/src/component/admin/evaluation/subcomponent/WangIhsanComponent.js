@@ -132,7 +132,7 @@ useEffect(() => {
     .then((data) => {
       if (data.request) {
         // Update request objects with user names
-        const requestsFoodUsers = data.request.map((request) => {
+        const requestUsers = data.request.map((request) => {
           const requestorDetails = userDetailsMap;
           const wangIhsanDetails = wangIhsanApplication[request.request_id];
 
@@ -144,15 +144,21 @@ useEffect(() => {
             requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
             requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
 
-            food_sponsor_type: foodDetails ? foodDetails.sponsor_type : '-',
-            food_justification: foodDetails ? foodDetails.food_justification : '-',
-            food_ic_num_file: foodDetails ? foodDetails.ic_num_file : '-',
-            food_payment_slip_file: foodDetails ? foodDetails.payment_slip_file : '-',
+            wang_ihsan_sponsor_type: wangIhsanDetails ? wangIhsanDetails.sponsor_type : '-',
+            wang_ihsan_ammount_requested: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_ammount_requested : '-',
+            wang_ihsan_help_type: wangIhsanDetails ? wangIhsanDetails.help_type : '-',
+            wang_ihsan_justification: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_justification : '-',
+            wang_ihsan_ic_num_file: wangIhsanDetails ? wangIhsanDetails.ic_num_file : '-',
+            wang_ihsan_bank_statement_file: wangIhsanDetails ? wangIhsanDetails.bank_statement_file : '-',
+            wang_ihsan_payment_slip_father_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_father_file : '-',
+            wang_ihsan_payment_slip_mother_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_mother_file : '-',
+            wang_ihsan_support_doc_file: wangIhsanDetails ? wangIhsanDetails.support_doc_file : '-',
           };
         });
-        console.log(requestsFoodUsers);
+        console.log('this is the test ---------------------------')
+        console.log(requestUsers);
 
-        setRequests(requestsFoodUsers);
+        setRequests(requestUsers);
       }
     })
     .catch((error) => {
