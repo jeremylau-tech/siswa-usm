@@ -1283,15 +1283,21 @@ app.post("/api/insert-users", (req, res) => {
       admin_approver_id,
       bhepa_approver_id,
       tnc_approver_id,
-
+      
+      ammount_requested,
+      help_type,
+      wang_ihsan_justification,
+      support_document_file,
+      payment_slip_file_mother,
+      payment_slip_file_father,
       sponsor_type,
       req_relationship,
       death_cert_file,
       ic_num_file,
       bank_statement_file,
       payment_slip_file,
+
       transport_fare_file,
-      support_doc_file,
       device_type,
       device_details,
       device_pic_file,
@@ -1350,6 +1356,32 @@ app.post("/api/insert-users", (req, res) => {
         ic_num_file,
         payment_slip_file,
         food_justification
+      ],
+      (err, result) => {
+        if (err) {
+          console.error('Error inserting request data into MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+        } else {
+          res.status(201).json({ message: 'Request data inserted successfully' });
+        }
+      }
+    );
+    } else if (request_type === "wang_ihsan"){
+      sql = "INSERT INTO `wang_ihsan_application` (request_id, sponsor_type, help_type, ic_num_file, bank_statement_file, payment_slip_father_file, payment_slip_mother_file, support_doc_file, wang_ihsan_ammount_requested, wang_ihsan_ammount_approved, wang_ihsan_justification) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      // Execute the query
+    db.query(
+      [
+        request_id,
+        sponsor_type,
+        help_type,
+        ic_num_file,
+        bank_statement_file,
+        payment_slip_file_father,
+        payment_slip_file_father,
+        support_document_file,
+        ammount_requested,
+        0,
+        wang_ihsan_justification
       ],
       (err, result) => {
         if (err) {
