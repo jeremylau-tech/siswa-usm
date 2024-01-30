@@ -178,7 +178,7 @@ const columns = [
   const handleButtonClick = (rowId) => {
   // Add your logic here to handle the button click for the row with the given ID
   console.log(`Button clicked for row with ID: ${rowId}`);
-  };
+  }; 
   
    function NewApplication(){
 
@@ -207,7 +207,7 @@ const columns = [
 
   useEffect(() => {
     const statusParam = "complete"; // Replace with the desired status parameter
-    const typeparam = "wang"; 
+    const typeparam = "wang_ihsan"; 
     const apiUrl = `https://kebajikansiswa.usm.my/api/request-type-status?request_status=${statusParam}&request_type=${typeparam}`;
 
     // Fetch requests from the server
