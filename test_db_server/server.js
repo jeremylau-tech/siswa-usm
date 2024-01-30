@@ -1397,42 +1397,12 @@ app.post("/api/insert-users", (req, res) => {
     );
     }
 
-    /*db.query(
-      sql,
-      [
-        requestor_id,
-        approver_id || null, // Set approver_id to null if not provided
-        sponsor_type || null, 
-        req_relationship || null,
-        death_cert_file || null,
-        ic_num_file || null,
-        bank_statement_file || null,
-        payment_slip_file || null,
-        transport_fare_file || null,
-        support_doc_file || null,
-        request_type || null,
-        device_type || null,
-        device_details || null,
-        device_pic_file || null
-      ],
-      (err, result) => {
-        if (err) {
-          console.error('Error inserting request data into MySQL:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-        } else {
-          res.status(201).json({ message: 'Request data inserted successfully' });
-        }
-      }
-    );*/
-  
-    //const sql = "INSERT INTO request (requestor_id, approver_id, sponsor_type, req_relationship, death_cert_file, ic_num_file, bank_statement_file, payment_slip_file, transport_fare_file, support_doc_file, request_type, device_type, device_details, device_pic_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
   });
   
 
   
   //Will be here front end
-  app.use(express.static('test_db_client/build'));
+app.use(express.static('test_db_client/build'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'test_db_client', 'build', 'index.html'));
