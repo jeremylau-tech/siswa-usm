@@ -206,7 +206,7 @@ const columns = [
   }, []);
 
   useEffect(() => {
-    const statusParam = "complete"; // Replace with the desired status parameter
+    const statusParam = "not"; // Replace with the desired status parameter
     const typeparam = "wang_ihsan"; 
     const apiUrl = `https://kebajikansiswa.usm.my/api/request-type-status?request_status=${statusParam}&request_type=${typeparam}`;
 
