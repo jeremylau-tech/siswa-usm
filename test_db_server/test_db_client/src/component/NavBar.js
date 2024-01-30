@@ -26,6 +26,10 @@ const getRolesFromToken = function (token) {
 
 
 function Navbar() {
+  if (window.location.href === 'https://kebajikansiswa.usm.my') {
+    return null;
+  }
+
   const jwtToken = Cookies.get('jwtToken');
   const navigate = useNavigate();
   const theme = useTheme();
@@ -135,16 +139,12 @@ function Navbar() {
           </Button>
 
           {!jwtToken && (roles != 'admin' && roles != 'bhepa' && roles != 'tnc') && (
-            //for maintainance
-              (window.location.href === 'kebajikansiswa.usm.my' && (
-                <Button 
-                  component={Link} 
-                  to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
-                  style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}
-                >
-                  Log Masuk
-                </Button>
-              ))
+              <Button 
+              component={Link} 
+              to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
+              style={{ backgroundColor: '#491E6E', color: 'white', border: 'none' }}>
+                Log Masuk
+              </Button>
             )}
         </>
       )      
@@ -207,14 +207,11 @@ function Navbar() {
             <ListItemText primary="Log Masuk" />
           </ListItem> */}
 
-{!jwtToken && 
-  (roles !== 'admin' && roles !== 'bhepa' && roles !== 'tnc') && 
-  (window.location.href === 'kebajikansiswa.usm.my' && (
-    <ListItem component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}>
-    <ListItemText primary="Log Masuk" />
-    </ListItem>
-  ))
-}
+{!jwtToken && (roles != 'admin' && roles != 'bhepa' && roles != 'tnc') && (
+              <ListItem component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}>
+              <ListItemText primary="Log Masuk" />
+                      </ListItem>
+            )}
 
 {/* {jwtToken && (
               <ListItem onClick={handleLogout}>
