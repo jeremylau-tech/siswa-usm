@@ -5,11 +5,18 @@ import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function FoodApplication() {
-  const [sponsorType, setSponsorType] = useState(""); // State for selected options
   const [icNumFile, setIcNumFile] = useState(null); // Maintain the selectedFile state
-  const [paymentSlipFile, setPaymentSlipFile] = useState(null); // Maintain the selectedFile state
-  const [foodJustification, setFoodJustification] = useState(""); // State for justification text
+  const [paymentSlipFileFather, setPaymentSlipFileFather] = useState(null); // Maintain the selectedFile state
+  const [paymentSlipFileMother, setPaymentSlipFileMother] = useState(null); // Maintain the selectedFile state
+  const [wangIhsanJustification, setWangIhsanJustification] = useState(""); // State for justification text
+  const [ammountRequested, setAmmountRequested] = useState(0); // State for justification text
+  const [bankStatementFile, setBankStatementFile] = useState(null); // Maintain the selectedFile state
+  const [supportDocFile, setSupportDocFile] = useState(null); // Maintain the selectedFile state
+  const [sponsorType, setSponsorType] = useState(""); // State for selected options
+  const [helpType, setHelpType] = useState(""); // State for selected options
   const [customOption, setCustomOption] = useState(""); // State for custom "Jenis Tajaan"
+
+
   const location = useLocation();
   const user = location.state;
   const navigate = useNavigate(); // Initialize the useNavigate hook
@@ -23,7 +30,7 @@ function FoodApplication() {
   const [formData, setFormData] = useState({
     requestor_id: user.nokp,
     requestor_name: user.nama,
-    request_type: "makanan"
+    request_type: "wang_ihsan"
   });
 
   const MAX_FILE_SIZE_MB = 1;
@@ -56,6 +63,11 @@ const handleSponsorTypeChange = (e) => {
   if (selectedOption === "Lain") {
     setCustomOption("");
   }
+};
+
+const handleHelpType = (e) => {
+  const selectedOption = e.target.value;
+  setHelpType(selectedOption);
 };
 
   const uploadFile = async (file, category) => {
@@ -106,9 +118,13 @@ const handleSponsorTypeChange = (e) => {
     if (
       !sponsorType ||
       (sponsorType === "Lain" && !customOption) ||
+      !helpType ||
+      !bankStatementFile || 
+      !wangIhsanJustification || 
+      !paymentSlipFileMother ||
+      !paymentSlipFileFather ||
       !icNumFile ||
-      !paymentSlipFile ||
-      !foodJustification
+      !ammountRequested
     ) {
       alert("Please fill in all the required fields.");
       return;
@@ -126,7 +142,10 @@ const handleSponsorTypeChange = (e) => {
     // Define the array of promises for file uploads
     const uploadPromises = [
       uploadFile(icNumFile, "ic"),
-      uploadFile(paymentSlipFile, "paymentslip"),
+      uploadFile(paymentSlipFileFather, "paymentslip"),
+      uploadFile(paymentSlipFileMother, "paymentslip"),
+      uploadFile(bankStatementFile, "bankstatement"),
+      uploadFile(supportDocFile, "supportdoc"),
     ];
   
     try {
@@ -135,9 +154,15 @@ const handleSponsorTypeChange = (e) => {
 
       const formDataJSON = {
         ic_num_file: results[0],
-        payment_slip_file: results[1],
+        payment_slip_file_father: results[1],
+        payment_slip_file_mother: results[2],
+        bank_statement_file: results[3],
+        support_document_file: results[4],
+        wang_ihsan_justification: wangIhsanJustification,
         sponsor_type: sponsorType === "Lain" ? customOption : sponsorType,
-        food_justification: foodJustification,
+        help_type: helpType,
+        ammount_requested:  ammountRequested,
+
         requestor_id: formData.requestor_id,
         request_type: formData.request_type,
         requestor_name: formData.requestor_name
@@ -147,31 +172,39 @@ const handleSponsorTypeChange = (e) => {
       // console.log(formDataJSON)
 
 
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formDataJSON),
-      });
-  
-      if (response.ok) {
-        // if (true) {
+      alert("Updated!")
+      console.log(formDataJSON);
 
-        // If the server responds with a 200 status code (OK), you can handle success here
-        alert("Form data sent successfully!");
+      // const response = await fetch(apiUrl, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(formDataJSON),
+      // });
+  
+      // if (response.ok) {
+      //   // if (true) {
+
+      //   // If the server responds with a 200 status code (OK), you can handle success here
+      //   alert("Form data sent successfully!");
         
-        setSponsorType("");
-        setIcNumFile(null)
-        setPaymentSlipFile(null);
-        setFoodJustification("");
-        navigate('/LandingPage', { state: { ...user } });
-      } else {
-        // console.log(formData);
-        // Handle errors or display error messages here
-        console.error("Form data submission failed.");
-        alert("Something wrong on the backend!");
-      }
+      //   setIcNumFile(null)
+      //   setPaymentSlipFileMother(null)
+      //   setPaymentSlipFileFather(null)
+      //   setBankStatementFile(null)
+      //   setSupportDocFile(null)
+      //   setSponsorType("");
+      //   setHelpType("");
+      //   setAmmountRequested(0)
+      //   setWangIhsanJustification("");
+      //   navigate('/LandingPage', { state: { ...user } });
+      // } else {
+      //   // console.log(formData);
+      //   // Handle errors or display error messages here
+      //   console.error("Form data submission failed.");
+      //   alert("Something wrong on the backend!");
+      // }
     } catch (error) {
       console.error("Error during form submission:", error);
     }
@@ -208,7 +241,7 @@ const handleSponsorTypeChange = (e) => {
         <h2 className="right-header">Butiran Permohonan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
         <form className="form-style"  onSubmit={handleSubmit}>
-          
+
         <div className="form-group select-food-container">
             <label htmlFor="options-food" className="select-food-label">Jenis Tajaan:</label>
             <p className="subtext">Choose the Sponsorship Type:</p>
@@ -236,8 +269,37 @@ const handleSponsorTypeChange = (e) => {
             )}
           </div>
 
+          <div className="form-group select-food-container">
+            <label htmlFor="options-food" className="select-food-label">Jenis Bantuan:</label>
+            <p className="subtext">Choose the Request Type:</p>
+            <div className="select-food-wrapper">
+            <select id="help_type" name="help_type" className="select" onChange={handleHelpType} value={helpType}>
+                <option value="">Sila Pilih Jenis Bantuan</option>
+                <option value="Yuran Desasiswa">Yuran Desasiswa</option>
+                <option value="Yuran Kolej">Yuran Kolej</option>
+                <option value="Sara Hidup">Sara Hidup</option>
+                <option value="Masalah Kesihatan">Masalah Kesihatan</option>
+              </select>
+            </div>
+          </div>
+
           <div className="form-group">
-            <label htmlFor="email2">Salinan Kad Pengenalan (Saiz Fail Maksimum: 1MB):</label>
+            <label htmlFor="ammountRequested">Jumlah permohonan bantuan:</label>
+            <p className="subtext">Requested amount (RM):</p>
+            <input
+              type="number"
+              id="ammount_requested"
+              name="ammount_requested"
+              value={ammountRequested}
+              onChange={(e) => setAmmountRequested(e.target.value)}
+              className="reason-textarea"
+              placeholder="0"
+            />
+          </div>
+
+
+          <div className="form-group">
+            <label htmlFor="">Salinan Kad Pengenalan (Saiz Fail Maksimum: 1MB):</label>
             <p className="subtext">Photocopy of Identity Card (Max File Size: 1MB):</p>
             <DragDrop
               selectedFile={icNumFile}
@@ -246,23 +308,51 @@ const handleSponsorTypeChange = (e) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa (Saiz Fail Maksimum: 1MB):</label>
+            <label htmlFor="">Salinan Slip Gaji Bapa (Saiz Fail Maksimum: 1MB):</label>
             <p className="subtext">Copy of Parent's Salary Slip (Max File Size: 1MB):</p>
             <DragDrop
-              selectedFile={paymentSlipFile}
-              setSelectedFile={(file) => handleFileChange(file, setPaymentSlipFile, "paymentslip")}
+              selectedFile={paymentSlipFileFather}
+              setSelectedFile={(file) => handleFileChange(file, setPaymentSlipFileFather, "paymentslip")}
             />
           </div>
+
+          <div className="form-group">
+            <label htmlFor="">Salinan Slip Gaji Ibu (Saiz Fail Maksimum: 1MB):</label>
+            <p className="subtext">Copy of Parent's Salary Slip (Max File Size: 1MB):</p>
+            <DragDrop
+              selectedFile={paymentSlipFileMother}
+              setSelectedFile={(file) => handleFileChange(file, setPaymentSlipFileMother, "paymentslip")}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="">Salinan Penyata Bank (Saiz Fail Maksimum: 1MB):</label>
+            <p className="subtext">Copy of Bank Statement (Max File Size: 1MB):</p>
+            <DragDrop
+              selectedFile={bankStatementFile}
+              setSelectedFile={(file) => handleFileChange(file, setBankStatementFile, "bankstatement")}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="">Salinan dokumen sokongan (Saiz Fail Maksimum: 1MB):</label>
+            <p className="subtext">Copy of Supporting Document (Max File Size: 1MB):</p>
+            <DragDrop
+              selectedFile={supportDocFile}
+              setSelectedFile={(file) => handleFileChange(file, setSupportDocFile, "supportdoc")}
+            />
+          </div>
+
 
           {/* Justification textarea */}
           <div className="form-group">
             <label htmlFor="justification">Justifikasi Untuk Menyokong Permohonan (Maksimum 250 Patah Perkataan):</label>
             <p className="subtext">Provide a Brief Justification for the Application (Max 250 Words):</p>
             <textarea
-              id="food_justification"
-              name="food_justification"
-              value={foodJustification}
-              onChange={(e) => setFoodJustification(e.target.value)}
+              id="wang_ihsan_justification"
+              name="wang_ihsan_justification"
+              value={wangIhsanJustification}
+              onChange={(e) => setWangIhsanJustification(e.target.value)}
               className="reason-textarea"
               placeholder="Saya memerlukan bantuan ini kerana..."
             />
