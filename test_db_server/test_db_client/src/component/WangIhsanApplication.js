@@ -285,14 +285,13 @@ const handleHelpType = (e) => {
 
           <div className="form-group">
             <label htmlFor="ammountRequested">Jumlah permohonan bantuan:</label>
-            <p>Requested amount (RM):</p>
+            <p className="subtext">Requested amount (RM):</p>
             <input
               type="number"
               id="ammount_requested"
               name="ammount_requested"
               value={ammountRequested}
               onChange={(e) => setAmmountRequested(e.target.value)}
-              className="reason-textarea"
               placeholder="0"
             />
           </div>
