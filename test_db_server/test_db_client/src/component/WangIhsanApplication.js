@@ -131,7 +131,7 @@ const handleHelpType = (e) => {
     }
     
     // Count words in the justification
-    const justificationWords = foodJustification.split(/\s+/).filter(Boolean).length;
+    const justificationWords = wangIhsanJustification.split(/\s+/).filter(Boolean).length;
 
     // Check if the justification exceeds the word limit
     if (justificationWords > MAX_WORDS_IN_JUSTIFICATION) {
