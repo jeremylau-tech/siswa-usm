@@ -36,7 +36,10 @@ import TestAllFunction from "./component/TestAllFunction";
 import WelcomePage from "./component/WelcomePage";
 import VendorListPage from "./component/admin/vendor/VendorListPage";
 import CouponPage from "./component/CouponPage";
+
 import FoodApplication from "./component/FoodApplication";
+import WangIhsanApplication from "./component/WangIhsanApplication";
+
 import HistoryFood from "./component/HistoryFood";
 import InvoicePage from "./component/admin/vendor/InvoicePage";
 import ClaimedInvoicePage from "./component/admin/vendor/record/ClaimedInvoicePage";
@@ -75,7 +78,10 @@ function App() {
           <Route path="/TestAllFunction" element={<TestAllFunction />} />
           <Route path="/VendorListPage" element={<VendorListPage />} />
           <Route path="/CouponPage" element={<CouponPage />} />
+
           <Route path="/FoodApplication" element={<FoodApplication />} />
+          <Route path="/WangIhsanApplication" element={<WangIhsanApplication />} />
+
           <Route path="/HistoryFood" element={<HistoryFood />} />
           <Route path="/InvoicePage" element={<InvoicePage />} />
           <Route path="/ClaimedInvoicePage" element={<ClaimedInvoicePage />} />

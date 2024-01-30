@@ -62,6 +62,12 @@ function LandingPage() {
 
     function handleMohonWangIhsan() {
       // Merge the existing location state with your data
+      navigate('/WangIhsanApplication', { state: { ...user } });
+    }
+
+    // KIV
+    function handleMohonKhairat() {
+      // Merge the existing location state with your data
       navigate('/FoodApplication', { state: { ...user } });
     }
   
@@ -196,8 +202,15 @@ function LandingPage() {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Keupayaan pelajar untuk menerusi pembelajaran.
               </Typography>
-              <Button component={Link} to='/Wang_FormPage' variant="contained" color="primary" disabled>
-                Akan Datang
+              {/* Wang_FormPage */}
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ ...commonButtonStyle, marginRight: '10px' }}
+                onClick={handleMohonWangIhsan}
+                // disabled={hasRequests}
+              >
+                Mohon
               </Button>
             </CardContent>
           </Card>
