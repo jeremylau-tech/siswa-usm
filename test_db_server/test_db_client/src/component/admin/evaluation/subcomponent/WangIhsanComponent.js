@@ -149,11 +149,11 @@ useEffect(() => {
 
         setRequests(requestUsers);
         setPdfsPath(
-          { name: 'IC Number', path:  wangIhsanDetails.ic_num_file },
-          { name: 'Bank Statement', path: wangIhsanDetails.bank_statement_file },
-          { name: 'Payment Slip (Father)', path: wangIhsanDetails.payment_slip_father_file },
-          { name: 'Payment Slip (Mother)', path: wangIhsanDetails.payment_slip_mother_file },
-          { name: 'Supporting Document', path: wangIhsanDetails.support_doc_file }
+          { name: 'IC Number', path:  requestUsers[0].ic_num_file },
+          { name: 'Bank Statement', path: requestUsers[0].bank_statement_file },
+          { name: 'Payment Slip (Father)', path: requestUsers[0].payment_slip_father_file },
+          { name: 'Payment Slip (Mother)', path: requestUsers[0].payment_slip_mother_file },
+          { name: 'Supporting Document', path: requestUsers[0].support_doc_file }
         ) 
       }
     })
