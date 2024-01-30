@@ -1291,6 +1291,7 @@ app.post("/api/insert-users", (req, res) => {
       payment_slip_file_mother,
       payment_slip_file_father,
       sponsor_type,
+
       req_relationship,
       death_cert_file,
       ic_num_file,
@@ -1367,9 +1368,11 @@ app.post("/api/insert-users", (req, res) => {
       }
     );
     } else if (request_type === "wang_ihsan"){
+      console.log('asd')
       sql = "INSERT INTO `wang_ihsan_application` (request_id, sponsor_type, help_type, ic_num_file, bank_statement_file, payment_slip_father_file, payment_slip_mother_file, support_doc_file, wang_ihsan_ammount_requested, wang_ihsan_ammount_approved, wang_ihsan_justification) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       // Execute the query
     db.query(
+      sql,
       [
         request_id,
         sponsor_type,
@@ -1377,7 +1380,7 @@ app.post("/api/insert-users", (req, res) => {
         ic_num_file,
         bank_statement_file,
         payment_slip_file_father,
-        payment_slip_file_father,
+        payment_slip_file_mother,
         support_document_file,
         ammount_requested,
         0,
