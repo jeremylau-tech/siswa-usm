@@ -285,7 +285,7 @@ const handleHelpType = (e) => {
 
           <div className="form-group">
             <label htmlFor="ammountRequested">Jumlah permohonan bantuan:</label>
-            <p className="subtext">Requested amount (RM):</p>
+            <p>Requested amount (RM):</p>
             <input
               type="number"
               id="ammount_requested"
