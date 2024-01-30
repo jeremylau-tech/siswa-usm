@@ -27,7 +27,6 @@ const getRolesFromToken = function (token) {
 
 function Navbar() {
   if (useLocation().pathname === '/') {
-    alert('asdsada')
     return null;
   }
 
