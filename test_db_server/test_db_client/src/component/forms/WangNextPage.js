@@ -73,8 +73,9 @@ function WangNextPage() {
         <form className="form-style">
           <div className="form-group select-container-wang">
             <label htmlFor="options" className="select-label">
-              Jenis Tajaan:
+              Sponsorship Type:
             </label>
+            <p className="subtext">Photocopy of Identity Card:</p>
             <select id="options" name="options" className="select" onChange={handleOptionChange}>
               <option value="">Sila Pilih Jenis Tajaan</option>
               <option value="Option 1">PTPTN</option>
@@ -100,6 +101,7 @@ function WangNextPage() {
             <div className="form-group">
               <label htmlFor="options" className="select-label">
                 <label>Jenis Bantuan Yang Diperlukan:</label>
+                <p className="subtext">Kinds of Help Needed:</p>
               </label>
               <select
                 id="bantuanOptions"
@@ -119,6 +121,7 @@ function WangNextPage() {
 
           <div className="form-group">
             <label htmlFor="amount">Amaun Yang Diperlukan:</label>
+            <p className="subtext">Amount Required:</p>
             <input
               type="number"
               id="amount"
@@ -130,6 +133,7 @@ function WangNextPage() {
 
           <div className="form-group">
             <label htmlFor="reason">Jelaskan Bantuan Yang Diperlukan (Maksimum 250 Patah Perkataan):</label>
+            <p className="subtext">Explain the Help Needed (Maximum 250 Words):</p>
             <textarea
               id="reason"
               name="reason"
@@ -142,21 +146,31 @@ function WangNextPage() {
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Kad Pengenalan:</label>
+            <p className="subtext">Photocopy of Identity Card:</p>
             <DragDrop selectedFile={icNumFile} setSelectedFile={setIcNumFile} />
           </div>
 
           <div className="form-group">
-            <label htmlFor="email2">Salinan Penyata Bank Pelajar:</label>
+            <label htmlFor="email2">Salinan Penyata Bank Pelajar (3 Bulan Terkini):</label>
+            <p className="subtext">Copy of Student Bank Statement (Last 3 Months):</p>
             <DragDrop selectedFile={bankStatementFile} setSelectedFile={setBankStatementFile} />
           </div>
 
           <div className="form-group">
-            <label htmlFor="email2">Salinan Slip Gaji Ibu Bapa:</label>
+            <label htmlFor="email2">Salinan Slip Gaji Ibu:</label>
+            <p className="subtext">Copy of Mother's Salary Slip:</p>
             <DragDrop selectedFile={paymentSlipFile} setSelectedFile={setPaymentSlipFile} />
           </div>
 
           <div className="form-group">
-            <label htmlFor="email2">Dokumen Sokongan:</label>
+            <label htmlFor="email2">Salinan Slip Gaji Bapa:</label>
+            <p className="subtext">Copy of Father's Salary Slip:</p>
+            <DragDrop selectedFile={paymentSlipFile} setSelectedFile={setPaymentSlipFile} />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email2">Dokumen Sokongan (Jika Berkenaan):</label>
+            <p className="subtext">Supporting Documents (If Applicable):</p>
             <DragDrop selectedFile={supportDocFile} setSelectedFile={setSupportDocFile} />
           </div>
 

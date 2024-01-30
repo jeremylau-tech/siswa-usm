@@ -18,6 +18,31 @@ function KhairatNextPage() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  const getCertificateLabel = () => {
+    switch (formData.req_relationship) {
+      case "ibuBapa":
+        return {
+          malay: "Salinan Sijil Kelahiran Pemohon",
+          english: "Copy of Applicant's Birth Certificate",
+        };
+      case "suamiIsteri":
+        return {
+          malay: "Salinan Sijil Kelahiran Pasangan",
+          english: "Copy of Spouse's Birth Certificate",
+        };
+      case "penjaga":
+        return {
+          malay: "Salinan Surat Pengesahan Penjaga",
+          english: "Copy of Guardian's Confirmation Letter",
+        };
+      default:
+        return {
+          malay: "Salinan Sijil Kelahiran Pemohon/Pasangan",
+          english: "Copy of Applicant's/Spouse's Birth Certificate",
+        };
+    }
+  };  
   
   const uploadFile = async (file) => {
     if (file) {
@@ -154,35 +179,53 @@ function KhairatNextPage() {
         <h2 className="right-header">Butiran Permohonan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
         <form class="form-style"  onSubmit={handleSubmit}>
-          
-          <div className="form-group">
+
+          <div className="form-group select-food-container">
             <label htmlFor="relationship">Hubungan:</label>
-            <input
-              type="text"
-              placeholder="Ibu/ Bapa/ Suami/ Isteri/ Penjaga Sah/ Nyatakan Lain-lain Berkenaan"
+            <p className="subtext">Relationship:</p>
+            <div className="select-food-wrapper"></div>
+            <select
               id="req_relationship"
               name="req_relationship"
-              value={formData.req_relationship}
+              className="select" 
               onChange={handleChange}
+              value={formData.req_relationship}
               required
-            />
+            >
+              <option value="" disabled>Pilih Hubungan</option>
+              <option value="ibuBapa">Ibu/Bapa Kandung</option>
+              <option value="suamiIsteri">Suami/Isteri</option>
+              <option value="penjaga">Penjaga</option>
+            </select>
           </div>
           
           <div className="form-group">
+          <label htmlFor="email2">
+            {getCertificateLabel().malay}:
+            <p className="subtext">{getCertificateLabel().english}</p>
+          </label>
+            <DragDrop selectedFile={deathCertFile} setSelectedFile={setDeathCertFile} />
+          </div>
+
+          <div className="form-group">
             <label htmlFor="email2">Salinan Sijil Kematian:</label>
+            <p className="subtext">Copy of Death Certificate:</p>
             <DragDrop selectedFile={deathCertFile} setSelectedFile={setDeathCertFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Kad Pengenalan:</label>
+            <p className="subtext">Photocopy of Identity Card:</p>
             <DragDrop selectedFile={icNumFile} setSelectedFile={setIcNumFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Penyata Bank:</label>
+            <p className="subtext">Copy of Bank Statement:</p>
             <DragDrop selectedFile={bankStatementFile} setSelectedFile={setBankStatementFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
 
           <div className="form-group">
             <label htmlFor="email2">Salinan Resit Asal Tambang Perjalanan (Tujuan Pengebumian):</label>
+            <p className="subtext">Copy of Original Receipt of Travel Fare (For Funeral Purposes):</p>
             <DragDrop selectedFile={transportFareFile} setSelectedFile={setTransportFareFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
           {/* Button container */}
