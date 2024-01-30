@@ -1275,7 +1275,7 @@ app.post("/api/insert-users", (req, res) => {
 });
 
   app.post("/api/insert-request", (req, res) => {
-    // console.log( req.body);
+    console.log( req.body);
       const {
       requestor_id,
       requestor_name,
