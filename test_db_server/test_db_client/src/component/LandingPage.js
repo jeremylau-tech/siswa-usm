@@ -231,7 +231,6 @@ function LandingPage() {
                 sx={{ ...commonButtonStyle, marginRight: '10px' }}
                 onClick={handleMohonMakanan}
                 // disabled={hasRequests}
-                disabled
               >
                 Mohon
               </Button>
