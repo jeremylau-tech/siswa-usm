@@ -26,6 +26,7 @@ const getRolesFromToken = function (token) {
 
 
 function Navbar() {
+  //Only for maintainance
   if (useLocation().pathname === '/') {
     return null;
   }

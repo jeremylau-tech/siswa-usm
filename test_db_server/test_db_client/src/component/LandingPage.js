@@ -59,6 +59,11 @@ function LandingPage() {
       // Merge the existing location state with your data
       navigate('/FoodApplication', { state: { ...user } });
     }
+
+    function handleMohonWangIhsan() {
+      // Merge the existing location state with your data
+      navigate('/FoodApplication', { state: { ...user } });
+    }
   
     function handleGoToBaucarMakanan() {
       // Merge the existing location state with your data
@@ -237,9 +242,17 @@ function LandingPage() {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 Keprihatinan terhadap setiap keluarga USM.
               </Typography>
-              <Button component={Link} to='/Khairat_FormPage' variant="contained" color="primary" disabled>
-                Akan Datang
+              {/* Khairat_FormPage */}
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ ...commonButtonStyle, marginRight: '10px' }}
+                onClick={handleMohonMakanan}
+                // disabled={hasRequests}
+              >
+                Mohon
               </Button>
+
             </CardContent>
           </Card>
 
