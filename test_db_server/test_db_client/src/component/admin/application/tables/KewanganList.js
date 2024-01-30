@@ -213,7 +213,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
       const [userDetailsMap, setUserDetailsMap] = useState({});
 
   useEffect(() => {
-    const statusParam = "baharu"; // Replace with the desired status parameter
+    const statusParam = "complete"; // Replace with the desired status parameter
     const typeparam = "wang_ihsan"; 
     const apiUrl = `https://kebajikansiswa.usm.my/api/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
 

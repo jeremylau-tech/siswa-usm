@@ -1164,6 +1164,23 @@ app.get("/api/food-applications-requestid", (req, res) => {
   });
 });
 
+app.get("/api/wang-ihsan-applications-requestid", (req, res) => {
+  const requestId = req.query.request_id;
+
+  // SQL query to select all records from the "users_details" table
+  const sql = "SELECT * FROM wang_ihsan_application WHERE request_id = ?";
+
+  // Execute the query
+  db.query(sql, [requestId], (err, results) => {          if (err) {
+          console.error('Error fetching data from MySQL:', err);
+          res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+          // Send the retrieved data as a JSON response with "userDetails" key
+          res.json({ wangIhsanDetails: results });
+      }
+  });
+});
+
 // Route to get the count of food applications based on status
 // Route to get the count of applications based on status and table
 app.post('/api/countByStatus', (req, res) => {

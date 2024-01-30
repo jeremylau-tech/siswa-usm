@@ -2,18 +2,12 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import StepperComponentMakanan from "./subcomponent/StepperComponentMakanan";
+import WangIhsanComponent from "./subcomponent/WangIhsanComponent";
+
 import StepperComponent from "./subcomponent/StepperComponent";
 
 import Typography from "@mui/material/Typography";
 import { useLocation } from 'react-router-dom';
-
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: "center",
-//   color: theme.palette.text.secondary,
-// }));
 
 const centerStyle = {
   display: "flex",
@@ -47,7 +41,6 @@ function EvaluationPage() {
                 </Typography>
               </Box>
               <Box sx={centerStyle}> {/* Center the content */}
-                {/* Include the StepperComponent here */}
               
                 {request_type === "makanan" ? (
                 <StepperComponentMakanan
@@ -63,6 +56,20 @@ function EvaluationPage() {
                 bhepaRemark={request_remark_bhepa}
                 tncRemark={request_remark_tnc}
               />
+              ) : request_type === "wang_ihsan" ? (
+                <WangIhsanComponent
+                requestId={request_id}
+                requestorId={requestor_id}
+                userId={user_id}
+                userRole={user_role}
+                reqType={request_type}
+                adminId={admin_approver_id}
+                bhepaId={bhepa_approver_id}
+                tncId={tnc_approver_id}
+                adminRemark={request_remark_admin}
+                bhepaRemark={request_remark_bhepa}
+                tncRemark={request_remark_tnc}
+                />
               ) : (
                 /* Render a different stepper component here for other cases */
                 <StepperComponent />
