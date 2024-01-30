@@ -136,7 +136,7 @@ function Navbar() {
 
           {!jwtToken && (roles != 'admin' && roles != 'bhepa' && roles != 'tnc') && (
             //for maintainance
-              (window.location.pathname === '/' && (
+              (window.location.href === 'kebajikansiswa.usm.my' && (
                 <Button 
                   component={Link} 
                   to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}
@@ -209,7 +209,7 @@ function Navbar() {
 
 {!jwtToken && 
   (roles !== 'admin' && roles !== 'bhepa' && roles !== 'tnc') && 
-  (window.location.pathname === '/' && (
+  (window.location.href === 'kebajikansiswa.usm.my' && (
     <ListItem component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teTo=`}>
     <ListItemText primary="Log Masuk" />
     </ListItem>
