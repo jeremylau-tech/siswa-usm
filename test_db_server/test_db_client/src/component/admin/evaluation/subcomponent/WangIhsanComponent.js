@@ -6,7 +6,7 @@ import StepContent from "@mui/material/StepContent";
 import StudentInfoStep from "./StudentInfoStep";
 import ResultStepArchive from "./ResultStepArchive";
 import ResultStep from "./ResultStep";
-import DocumentationStep from "./DocumentationStep";
+import MultiDocumentationStep from "./MultiDocumentationStep";
 import ApprovedDialog from "./ApprovedDialog";
 import RejectDialog from "./RejectDialog";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
@@ -21,6 +21,7 @@ function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType,
 
   const navigate = useNavigate(); // Initialize the useNavigate hook
   const userData = { roles: userRole };
+  const [pdfsPath, setPdfsPath] = useState([]);
 
   const steps = [
     {
@@ -39,33 +40,20 @@ function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType,
       )
     },
     {
-      label: 'Langkah 2 : Semakan Salinan Kad Pengenalan Pelajar',
+      label: 'Langkah 2 : Semakan Permohonan',
       content: requests.length > 0 ? (
-        <DocumentationStep
+        <MultiDocumentationStep
           sponsor={requests[0].food_sponsor_type}
           requestType={requests[0].request_type}
           justification={requests[0].food_justification}
-          pdfPath={requests[0].food_ic_num_file}
+          pdfsPath={pdfsPath}
         />
       ) : (
         <div>Loading...</div> // You can replace this with a loading indicator
       )
     },
     {
-      label: 'Langkah 3 : Semakan Salinan Gaji Ibu Bapa',
-      content: requests.length > 0 ? (
-        <DocumentationStep
-          sponsor={requests[0].food_sponsor_type}
-          requestType={requests[0].request_type}
-          justification={requests[0].food_justification}
-          pdfPath={requests[0].food_payment_slip_file}
-        />
-      ) : (
-        <div>Loading...</div> // You can replace this with a loading indicator
-      )
-    },
-    {
-      label: isArchive ? 'Langkah 4 : Semakan Catatan' : 'Langkah 4 : Keputusan Semakan & Catatan',
+      label: isArchive ? 'Langkah 3 : Semakan Catatan' : 'Langkah 3 : Keputusan Semakan & Catatan',
       content: isArchive ? (
         <ResultStepArchive 
         adminId={adminId}
@@ -148,6 +136,7 @@ useEffect(() => {
             wang_ihsan_ammount_requested: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_ammount_requested : '-',
             wang_ihsan_help_type: wangIhsanDetails ? wangIhsanDetails.help_type : '-',
             wang_ihsan_justification: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_justification : '-',
+
             wang_ihsan_ic_num_file: wangIhsanDetails ? wangIhsanDetails.ic_num_file : '-',
             wang_ihsan_bank_statement_file: wangIhsanDetails ? wangIhsanDetails.bank_statement_file : '-',
             wang_ihsan_payment_slip_father_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_father_file : '-',
@@ -159,6 +148,13 @@ useEffect(() => {
         console.log(requestUsers);
 
         setRequests(requestUsers);
+        setPdfsPath(
+          { name: 'IC Number', path:  wangIhsanDetails.ic_num_file },
+          { name: 'Bank Statement', path: wangIhsanDetails.bank_statement_file },
+          { name: 'Payment Slip (Father)', path: wangIhsanDetails.payment_slip_father_file },
+          { name: 'Payment Slip (Mother)', path: wangIhsanDetails.payment_slip_mother_file },
+          { name: 'Supporting Document', path: wangIhsanDetails.support_doc_file }
+        ) 
       }
     })
     .catch((error) => {
