@@ -890,7 +890,7 @@ app.get("/api/request-type-status-admin", (req, res) => {
       ${first_half_sql}
       GROUP BY requestor_id
     ) rc ON r.requestor_id = rc.requestor_id
-    ${sec_half_sql};
+    ${sec_half_sql}
     ORDER BY r.request_date DESC, r.request_time DESC;
     `;
     
