@@ -175,36 +175,36 @@ const handleHelpType = (e) => {
       alert("Updated!")
       console.log(formDataJSON);
 
-      // const response = await fetch(apiUrl, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(formDataJSON),
-      // });
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataJSON),
+      });
   
-      // if (response.ok) {
-      //   // if (true) {
+      if (response.ok) {
+        // if (true) {
 
-      //   // If the server responds with a 200 status code (OK), you can handle success here
-      //   alert("Form data sent successfully!");
+        // If the server responds with a 200 status code (OK), you can handle success here
+        alert("Form data sent successfully!");
         
-      //   setIcNumFile(null)
-      //   setPaymentSlipFileMother(null)
-      //   setPaymentSlipFileFather(null)
-      //   setBankStatementFile(null)
-      //   setSupportDocFile(null)
-      //   setSponsorType("");
-      //   setHelpType("");
-      //   setAmmountRequested(0)
-      //   setWangIhsanJustification("");
-      //   navigate('/LandingPage', { state: { ...user } });
-      // } else {
-      //   // console.log(formData);
-      //   // Handle errors or display error messages here
-      //   console.error("Form data submission failed.");
-      //   alert("Something wrong on the backend!");
-      // }
+        setIcNumFile(null)
+        setPaymentSlipFileMother(null)
+        setPaymentSlipFileFather(null)
+        setBankStatementFile(null)
+        setSupportDocFile(null)
+        setSponsorType("");
+        setHelpType("");
+        setAmmountRequested(0)
+        setWangIhsanJustification("");
+        navigate('/LandingPage', { state: { ...user } });
+      } else {
+        // console.log(formData);
+        // Handle errors or display error messages here
+        console.error("Form data submission failed.");
+        alert("Something wrong on the backend!");
+      }
     } catch (error) {
       console.error("Error during form submission:", error);
     }
