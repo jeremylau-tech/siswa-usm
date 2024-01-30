@@ -250,5 +250,5 @@ useEffect(() => {
   );
 }
 
-export default StepperComponentMakanan;
+export default WangIhsanComponent;
     
