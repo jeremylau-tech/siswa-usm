@@ -42,15 +42,15 @@ function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath 
             value={justification}
             readOnly
           />
-          {/* <div>
+          <div>
           <Typography textAlign={"right"} padding={1}>Salinan Dokumen:</Typography>
           </div>
           <iframe
             title="Wage Certificate"
             src={`https://kebajikansiswa.usm.my/api/get-pdf?pdfPath=${pdfsPath[0].path}`}
             style={{ border:"none", width: "90%", height: "700px" }}
-          ></iframe> */}
-          <div>
+          ></iframe>
+          {/* <div>
             {pdfsPath.map((pdf, index) => (
               <div key={index}>
                 <Typography textAlign="right" padding={1}>{pdf.name}:</Typography>
@@ -61,7 +61,7 @@ function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath 
                 ></iframe>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </Container>
