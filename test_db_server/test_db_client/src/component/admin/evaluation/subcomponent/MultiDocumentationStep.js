@@ -54,12 +54,12 @@ function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath 
               <div key={index}>
                 <div>
                 <Typography textAlign="right" padding={1}>{pdf.name}:</Typography>
+                </div>
                 <iframe
                   title={`PDF ${index}`}
                   src={`https://kebajikansiswa.usm.my/api/get-pdf?pdfPath=${pdf.path}`}
                   style={{ border: "none", width: "90%", height: "700px" }}
                 ></iframe>
-                </div>
               </div>
             ))}
           </div>
