@@ -16,6 +16,7 @@ const inputStyle = {
 
 
 function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath }) {
+  console.log(pdfsPath)
   return (
     <Container>
       <div>
