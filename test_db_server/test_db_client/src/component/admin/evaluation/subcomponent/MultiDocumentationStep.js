@@ -47,7 +47,7 @@ function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath 
           </div>
           <iframe
             title="Wage Certificate"
-            src={`https://kebajikansiswa.usm.my/api/get-pdf?pdfPath=${pdfsPath[0].name}`}
+            src={`https://kebajikansiswa.usm.my/api/get-pdf?pdfPath=${pdfsPath[0].path}`}
             style={{ border:"none", width: "90%", height: "700px" }}
           ></iframe>
           {/* <div>
