@@ -1176,6 +1176,7 @@ app.get("/api/wang-ihsan-applications-requestid", (req, res) => {
           res.status(500).json({ message: 'Internal Server Error' });
       } else {
           // Send the retrieved data as a JSON response with "userDetails" key
+          console.log(results)
           res.json({ wangIhsanDetails: results });
       }
   });
