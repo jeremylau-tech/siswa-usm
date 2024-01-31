@@ -151,6 +151,10 @@ useEffect(() => {
                 <MultiDocumentationStep
                   sponsor={requests[0].wang_ihsan_sponsor_type}
                   requestType={requests[0].request_type}
+                  //Spesific to wang ihsan 
+                  help_type = {requests[0].wang_ihsan_help_type}
+                  ammount_requested = {requests[0].wang_ihsan_ammount_requested}
+                  
                   justification={requests[0].wang_ihsan_justification}
                   pdfsPath={pdfsPath}
                 />

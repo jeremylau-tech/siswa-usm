@@ -15,8 +15,7 @@ const inputStyle = {
 };
 
 
-function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath }) {
-  console.log(pdfsPath)
+function MultiDocumentationStep({ sponsor = '', requestType = '', justification = '', help_type = '', ammount_requested = '', pdfsPath = [] }) {
   return (
     <Container>
       <div>
@@ -28,10 +27,30 @@ function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath 
           <input style={inputStyle} type="text" value={sponsor} readOnly />
 
           <div>
-            <Typography textAlign={"right"} padding={1}>Jenis Bantuan Diperlukan:</Typography>
+            <Typography textAlign={"right"} padding={1}>Jenis Permohonan:</Typography>
           </div>
           <input style={inputStyle} type="text" value={requestType} readOnly />
 
+          {help_type && (
+            <>
+              <div>
+                <Typography textAlign={"right"} padding={1}>Jenis Bantuan Diperlukan:</Typography>
+              </div>
+              <input style={inputStyle} type="text" value={help_type} readOnly />
+            </>
+          )}
+
+          {/* Conditionally render ammount_requested if it exists */}
+          {ammount_requested && (
+            <>
+              <div>
+                <Typography textAlign={"right"} padding={1}>Jumlah permohonan:</Typography>
+              </div>
+              <input style={inputStyle} type="text" value={ammount_requested} readOnly />
+            </>
+          )}
+
+          
           {/* Removed commented code and fixed formatting */}
           <div>
             <Typography textAlign={"right"} padding={1}>Justifikasi:</Typography>
