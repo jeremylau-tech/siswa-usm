@@ -124,6 +124,9 @@ useEffect(() => {
           const requestorDetails = userDetailsMap;
           const wangIhsanDetails = wangIhsanApplication[request.request_id];
 
+          console.log('this is the wangihsandetails ---------------------------')
+        console.log(wangIhsanDetails);
+
           return {
             ...request,
             requestor_name: requestorDetails ? requestorDetails.nama : '-',
