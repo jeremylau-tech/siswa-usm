@@ -15,26 +15,28 @@ const inputStyle = {
 };
 
 
-function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath }) {
-  console.log(pdfsPath)
+function MultiDocumentationStep({ sponsor, requestType, justification, pdfPath }) {
   return (
     <Container>
       <div>
         <h2>Semakan Dokumen</h2>
         <div style={gridContainerStyle}>
           <div>
-            <Typography textAlign={"right"} padding={1}>Jenis Tajaan:</Typography>
+          <Typography textAlign={"right"} padding={1}>Jenis Tajaan:</Typography>
           </div>
           <input style={inputStyle} type="text" value={sponsor} readOnly />
 
           <div>
-            <Typography textAlign={"right"} padding={1}>Jenis Bantuan Diperlukan:</Typography>
+          <Typography textAlign={"right"} padding={1}>Jenis Bantuan Diperlukan:</Typography>
           </div>
           <input style={inputStyle} type="text" value={requestType} readOnly />
 
-          {/* Removed commented code and fixed formatting */}
           <div>
-            <Typography textAlign={"right"} padding={1}>Justifikasi:</Typography>
+          {/* <Typography textAlign={"right"} padding={1}>Amaun Diperlukan:</Typography>
+          </div>
+          <input style={inputStyle} type="text" value="$10,000" readOnly />
+          <div> */}
+          <Typography textAlign={"right"} padding={1}>Justifikasi:</Typography>
           </div>
           <input
             style={inputStyle}
@@ -42,26 +44,15 @@ function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath 
             value={justification}
             readOnly
           />
+
           <div>
           <Typography textAlign={"right"} padding={1}>Salinan Dokumen:</Typography>
           </div>
           <iframe
             title="Wage Certificate"
-            src={`https://kebajikansiswa.usm.my/api/get-pdf?pdfPath=${pdfsPath[0].path}`}
+            src={`https://kebajikansiswa.usm.my/api/get-pdf?pdfPath=uploads/ic/1ecf5845-5f52-4138-895a-519c877a3c33.pdf`}
             style={{ border:"none", width: "90%", height: "700px" }}
           ></iframe>
-          {/* <div>
-            {pdfsPath.map((pdf, index) => (
-              <div key={index}>
-                <Typography textAlign="right" padding={1}>{pdf.name}:</Typography>
-                <iframe
-                  title={`PDF ${index}`}
-                  src={`https://kebajikansiswa.usm.my/api/get-pdf?pdfPath=${pdf.path}`}
-                  style={{ border: "none", width: "90%", height: "700px" }}
-                ></iframe>
-              </div>
-            ))}
-          </div> */}
         </div>
       </div>
     </Container>
