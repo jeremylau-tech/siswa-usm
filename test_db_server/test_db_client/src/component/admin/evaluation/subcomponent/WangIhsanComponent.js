@@ -43,9 +43,9 @@ function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType,
       label: 'Langkah 2 : Semakan Permohonan',
       content: requests.length > 0 ? (
         <MultiDocumentationStep
-          sponsor={requests[0].food_sponsor_type}
+          sponsor={requests[0].wang_ihsan_sponsor_type}
           requestType={requests[0].request_type}
-          justification={requests[0].food_justification}
+          justification={requests[0].wang_ihsan_justification}
           pdfsPath={pdfsPath}
         />
       ) : (
@@ -139,6 +139,8 @@ useEffect(() => {
             requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
             requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
             requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
+            request_type: 'wang_ihsan',
+
 
             wang_ihsan_sponsor_type: wangIhsanDetails ? wangIhsanDetails.sponsor_type : '-',
             wang_ihsan_ammount_requested: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_ammount_requested : '-',
