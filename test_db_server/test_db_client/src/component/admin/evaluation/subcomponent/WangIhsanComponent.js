@@ -124,7 +124,7 @@ useEffect(() => {
         const requestUsers = data.request.map((request) => {
           const requestorDetails = userDetailsMap;
           const wangIhsanDetails = wangIhsanApplication[request.request_id];
-          console.log(wangIhsanDetails)
+          console.log(wangIhsanDetails.ic_num_file)
           // setPdfsPath([
           //   { name: 'IC Number', path:  wangIhsanDetails.ic_num_file },
           //   { name: 'Bank Statement', path: wangIhsanDetails.bank_statement_file },
