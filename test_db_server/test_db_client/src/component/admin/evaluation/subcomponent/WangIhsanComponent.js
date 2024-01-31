@@ -125,8 +125,13 @@ useEffect(() => {
           const requestorDetails = userDetailsMap;
           const wangIhsanDetails = wangIhsanApplication[request.request_id];
           console.log(request.request_id)
-          console.log('this is the wangihsandetails ---------------------------')
-        console.log(wangIhsanDetails);
+          setPdfsPath([
+            { name: 'IC Number', path:  wangIhsanDetails.ic_num_file },
+            { name: 'Bank Statement', path: wangIhsanDetails.bank_statement_file },
+            { name: 'Payment Slip (Father)', path: wangIhsanDetails.payment_slip_father_file },
+            { name: 'Payment Slip (Mother)', path: wangIhsanDetails.payment_slip_mother_file },
+            { name: 'Supporting Document', path: wangIhsanDetails.support_doc_file }
+          ]);
 
           return {
             ...request,
@@ -152,13 +157,7 @@ useEffect(() => {
         console.log(requestUsers);
 
         setRequests(requestUsers);
-        setPdfsPath([
-          { name: 'IC Number', path:  wangIhsanDetails.ic_num_file },
-          { name: 'Bank Statement', path: wangIhsanDetails.bank_statement_file },
-          { name: 'Payment Slip (Father)', path: wangIhsanDetails.payment_slip_father_file },
-          { name: 'Payment Slip (Mother)', path: wangIhsanDetails.payment_slip_mother_file },
-          { name: 'Supporting Document', path: wangIhsanDetails.support_doc_file }
-        ]);
+       
       }
     })
     .catch((error) => {
