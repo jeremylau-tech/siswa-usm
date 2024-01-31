@@ -44,8 +44,11 @@ function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType,
       content: requests.length > 0 ? (
         <MultiDocumentationStep
           userRole = {userRole}
+          isArchive = {isArchive}
           sponsor={requests[0].wang_ihsan_sponsor_type}
           requestType={requests[0].request_type}
+          help_type = {requests[0].wang_ihsan_help_type}
+          ammount_requested = {requests[0].wang_ihsan_ammount_requested}
           justification={requests[0].wang_ihsan_justification}
           pdfsPath={pdfsPath}
         />

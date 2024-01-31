@@ -149,6 +149,8 @@ useEffect(() => {
                   matric={requests[0].requestor_matric}
                 />
                 <MultiDocumentationStep
+                  isArchive = {isArchive}
+                  userRole = {userRole}
                   sponsor={requests[0].wang_ihsan_sponsor_type}
                   requestType={requests[0].request_type}
                   //Spesific to wang ihsan 

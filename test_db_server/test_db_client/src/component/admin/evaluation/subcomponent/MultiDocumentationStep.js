@@ -15,7 +15,7 @@ const inputStyle = {
 };
 
 
-function MultiDocumentationStep({ userRole, sponsor = '', requestType = '', justification = '', help_type = '', ammount_requested = '', pdfsPath = [] }) {
+function MultiDocumentationStep({ userRole, isArchive, sponsor = '', requestType = '', justification = '', help_type = '', ammount_requested = '', pdfsPath = [] }) {
   return (
     <Container>
       <div>
@@ -61,7 +61,7 @@ function MultiDocumentationStep({ userRole, sponsor = '', requestType = '', just
             readOnly
           />
           
-          {userRole === 'admin' && pdfsPath.map((pdf, index) => (
+          {(userRole === 'admin' || isArchive) && pdfsPath.map((pdf, index) => (
             <>
               <Typography textAlign="right" padding={1}>{pdf.name}:</Typography>
               <iframe
