@@ -49,7 +49,7 @@ function MultiDocumentationStep({ sponsor, requestType, justification, pdfsPath 
               <iframe
                 title={`PDF ${index}`}
                 src={`https://kebajikansiswa.usm.my/api/get-pdf?pdfPath=${pdf.path}`}
-                style={{ border: "none", width: "90%", height: "700px" }}
+                style={{ border: "none", width: "90%", height: "700px", height: "700px",  marginBottom: "10px" }}
               ></iframe>
             </>
           ))}
