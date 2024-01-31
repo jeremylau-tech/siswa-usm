@@ -2,6 +2,8 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ArchiveStepperComponentMakanan from "./subcomponent/ArchiveStepperComponentMakanan";
+import ArchiveStepperComponentWangIhsan from "./subcomponent/ArchiveStepperComponentWangIhsan";
+
 import StepperComponent from "./subcomponent/StepperComponent";
 
 import Typography from "@mui/material/Typography";
@@ -63,9 +65,23 @@ function ArchivePage() {
                  isArchive={isArchive}
                  requestorId={requestor_id}
                />
-              ) : (
+              ) : request_type === "wang_ihsan" ? (
                 /* Render a different stepper component here for other cases */
-                <StepperComponent />
+                <ArchiveStepperComponentWangIhsan
+                 requestId={request_id}
+                 userId={user_id}
+                 userRole={user_role}
+                 reqType={request_type}
+                 adminId={admin_approver_id}
+                 bhepaId={bhepa_approver_id}
+                 tncId={tnc_approver_id}
+                 adminRemark={request_remark_admin}
+                 bhepaRemark={request_remark_bhepa}
+                 tncRemark={request_remark_tnc}
+                 isArchive={isArchive}
+                 requestorId={requestor_id}
+               />
+              ) : (<StepperComponent />
               )}
               </Box>
         </Grid>
