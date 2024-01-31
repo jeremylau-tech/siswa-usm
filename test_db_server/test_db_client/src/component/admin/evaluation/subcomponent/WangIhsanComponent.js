@@ -146,11 +146,11 @@ useEffect(() => {
             wang_ihsan_help_type: wangIhsanDetails ? wangIhsanDetails.help_type : '-',
             wang_ihsan_justification: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_justification : '-',
 
-            wang_ihsan_ic_num_file: wangIhsanDetails ? wangIhsanDetails.ic_num_file : '-',
-            wang_ihsan_bank_statement_file: wangIhsanDetails ? wangIhsanDetails.bank_statement_file : '-',
-            wang_ihsan_payment_slip_father_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_father_file : '-',
-            wang_ihsan_payment_slip_mother_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_mother_file : '-',
-            wang_ihsan_support_doc_file: wangIhsanDetails ? wangIhsanDetails.support_doc_file : '-',
+            // wang_ihsan_ic_num_file: wangIhsanDetails ? wangIhsanDetails.ic_num_file : '-',
+            // wang_ihsan_bank_statement_file: wangIhsanDetails ? wangIhsanDetails.bank_statement_file : '-',
+            // wang_ihsan_payment_slip_father_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_father_file : '-',
+            // wang_ihsan_payment_slip_mother_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_mother_file : '-',
+            // wang_ihsan_support_doc_file: wangIhsanDetails ? wangIhsanDetails.support_doc_file : '-',
           };
         });
         console.log('this is the test ---------------------------')
