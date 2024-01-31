@@ -102,6 +102,7 @@ useEffect(() => {
         data.wangIhsanDetails.forEach((detail) => {
           detailsMap[detail.request_id] = detail;
         });
+        console.log("this is data")
         console.log(detailsMap);
         setWangIhsanApplication(detailsMap);
       }
@@ -123,7 +124,7 @@ useEffect(() => {
         const requestUsers = data.request.map((request) => {
           const requestorDetails = userDetailsMap;
           const wangIhsanDetails = wangIhsanApplication[request.request_id];
-
+          console.log(request.request_id)
           console.log('this is the wangihsandetails ---------------------------')
         console.log(wangIhsanDetails);
 
