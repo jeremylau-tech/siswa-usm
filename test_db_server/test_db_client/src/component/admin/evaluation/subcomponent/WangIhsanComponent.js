@@ -43,6 +43,7 @@ function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType,
       label: 'Langkah 2 : Semakan Permohonan',
       content: requests.length > 0 ? (
         <MultiDocumentationStep
+          userRole = {userRole}
           sponsor={requests[0].wang_ihsan_sponsor_type}
           requestType={requests[0].request_type}
           justification={requests[0].wang_ihsan_justification}
