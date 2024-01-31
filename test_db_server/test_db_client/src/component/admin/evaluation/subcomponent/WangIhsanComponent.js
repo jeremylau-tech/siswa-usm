@@ -102,8 +102,6 @@ useEffect(() => {
         data.wangIhsanDetails.forEach((detail) => {
           detailsMap[detail.request_id] = detail;
         });
-        console.log("this is data")
-        console.log(detailsMap);
         setWangIhsanApplication(detailsMap);
       }
     })
