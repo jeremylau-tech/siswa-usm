@@ -16,13 +16,11 @@ function ArchiveStepperComponentWangIhsan({ requestId, userId, userRole, reqType
   tncId, adminRemark,bhepaRemark,tncRemark,isArchive, requestorId}) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [requests, setRequests] = useState([]);
-  const [foodApplication, setFoodApplication] = useState([]);
+  const [wangIhsanApplication, setWangIhsanApplication] = useState([]);
   const [userDetailsMap, setUserDetailsMap] = useState({});
 
   const navigate = useNavigate(); // Initialize the useNavigate hook
   const userData = { roles: userRole };
-
-  
 
   useEffect(() => {
     // Fetch user details from the server using POST method
@@ -50,16 +48,16 @@ function ArchiveStepperComponentWangIhsan({ requestId, userId, userRole, reqType
 
 useEffect(() => {
   // Fetch user details from the server
-  fetch(`https://kebajikansiswa.usm.my/api/food-applications-requestid?request_id=${requestId}`)
+  fetch(`https://kebajikansiswa.usm.my/api/wang-ihsan-applications-requestid?request_id=${requestId}`)
     .then((res) => res.json())
     .then((data) => {
-      if (data.foodDetails) {
+      if (data.wangIhsanDetails) {
         // Convert the array of user details into a map
         const detailsMap = {};
-        data.foodDetails.forEach((detail) => {
+        data.wangIhsanDetails.forEach((detail) => {
           detailsMap[detail.request_id] = detail;
         });
-        setFoodApplication(detailsMap);
+        setWangIhsanApplication(detailsMap);
       }
     })
     .catch((error) => {
@@ -77,10 +75,9 @@ useEffect(() => {
     .then((data) => {
       if (data.request) {
         // Update request objects with user names
-        const requestsFoodUsers = data.request.map((request) => {
+        const requestsUsers = data.request.map((request) => {
           const requestorDetails = userDetailsMap;
-          const foodDetails = foodApplication[request.request_id];
-
+          const wangIhsanDetails = wangIhsanApplication[request.request_id];
 
           return {
             ...request,
@@ -90,14 +87,14 @@ useEffect(() => {
             requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
             requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
 
-            food_sponsor_type: foodDetails ? foodDetails.sponsor_type : '-',
-            food_justification: foodDetails ? foodDetails.food_justification : '-',
-            food_ic_num_file: foodDetails ? foodDetails.ic_num_file : '-',
-            food_payment_slip_file: foodDetails ? foodDetails.payment_slip_file : '-',
+            // food_sponsor_type: foodDetails ? foodDetails.sponsor_type : '-',
+            // food_justification: foodDetails ? foodDetails.food_justification : '-',
+            // food_ic_num_file: foodDetails ? foodDetails.ic_num_file : '-',
+            // food_payment_slip_file: foodDetails ? foodDetails.payment_slip_file : '-',
           };
         });
 
-        setRequests(requestsFoodUsers);
+        setRequests(requestsUsers);
       }
     })
     .catch((error) => {
