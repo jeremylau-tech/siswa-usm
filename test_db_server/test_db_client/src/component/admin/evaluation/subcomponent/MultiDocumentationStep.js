@@ -49,8 +49,6 @@ function MultiDocumentationStep({ sponsor = '', requestType = '', justification 
               <input style={inputStyle} type="text" value={ammount_requested} readOnly />
             </>
           )}
-
-          
           {/* Removed commented code and fixed formatting */}
           <div>
             <Typography textAlign={"right"} padding={1}>Justifikasi:</Typography>
@@ -61,7 +59,8 @@ function MultiDocumentationStep({ sponsor = '', requestType = '', justification 
             value={justification}
             readOnly
           />
-          
+                <div style={{ marginBottom: "30px" }}></div>
+
           {pdfsPath.map((pdf, index) => (
             <>
               <Typography textAlign="right" padding={1}>{pdf.name}:</Typography>
