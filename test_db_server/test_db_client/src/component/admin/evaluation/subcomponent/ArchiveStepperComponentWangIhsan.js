@@ -7,6 +7,8 @@ import StudentInfoStep from "./StudentInfoStep";
 import ResultStepArchive from "./ResultStepArchive";
 import ResultStep from "./ResultStep";
 import DocumentationStep from "./DocumentationStep";
+import MultiDocumentationStep from "./MultiDocumentationStep";
+
 import ApprovedDialog from "./ApprovedDialog";
 import RejectDialog from "./RejectDialog";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
@@ -18,6 +20,7 @@ function ArchiveStepperComponentWangIhsan({ requestId, userId, userRole, reqType
   const [requests, setRequests] = useState([]);
   const [wangIhsanApplication, setWangIhsanApplication] = useState([]);
   const [userDetailsMap, setUserDetailsMap] = useState({});
+  const [pdfsPath, setPdfsPath] = useState([]);
 
   const navigate = useNavigate(); // Initialize the useNavigate hook
   const userData = { roles: userRole };
@@ -78,7 +81,17 @@ useEffect(() => {
         const requestsUsers = data.request.map((request) => {
           const requestorDetails = userDetailsMap;
           const wangIhsanDetails = wangIhsanApplication[request.request_id];
-
+          
+          if (wangIhsanDetails) {
+            setPdfsPath([
+              { name: 'IC Number', path:  wangIhsanDetails.ic_num_file },
+              { name: 'Bank Statement', path: wangIhsanDetails.bank_statement_file },
+              { name: 'Payment Slip (Father)', path: wangIhsanDetails.payment_slip_father_file },
+              { name: 'Payment Slip (Mother)', path: wangIhsanDetails.payment_slip_mother_file },
+              { name: 'Supporting Document', path: wangIhsanDetails.support_doc_file }
+            ]);
+          }
+          
           return {
             ...request,
             requestor_name: requestorDetails ? requestorDetails.nama : '-',
@@ -86,11 +99,12 @@ useEffect(() => {
             requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
             requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
             requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
+            request_type: 'wang_ihsan',
 
-            // food_sponsor_type: foodDetails ? foodDetails.sponsor_type : '-',
-            // food_justification: foodDetails ? foodDetails.food_justification : '-',
-            // food_ic_num_file: foodDetails ? foodDetails.ic_num_file : '-',
-            // food_payment_slip_file: foodDetails ? foodDetails.payment_slip_file : '-',
+            wang_ihsan_sponsor_type: wangIhsanDetails ? wangIhsanDetails.sponsor_type : '-',
+            wang_ihsan_ammount_requested: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_ammount_requested : '-',
+            wang_ihsan_help_type: wangIhsanDetails ? wangIhsanDetails.help_type : '-',
+            wang_ihsan_justification: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_justification : '-',
           };
         });
 
@@ -134,11 +148,11 @@ useEffect(() => {
                   ic={requests[0].requestor_ic}
                   matric={requests[0].requestor_matric}
                 />
-                <DocumentationStep
-                  sponsor={requests[0].food_sponsor_type}
+                <MultiDocumentationStep
+                  sponsor={requests[0].wang_ihsan_sponsor_type}
                   requestType={requests[0].request_type}
-                  justification={requests[0].food_justification}
-                  pdfPath={requests[0].food_ic_num_file}
+                  justification={requests[0].wang_ihsan_justification}
+                  pdfsPath={pdfsPath}
                 />
                 {isArchive ? (
                   <ResultStepArchive 
