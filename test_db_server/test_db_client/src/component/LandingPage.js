@@ -257,6 +257,7 @@ function LandingPage() {
               </Typography>
               {/* Khairat_FormPage */}
               <Button
+              disabled
                 variant="contained"
                 color="primary"
                 sx={{ ...commonButtonStyle, marginRight: '10px' }}
