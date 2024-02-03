@@ -235,13 +235,13 @@ function LandingPage() {
               >
                 Mohon
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="primary"
                 sx={{ ...commonButtonStyle, marginLeft: '10px' }}
                 onClick={handleGoToBaucarMakanan}              >
                 Guna
-              </Button>
+              </Button> */}
             </CardContent>
           </Card>
 
