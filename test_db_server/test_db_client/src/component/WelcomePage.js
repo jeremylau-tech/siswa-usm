@@ -126,8 +126,8 @@ function WelcomePage(props) {
               <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                   Keupayaan pelajar untuk menerusi pembelajaran.
               </Typography>
-              <Button disabled component={Link} to='/Wang_FormPage' variant="contained" color="primary">
-                Akan Datang
+              <Button  component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`} variant="contained" color="primary">
+                Mohon
               </Button>
             </CardContent>
           </Card>
@@ -139,7 +139,7 @@ function WelcomePage(props) {
               <Typography gutterBottom variant="h5" component="div">
                 Kupon Makanan
               </Typography>
-              <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
+              <Typography disabled variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                  Keperluan asas dalam rutin seharian.
               </Typography>
             {/* {couponCount == 0 ? (
@@ -184,9 +184,6 @@ function WelcomePage(props) {
                 Guna
               </Button> */}
                 <Button  component={Link} to={`https://login.usm.my/adfs/ls/?wa=wsignin1.0&wct=${currentDate}&wtrealm=urn:federation:kebajikansiswa.usm.my/login&wctx=OmtlYmFqaWthbnNpc3dhLnVzbS5teS86`} variant="contained" color="primary">
-                {/* <Button  component={Link} to={`https://bit.ly/baucar-makanan-permohonan`} variant="contained" color="primary"> */}
-                {/* <Button  component={Link} to={`/Login`} variant="contained" color="primary">
-                Mohon */}
                 Mohon
               </Button>
             </CardContent>

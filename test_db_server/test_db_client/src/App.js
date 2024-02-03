@@ -56,9 +56,9 @@ function App() {
       <div className="App">
         <NavBar />
         <Routes>
-          <Route path="/" element={<MaintainancePage />} />
+          {/* <Route path="/" element={<MaintainancePage />} /> */}
 
-          {/* <Route path="/" element={<WelcomePage />} /> */}
+          <Route path="/" element={<WelcomePage />} />
           {/* <Route path="/message" element={<MessagePage />} /> */}
           <Route path="/makanan" element={<Makanan />} />
           <Route path="/users" element={<UsersPage />} />

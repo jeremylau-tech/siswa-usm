@@ -226,6 +226,7 @@ function LandingPage() {
                 Keperluan asas dalam rutin seharian.
               </Typography>
               <Button
+              disabled
                 variant="contained"
                 color="primary"
                 sx={{ ...commonButtonStyle, marginRight: '10px' }}
