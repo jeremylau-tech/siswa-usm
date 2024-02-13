@@ -36,7 +36,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://kebajikansiswa.usm.my/api/login', {
+      const response = await fetch('http://localhost:8000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ function Login() {
           }}
         >
           <Form id="sign-in-form" className="text-center p-3 w-100" style={{ maxWidth: '400px' }} onSubmit={handleLogin}>
-            <CardMedia component="img" alt="Service 1 Banner" height="140" image="wang-pic.jpg" style={{ marginTop: '60px', borderRadius: '8px' }}/>
+            <CardMedia component="img" alt="Service 1 Banner" height="140" image="wang-pic.jpg" style={{ marginTop: '60px', borderRadius: '8px' }} />
             <h2 className="mb-4 fs-3 fw-normal" style={{ fontSize: '30px' }}>
               Log Masuk
             </h2>
@@ -100,7 +100,7 @@ function Login() {
                 placeholder="Emel Pelajar"
                 autoComplete="username"
                 className="position-relative"
-                style={{ width: '250px', padding: '10px', borderRadius: '8px', marginBottom: '8px'}}
+                style={{ width: '250px', padding: '10px', borderRadius: '8px', marginBottom: '8px' }}
                 value={email}
                 onChange={handleEmailChange}
               />
@@ -112,7 +112,7 @@ function Login() {
                 placeholder="Kata Laluan"
                 autoComplete="current-password"
                 className="position-relative"
-                style={{ width: '250px', padding: '10px', borderRadius: '8px'}}
+                style={{ width: '250px', padding: '10px', borderRadius: '8px' }}
                 value={password}
                 onChange={handlePasswordChange}
               />

@@ -40,21 +40,21 @@ function PerantiNextPage() {
   const uploadFile = async (file) => {
     if (file) {
       try {
-        
+
         const uploadData = new FormData();
         uploadData.append("file", file);
-        
 
-        const response = await fetch("https://kebajikansiswa.usm.my/api/upload", {
+
+        const response = await fetch("http://localhost:8000/api/upload", {
           method: "POST",
           body: uploadData,
         });
-  
+
         if (response.ok) {
           const filename = await response.text();
 
           return filename;
-  
+
         } else {
           // Handle any errors
           console.error("File upload failed.");
@@ -72,20 +72,20 @@ function PerantiNextPage() {
     e.preventDefault();
 
     if (!sponsorType ||
-      !deviceType||
+      !deviceType ||
       !deviceDetails ||
       !paymentSlipFile ||
       !deviceImageFile) {
       alert("Please fill in all the required fields.");
       return;
     }
-  
+
     // Define the array of promises for file uploads
     const uploadPromises = [
       uploadFile(paymentSlipFile, "payment_slip_file"),
       uploadFile(deviceImageFile, "device_pic_file"),
     ];
-  
+
     try {
       // Wait for all file upload promises to resolve
       const results = await Promise.all(uploadPromises);
@@ -100,8 +100,8 @@ function PerantiNextPage() {
         sponsor_type: sponsorType
       };
 
-      const apiUrl = "https://kebajikansiswa.usm.my/api/insert-request"; // Update with your server's URL
-  
+      const apiurl = "http://localhost:8000/api/insert-request"; // Update with your server's URL
+
       // Create a POST request to send the formData to the server
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -110,11 +110,11 @@ function PerantiNextPage() {
         },
         body: JSON.stringify(formDataJSON),
       });
-  
+
       if (response.ok) {
         // If the server responds with a 200 status code (OK), you can handle success here
         alert("Form data sent successfully!");
-        
+
         setSponsorType("")
         setDeviceType("");
         setDeviceDetails("");
@@ -137,14 +137,14 @@ function PerantiNextPage() {
     marginRight: '10px',
     width: 'calc(48% - 5px)',
   };
-  
+
   const kembaliButtonStyle = {
     ...buttonStyle,
     backgroundColor: '#808080', // Lighter color for Kembali button
     borderColor: '#808080', // Matching border color
     color: 'white', // Text color for Kembali button
   };
-  
+
   const hantarButtonStyle = {
     ...buttonStyle,
     backgroundColor: '#491E6E',
@@ -163,7 +163,7 @@ function PerantiNextPage() {
       <div className="form-column form-column-right">
         <h2 className="right-header">Maklumat Status Kewangan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
-        <form className="form-style"  onSubmit={handleSubmit}>
+        <form className="form-style" onSubmit={handleSubmit}>
 
           <div className="form-group select-container-peranti">
             <label htmlFor="options" className="select-label">
@@ -195,8 +195,8 @@ function PerantiNextPage() {
             <DragDrop selectedFile={paymentSlipFile} setSelectedFile={setPaymentSlipFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>
 
           <h2 style={{ textAlign: "center", marginTop: "50px", marginBottom: "5px" }}>Maklumat Peranti</h2>
-          <p style={{ textAlign: "center"}}>Pastikan maklumat yang diisi tepat & sahih</p>
-          
+          <p style={{ textAlign: "center" }}>Pastikan maklumat yang diisi tepat & sahih</p>
+
           <div className="form-group">
             <label htmlFor="deviceDetails">Maklumat Kerosakan Peranti:</label>
             <textarea
@@ -210,13 +210,13 @@ function PerantiNextPage() {
 
           <div className="form-group">
             <label htmlFor="device_type">Jenama Peranti:</label>
-            <input 
-            type="text" 
-            id="device_type" 
-            name="device_type" 
-            value={deviceType}
-            onChange={handleDeviceTypeChange} 
-            placeholder="Lenovo/ Acer/ HP/ Nyatakan Lain-lain Berkenaan" />
+            <input
+              type="text"
+              id="device_type"
+              name="device_type"
+              value={deviceType}
+              onChange={handleDeviceTypeChange}
+              placeholder="Lenovo/ Acer/ HP/ Nyatakan Lain-lain Berkenaan" />
           </div>
 
           <div className="form-group">

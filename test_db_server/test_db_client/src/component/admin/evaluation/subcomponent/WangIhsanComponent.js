@@ -12,8 +12,8 @@ import RejectDialog from "./RejectDialog";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
 
 
-function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType, adminId, bhepaId, 
-  tncId, adminRemark,bhepaRemark,tncRemark,isArchive}) {
+function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType, adminId, bhepaId,
+  tncId, adminRemark, bhepaRemark, tncRemark, isArchive }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [requests, setRequests] = useState([]);
   const [wangIhsanApplication, setWangIhsanApplication] = useState([]);
@@ -43,12 +43,12 @@ function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType,
       label: 'Langkah 2 : Semakan Permohonan',
       content: requests.length > 0 ? (
         <MultiDocumentationStep
-          userRole = {userRole}
-          isArchive = {isArchive}
+          userRole={userRole}
+          isArchive={isArchive}
           sponsor={requests[0].wang_ihsan_sponsor_type}
           requestType={requests[0].request_type}
-          help_type = {requests[0].wang_ihsan_help_type}
-          ammount_requested = {requests[0].wang_ihsan_ammount_requested}
+          help_type={requests[0].wang_ihsan_help_type}
+          ammount_requested={requests[0].wang_ihsan_ammount_requested}
           justification={requests[0].wang_ihsan_justification}
           pdfsPath={pdfsPath}
         />
@@ -59,19 +59,19 @@ function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType,
     {
       label: isArchive ? 'Langkah 3 : Semakan Catatan' : 'Langkah 3 : Keputusan Semakan & Catatan',
       content: isArchive ? (
-        <ResultStepArchive 
-        adminId={adminId}
-        bhepaId={bhepaId}
-        tncId={tncId}
-        adminRemark={adminRemark}
-        bhepaRemark={bhepaRemark}
-        tncRemark={tncRemark}/>
+        <ResultStepArchive
+          adminId={adminId}
+          bhepaId={bhepaId}
+          tncId={tncId}
+          adminRemark={adminRemark}
+          bhepaRemark={bhepaRemark}
+          tncRemark={tncRemark} />
       ) : (
         <ResultStep />
-      ) 
+      )
     },
   ];
-  
+
   useEffect(() => {
     // Fetch user details from the server using POST method
     fetch('/api/get-sso-user', {
@@ -92,82 +92,82 @@ function WangIhsanComponent({ requestId, requestorId, userId, userRole, reqType,
       .catch((error) => {
         console.error('Error fetching user details:', error);
       });
-  }, [requestorId]); 
+  }, [requestorId]);
 
-useEffect(() => {
-  // Fetch user details from the server
-  fetch(`https://kebajikansiswa.usm.my/api/wang-ihsan-applications-requestid?request_id=${requestId}`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.wangIhsanDetails) {
-        // Convert the array of user details into a map
-        const detailsMap = {};
-        data.wangIhsanDetails.forEach((detail) => {
-          detailsMap[detail.request_id] = detail;
-        });
-        setWangIhsanApplication(detailsMap);
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching user details:", error);
-    });
-}, []);
+  useEffect(() => {
+    // Fetch user details from the server
+    fetch(`http://localhost:8000/api/wang-ihsan-applications-requestid?request_id=${requestId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.wangIhsanDetails) {
+          // Convert the array of user details into a map
+          const detailsMap = {};
+          data.wangIhsanDetails.forEach((detail) => {
+            detailsMap[detail.request_id] = detail;
+          });
+          setWangIhsanApplication(detailsMap);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user details:", error);
+      });
+  }, []);
 
-useEffect(() => {
-  const apiUrl = `https://kebajikansiswa.usm.my/api/request-requestid?request_id=${requestId}`;
+  useEffect(() => {
+    const apiUrl = `http://localhost:8000/api/request-requestid?request_id=${requestId}`;
 
-  // Fetch requests from the server
-  fetch(apiUrl)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.request) {
-        // Update request objects with user names
-        const requestUsers = data.request.map((request) => {
-          const requestorDetails = userDetailsMap;
-          const wangIhsanDetails = wangIhsanApplication[request.request_id];
-          
-          if (wangIhsanDetails) {
-            setPdfsPath([
-              { name: 'IC Number', path:  wangIhsanDetails.ic_num_file },
-              { name: 'Bank Statement', path: wangIhsanDetails.bank_statement_file },
-              { name: 'Payment Slip (Father)', path: wangIhsanDetails.payment_slip_father_file },
-              { name: 'Payment Slip (Mother)', path: wangIhsanDetails.payment_slip_mother_file },
-              { name: 'Supporting Document', path: wangIhsanDetails.support_doc_file }
-            ]);
-          }
-          
-          return {
-            ...request,
-            requestor_name: requestorDetails ? requestorDetails.nama : '-',
-            requestor_matric: requestorDetails ? requestorDetails.matrik : '-',
-            requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
-            requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
-            requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
-            request_type: 'wang_ihsan',
+    // Fetch requests from the server
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.request) {
+          // Update request objects with user names
+          const requestUsers = data.request.map((request) => {
+            const requestorDetails = userDetailsMap;
+            const wangIhsanDetails = wangIhsanApplication[request.request_id];
+
+            if (wangIhsanDetails) {
+              setPdfsPath([
+                { name: 'IC Number', path: wangIhsanDetails.ic_num_file },
+                { name: 'Bank Statement', path: wangIhsanDetails.bank_statement_file },
+                { name: 'Payment Slip (Father)', path: wangIhsanDetails.payment_slip_father_file },
+                { name: 'Payment Slip (Mother)', path: wangIhsanDetails.payment_slip_mother_file },
+                { name: 'Supporting Document', path: wangIhsanDetails.support_doc_file }
+              ]);
+            }
+
+            return {
+              ...request,
+              requestor_name: requestorDetails ? requestorDetails.nama : '-',
+              requestor_matric: requestorDetails ? requestorDetails.matrik : '-',
+              requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
+              requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
+              requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
+              request_type: 'wang_ihsan',
 
 
-            wang_ihsan_sponsor_type: wangIhsanDetails ? wangIhsanDetails.sponsor_type : '-',
-            wang_ihsan_ammount_requested: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_ammount_requested : '-',
-            wang_ihsan_help_type: wangIhsanDetails ? wangIhsanDetails.help_type : '-',
-            wang_ihsan_justification: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_justification : '-',
+              wang_ihsan_sponsor_type: wangIhsanDetails ? wangIhsanDetails.sponsor_type : '-',
+              wang_ihsan_ammount_requested: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_ammount_requested : '-',
+              wang_ihsan_help_type: wangIhsanDetails ? wangIhsanDetails.help_type : '-',
+              wang_ihsan_justification: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_justification : '-',
 
-            // wang_ihsan_ic_num_file: wangIhsanDetails ? wangIhsanDetails.ic_num_file : '-',
-            // wang_ihsan_bank_statement_file: wangIhsanDetails ? wangIhsanDetails.bank_statement_file : '-',
-            // wang_ihsan_payment_slip_father_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_father_file : '-',
-            // wang_ihsan_payment_slip_mother_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_mother_file : '-',
-            // wang_ihsan_support_doc_file: wangIhsanDetails ? wangIhsanDetails.support_doc_file : '-',
-          };
-        });
-        console.log('this is the test ---------------------------')
-        console.log(requestUsers);
+              // wang_ihsan_ic_num_file: wangIhsanDetails ? wangIhsanDetails.ic_num_file : '-',
+              // wang_ihsan_bank_statement_file: wangIhsanDetails ? wangIhsanDetails.bank_statement_file : '-',
+              // wang_ihsan_payment_slip_father_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_father_file : '-',
+              // wang_ihsan_payment_slip_mother_file: wangIhsanDetails ? wangIhsanDetails.payment_slip_mother_file : '-',
+              // wang_ihsan_support_doc_file: wangIhsanDetails ? wangIhsanDetails.support_doc_file : '-',
+            };
+          });
+          console.log('this is the test ---------------------------')
+          console.log(requestUsers);
 
-        setRequests(requestUsers);
-       
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching requests data:", error);
-    });
+          setRequests(requestUsers);
+
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching requests data:", error);
+      });
   }, [userDetailsMap, requestId]);
 
   // console.log(requests);
@@ -205,33 +205,33 @@ useEffect(() => {
                 <div>
                   {index === steps.length - 1 ? (
                     <>
-                    {!isArchive ? (
-            <>
-                    <Box sx={{m:3}}>
-                        {requests[0] ? (
-                      <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requestorId} requestorName={requests[0].requestor_name}></ApprovedDialog>
+                      {!isArchive ? (
+                        <>
+                          <Box sx={{ m: 3 }}>
+                            {requests[0] ? (
+                              <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requestorId} requestorName={requests[0].requestor_name}></ApprovedDialog>
+                            ) : (
+                              'Loading...' // or any dummy value you prefer
+                            )}
+                          </Box>
+                          <Box sx={{ mb: 2 }}>
+                            <RejectDialog requestId={requestId} userId={userId} userRole={userRole} ></RejectDialog>
+                          </Box>
+                        </>
                       ) : (
-                        'Loading...' // or any dummy value you prefer
+
+                        <Button
+                          variant="contained"
+                          onClick={handleHome}
+                          disableElevation={true}
+                          style={{ backgroundColor: "green", color: "#fff", fontWeight: "bold", width: "30%" }}
+                          sx={{ mt: 1, mr: 1 }}
+                        >
+                          Home
+                        </Button>
                       )}
-                    </Box>
-                    <Box sx={{mb:2}}> 
-                    <RejectDialog requestId={requestId} userId={userId} userRole={userRole} ></RejectDialog>
-                      </Box>
                     </>
-          ) : (
-            
-            <Button
-                      variant="contained"
-                      onClick={handleHome}
-                      disableElevation={true}
-                      style={{ backgroundColor: "green", color: "#fff", fontWeight: "bold", width: "30%" }}
-                      sx={{ mt: 1, mr: 1 }}
-                    >
-                      Home
-                    </Button>
-          )}
-        </>
-      ) : (
+                  ) : (
                     <Button
                       variant="contained"
                       onClick={handleNext}
@@ -261,4 +261,3 @@ useEffect(() => {
 }
 
 export default WangIhsanComponent;
-    

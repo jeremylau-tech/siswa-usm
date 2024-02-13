@@ -57,7 +57,7 @@ export default function CreateVendor() {
   const handleSave = async () => {
     // Make an API request to save the data to the backend
     try {
-      const response = await fetch('https://kebajikansiswa.usm.my/api/insert-vendor', {
+      const response = await fetch('http://localhost:8000/api/insert-vendor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,34 +86,34 @@ export default function CreateVendor() {
 
   return (
     <div>
-      <Button variant="contained" 
-          style={{
-            color: "#424242",
-            textTransform: "none",
-            backgroundColor: "#eeeeee",
-            boxShadow: "none",
-          }
-          }
-           onClick={handleClickOpen}>
-            <AddRoundedIcon
-              sx={{ mr: 1 }}
-            />
-            Daftar Vendor
+      <Button variant="contained"
+        style={{
+          color: "#424242",
+          textTransform: "none",
+          backgroundColor: "#eeeeee",
+          boxShadow: "none",
+        }
+        }
+        onClick={handleClickOpen}>
+        <AddRoundedIcon
+          sx={{ mr: 1 }}
+        />
+        Daftar Vendor
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle 
-        style={{
+        <DialogTitle
+          style={{
             backgroundColor: "#eeeeee",
             color: "#424242",
             textTransform: "none",
             boxShadow: "none",
             fontWeight: "bold",
-        }}
-        align='center'
+          }}
+          align='center'
         >Daftar Vendor</DialogTitle>
         <DialogContent>
-        <Divider style={{paddingTop:'20px'}}/>
-        <Typography variant="h7" gutterBottom style={{paddingTop:'30px'}}> Maklumat Vendor </Typography>
+          <Divider style={{ paddingTop: '20px' }} />
+          <Typography variant="h7" gutterBottom style={{ paddingTop: '30px' }}> Maklumat Vendor </Typography>
           <TextField
             autoFocus
             margin="dense"
@@ -125,7 +125,7 @@ export default function CreateVendor() {
             value={formData.vendorName}
             onChange={handleChange('vendorName')}
           />
-        <TextField
+          <TextField
             autoFocus
             margin="dense"
             id="outlined-basic"
@@ -136,7 +136,7 @@ export default function CreateVendor() {
             value={formData.vendorLocation}
             onChange={handleChange('vendorLocation')}
           />
-        <TextField
+          <TextField
             autoFocus
             margin="dense"
             id="outlined-basic"
@@ -169,7 +169,7 @@ export default function CreateVendor() {
             value={formData.vendorAddress}
             onChange={handleChange('vendorAddress')}
           />
-        {/* <Box style={{  alignContent: 'center', paddingTop:'20px' }}>
+          {/* <Box style={{  alignContent: 'center', paddingTop:'20px' }}>
         <Typography variant="h7" gutterBottom> Logo </Typography>
         <Button 
         style={{
@@ -183,9 +183,9 @@ export default function CreateVendor() {
             <VisuallyHiddenInput type="file" />
         </Button>
         </Box> */}
-        <Divider style={{paddingTop:'20px'}}/>
-        <Typography variant="h7" gutterBottom style={{paddingTop:'10px'}}> Maklumat Pemilik </Typography>
-        <TextField
+          <Divider style={{ paddingTop: '20px' }} />
+          <Typography variant="h7" gutterBottom style={{ paddingTop: '10px' }}> Maklumat Pemilik </Typography>
+          <TextField
             autoFocus
             margin="dense"
             id="outlined-basic"
@@ -196,7 +196,7 @@ export default function CreateVendor() {
             value={formData.vendorFullname}
             onChange={handleChange('vendorFullname')}
           />
-        <TextField
+          <TextField
             autoFocus
             margin="dense"
             id="outlined-basic"
@@ -207,7 +207,7 @@ export default function CreateVendor() {
             value={formData.vendorPhoneNo}
             onChange={handleChange('vendorPhoneNo')}
           />
-        <TextField
+          <TextField
             autoFocus
             margin="dense"
             id="outlined-basic"
@@ -218,9 +218,9 @@ export default function CreateVendor() {
             value={formData.vendorEmail}
             onChange={handleChange('vendorEmail')}
           />
-          <Divider style={{paddingTop:'20px'}}/>
-        <Typography variant="h7" gutterBottom style={{paddingTop:'10px'}}> Maklumat Akaun Bank Pemilik </Typography>
-        <TextField
+          <Divider style={{ paddingTop: '20px' }} />
+          <Typography variant="h7" gutterBottom style={{ paddingTop: '10px' }}> Maklumat Akaun Bank Pemilik </Typography>
+          <TextField
             autoFocus
             margin="dense"
             id="outlined-basic"
@@ -231,7 +231,7 @@ export default function CreateVendor() {
             value={formData.vendorBankAccName}
             onChange={handleChange('vendorBankAccName')}
           />
-        <TextField
+          <TextField
             autoFocus
             margin="dense"
             id="outlined-basic"
@@ -242,7 +242,7 @@ export default function CreateVendor() {
             value={formData.vendorBankAccNo}
             onChange={handleChange('vendorBankAccNo')}
           />
-        <TextField
+          <TextField
             autoFocus
             margin="dense"
             id="outlined-basic"
@@ -255,7 +255,7 @@ export default function CreateVendor() {
           />
         </DialogContent>
         <DialogActions>
-                 <Button
+          <Button
             variant="contained"
             onClick={handleSave}
             disableElevation={true}

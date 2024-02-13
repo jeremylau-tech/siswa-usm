@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 // import HistoryFoodApplication from "./student/HistoryFoodApplication";
 
@@ -23,8 +23,8 @@ function HistoryFood() {
       userId: userId,
       baucarStatus: baucarStatus
     };
-    
-    fetch("https://kebajikansiswa.usm.my/api/coupons-userid-status", {
+
+    fetch("http://localhost:8000/api/coupons-userid-status", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,18 +49,18 @@ function HistoryFood() {
     const day = String(date.getDate()).padStart(2, '0');
     return `${day}/${month}/${year}`;
   }
-  
+
   const navToHistory = () => {
-    navigate('/CouponPage', { state: {nokp: userId} });
+    navigate('/CouponPage', { state: { nokp: userId } });
   };
 
   return (
     <div className="coupon-page">
       <h1 className="coupon-title">Rekod Penggunaan Kupon Makanan</h1> <Button variant="outlined" color="primary" onClick={() => navToHistory()}>
-                  Kembali
-                </Button>
-    <div className="coupon-container">
-      {baucar.map((baucar, index) => (
+        Kembali
+      </Button>
+      <div className="coupon-container">
+        {baucar.map((baucar, index) => (
           <Card key={baucar.baucar_id} className="coupon-card">
             <CardContent>
               <Typography variant="h4" gutterBottom>
@@ -79,8 +79,8 @@ function HistoryFood() {
               </div>
             </CardContent>
           </Card>
-      ))}
-    </div>
+        ))}
+      </div>
 
     </div>
   );

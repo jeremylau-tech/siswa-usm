@@ -18,204 +18,208 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-   function NewApplication({roles, user_id}){
-    const columns = [
-      {
-        field: "request_id",
-        headerName: "No Rujukan",
-        width: 150,
-        editable: false,
-      },
-      {
-        field: "requestor_name",
-        headerName: "Nama Pelajar",
-        width: 150,
-        editable: false,
-      },
-      {
-        field: "request_type",
-        headerName: "Jenis Permohonan",
-        width: 150,
-        editable: false,
-      },
-      {
-        field: "request_date",
-        headerName: "Tarikh Permohonan",
-        width: 150,
-        editable: false,
-      },
-      {
-        field: "request_count_per_user",
-        headerName: "Bilangan Permohonan",
-        width: 150,
-        editable: false,
-      },
-      {
-        field: "semakan",
-        headerName: "Semakan",
-        width: 130,
-        editable: false,
-        renderCell: (params) => {
-          const status = params.row.request_status; // Access the status value for the same row
-          const getIndicator = (status) => {
-            switch (status) {
-              case "baharu":
-                return (
-                  <>
-                    <status-indicator intermediary></status-indicator>
-                    <status-indicator ></status-indicator>
-                    <status-indicator ></status-indicator>
-                  </>
-                );
-              case "semak":
-                return (
-                  <>
-                    <status-indicator positive></status-indicator>
-                    <status-indicator intermediary></status-indicator>
-                    <status-indicator></status-indicator>
-                  </>
-                );
-              case "syor":
-                return (
-                  <>
-                    <status-indicator positive></status-indicator>
-                    <status-indicator positive></status-indicator>
-                    <status-indicator intermediary></status-indicator>
-                  </>
-                );
-              case "lulus":
-                return (
-                  <>
-                    <status-indicator positive></status-indicator>
-                    <status-indicator positive></status-indicator>
-                    <status-indicator positive></status-indicator>
-    
-                  </>
-                );
-              case "tolak":
-                return (
-                  <>
-                    <status-indicator negative></status-indicator>
-                    <status-indicator></status-indicator>
-                    <status-indicator></status-indicator>
-                  </>
-                );
-              default:
-                return <div>No Indicator</div>;
-            }
-          };
-    
-          return (
-            <div>
-              {getIndicator(status)}
-            </div>
-          );
-        },
-      },
-      {
-        field: "actions",
-        headerName: "Tindakan",
-        width: 100,
-        sortable: false,
-        renderCell: (params) => (
-    
-          <Button
-            style={{
-              backgroundColor: "#fafafa",
-              color: "black",
-              fontWeight: "bold",
-              boxShadow: "none",
-              outlineColor: "lightgrey",
-              outlineStyle: "solid",
-              outlineWidth: "1.5px",
-              textTransform: "none",
-              display: "flex",
-            }}
-            variant="contained"
-            onClick={() => handleToArchieve(params)}
-            >
-            <span >{getStatusButtonText(params.row.request_status).icon}</span>
-            {getStatusButtonText(params.row.request_status).text}
-          </Button>
-        ),
-      },
-      {
-        field: "catatan",
-        headerName: "Catatan",
-        width: 100,
-        sortable: false,
-        renderCell: (params) => (
-          <Button
-            style={{
-              backgroundColor: "#fafafa",
-              color: "black",
-              fontWeight: "bold",
-              boxShadow: "none",
-              outlineColor: "lightgrey",
-              outlineStyle: "solid",
-              outlineWidth: "1.5px",
-              textTransform: "none",
-              display: "flex",
-            }}
-            variant="contained"
-            onClick={() => handleCatatanButton("later put here for remarking")}
-          >
-            <span >
-              <StickyNote2RoundedIcon> </StickyNote2RoundedIcon>
-            </span>
-          </Button>
-        ),
-      },
-    ];
-    
-    const navigate = useNavigate();
-    const location = useLocation();
+function NewApplication({ roles, user_id }) {
+  const columns = [
+    {
+      field: "request_id",
+      headerName: "No Rujukan",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "requestor_name",
+      headerName: "Nama Pelajar",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "request_type",
+      headerName: "Jenis Permohonan",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "request_date",
+      headerName: "Tarikh Permohonan",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "request_count_per_user",
+      headerName: "Bilangan Permohonan",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "semakan",
+      headerName: "Semakan",
+      width: 130,
+      editable: false,
+      renderCell: (params) => {
+        const status = params.row.request_status; // Access the status value for the same row
+        const getIndicator = (status) => {
+          switch (status) {
+            case "baharu":
+              return (
+                <>
+                  <status-indicator intermediary></status-indicator>
+                  <status-indicator ></status-indicator>
+                  <status-indicator ></status-indicator>
+                </>
+              );
+            case "semak":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator intermediary></status-indicator>
+                  <status-indicator></status-indicator>
+                </>
+              );
+            case "syor":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator intermediary></status-indicator>
+                </>
+              );
+            case "lulus":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
 
-    function handleToArchieve(params) {
-// <Link to={`/ArchivePage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
+                </>
+              );
+            case "tolak":
+              return (
+                <>
+                  <status-indicator negative></status-indicator>
+                  <status-indicator></status-indicator>
+                  <status-indicator></status-indicator>
+                </>
+              );
+            default:
+              return <div>No Indicator</div>;
+          }
+        };
+
+        return (
+          <div>
+            {getIndicator(status)}
+          </div>
+        );
+      },
+    },
+    {
+      field: "actions",
+      headerName: "Tindakan",
+      width: 100,
+      sortable: false,
+      renderCell: (params) => (
+
+        <Button
+          style={{
+            backgroundColor: "#fafafa",
+            color: "black",
+            fontWeight: "bold",
+            boxShadow: "none",
+            outlineColor: "lightgrey",
+            outlineStyle: "solid",
+            outlineWidth: "1.5px",
+            textTransform: "none",
+            display: "flex",
+          }}
+          variant="contained"
+          onClick={() => handleToArchieve(params)}
+        >
+          <span >{getStatusButtonText(params.row.request_status).icon}</span>
+          {getStatusButtonText(params.row.request_status).text}
+        </Button>
+      ),
+    },
+    {
+      field: "catatan",
+      headerName: "Catatan",
+      width: 100,
+      sortable: false,
+      renderCell: (params) => (
+        <Button
+          style={{
+            backgroundColor: "#fafafa",
+            color: "black",
+            fontWeight: "bold",
+            boxShadow: "none",
+            outlineColor: "lightgrey",
+            outlineStyle: "solid",
+            outlineWidth: "1.5px",
+            textTransform: "none",
+            display: "flex",
+          }}
+          variant="contained"
+          onClick={() => handleCatatanButton("later put here for remarking")}
+        >
+          <span >
+            <StickyNote2RoundedIcon> </StickyNote2RoundedIcon>
+          </span>
+        </Button>
+      ),
+    },
+  ];
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function handleToArchieve(params) {
+    // <Link to={`/ArchivePage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
 
 
-  const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
-    tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc } = params.row;
-  const user_role = roles;
+    const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id,
+      tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc } = params.row;
+    const user_role = roles;
 
-  // Navigate to the ArchivePage with request details and userRole
-  navigate('/ArchivePage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
-    tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id } });
+    // Navigate to the ArchivePage with request details and userRole
+    navigate('/ArchivePage', {
+      state: {
+        request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id,
+        tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id
+      }
+    });
   }
 
-    const getStatusButtonText = (status) => {
-      let buttonText = "";
-      let icon = <VisibilityIcon />;
-      return { text: buttonText, icon: icon };
-    };
-    
-    
-      const [open, setOpen] = useState(false); // State variable to control the dialog
-    
-      const handleClose = () => {
-        setOpen(false); // Close the dialog
-      };
-      
-      const handleButtonClick = (rowId) => {
-      // Add your logic here to handle the button click for the row with the given ID
-      alert(`Button clicked for row with ID: ${rowId}`);
-      };
-    
-      const handleCatatanButton = (remark) => {
-        // console.log(`Button clicked for row with ID: ${remark}`);
-        setOpen(true);
-        setSelectedCatatan(remark); // Store the rowId in the state
-      };
-    
-      const [selectedCatatan, setSelectedCatatan] = useState(null);
-      const [requests, setRequests] = useState([]);
-      const [userDetailsMap, setUserDetailsMap] = useState({});
+  const getStatusButtonText = (status) => {
+    let buttonText = "";
+    let icon = <VisibilityIcon />;
+    return { text: buttonText, icon: icon };
+  };
+
+
+  const [open, setOpen] = useState(false); // State variable to control the dialog
+
+  const handleClose = () => {
+    setOpen(false); // Close the dialog
+  };
+
+  const handleButtonClick = (rowId) => {
+    // Add your logic here to handle the button click for the row with the given ID
+    alert(`Button clicked for row with ID: ${rowId}`);
+  };
+
+  const handleCatatanButton = (remark) => {
+    // console.log(`Button clicked for row with ID: ${remark}`);
+    setOpen(true);
+    setSelectedCatatan(remark); // Store the rowId in the state
+  };
+
+  const [selectedCatatan, setSelectedCatatan] = useState(null);
+  const [requests, setRequests] = useState([]);
+  const [userDetailsMap, setUserDetailsMap] = useState({});
 
   useEffect(() => {
     const statusParam = "complete"; // Replace with the desired status parameter
-    const typeparam = "wang_ihsan"; 
-    const apiUrl = `https://kebajikansiswa.usm.my/api/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
+    const typeparam = "wang_ihsan";
+    const apiUrl = `http://localhost:8000/api/request-type-status-admin?request_status=${statusParam}&request_type=${typeparam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)
@@ -230,7 +234,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
         console.error("Error fetching requests data:", error);
       });
   }, []);
-  
+
   // console.log(requests)
   // const filteredRequest = requests.filter(request => request.request_status === "baharu");
 
@@ -254,63 +258,63 @@ import { useNavigate, useLocation } from 'react-router-dom';
   };
 
   return (
-    
-    <div>
-    <Box sx={{ height: 400, width: "100%" }}>
-      <Box sx={{ flexGrow: 1, }}
-        margin={1}
-        align={"right"}
-      >
-        <Button variant="contained"
-          style={{
-            color: "#424242",
-            textTransform: "none",
-            backgroundColor: "#eeeeee",
-            boxShadow: "none",
-          }
-          }
-          onClick={downloadDataAsCSV}>
-          Muat Turun
-          <DownloadRoundedIcon
-            sx={{ ml: 1 }}
-          />
-        </Button>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          fontStyle={"italic"}
-          fontSize={12}
-        >  format .CSV </Typography>
-      </Box>
-      <DataGrid
-        rows={requests}
-        columns={columns}
-        getRowId={(row) => row.request_id} // Assuming request_id is unique
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
-    </Box>
-    {/* Dialog component */}
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle variant='h5'>Catatan</DialogTitle>
-      <DialogContent>
-        {selectedCatatan !== null ? (
-          <div>
-            {selectedCatatan}
-          </div>
-        ) : null}
-      </DialogContent>
-    </Dialog>
-  </div>
-  );
-  }
 
-  export default NewApplication;
+    <div>
+      <Box sx={{ height: 400, width: "100%" }}>
+        <Box sx={{ flexGrow: 1, }}
+          margin={1}
+          align={"right"}
+        >
+          <Button variant="contained"
+            style={{
+              color: "#424242",
+              textTransform: "none",
+              backgroundColor: "#eeeeee",
+              boxShadow: "none",
+            }
+            }
+            onClick={downloadDataAsCSV}>
+            Muat Turun
+            <DownloadRoundedIcon
+              sx={{ ml: 1 }}
+            />
+          </Button>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            fontStyle={"italic"}
+            fontSize={12}
+          >  format .CSV </Typography>
+        </Box>
+        <DataGrid
+          rows={requests}
+          columns={columns}
+          getRowId={(row) => row.request_id} // Assuming request_id is unique
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 10,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box>
+      {/* Dialog component */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle variant='h5'>Catatan</DialogTitle>
+        <DialogContent>
+          {selectedCatatan !== null ? (
+            <div>
+              {selectedCatatan}
+            </div>
+          ) : null}
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+export default NewApplication;

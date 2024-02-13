@@ -12,8 +12,8 @@ import RejectDialog from "./RejectDialog";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
 
 
-function BhepaStepperComponentMakanan({ requestId, userId, userRole, reqType, adminId, bhepaId, 
-  tncId, adminRemark,bhepaRemark,tncRemark,isArchive, requestorId}) {
+function BhepaStepperComponentMakanan({ requestId, userId, userRole, reqType, adminId, bhepaId,
+  tncId, adminRemark, bhepaRemark, tncRemark, isArchive, requestorId }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [requests, setRequests] = useState([]);
   const [foodApplication, setFoodApplication] = useState([]);
@@ -26,28 +26,28 @@ function BhepaStepperComponentMakanan({ requestId, userId, userRole, reqType, ad
     {
       label: isArchive ? 'Langkah 1 : Semakan Catatan' : 'Keputusan Semakan & Catatan',
       content: isArchive ? (
-        <ResultStepArchive 
+        <ResultStepArchive
           adminId={adminId}
           bhepaId={bhepaId}
           tncId={tncId}
           adminRemark={adminRemark}
           bhepaRemark={bhepaRemark}
-          tncRemark={tncRemark}/>
+          tncRemark={tncRemark} />
       ) : (
         <div>
           <ResultStep />
-          <Box sx={{m:3}}>
+          <Box sx={{ m: 3 }}>
             {requests[0] ? (
               <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requests[0].requestor_id} requestorName={requests[0].requestor_name}></ApprovedDialog>
             ) : (
               'Loading...' // or any dummy value you prefer
             )}
           </Box>
-          <Box sx={{mb:2}}> 
+          <Box sx={{ mb: 2 }}>
             <RejectDialog requestId={requestId} userId={userId} userRole={userRole}></RejectDialog>
           </Box>
         </div>
-      ) 
+      )
     },
     {
       label: 'Maklumat Pelajar, Semakan Salinan Kad Pengenalan, dan Gaji Ibu Bapa',
@@ -73,84 +73,84 @@ function BhepaStepperComponentMakanan({ requestId, userId, userRole, reqType, ad
     },
   ];
 
-useEffect(() => {
-  // Fetch user details from the server using POST method
-  fetch('/api/get-sso-user', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    // You can pass any necessary parameters here
-    body: JSON.stringify({ ic: requestorId }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.user) {
-        // Convert the array of user details into a map
-        console.log("user---------")
-        setUserDetailsMap(data.user);
-      }
+  useEffect(() => {
+    // Fetch user details from the server using POST method
+    fetch('/api/get-sso-user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // You can pass any necessary parameters here
+      body: JSON.stringify({ ic: requestorId }),
     })
-    .catch((error) => {
-      console.error('Error fetching user details:', error);
-    });
-}, [requestorId]); 
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.user) {
+          // Convert the array of user details into a map
+          console.log("user---------")
+          setUserDetailsMap(data.user);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching user details:', error);
+      });
+  }, [requestorId]);
 
 
-useEffect(() => {
-  // Fetch user details from the server
-  fetch(`https://kebajikansiswa.usm.my/api/food-applications-requestid?request_id=${requestId}`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.foodDetails) {
-        // Convert the array of user details into a map
-        const detailsMap = {};
-        data.foodDetails.forEach((detail) => {
-          detailsMap[detail.request_id] = detail;
-        });
-        setFoodApplication(detailsMap);
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching user details:", error);
-    });
-}, []);
+  useEffect(() => {
+    // Fetch user details from the server
+    fetch(`http://localhost:8000/api/food-applications-requestid?request_id=${requestId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.foodDetails) {
+          // Convert the array of user details into a map
+          const detailsMap = {};
+          data.foodDetails.forEach((detail) => {
+            detailsMap[detail.request_id] = detail;
+          });
+          setFoodApplication(detailsMap);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user details:", error);
+      });
+  }, []);
 
-useEffect(() => {
-  const apiUrl = `https://kebajikansiswa.usm.my/api/request-requestid?request_id=${requestId}`;
+  useEffect(() => {
+    const apiUrl = `http://localhost:8000/api/request-requestid?request_id=${requestId}`;
 
-  // Fetch requests from the server
-  fetch(apiUrl)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.request) {
-        // Update request objects with user names
-        const requestsFoodUsers = data.request.map((request) => {
-          const requestorDetails = userDetailsMap;
-          const foodDetails = foodApplication[request.request_id];
+    // Fetch requests from the server
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.request) {
+          // Update request objects with user names
+          const requestsFoodUsers = data.request.map((request) => {
+            const requestorDetails = userDetailsMap;
+            const foodDetails = foodApplication[request.request_id];
 
 
-          return {
-            ...request,
-            requestor_name: requestorDetails ? requestorDetails.nama : '-',
-            requestor_matric: requestorDetails ? requestorDetails.matrik : '-',
-            requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
-            requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
-            requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
+            return {
+              ...request,
+              requestor_name: requestorDetails ? requestorDetails.nama : '-',
+              requestor_matric: requestorDetails ? requestorDetails.matrik : '-',
+              requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
+              requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
+              requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
 
-            food_sponsor_type: foodDetails ? foodDetails.sponsor_type : '-',
-            food_justification: foodDetails ? foodDetails.food_justification : '-',
-            food_ic_num_file: foodDetails ? foodDetails.ic_num_file : '-',
-            food_payment_slip_file: foodDetails ? foodDetails.payment_slip_file : '-',
-          };
-        });
+              food_sponsor_type: foodDetails ? foodDetails.sponsor_type : '-',
+              food_justification: foodDetails ? foodDetails.food_justification : '-',
+              food_ic_num_file: foodDetails ? foodDetails.ic_num_file : '-',
+              food_payment_slip_file: foodDetails ? foodDetails.payment_slip_file : '-',
+            };
+          });
 
-        setRequests(requestsFoodUsers);
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching requests data:", error);
-    });
+          setRequests(requestsFoodUsers);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching requests data:", error);
+      });
   }, [userDetailsMap, requestId]);
 
   console.log(requests);
@@ -269,4 +269,3 @@ useEffect(() => {
 }
 
 export default BhepaStepperComponentMakanan;
-    

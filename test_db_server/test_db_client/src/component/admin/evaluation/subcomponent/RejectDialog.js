@@ -24,24 +24,24 @@ export default function ApprovedDialog({ requestId, userId, userRole }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Check if textFieldValue is empty
     if (!textFieldValue) {
       alert("Please fill in the remark.");
       return;
     }
-  
+
     // Define the data to send
     const formDataJSON = {
       inputRemark: textFieldValue,
       userRole: userRole,
       approverId: userId,
       requestId: requestId
-        };
+    };
 
     console.log(formDataJSON);
-  
-    const apiUrl = "https://kebajikansiswa.usm.my/api/request-edit-tolak"; // Update with your server's URL
+
+    const apiurl = "http://localhost:8000/api/request-edit-tolak"; // Update with your server's URL
 
     try {
       // Send a POST request to the server with only the textFieldValue
@@ -52,7 +52,7 @@ export default function ApprovedDialog({ requestId, userId, userRole }) {
         },
         body: JSON.stringify(formDataJSON),
       });
-  
+
       if (response.ok) {
         alert("Text field value sent successfully!");
       } else {
@@ -65,7 +65,7 @@ export default function ApprovedDialog({ requestId, userId, userRole }) {
       alert("An error occurred while submitting the text field value.");
     }
 
-    navigate('/adminDashboard', { state: { roles: userRole }});
+    navigate('/adminDashboard', { state: { roles: userRole } });
 
     // navigate('/adminDashboard'); // Use navigate for redirection
 
@@ -73,15 +73,15 @@ export default function ApprovedDialog({ requestId, userId, userRole }) {
 
   return (
     <div>
-      <Button 
-      style={{
-        backgroundColor:"#ffcdd2",
-        color:"#b71c1c",
-        fontWeight:"800",
-        height:"60px",
-        width:"58%",
-      }}
-      onClick={handleClickOpen}>
+      <Button
+        style={{
+          backgroundColor: "#ffcdd2",
+          color: "#b71c1c",
+          fontWeight: "800",
+          height: "60px",
+          width: "58%",
+        }}
+        onClick={handleClickOpen}>
         Permohonan Telah Disemak dan Ditolak
       </Button>
       <Dialog
@@ -95,7 +95,7 @@ export default function ApprovedDialog({ requestId, userId, userRole }) {
           {"Adakah Anda Pasti? "}
         </DialogTitle>
         <DialogContent>
-        <TextField
+          <TextField
             sx={{ m: 1 }}
             id="outlined-multiline-static"
             label="Catatan Kepada Pegawai"
@@ -107,13 +107,13 @@ export default function ApprovedDialog({ requestId, userId, userRole }) {
           />
         </DialogContent>
         <DialogActions>
-        {/* <Link to={`/adminDashboard`}> */}
+          {/* <Link to={`/adminDashboard`}> */}
 
-<Button sx={{ m: 1 }} style={{ backgroundColor: "#ffcdd2", color: "#b71c1c", fontWeight: "800" }} variant="contained" disableElevation size="large" onClick={handleSubmit}>
-                    Hantar untuk Pengesahan</Button>
-                    {/* </Link> */}
-                <Button sx={{ m:1}} style={{color:"grey"}} onClick={handleClose} 
-                          size="large"> Kembali</Button>
+          <Button sx={{ m: 1 }} style={{ backgroundColor: "#ffcdd2", color: "#b71c1c", fontWeight: "800" }} variant="contained" disableElevation size="large" onClick={handleSubmit}>
+            Hantar untuk Pengesahan</Button>
+          {/* </Link> */}
+          <Button sx={{ m: 1 }} style={{ color: "grey" }} onClick={handleClose}
+            size="large"> Kembali</Button>
         </DialogActions>
       </Dialog>
     </div>

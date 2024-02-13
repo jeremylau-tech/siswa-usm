@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from 'react-router-dom'
 
-export default function ApprovedDialog({ requestId, userId, userRole, requestType, requestorId, requestorName}) {
+export default function ApprovedDialog({ requestId, userId, userRole, requestType, requestorId, requestorName }) {
   const navigate = useNavigate(); // Initialize the useNavigate hook
   const data = { roles: userRole };
 
@@ -24,13 +24,13 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Check if textFieldValue is empty
     if (!textFieldValue) {
       alert("Please fill in the remark.");
       return;
     }
-    
+
     // Define the data to send
     const formDataJSON = {
       inputRemark: textFieldValue,
@@ -41,8 +41,8 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
       requestorId: requestorId,
       requestorName: requestorName
     };
-  
-    const apiUrl = "https://kebajikansiswa.usm.my/api/request-edit-lulus"; // Update with your server's URL
+
+    const apiurl = "http://localhost:8000/api/request-edit-lulus"; // Update with your server's URL
 
     try {
       // Send a POST request to the server with only the textFieldValue
@@ -53,7 +53,7 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
         },
         body: JSON.stringify(formDataJSON),
       });
-  
+
       if (response.ok) {
         alert("Text field value sent successfully!");
       } else {
@@ -74,15 +74,15 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
 
   return (
     <div>
-      <Button 
-      style={{
-        backgroundColor:"#c8e6c9",
-        color:"#33691e",
-        fontWeight:"800",
-        height:"60px",
-        width:"60%",
-      }}
-      onClick={handleClickOpen}>
+      <Button
+        style={{
+          backgroundColor: "#c8e6c9",
+          color: "#33691e",
+          fontWeight: "800",
+          height: "60px",
+          width: "60%",
+        }}
+        onClick={handleClickOpen}>
         Permohonan Telah Disemak dan Layak Diterima
       </Button>
       <Dialog
@@ -96,7 +96,7 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
           {"Adakah Anda Pasti? "}
         </DialogTitle>
         <DialogContent>
-        <TextField
+          <TextField
             sx={{ m: 1 }}
             id="outlined-multiline-static"
             label="Catatan Kepada Pegawai"
@@ -108,12 +108,12 @@ export default function ApprovedDialog({ requestId, userId, userRole, requestTyp
           />
         </DialogContent>
         <DialogActions>
-        {/* <Link to={`/adminDashboard`}> */}
-        <Button sx={{ m: 1 }} style={{ backgroundColor: "#c8e6c9", color: "#33691e", fontWeight: "800" }} variant="contained" disableElevation size="large" onClick={handleSubmit}>
-                    Hantar untuk Pengesahan</Button>
-                    {/* </Link> */}
-                <Button sx={{ m:1}} style={{color:"grey"}} onClick={handleClose} 
-                          size="large"> Kembali</Button>
+          {/* <Link to={`/adminDashboard`}> */}
+          <Button sx={{ m: 1 }} style={{ backgroundColor: "#c8e6c9", color: "#33691e", fontWeight: "800" }} variant="contained" disableElevation size="large" onClick={handleSubmit}>
+            Hantar untuk Pengesahan</Button>
+          {/* </Link> */}
+          <Button sx={{ m: 1 }} style={{ color: "grey" }} onClick={handleClose}
+            size="large"> Kembali</Button>
         </DialogActions>
       </Dialog>
     </div>

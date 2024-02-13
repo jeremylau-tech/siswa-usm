@@ -18,25 +18,25 @@ function KhairatNextPage() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
+
   const uploadFile = async (file) => {
     if (file) {
       try {
-        
+
         const uploadData = new FormData();
         uploadData.append("file", file);
-        
 
-        const response = await fetch("https://kebajikansiswa.usm.my/upload", {
+
+        const response = await fetch("http://localhost:8000/upload", {
           method: "POST",
           body: uploadData,
         });
-  
+
         if (response.ok) {
           const filename = await response.text();
 
           return filename;
-  
+
         } else {
           // Handle any errors
           console.error("File upload failed.");
@@ -48,101 +48,101 @@ function KhairatNextPage() {
       }
     }
   };
-  
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-    
-      if (!formData.req_relationship ||
-        !deathCertFile ||
-        !icNumFile ||
-        !bankStatementFile||
-        !transportFareFile) {
-        alert("Please fill in all the required fields.");
-        return;
-      }
-    
-      // Define the array of promises for file uploads
-      const uploadPromises = [
-        uploadFile(deathCertFile, "death_cert_file"),
-        uploadFile(icNumFile, "ic_num_file"),
-        uploadFile(bankStatementFile, "bank_statement_file"),
-        uploadFile(transportFareFile, "transport_fare_file"),
-      ];
-    
-      try {
-        // Wait for all file upload promises to resolve
-        const results = await Promise.all(uploadPromises);
 
-        const formDataJSON = {
-          death_cert_file: results[0],
-          ic_num_file: results[1],
-          bank_statement_file: results[2],
-          transport_fare_file: results[3], 
-          req_relationship: formData.req_relationship,
-          requestor_id: formData.requestor_id,
-          request_type: formData.request_type
-        };
 
-        const apiUrl = "https://kebajikansiswa.usm.my/insert-request"; // Update with your server's URL
-    
-        // Create a POST request to send the formData to the server
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formDataJSON),
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.req_relationship ||
+      !deathCertFile ||
+      !icNumFile ||
+      !bankStatementFile ||
+      !transportFareFile) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
+
+    // Define the array of promises for file uploads
+    const uploadPromises = [
+      uploadFile(deathCertFile, "death_cert_file"),
+      uploadFile(icNumFile, "ic_num_file"),
+      uploadFile(bankStatementFile, "bank_statement_file"),
+      uploadFile(transportFareFile, "transport_fare_file"),
+    ];
+
+    try {
+      // Wait for all file upload promises to resolve
+      const results = await Promise.all(uploadPromises);
+
+      const formDataJSON = {
+        death_cert_file: results[0],
+        ic_num_file: results[1],
+        bank_statement_file: results[2],
+        transport_fare_file: results[3],
+        req_relationship: formData.req_relationship,
+        requestor_id: formData.requestor_id,
+        request_type: formData.request_type
+      };
+
+      const apiurl = "http://localhost:8000/insert-request"; // Update with your server's URL
+
+      // Create a POST request to send the formData to the server
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataJSON),
+      });
+
+      if (response.ok) {
+        // If the server responds with a 200 status code (OK), you can handle success here
+        alert("Form data sent successfully!");
+
+        setFormData(() => {
+          // Reset the form fields by clearing the formData state
+          return {
+            req_relationship: ""
+          };
+        }, () => {
+          console.log(formData); // This will log the updated formData
         });
-    
-        if (response.ok) {
-          // If the server responds with a 200 status code (OK), you can handle success here
-          alert("Form data sent successfully!");
 
-          setFormData(() => {
-            // Reset the form fields by clearing the formData state
-            return {
-              req_relationship: ""
-            };
-          }, () => {
-            console.log(formData); // This will log the updated formData
-          });
-    
-          setDeathCertFile(null);
-          setIcNumFile(null);
-          setBankStatementFile(null);
-          setTransportFareFile(null);
-        } else {
-          console.log(formData);
-          // Handle errors or display error messages here
-          console.error("Form data submission failed.");
-          alert("Something wrong on the backend!");
-        }
-      } catch (error) {
-        console.error("Error during form submission:", error);
+        setDeathCertFile(null);
+        setIcNumFile(null);
+        setBankStatementFile(null);
+        setTransportFareFile(null);
+      } else {
+        console.log(formData);
+        // Handle errors or display error messages here
+        console.error("Form data submission failed.");
+        alert("Something wrong on the backend!");
       }
-    };
-    
-    const buttonStyle = {
-      padding: '10px 20px',
-      borderRadius: '5px',
-      marginRight: '10px',
-      width: 'calc(48% - 5px)',
-    };
-    
-    const kembaliButtonStyle = {
-      ...buttonStyle,
-      backgroundColor: '#808080', // Lighter color for Kembali button
-      borderColor: '#808080', // Matching border color
-      color: 'white', // Text color for Kembali button
-    };
-    
-    const hantarButtonStyle = {
-      ...buttonStyle,
-      backgroundColor: '#491E6E',
-      borderColor: '#491E6E',
-      color: 'white',
-    };
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    }
+  };
+
+  const buttonStyle = {
+    padding: '10px 20px',
+    borderRadius: '5px',
+    marginRight: '10px',
+    width: 'calc(48% - 5px)',
+  };
+
+  const kembaliButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#808080', // Lighter color for Kembali button
+    borderColor: '#808080', // Matching border color
+    color: 'white', // Text color for Kembali button
+  };
+
+  const hantarButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#491E6E',
+    borderColor: '#491E6E',
+    color: 'white',
+  };
 
   return (
     <div className="mt-5 form-page">
@@ -153,8 +153,8 @@ function KhairatNextPage() {
       <div className="form-column form-column-right">
         <h2 className="right-header">Butiran Permohonan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
-        <form class="form-style"  onSubmit={handleSubmit}>
-          
+        <form class="form-style" onSubmit={handleSubmit}>
+
           <div className="form-group">
             <label htmlFor="relationship">Hubungan:</label>
             <input
@@ -167,7 +167,7 @@ function KhairatNextPage() {
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="email2">Salinan Sijil Kematian:</label>
             <DragDrop selectedFile={deathCertFile} setSelectedFile={setDeathCertFile} /> {/* Pass selectedFile and setSelectedFile as props */}          </div>

@@ -4,7 +4,7 @@ function MessagePage() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetch("https://kebajikansiswa.usm.my/api/message")
+    fetch("http://localhost:8000/api/message")
       .then((res) => res.json())
       .then((data) => setMessage(data.message));
   }, []);

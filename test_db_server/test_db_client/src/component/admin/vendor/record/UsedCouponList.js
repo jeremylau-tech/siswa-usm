@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Button, Typography,
 } from "@mui/material";
@@ -26,7 +26,7 @@ function UsedCouponList({ }) {
             field: "baucar_code",
             headerName: "Kod Baucar",
             width: 150,
-            editable: false, 
+            editable: false,
         },
 
         {
@@ -95,25 +95,25 @@ function UsedCouponList({ }) {
 
     useEffect(() => {
         const invoiceId = row.invoice_id;  // Replace with the actual vendorId
-    
+
         // Make an HTTP POST request to the /invoice-all-vendor endpoint
-        fetch('https://kebajikansiswa.usm.my/api/invoice-baucar', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ invoiceId }),
+        fetch('http://localhost:8000/api/invoice-baucar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ invoiceId }),
         })
-          .then(res => res.json())
-          .then(data => {
-            // Update the state with the retrieved data
-            setBaucarmap(data.invoices);
-            console.log(data.invoices)
-          })
-          .catch(error => {
-            console.error('Error fetching data from the server:', error);
-          });
-      }, []);
+            .then(res => res.json())
+            .then(data => {
+                // Update the state with the retrieved data
+                setBaucarmap(data.invoices);
+                console.log(data.invoices)
+            })
+            .catch(error => {
+                console.error('Error fetching data from the server:', error);
+            });
+    }, []);
 
 
     return (

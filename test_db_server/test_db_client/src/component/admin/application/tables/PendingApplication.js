@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 
-function PendingList({roles, user_id}) {
+function PendingList({ roles, user_id }) {
 
   const [open, setOpen] = useState(false); // State variable to control the dialog
 
@@ -57,7 +57,7 @@ function PendingList({roles, user_id}) {
       valueGetter: (params) => {
         // Convert the ISO date string to a Date object
         const date = new Date(params.row.request_date);
-  
+
         // Format the date as a string in your desired format
         return date.toISOString().split('T')[0];
       },
@@ -204,7 +204,7 @@ function PendingList({roles, user_id}) {
   const [selectedCatatan, setSelectedCatatan] = useState(null);
 
   useEffect(() => {
-    const apiUrl = `https://kebajikansiswa.usm.my/api/request-all-admin`;
+    const apiUrl = `http://localhost:8000/api/request-all-admin`;
 
     // Fetch requests from the server
     fetch(apiUrl)
@@ -223,16 +223,20 @@ function PendingList({roles, user_id}) {
 
   function handleToArchieve(params) {
     // <Link to={`/ArchivePage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
-    
-    
-      const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
-        tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc } = params.row;
-      const user_role = roles;
-    
-      // Navigate to the ArchivePage with request details and userRole
-      navigate('/ArchivePage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
-        tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id } });
+
+
+    const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id,
+      tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc } = params.row;
+    const user_role = roles;
+
+    // Navigate to the ArchivePage with request details and userRole
+    navigate('/ArchivePage', {
+      state: {
+        request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id,
+        tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id
       }
+    });
+  }
 
   const downloadDataAsCSV = () => {
     // Create a header row with column names

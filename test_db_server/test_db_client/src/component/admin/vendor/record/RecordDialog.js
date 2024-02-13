@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -171,24 +171,24 @@ const RecordDialog = ({ open, onClose, recordDialogData }) => {
 
     useEffect(() => {
         const vendorId = recordDialogData.vendor_id;  // Replace with the actual vendorId
-    
+
         // Make an HTTP POST request to the /invoice-all-vendor endpoint
-        fetch('https://kebajikansiswa.usm.my/api/invoice-all-vendor', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ vendorId }),
+        fetch('http://localhost:8000/api/invoice-all-vendor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ vendorId }),
         })
-          .then(res => res.json())
-          .then(data => {
-            // Update the state with the retrieved data
-            setInvoiceMap(data.invoices);
-          })
-          .catch(error => {
-            console.error('Error fetching data from the server:', error);
-          });
-      }, []);
+            .then(res => res.json())
+            .then(data => {
+                // Update the state with the retrieved data
+                setInvoiceMap(data.invoices);
+            })
+            .catch(error => {
+                console.error('Error fetching data from the server:', error);
+            });
+    }, []);
 
     return (
         <Dialog open={open} fullWidth={true} maxWidth={'md'} onClose={onClose}>

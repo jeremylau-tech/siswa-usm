@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import {
@@ -22,7 +22,7 @@ function CouponPage() {
   const [vendorMap, setVendorMap] = useState({});
 
   const navToHistory = () => {
-    navigate('/HistoryFood', { state: { userId: userId }});
+    navigate('/HistoryFood', { state: { userId: userId } });
   };
 
 
@@ -62,7 +62,7 @@ function CouponPage() {
     // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-redeem`, {
 
     // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-redeem`, {
-      fetch("https://kebajikansiswa.usm.my/api/coupons-redeem", {
+    fetch("http://localhost:8000/api/coupons-redeem", {
 
       method: "POST",
       headers: {
@@ -89,9 +89,9 @@ function CouponPage() {
   useEffect(() => {
     // Data to send in the request body
     const requestData = { userId };
-    
+
     // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }coupons-userid`, {
-      fetch("https://kebajikansiswa.usm.my/api/coupons-userid", {
+    fetch("http://localhost:8000/api/coupons-userid", {
 
       method: "POST",
       headers: {
@@ -111,11 +111,11 @@ function CouponPage() {
   }, []);
 
 
-      
+
   useEffect(() => {
     // Make an HTTP GET request to the /vendor-all endpoint
     // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }vendor-all`)
-    fetch('https://kebajikansiswa.usm.my/api/vendor-all') // Replace with the appropriate URL
+    fetch('http://localhost:8000/api/vendor-all') // Replace with the appropriate URL
 
       .then(res => res.json())
       .then(data => {
@@ -135,14 +135,14 @@ function CouponPage() {
     const day = String(date.getDate()).padStart(2, '0');
     return `${day}/${month}/${year}`;
   }
-  
+
   return (
     <div className="coupon-page">
       <h1 className="coupon-title">Kupon Makanan</h1> <Button variant="outlined" color="primary" onClick={() => navToHistory()}>
-                  Rekod Penebusan
-                </Button>
-    <div className="coupon-container">
-      {baucar.map((baucar, index) => (
+        Rekod Penebusan
+      </Button>
+      <div className="coupon-container">
+        {baucar.map((baucar, index) => (
           <Card key={baucar.baucar_id} className="coupon-card">
             <CardContent>
               <Typography variant="h4" gutterBottom>
@@ -161,8 +161,8 @@ function CouponPage() {
               </div>
             </CardContent>
           </Card>
-      ))}
-    </div>
+        ))}
+      </div>
       <Dialog open={useDialogOpen} onClose={handleUseBack}>
         <DialogTitle>Guna Kupon</DialogTitle>
         <DialogContent>
@@ -177,25 +177,25 @@ function CouponPage() {
             </Typography>
           </div>
           <FormControl component="fieldset" style={{ marginTop: "16px" }}>
-          <FormLabel component="legend">Sila Pilih Vendor</FormLabel>
-          {vendorMap !== null && Object.keys(vendorMap).length > 0 ? (
-        <RadioGroup
-          value={selectedVendor.vendor_id}
-          onChange={(event) => setSelectedVendor(event.target.value)}
-        >
-          {Object.values(vendorMap).map((vendor, index) => (
-            <FormControlLabel
-              key={vendor.vendor_id}
-              value={index}
-              control={<Radio />}
-              label={`${vendor.vendor_location} : ${vendor.vendor_name}`}
-            />
-          ))}
-        </RadioGroup>
-      ) : (
-        <p>No data available</p>
-      )}
-        </FormControl>
+            <FormLabel component="legend">Sila Pilih Vendor</FormLabel>
+            {vendorMap !== null && Object.keys(vendorMap).length > 0 ? (
+              <RadioGroup
+                value={selectedVendor.vendor_id}
+                onChange={(event) => setSelectedVendor(event.target.value)}
+              >
+                {Object.values(vendorMap).map((vendor, index) => (
+                  <FormControlLabel
+                    key={vendor.vendor_id}
+                    value={index}
+                    control={<Radio />}
+                    label={`${vendor.vendor_location} : ${vendor.vendor_name}`}
+                  />
+                ))}
+              </RadioGroup>
+            ) : (
+              <p>No data available</p>
+            )}
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleUseBack} color="primary">
@@ -210,33 +210,33 @@ function CouponPage() {
       <Dialog open={confirmationDialogOpen} onClose={handleConfirmationBack}>
         <DialogTitle>Pengesahan</DialogTitle>
         <DialogContent>
-            <Typography variant="body1">Anda telah berjaya menebus kupon.</Typography>
-            <Typography variant="body1">
+          <Typography variant="body1">Anda telah berjaya menebus kupon.</Typography>
+          <Typography variant="body1">
             {vendorMap !== null && vendorMap !== undefined && Object.keys(vendorMap).length ? (
-      <span>
-        <strong>Vendor Yang Dipilih:</strong>{' '}
-        {vendorMap[selectedVendor] ? (
-          `${vendorMap[selectedVendor].vendor_location} (${vendorMap[selectedVendor].vendor_name})`
-        ) : (
-          'No vendor selected'
-        )}
-      </span>
-    ) : (
-      <span>No data available</span>
-    )}
-            </Typography>
-            <Typography variant="body1">
+              <span>
+                <strong>Vendor Yang Dipilih:</strong>{' '}
+                {vendorMap[selectedVendor] ? (
+                  `${vendorMap[selectedVendor].vendor_location} (${vendorMap[selectedVendor].vendor_name})`
+                ) : (
+                  'No vendor selected'
+                )}
+              </span>
+            ) : (
+              <span>No data available</span>
+            )}
+          </Typography>
+          <Typography variant="body1">
             <strong>Kupon Makanan:</strong> Menu Rahmah
             {/* <strong>Kupon Makanan:</strong> {baucar[redeemIndex] && baucar[redeemIndex].price} */}
-            </Typography>
+          </Typography>
         </DialogContent>
         <DialogActions>
-            <Button onClick={handleConfirmationBack} color="primary">
+          <Button onClick={handleConfirmationBack} color="primary">
             Kembali
-            </Button>
-            <Button onClick={handleConfirmationConfirm} color="primary">
+          </Button>
+          <Button onClick={handleConfirmationConfirm} color="primary">
             Sah
-            </Button>
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -46,74 +46,74 @@ function ArchiveStepperComponentWangIhsan({ requestId, userId, userRole, reqType
       .catch((error) => {
         console.error('Error fetching user details:', error);
       });
-  }, [requestorId]); 
-  
+  }, [requestorId]);
 
-useEffect(() => {
-  // Fetch user details from the server
-  fetch(`https://kebajikansiswa.usm.my/api/wang-ihsan-applications-requestid?request_id=${requestId}`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.wangIhsanDetails) {
-        // Convert the array of user details into a map
-        const detailsMap = {};
-        data.wangIhsanDetails.forEach((detail) => {
-          detailsMap[detail.request_id] = detail;
-        });
-        setWangIhsanApplication(detailsMap);
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching user details:", error);
-    });
-}, []);
 
-useEffect(() => {
-  const apiUrl = `https://kebajikansiswa.usm.my/api/request-requestid?request_id=${requestId}`;
-  console.log(userDetailsMap)
+  useEffect(() => {
+    // Fetch user details from the server
+    fetch(`http://localhost:8000/api/wang-ihsan-applications-requestid?request_id=${requestId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.wangIhsanDetails) {
+          // Convert the array of user details into a map
+          const detailsMap = {};
+          data.wangIhsanDetails.forEach((detail) => {
+            detailsMap[detail.request_id] = detail;
+          });
+          setWangIhsanApplication(detailsMap);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user details:", error);
+      });
+  }, []);
 
-  // Fetch requests from the server
-  fetch(apiUrl)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.request) {
-        // Update request objects with user names
-        const requestsUsers = data.request.map((request) => {
-          const requestorDetails = userDetailsMap;
-          const wangIhsanDetails = wangIhsanApplication[request.request_id];
-          
-          if (wangIhsanDetails) {
-            setPdfsPath([
-              { name: 'IC Number', path:  wangIhsanDetails.ic_num_file },
-              { name: 'Bank Statement', path: wangIhsanDetails.bank_statement_file },
-              { name: 'Payment Slip (Father)', path: wangIhsanDetails.payment_slip_father_file },
-              { name: 'Payment Slip (Mother)', path: wangIhsanDetails.payment_slip_mother_file },
-              { name: 'Supporting Document', path: wangIhsanDetails.support_doc_file }
-            ]);
-          }
-          
-          return {
-            ...request,
-            requestor_name: requestorDetails ? requestorDetails.nama : '-',
-            requestor_matric: requestorDetails ? requestorDetails.matrik : '-',
-            requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
-            requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
-            requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
-            request_type: 'wang_ihsan',
+  useEffect(() => {
+    const apiUrl = `http://localhost:8000/api/request-requestid?request_id=${requestId}`;
+    console.log(userDetailsMap)
 
-            wang_ihsan_sponsor_type: wangIhsanDetails ? wangIhsanDetails.sponsor_type : '-',
-            wang_ihsan_ammount_requested: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_ammount_requested : '-',
-            wang_ihsan_help_type: wangIhsanDetails ? wangIhsanDetails.help_type : '-',
-            wang_ihsan_justification: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_justification : '-',
-          };
-        });
+    // Fetch requests from the server
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.request) {
+          // Update request objects with user names
+          const requestsUsers = data.request.map((request) => {
+            const requestorDetails = userDetailsMap;
+            const wangIhsanDetails = wangIhsanApplication[request.request_id];
 
-        setRequests(requestsUsers);
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching requests data:", error);
-    });
+            if (wangIhsanDetails) {
+              setPdfsPath([
+                { name: 'IC Number', path: wangIhsanDetails.ic_num_file },
+                { name: 'Bank Statement', path: wangIhsanDetails.bank_statement_file },
+                { name: 'Payment Slip (Father)', path: wangIhsanDetails.payment_slip_father_file },
+                { name: 'Payment Slip (Mother)', path: wangIhsanDetails.payment_slip_mother_file },
+                { name: 'Supporting Document', path: wangIhsanDetails.support_doc_file }
+              ]);
+            }
+
+            return {
+              ...request,
+              requestor_name: requestorDetails ? requestorDetails.nama : '-',
+              requestor_matric: requestorDetails ? requestorDetails.matrik : '-',
+              requestor_ic: requestorDetails ? requestorDetails.nokp : '-',
+              requestor_year: requestorDetails ? requestorDetails.tahun_pengajian : '-',
+              requestor_phone: requestorDetails ? requestorDetails.fon_num : '-',
+              request_type: 'wang_ihsan',
+
+              wang_ihsan_sponsor_type: wangIhsanDetails ? wangIhsanDetails.sponsor_type : '-',
+              wang_ihsan_ammount_requested: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_ammount_requested : '-',
+              wang_ihsan_help_type: wangIhsanDetails ? wangIhsanDetails.help_type : '-',
+              wang_ihsan_justification: wangIhsanDetails ? wangIhsanDetails.wang_ihsan_justification : '-',
+            };
+          });
+
+          setRequests(requestsUsers);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching requests data:", error);
+      });
   }, [userDetailsMap, requestId]);
 
   console.log(requests);
@@ -149,19 +149,19 @@ useEffect(() => {
                   matric={requests[0].requestor_matric}
                 />
                 <MultiDocumentationStep
-                  isArchive = {isArchive}
-                  userRole = {userRole}
+                  isArchive={isArchive}
+                  userRole={userRole}
                   sponsor={requests[0].wang_ihsan_sponsor_type}
                   requestType={requests[0].request_type}
                   //Spesific to wang ihsan 
-                  help_type = {requests[0].wang_ihsan_help_type}
-                  ammount_requested = {requests[0].wang_ihsan_ammount_requested}
-                  
+                  help_type={requests[0].wang_ihsan_help_type}
+                  ammount_requested={requests[0].wang_ihsan_ammount_requested}
+
                   justification={requests[0].wang_ihsan_justification}
                   pdfsPath={pdfsPath}
                 />
                 {isArchive ? (
-                  <ResultStepArchive 
+                  <ResultStepArchive
                     adminId={adminId}
                     bhepaId={bhepaId}
                     tncId={tncId}
@@ -178,7 +178,7 @@ useEffect(() => {
             )}
             <Box sx={{ mb: 2 }}>
               <div>
-              {activeStep === 0 ? (
+                {activeStep === 0 ? (
                   <>
                     {!isArchive ? (
                       <>
@@ -186,8 +186,8 @@ useEffect(() => {
                           {requests[0] ? (
                             <ApprovedDialog requestId={requestId} userId={userId} userRole={userRole} requestType={reqType} requestorId={requests[0].requestor_id} requestorName={requests[0].requestor_name}></ApprovedDialog>
                           ) : (
-                              'Loading...'
-                            )}
+                            'Loading...'
+                          )}
                         </Box>
                         <Box sx={{ mb: 2 }}>
                           <RejectDialog requestId={requestId} userId={userId} userRole={userRole}></RejectDialog>

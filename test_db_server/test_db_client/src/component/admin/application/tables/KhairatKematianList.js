@@ -9,7 +9,7 @@ import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import Typography from "@mui/material/Typography";
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
-import {rows} from "./Data.js";
+import { rows } from "./Data.js";
 
 
 // const downloadDataAsCSV = () => {
@@ -93,7 +93,7 @@ const columns = [
 
       const cellStyle = {
         color: textColor,
-        padding : 2,
+        padding: 2,
         fontSize: 12,
         fontWeight: "bold",
         width: 90,
@@ -110,11 +110,12 @@ const columns = [
           elevation={0}
           style={paperStyle}
         >
-        <div style={cellStyle}>
-          {params.value}
-        </div>
+          <div style={cellStyle}>
+            {params.value}
+          </div>
         </Paper>
-      );},
+      );
+    },
   },
   {
     field: "actions",
@@ -123,10 +124,10 @@ const columns = [
     sortable: false,
     renderCell: (params) => (
       <Button
-        style = {{
-          backgroundColor: "#fafafa", 
-          color: "black", 
-          fontWeight: "bold", 
+        style={{
+          backgroundColor: "#fafafa",
+          color: "black",
+          fontWeight: "bold",
           boxShadow: "none",
           outlineColor: "lightgrey",
           outlineStyle: "solid",
@@ -136,59 +137,59 @@ const columns = [
           padding: "3px",
         }}
         variant="contained"
-        href="https://kebajikansiswa.usm.my/EvaluationPage"
+        href="http://localhost:8000/EvaluationPage"
         onClick={() => handleButtonClick(params.row.request_id)}
       >
         <span style={{ marginRight: "20px" }}>{getStatusButtonText(params.row.request_status).icon}</span>
-          {getStatusButtonText(params.row.request_status).text}
+        {getStatusButtonText(params.row.request_status).text}
       </Button>
     ),
   },
 ];
 
-  const getStatusButtonText = (status) => {
-    let buttonText = "";
-    let icon = null;
-  
-    switch (status) {
-      case "sah":
-        buttonText = "Sahkan";
-        icon = <CheckCircleRounded />;
-        break;
-      case "baharu":
-        buttonText = "Semak";
-        icon = <RuleRoundedIcon />;
-        break;
-      case "syor":
-        buttonText = "Lihat";
-        icon = <RemoveRedEyeRoundedIcon />;
-        break;
-      case "tolak":
-        buttonText = "Lihat";
-        icon = <RemoveRedEyeRoundedIcon />;
-        break;
-      default:
-        buttonText = "Unknown";
-        break;
-    }
-  
-    return { text: buttonText, icon: icon };
-  };
-  
-  const handleButtonClick = (rowId) => {
+const getStatusButtonText = (status) => {
+  let buttonText = "";
+  let icon = null;
+
+  switch (status) {
+    case "sah":
+      buttonText = "Sahkan";
+      icon = <CheckCircleRounded />;
+      break;
+    case "baharu":
+      buttonText = "Semak";
+      icon = <RuleRoundedIcon />;
+      break;
+    case "syor":
+      buttonText = "Lihat";
+      icon = <RemoveRedEyeRoundedIcon />;
+      break;
+    case "tolak":
+      buttonText = "Lihat";
+      icon = <RemoveRedEyeRoundedIcon />;
+      break;
+    default:
+      buttonText = "Unknown";
+      break;
+  }
+
+  return { text: buttonText, icon: icon };
+};
+
+const handleButtonClick = (rowId) => {
   // Add your logic here to handle the button click for the row with the given ID
   console.log(`Button clicked for row with ID: ${rowId}`);
-  };
-  
-   function NewApplication(){
+};
 
-    const [requests, setRequests] = useState([]);
-    const [userDetailsMap, setUserDetailsMap] = useState({});
-  
-    
+function NewApplication() {
+
+  const [requests, setRequests] = useState([]);
+  const [userDetailsMap, setUserDetailsMap] = useState({});
+
+
   useEffect(() => {
     // Fetch user details from the server
-    fetch("https://kebajikansiswa.usm.my/api/user-details")
+    fetch("http://localhost:8000/api/user-details")
       .then((res) => res.json())
       .then((data) => {
         if (data.userDetails) {
@@ -207,8 +208,8 @@ const columns = [
 
   useEffect(() => {
     const statusParam = "complete"; // Replace with the desired status parameter
-    const typeparam = "khairat"; 
-    const apiUrl = `https://kebajikansiswa.usm.my/api/request-type-status?request_status=${statusParam}&request_type=${typeparam}`;
+    const typeparam = "khairat";
+    const apiUrl = `http://localhost:8000/api/request-type-status?request_status=${statusParam}&request_type=${typeparam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)
@@ -240,7 +241,7 @@ const columns = [
         console.error("Error fetching requests data:", error);
       });
   }, [userDetailsMap]);
-  
+
   // console.log(requests)
   // const filteredRequest = requests.filter(request => request.request_status === "baharu");
 
@@ -264,13 +265,13 @@ const columns = [
   };
 
   return (
-    
-      <Box sx={{ height: 400, width: "100%" }}>
-        <Box sx={{ flexGrow: 1,}}
+
+    <Box sx={{ height: 400, width: "100%" }}>
+      <Box sx={{ flexGrow: 1, }}
         margin={1}
         align={"right"}
-        >
-         <Button variant="contained" 
+      >
+        <Button variant="contained"
           style={{
             color: "#424242",
             textTransform: "none",
@@ -278,36 +279,36 @@ const columns = [
             boxShadow: "none",
           }
           }
-           onClick={downloadDataAsCSV}>
-            Muat Turun
-            <DownloadRoundedIcon
-              sx={{ ml: 1 }}
-            />
-          </Button>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            fontStyle={"italic"}
-            fontSize={12}
-          >  format .CSV </Typography>
-        </Box>
-        <DataGrid
-          rows={requests}
-          columns={columns}
-          getRowId={(row) => row.request_id} // Assuming request_id is unique
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
-          pageSizeOptions={[5]}
-          checkboxSelection
-          disableRowSelectionOnClick
-        />
+          onClick={downloadDataAsCSV}>
+          Muat Turun
+          <DownloadRoundedIcon
+            sx={{ ml: 1 }}
+          />
+        </Button>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          fontStyle={"italic"}
+          fontSize={12}
+        >  format .CSV </Typography>
       </Box>
+      <DataGrid
+        rows={requests}
+        columns={columns}
+        getRowId={(row) => row.request_id} // Assuming request_id is unique
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
+      />
+    </Box>
   );
-  }
+}
 
-  export default NewApplication;
+export default NewApplication;

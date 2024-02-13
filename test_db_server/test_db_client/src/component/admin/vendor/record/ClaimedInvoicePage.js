@@ -34,7 +34,7 @@ function ClaimedInvoicePage({ }) {
     const vendorId = row.vendor_id;  // Replace with the actual vendorId
 
     // Make an HTTP POST request to the /invoice-all-vendor endpoint
-    fetch('https://kebajikansiswa.usm.my/api/get-vendor', {
+    fetch('http://localhost:8000/api/get-vendor', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

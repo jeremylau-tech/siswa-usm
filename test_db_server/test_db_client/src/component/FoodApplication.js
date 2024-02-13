@@ -50,30 +50,30 @@ function FoodApplication() {
     }
   };
 
-const handleSponsorTypeChange = (e) => {
-  const selectedOption = e.target.value;
-  setSponsorType(selectedOption);
-  if (selectedOption === "Lain") {
-    setCustomOption("");
-  }
-};
+  const handleSponsorTypeChange = (e) => {
+    const selectedOption = e.target.value;
+    setSponsorType(selectedOption);
+    if (selectedOption === "Lain") {
+      setCustomOption("");
+    }
+  };
 
   const uploadFile = async (file, category) => {
     if (file) {
       try {
-        
+
         const uploadData = new FormData();
         uploadData.append("file", file);
-        const url = "https://kebajikansiswa.usm.my/api/upload/" + category
+        const url = "http://localhost:8000/api/upload/" + category
         const response = await fetch(url, {
           method: "POST",
           body: uploadData,
         });
-  
+
         if (response.ok) {
           const filename = await response.text();
           return filename;
-  
+
         } else {
           // Handle any errors
           console.error("File upload failed.");
@@ -92,16 +92,17 @@ const handleSponsorTypeChange = (e) => {
     e.preventDefault();
 
     const isConfirmed = window.confirm(
-    "Dengan ini saya mengesahkan bahawa semua maklumat yang telah saya isytihar ini adalah SAHIH, BENAR dan TERKINI serta di isytihar di atas persetujuan saya. Saya memahami dan bersetuju bahawa jika terdapat mana-mana maklumat yang dinyatakan adalah PALSU atau TIDAK BENAR , pihak Universiti Sains Malaysia berhak mengambil tindakan disiplin terhadap saya di samping tindakan pembatalan apa jua kemudahan yang telah atau akan diberikan kepada saya lanjutan daripada PEMALSUAN maklumat yang saya berikan.\n"+
-    "-----------------------------------------------------\n"+
-    "I hereby confirm that all the information declared is ORIGINAL, ACCURATE and UP TO DATE with my consent. I understand and agree that if there is any information that is FALSE or INCORRECT, Universiti Sains Malaysia reserves the right to take disciplinary action against me and withdraw any assistance that have been or will be given to me in relevance to the FALSE submission.")
+      "Dengan ini saya mengesahkan bahawa semua maklumat yang telah saya isytihar ini adalah SAHIH, BENAR dan TERKINI serta di isytihar di atas persetujuan saya. Saya memahami dan bersetuju bahawa jika terdapat mana-mana maklumat yang dinyatakan adalah PALSU atau TIDAK BENAR , pihak Universiti Sains Malaysia berhak mengambil tindakan disiplin terhadap saya di samping tindakan pembatalan apa jua kemudahan yang telah atau akan diberikan kepada saya lanjutan daripada PEMALSUAN maklumat yang saya berikan.\n" +
+      "-----------------------------------------------------\n" +
+      "I hereby confirm that all the information declared is ORIGINAL, ACCURATE and UP TO DATE with my consent. I understand and agree that if there is any information that is FALSE or INCORRECT, Universiti Sains Malaysia reserves the right to take disciplinary action against me and withdraw any assistance that have been or will be given to me in relevance to the FALSE submission.")
 
     if (!isConfirmed)
-    return
+      return
 
     if (!isSubmit) {
       // Update state to mark the button as clicked
-      isSubmitSet(true);}
+      isSubmitSet(true);
+    }
 
     if (
       !sponsorType ||
@@ -113,7 +114,7 @@ const handleSponsorTypeChange = (e) => {
       alert("Please fill in all the required fields.");
       return;
     }
-    
+
     // Count words in the justification
     const justificationWords = foodJustification.split(/\s+/).filter(Boolean).length;
 
@@ -122,13 +123,13 @@ const handleSponsorTypeChange = (e) => {
       alert(`Justification cannot exceed ${MAX_WORDS_IN_JUSTIFICATION} words.`);
       return;
     }
-  
+
     // Define the array of promises for file uploads
     const uploadPromises = [
       uploadFile(icNumFile, "ic"),
       uploadFile(paymentSlipFile, "paymentslip"),
     ];
-  
+
     try {
       // Wait for all file upload promises to resolve
       const results = await Promise.all(uploadPromises);
@@ -143,7 +144,7 @@ const handleSponsorTypeChange = (e) => {
         requestor_name: formData.requestor_name
       };
 
-      const apiUrl = "https://kebajikansiswa.usm.my/api/insert-request"; // Update with your server's URL
+      const apiurl = "http://localhost:8000/api/insert-request"; // Update with your server's URL
       // console.log(formDataJSON)
 
 
@@ -154,13 +155,13 @@ const handleSponsorTypeChange = (e) => {
         },
         body: JSON.stringify(formDataJSON),
       });
-  
+
       if (response.ok) {
         // if (true) {
 
         // If the server responds with a 200 status code (OK), you can handle success here
         alert("Form data sent successfully!");
-        
+
         setSponsorType("");
         setIcNumFile(null)
         setPaymentSlipFile(null);
@@ -183,14 +184,14 @@ const handleSponsorTypeChange = (e) => {
     marginRight: '10px',
     width: 'calc(48% - 5px)',
   };
-  
+
   const kembaliButtonStyle = {
     ...buttonStyle,
     backgroundColor: '#808080', // Lighter color for Kembali button
     borderColor: '#808080', // Matching border color
     color: 'white', // Text color for Kembali button
   };
-  
+
   const hantarButtonStyle = {
     ...buttonStyle,
     backgroundColor: '#491E6E',
@@ -207,13 +208,13 @@ const handleSponsorTypeChange = (e) => {
       <div className="form-column form-column-right">
         <h2 className="right-header">Butiran Permohonan</h2>
         <p className="right-header-para">Pastikan maklumat yang diisi tepat & sahih</p>
-        <form className="form-style"  onSubmit={handleSubmit}>
-          
-        <div className="form-group select-food-container">
+        <form className="form-style" onSubmit={handleSubmit}>
+
+          <div className="form-group select-food-container">
             <label htmlFor="options-food" className="select-food-label">Jenis Tajaan:</label>
             <p className="subtext">Choose the Sponsorship Type:</p>
             <div className="select-food-wrapper">
-            <select id="sponsor_type" name="sponsor_type" className="select" onChange={handleSponsorTypeChange} value={sponsorType}>
+              <select id="sponsor_type" name="sponsor_type" className="select" onChange={handleSponsorTypeChange} value={sponsorType}>
                 <option value="">Sila Pilih Jenis Tajaan</option>
                 <option value="PTPTN">PTPTN</option>
                 <option value="JPA">JPA</option>
@@ -270,12 +271,12 @@ const handleSponsorTypeChange = (e) => {
 
           {/* Button container */}
           <div className="button-container">
-              <button type="button" style={kembaliButtonStyle} onClick={
-                handleHome
-              }>
-                Kembali
-              </button>
-            <button type="submit" style={hantarButtonStyle}  disabled={isSubmit}>
+            <button type="button" style={kembaliButtonStyle} onClick={
+              handleHome
+            }>
+              Kembali
+            </button>
+            <button type="submit" style={hantarButtonStyle} disabled={isSubmit}>
               Hantar
             </button>
           </div>

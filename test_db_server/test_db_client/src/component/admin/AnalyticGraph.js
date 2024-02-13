@@ -11,54 +11,54 @@ export default function AnalyticGraph() {
     { group: "makanan", new: 0, pending: 0, completed: 0, rejected: 0 },
     { group: "wang", new: 0, pending: 0, completed: 0, rejected: 0 },
     { group: "peranti", new: 0, pending: 0, completed: 0, rejected: 0 },
-]);
+  ]);
 
-  
-useEffect(() => {
-  const apiUrl = 'https://kebajikansiswa.usm.my/api/countByStatus'; // Update the URL to match your server route
 
-  const statusData = [
-    { status: 'baharu', key: 'new' },
-    { status: 'dalam proses', key: 'pending' },
-    { status: 'lulus', key: 'completed' },
-    { status: 'tolak', key: 'rejected' },
-    // Add more status categories as needed
-  ];
+  useEffect(() => {
+    const apiUrl = 'http://localhost:8000/api/countByStatus'; // Update the URL to match your server route
 
-  // Create an array of promises for each status category within each group
-  const requests = data.map(({ group }) => {
-    return statusData.map(async ({ status, key }) => {
-      const data = {
-        table: 'request',
-        status: status,
-        req_type: group
-      };
+    const statusData = [
+      { status: 'baharu', key: 'new' },
+      { status: 'dalam proses', key: 'pending' },
+      { status: 'lulus', key: 'completed' },
+      { status: 'tolak', key: 'rejected' },
+      // Add more status categories as needed
+    ];
 
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
+    // Create an array of promises for each status category within each group
+    const requests = data.map(({ group }) => {
+      return statusData.map(async ({ status, key }) => {
+        const data = {
+          table: 'request',
+          status: status,
+          req_type: group
+        };
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch ${status} count for group: ${group}`);
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (!response.ok) {
+            throw new Error(`Failed to fetch ${status} count for group: ${group}`);
+          }
+
+          const responseData = await response.json();
+          // console.log(group + "|" + status + ": " + responseData[0].count)
+          return { group, key, count: responseData[0].count };
+        } catch (err) {
+          console.error(err);
+          return null;
         }
-
-        const responseData = await response.json();
-        // console.log(group + "|" + status + ": " + responseData[0].count)
-        return { group, key, count: responseData[0].count };
-      } catch (err) {
-        console.error(err);
-        return null;
-      }
+      });
     });
-  });
 
-  // Execute all promises concurrently
-  Promise.all(requests.flat())
+    // Execute all promises concurrently
+    Promise.all(requests.flat())
       .then((counts) => {
         const updatedData = [...data];
         let count_incr = 0
@@ -70,18 +70,18 @@ useEffect(() => {
           // console.log(updatedData[index].key);
           // console.log(updatedData[index].key)
           // updatedData[index].key = count;
-          count_incr ++;
+          count_incr++;
           // updatedData[group][key] = count;
           // console.log(group)
         });
-  
+
         setData(updatedData);
         // console.log(updatedData)
       })
-    .catch((err) => {
-      console.error(err);
-    });
-}, []);
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   // Prepare data for X-axis
   const xAxisData = [{ scaleType: "band", data: data.map((item) => item.group) }];

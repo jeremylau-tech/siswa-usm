@@ -47,7 +47,7 @@ function RegistrationDialog({ open, handleClose }) {
       email,
       password,
     } = inputValues;
-  
+
     // Check if any of the input fields are null or empty
     if (
       !fullName ||
@@ -80,9 +80,9 @@ function RegistrationDialog({ open, handleClose }) {
       }
 
       console.log('Input values:', formDataJSON);
-      
 
-      const apiUrl = "https://kebajikansiswa.usm.my/api/insert-users"; // Update with your server's URL
+
+      const apiurl = "http://localhost:8000/api/insert-users"; // Update with your server's URL
       // console.log(formDataJSON)
 
 
@@ -93,7 +93,7 @@ function RegistrationDialog({ open, handleClose }) {
         },
         body: JSON.stringify(formDataJSON),
       });
-  
+
       if (response.ok) {
         // if (true) {
         // If the server responds with a 200 status code (OK), you can handle success here
@@ -103,7 +103,7 @@ function RegistrationDialog({ open, handleClose }) {
         console.error("Form data submission failed.");
         alert("Something wrong on the backend!");
       }
-  
+
       // You can proceed to send the data to the server or perform other actions here
     }
   };
@@ -127,7 +127,7 @@ function RegistrationDialog({ open, handleClose }) {
         }}
       >
         <Grid item xs={12} sm={6}>
-        <img
+          <img
             style={{
               width: '100%',
               height: '100%',

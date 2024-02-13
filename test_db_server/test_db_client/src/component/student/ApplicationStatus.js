@@ -139,7 +139,7 @@ const columns = [
     const [requestTable, setRequestTable] = useState({});
 
     useEffect(() => {
-      fetch(`https://kebajikansiswa.usm.my/api/request-user?user_id=${userId}`) // Replace with the appropriate URL
+      fetch(`http://localhost:8000/api/request-user?user_id=${userId}`) // Replace with the appropriate URL
 
     .then(res => res.json())
     .then(data => {

@@ -13,7 +13,7 @@ const xml2js = require('xml2js');
 const fetch = require("node-fetch"); // Make sure to install the 'node-fetch' package
 
 const corsOptions = {
-  origin: ['http://docker.usm.my:8090', 'https://kebajikansiswa.usm.my'], // Replace with the actual origins of your frontends
+  origin: ['http://localhost:3000'], // Replace with the actual origins of your frontends
   // origin: "*",
   credentials: true,
 };
@@ -38,34 +38,34 @@ function generateCouponCode(length) {
 }
 
 let isDbConnected = false; // Variable to store the connection state
-  const db = mysql.createConnection({
-    host: 'docker.usm.my',
-    user: 'root',
-    password: 'pelajardatabase',
-    database: 'bhepa_test',
-    });
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'Admin@12345',
+  database: 'bhepa_test',
+});
 
 // Connect to MySQL
 db.connect((err) => {
   if (err) {
-      console.error('Error connecting to MySQL:', err);
+    console.error('Error connecting to MySQL:', err);
   } else {
     isDbConnected = true; // Set the connection state to true
-      console.log('Connected to MySQL');
+    console.log('Connected to MySQL');
   }
-  });
-  
+});
+
 
 app.get("/api/check-db", (req, res) => {
   if (isDbConnected) {
     res.json({ message: 'Database connection is successful!' });
   } else {
-      res.status(500).json({ error: 'Database connection failed.' });
+    res.status(500).json({ error: 'Database connection failed.' });
   }
 });
 
 app.get("/api/check-backend", (req, res) => {
-    res.json({ message: 'If you\'re seeing this, connection is working! ' });
+  res.json({ message: 'If you\'re seeing this, connection is working! ' });
 });
 
 const getStorage = (category) => {
@@ -221,7 +221,7 @@ app.post("/api/login", (req, res) => {
       const token = jwt.sign({ unique_id: user.unique_id, email: user.email, roles: user.roles }, secretKey, { expiresIn: '1h' });
 
       // Send the token and user information back to the client
-      res.json({ token, user: { unique_id: user.unique_id, email: user.email, roles: user.roles} });
+      res.json({ token, user: { unique_id: user.unique_id, email: user.email, roles: user.roles } });
     }
   });
 });
@@ -404,13 +404,13 @@ app.get("/api/vendor-all", (req, res) => {
 
   // Execute the query
   db.query(sql, (err, results) => {
-      if (err) {
-          console.error('Error fetching data from MySQL:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-          // Send the retrieved data as a JSON response
-          res.json({ vendors: results });
-      }
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ vendors: results });
+    }
   });
 });
 
@@ -420,13 +420,13 @@ app.get("/api/vendor-all-aktif", (req, res) => {
 
   // Execute the query
   db.query(sql, (err, results) => {
-      if (err) {
-          console.error('Error fetching data from MySQL:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-          // Send the retrieved data as a JSON response
-          res.json({ vendors: results });
-      }
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ vendors: results });
+    }
   });
 });
 
@@ -495,8 +495,8 @@ app.post('/api/insert-vendor', (req, res) => {
   const currentDate = new Date();
 
   // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
-    const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
-    const dateOnly = currentDate.toISOString().split('T')[0];
+  const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
+  const dateOnly = currentDate.toISOString().split('T')[0];
 
   const vendorStatus = 'active';
 
@@ -543,18 +543,15 @@ app.post('/api/request-edit-tolak', (req, res) => {
   let user_id = '';
   let req_status = "tolak";
 
-  if (userRole == "admin")
-  {
+  if (userRole == "admin") {
     user_remark = "request_remark_admin";
     user_id = "admin_approver_id";
   }
-  else if (userRole == "bhepa")
-  {
+  else if (userRole == "bhepa") {
     user_remark = "request_remark_bhepa";
     user_id = "bhepa_approver_id";
   }
-  else if (userRole == "tnc")
-  {
+  else if (userRole == "tnc") {
     user_remark = "request_remark_tnc";
     user_id = "tnc_approver_id";
   }
@@ -580,23 +577,20 @@ app.post('/api/request-edit-lulus', (req, res) => {
   let user_id = '';
   let req_status = '';
 
-  if (userRole == "admin")
-  {
+  if (userRole == "admin") {
     user_remark = "request_remark_admin";
     user_id = "admin_approver_id";
     req_status = "semak";
   }
-  else if (userRole == "bhepa")
-  {
+  else if (userRole == "bhepa") {
     user_remark = "request_remark_bhepa";
     user_id = "bhepa_approver_id";
-    if (requestType == "makanan" || requestType == "peranti" )
-    req_status = "lulus";
+    if (requestType == "makanan" || requestType == "peranti")
+      req_status = "lulus";
     else
-    req_status = "syor";
+      req_status = "syor";
   }
-  else if (userRole == "tnc")
-  {
+  else if (userRole == "tnc") {
     user_remark = "request_remark_tnc";
     user_id = "tnc_approver_id";
     req_status = "lulus";
@@ -612,14 +606,14 @@ app.post('/api/request-edit-lulus', (req, res) => {
     }
   });
 
-  
+
   if (req_status == "lulus") {
     const currentDate = new Date();
 
-  // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
+    // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
     const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
     const dateOnly = currentDate.toISOString().split('T')[0];
-    const timeOnly = currentDate.toLocaleTimeString('en-MY', options); 
+    const timeOnly = currentDate.toLocaleTimeString('en-MY', options);
 
     const fixDueDate = '2023-12-31';
     // const threeMonthsLater = new Date(currentDate);
@@ -633,19 +627,19 @@ app.post('/api/request-edit-lulus', (req, res) => {
     let baucar_code = "";
 
     for (let i = 0; i < 15; i++) {
-    baucar_code = generateCouponCode(6);
-    sql = "INSERT INTO baucar  (baucar_code, baucar_apply_date, baucar_apply_time, baucar_due_date, baucar_status, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    db.query(sql, [baucar_code, dateOnly, timeOnly, fixDueDate, baucar_stat, requestorId, requestorName], (err, results) => {
-      if (err) {
-        console.error('Error updating request:', err);
-      }
-    });
+      baucar_code = generateCouponCode(6);
+      sql = "INSERT INTO baucar  (baucar_code, baucar_apply_date, baucar_apply_time, baucar_due_date, baucar_status, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      db.query(sql, [baucar_code, dateOnly, timeOnly, fixDueDate, baucar_stat, requestorId, requestorName], (err, results) => {
+        if (err) {
+          console.error('Error updating request:', err);
+        }
+      });
+    }
+    return res.status(200).json({ message: 'Request updated and baucar generated successfully' });
+  } else {
+    // Send a success response for non-'lulus' requests
+    return res.status(200).json({ message: 'Request updated successfully' });
   }
-  return res.status(200).json({ message: 'Request updated and baucar generated successfully' });
-} else {
-  // Send a success response for non-'lulus' requests
-  return res.status(200).json({ message: 'Request updated successfully' });
-}
 });
 
 
@@ -655,13 +649,13 @@ app.get("/api/request-all", (req, res) => {
 
   // Execute the query
   db.query(sql, (err, results) => {
-      if (err) {
-          console.error('Error fetching data from MySQL:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-          // Send the retrieved data as a JSON response
-          res.json({ request: results });
-      }
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ request: results });
+    }
   });
 });
 
@@ -682,13 +676,13 @@ app.get("/api/request-all-admin", (req, res) => {
 
   // Execute the query
   db.query(sql, (err, results) => {
-      if (err) {
-          console.error('Error fetching data from MySQL:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-          // Send the retrieved data as a JSON response
-          res.json({ request: results });
-      }
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ request: results });
+    }
   });
 });
 
@@ -834,9 +828,9 @@ app.get("/api/request-type-status", (req, res) => {
     WHERE request_type = ? AND request_status = ? 
   `;
   }
-  
+
   if (!special_param) {
-    db.query(sql, [requestType], (err, results) => {    
+    db.query(sql, [requestType], (err, results) => {
       if (err) {
         console.error('Error fetching data from MySQL:', err);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -846,7 +840,7 @@ app.get("/api/request-type-status", (req, res) => {
       }
     });
   } else {
-    db.query(sql, [requestType, requestStatus], (err, results) => {    
+    db.query(sql, [requestType, requestStatus], (err, results) => {
       if (err) {
         console.error('Error fetching data from MySQL:', err);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -867,7 +861,7 @@ app.get("/api/request-type-status-admin", (req, res) => {
   let special_param = false; // need to cater other status dalam process
 
   let first_half_sql = "";
-  let sec_half_sql = "" ;
+  let sec_half_sql = "";
   let sql_params = [];
 
   if (requestStatus === "complete") {
@@ -878,7 +872,7 @@ app.get("/api/request-type-status-admin", (req, res) => {
   else {
     first_half_sql = "WHERE request_type = ? AND request_status = ?";
     sec_half_sql = "WHERE r.request_type = ? AND r.request_status = ?";
-    sql_params =  [requestType, requestStatus, requestType, requestStatus];
+    sql_params = [requestType, requestStatus, requestType, requestStatus];
   }
 
   sql = `
@@ -893,17 +887,17 @@ app.get("/api/request-type-status-admin", (req, res) => {
     ${sec_half_sql}
     ORDER BY r.request_date DESC, r.request_time DESC;
     `;
-    
-  
-    db.query(sql, sql_params, (err, results) => {    
-      if (err) {
-        console.error('Error fetching data from MySQL:', err);
-        res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-        // Send the retrieved data as a JSON response
-        res.json({ request: results });
-      }
-    });
+
+
+  db.query(sql, sql_params, (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ request: results });
+    }
+  });
 });
 
 app.post("/api/coupons-userid", (req, res) => {
@@ -971,7 +965,7 @@ app.get("/api/coupons-count", (req, res) => {
     } else {
       // Send the retrieved count as a JSON response
 
-      console.log(results[0].couponCount )
+      console.log(results[0].couponCount)
       res.json({ couponCount: results[0].couponCount });
     }
   });
@@ -989,9 +983,9 @@ app.post("/api/coupons-redeem", (req, res) => {
   const currentDate = new Date();
 
   // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
-    const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
-    const dateOnly = currentDate.toISOString().split('T')[0];
-    const timeOnly = currentDate.toLocaleTimeString('en-MY', options); 
+  const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
+  const dateOnly = currentDate.toISOString().split('T')[0];
+  const timeOnly = currentDate.toLocaleTimeString('en-MY', options);
 
   // Update the request in the database based on the requestId
   // const sql = `UPDATE baucar SET baucar_status = ?, baucar_redeem_date = NOW(), vendor_id = ?  WHERE baucar_id = ?`;
@@ -1021,8 +1015,8 @@ app.post("/api/coupons-claimed", (req, res) => {
   const currentDate = new Date();
 
   // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
-    const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
-    const dateOnly = currentDate.toISOString().split('T')[0];
+  const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
+  const dateOnly = currentDate.toISOString().split('T')[0];
 
   // Insert a new invoice record
   let insertSql = `INSERT INTO invoice (invoice_id, claimed_date, num_baucar_claimed, vendor_id) VALUES (?, ?, ?, ?)`;
@@ -1099,19 +1093,19 @@ app.post("/api/coupons-claimed", (req, res) => {
 
 
 app.get("/api/users", (req, res) => {
-    // SQL query to select all records from the "user" table
-    const sql = "SELECT * FROM users";
+  // SQL query to select all records from the "user" table
+  const sql = "SELECT * FROM users";
 
-    // Execute the query
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error fetching data from MySQL:', err);
-            res.status(500).json({ message: 'Internal Server Error' });
-        } else {
-            // Send the retrieved data as a JSON response
-            res.json({ users: results });
-        }
-    });
+  // Execute the query
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response
+      res.json({ users: results });
+    }
+  });
 });
 
 app.get("/api/user-details", (req, res) => {
@@ -1120,13 +1114,13 @@ app.get("/api/user-details", (req, res) => {
 
   // Execute the query
   db.query(sql, (err, results) => {
-      if (err) {
-          console.error('Error fetching data from MySQL:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-          // Send the retrieved data as a JSON response with "userDetails" key
-          res.json({ userDetails: results });
-      }
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response with "userDetails" key
+      res.json({ userDetails: results });
+    }
   });
 });
 
@@ -1137,13 +1131,14 @@ app.get("/api/user-details-uniqueid", (req, res) => {
   const sql = "SELECT * FROM users_details WHERE unique_id = ?";
 
   // Execute the query
-  db.query(sql, [uniqueId], (err, results) => {          if (err) {
-          console.error('Error fetching data from MySQL:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-          // Send the retrieved data as a JSON response with "userDetails" key
-          res.json({ userDetails: results });
-      }
+  db.query(sql, [uniqueId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response with "userDetails" key
+      res.json({ userDetails: results });
+    }
   });
 });
 
@@ -1154,13 +1149,14 @@ app.get("/api/food-applications-requestid", (req, res) => {
   const sql = "SELECT * FROM food_application WHERE request_id = ?";
 
   // Execute the query
-  db.query(sql, [requestId], (err, results) => {          if (err) {
-          console.error('Error fetching data from MySQL:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-          // Send the retrieved data as a JSON response with "userDetails" key
-          res.json({ foodDetails: results });
-      }
+  db.query(sql, [requestId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response with "userDetails" key
+      res.json({ foodDetails: results });
+    }
   });
 });
 
@@ -1171,15 +1167,16 @@ app.get("/api/wang-ihsan-applications-requestid", (req, res) => {
   const sql = "SELECT * FROM wang_ihsan_application WHERE request_id = ?";
 
   // Execute the query
-  db.query(sql, [requestId], (err, results) => {          if (err) {
-          console.error('Error fetching data from MySQL:', err);
-          res.status(500).json({ message: 'Internal Server Error' });
-      } else {
-          // Send the retrieved data as a JSON response with "userDetails" key
-          console.log(requestId)
-          console.log(results)
-          res.json({ wangIhsanDetails: results });
-      }
+  db.query(sql, [requestId], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from MySQL:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      // Send the retrieved data as a JSON response with "userDetails" key
+      console.log(requestId)
+      console.log(results)
+      res.json({ wangIhsanDetails: results });
+    }
   });
 });
 
@@ -1193,7 +1190,7 @@ app.post('/api/countByStatus', (req, res) => {
   if (!table || !status) {
     return res.status(400).json({ message: 'Table and status are required in the request body.' });
   }
-  
+
   let sql;
   let special_param = false; // need to cater other status dalam process
 
@@ -1227,11 +1224,11 @@ app.post('/api/countByStatus', (req, res) => {
       `;
     }
   }
-  
+
   if (!special_param) {
     db.query(sql, [table, status, req_type], (err, results) => {
       // console.log(sql);
-    
+
       if (err) {
         console.error('Error fetching data from MySQL:', err);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -1243,7 +1240,7 @@ app.post('/api/countByStatus', (req, res) => {
   } else {
     db.query(sql, [table, req_type], (err, results) => {
       // console.log(sql);
-    
+
       if (err) {
         console.error('Error fetching data from MySQL:', err);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -1253,7 +1250,7 @@ app.post('/api/countByStatus', (req, res) => {
       }
     });
   }
-  
+
 });
 
 
@@ -1279,7 +1276,7 @@ app.post("/api/insert-users", (req, res) => {
     } else {
       // If the user is successfully inserted into the "user" table, proceed to insert details
       sql = "INSERT INTO users_details (unique_id, email, name, ic_num, phone_num, school, course, student_status, study_year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      
+
       // Execute the query for inserting user details
       db.query(sql, [unique_id, email, name, ic_num, phone_num, school, course, student_status, study_year], (err, result) => {
         if (err) {
@@ -1293,80 +1290,79 @@ app.post("/api/insert-users", (req, res) => {
   });
 });
 
-  app.post("/api/insert-request", (req, res) => {
-    console.log( req.body);
-      const {
-      requestor_id,
-      requestor_name,
-      request_type,
-      admin_approver_id,
-      bhepa_approver_id,
-      tnc_approver_id,
-      
-      ammount_requested,
-      help_type,
-      wang_ihsan_justification,
-      support_document_file,
-      payment_slip_file_mother,
-      payment_slip_file_father,
-      sponsor_type,
+app.post("/api/insert-request", (req, res) => {
+  console.log(req.body);
+  const {
+    requestor_id,
+    requestor_name,
+    request_type,
+    admin_approver_id,
+    bhepa_approver_id,
+    tnc_approver_id,
 
-      req_relationship,
-      death_cert_file,
-      ic_num_file,
-      bank_statement_file,
-      payment_slip_file,
+    ammount_requested,
+    help_type,
+    wang_ihsan_justification,
+    support_document_file,
+    payment_slip_file_mother,
+    payment_slip_file_father,
+    sponsor_type,
 
-      transport_fare_file,
-      device_type,
-      device_details,
-      device_pic_file,
-      food_justification
-    } = req.body;
-  
-    // Check if requestor_id is empty or not provided
-    if (!requestor_id) {
-      res.status(400).json({ message: 'Missing requestor_id' });
-      return;
-    }
-  
-    const request_id = uuidv4();
-    const new_req_status = "baharu";
+    req_relationship,
+    death_cert_file,
+    ic_num_file,
+    bank_statement_file,
+    payment_slip_file,
 
-    const currentDate = new Date();
+    transport_fare_file,
+    device_type,
+    device_details,
+    device_pic_file,
+    food_justification
+  } = req.body;
+
+  // Check if requestor_id is empty or not provided
+  if (!requestor_id) {
+    res.status(400).json({ message: 'Missing requestor_id' });
+    return;
+  }
+
+  const request_id = uuidv4();
+  const new_req_status = "baharu";
+
+  const currentDate = new Date();
 
   // Specify the locale with time zone ('Asia/Kuala_Lumpur' for Malaysia time)
-    const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
-    const dateOnly = currentDate.toISOString().split('T')[0];
-    const timeOnly = currentDate.toLocaleTimeString('en-MY', options);    
+  const options = { timeZone: 'Asia/Kuala_Lumpur', hour12: false };
+  const dateOnly = currentDate.toISOString().split('T')[0];
+  const timeOnly = currentDate.toLocaleTimeString('en-MY', options);
 
-    // SQL query to insert a new request into the "request" table
-    sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time, requestor_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    // Execute the query
-    db.query(
-      sql,
-      [
-        request_id,     // Use the generated request_id
-        requestor_id,
-        admin_approver_id || null, // Set approver_id to null if not provided
-        bhepa_approver_id || null, // Set approver_id to null if not provided
-        tnc_approver_id || null, // Set approver_id to null if not provided
-        request_type,
-        new_req_status,
-        dateOnly,
-        timeOnly,
-        requestor_name
-      ],
-      (err, result) => {
-        if (err) {
-          console.error('Error inserting request data into MySQL:', err);
-        } 
+  // SQL query to insert a new request into the "request" table
+  sql = "INSERT INTO request (request_id, requestor_id, admin_approver_id, bhepa_approver_id, tnc_approver_id, request_type, request_status, request_date, request_time, requestor_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  // Execute the query
+  db.query(
+    sql,
+    [
+      request_id,     // Use the generated request_id
+      requestor_id,
+      admin_approver_id || null, // Set approver_id to null if not provided
+      bhepa_approver_id || null, // Set approver_id to null if not provided
+      tnc_approver_id || null, // Set approver_id to null if not provided
+      request_type,
+      new_req_status,
+      dateOnly,
+      timeOnly,
+      requestor_name
+    ],
+    (err, result) => {
+      if (err) {
+        console.error('Error inserting request data into MySQL:', err);
       }
-    );
+    }
+  );
 
-    if (request_type === "makanan")
-    {
-      sql = "INSERT INTO food_application (request_id, sponsor_type, ic_num_file, payment_slip_file, food_justification) VALUES (?, ?, ?, ?, ?)";
+  if (request_type === "makanan") {
+    sql = "INSERT INTO food_application (request_id, sponsor_type, ic_num_file, payment_slip_file, food_justification) VALUES (?, ?, ?, ?, ?)";
     // Execute the query
     db.query(
       sql,
@@ -1386,10 +1382,10 @@ app.post("/api/insert-users", (req, res) => {
         }
       }
     );
-    } else if (request_type === "wang_ihsan"){
-      console.log('asd')
-      sql = "INSERT INTO `wang_ihsan_application` (request_id, sponsor_type, help_type, ic_num_file, bank_statement_file, payment_slip_father_file, payment_slip_mother_file, support_doc_file, wang_ihsan_ammount_requested, wang_ihsan_ammount_approved, wang_ihsan_justification) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      // Execute the query
+  } else if (request_type === "wang_ihsan") {
+    console.log('asd')
+    sql = "INSERT INTO `wang_ihsan_application` (request_id, sponsor_type, help_type, ic_num_file, bank_statement_file, payment_slip_father_file, payment_slip_mother_file, support_doc_file, wang_ihsan_ammount_requested, wang_ihsan_ammount_approved, wang_ihsan_justification) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    // Execute the query
     db.query(
       sql,
       [
@@ -1414,19 +1410,19 @@ app.post("/api/insert-users", (req, res) => {
         }
       }
     );
-    }
+  }
 
-  });
-  
-
-  
-  //Will be here front end
-app.use(express.static('test_db_client/build'));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'test_db_client', 'build', 'index.html'));
 });
-  
+
+
+
+//Will be here front end
+// app.use(express.static('test_db_client/build'));
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'test_db_client', 'build', 'index.html'));
+// });
+
 
 app.listen(8000, () => {
   console.log(`Server is running on port 8000.`);

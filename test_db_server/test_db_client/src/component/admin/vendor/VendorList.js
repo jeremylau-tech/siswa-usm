@@ -85,10 +85,10 @@ function VendorList() {
 
   useEffect(() => {
     // Make an HTTP GET request to the /vendor-all endpoint
-        // fetch('https://kebajikansiswa.usm.my/api/vendor-table') // Replace with the appropriate URL
+    // fetch('http://localhost:8000/api/vendor-table') // Replace with the appropriate URL
     // fetch(`${process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.PROD_URL }vendor-table`)
-    // fetch('https://kebajikansiswa.usm.my/api/vendor-table') // Replace with the appropriate URL
-        fetch('https://kebajikansiswa.usm.my/api/vendor-table') // Replace with the appropriate URL
+    // fetch('http://localhost:8000/api/vendor-table') // Replace with the appropriate URL
+    fetch('http://localhost:8000/api/vendor-table') // Replace with the appropriate URL
 
       .then(res => res.json())
       .then(data => {

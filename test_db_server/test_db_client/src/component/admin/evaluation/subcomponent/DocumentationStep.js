@@ -22,21 +22,21 @@ function DocumentationStep({ sponsor, requestType, justification, pdfPath }) {
         <h2>Semakan Dokumen</h2>
         <div style={gridContainerStyle}>
           <div>
-          <Typography textAlign={"right"} padding={1}>Jenis Tajaan:</Typography>
+            <Typography textAlign={"right"} padding={1}>Jenis Tajaan:</Typography>
           </div>
           <input style={inputStyle} type="text" value={sponsor} readOnly />
 
           <div>
-          <Typography textAlign={"right"} padding={1}>Jenis Bantuan Diperlukan:</Typography>
+            <Typography textAlign={"right"} padding={1}>Jenis Bantuan Diperlukan:</Typography>
           </div>
           <input style={inputStyle} type="text" value={requestType} readOnly />
 
           <div>
-          {/* <Typography textAlign={"right"} padding={1}>Amaun Diperlukan:</Typography>
+            {/* <Typography textAlign={"right"} padding={1}>Amaun Diperlukan:</Typography>
           </div>
           <input style={inputStyle} type="text" value="$10,000" readOnly />
           <div> */}
-          <Typography textAlign={"right"} padding={1}>Justifikasi:</Typography>
+            <Typography textAlign={"right"} padding={1}>Justifikasi:</Typography>
           </div>
           <input
             style={inputStyle}
@@ -46,12 +46,12 @@ function DocumentationStep({ sponsor, requestType, justification, pdfPath }) {
           />
 
           <div>
-          <Typography textAlign={"right"} padding={1}>Salinan Dokumen:</Typography>
+            <Typography textAlign={"right"} padding={1}>Salinan Dokumen:</Typography>
           </div>
           <iframe
             title="Wage Certificate"
-            src={`https://kebajikansiswa.usm.my/api/get-pdf?pdfPath=${pdfPath}`}
-            style={{ border:"none", width: "90%", height: "700px" }}
+            src={`http://localhost:8000/api/get-pdf?pdfPath=${pdfPath}`}
+            style={{ border: "none", width: "90%", height: "700px" }}
           ></iframe>
         </div>
       </div>

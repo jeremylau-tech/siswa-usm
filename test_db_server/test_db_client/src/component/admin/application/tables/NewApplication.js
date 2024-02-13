@@ -17,187 +17,189 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-function NewApplication({roles, user_id}){
-const validRoles = ['admin', 'bhepa', 'tnc'];
-const navigate = useNavigate();
-  
-const columns = [
-  {
-    field: "request_id",
-    headerName: "No Rujukan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "requestor_name",
-    headerName: "Nama Pelajar",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "request_type",
-    headerName: "Jenis Permohonan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "request_date",
-    headerName: "Tarikh Permohonan",
-    width: 150,
-    editable: false,
-    valueGetter: (params) => {
-      // Convert the ISO date string to a Date object
-      const date = new Date(params.row.request_date);
+function NewApplication({ roles, user_id }) {
+  const validRoles = ['admin', 'bhepa', 'tnc'];
+  const navigate = useNavigate();
 
-      // Format the date as a string in your desired format
-      return date.toISOString().split('T')[0];
+  const columns = [
+    {
+      field: "request_id",
+      headerName: "No Rujukan",
+      width: 150,
+      editable: false,
     },
-  },
-  {
-    field: "request_count_per_user",
-    headerName: "Bilangan Permohonan",
-    width: 150,
-    editable: false,
-  },
-  {
-    field: "semakan",
-    headerName: "Semakan",
-    width: 130,
-    editable: false,
-    renderCell: (params) => {
-      const status = params.row.request_status; // Access the status value for the same row
-      const getIndicator = (status) => {
-        switch (status) {
-          case "baharu":
-            return (
-              <>
-                <status-indicator intermediary></status-indicator>
-                <status-indicator ></status-indicator>
-                <status-indicator ></status-indicator>
-              </>
-            );
-          case "semak":
-            return (
-              <>
-                <status-indicator positive></status-indicator>
-                <status-indicator intermediary></status-indicator>
-                <status-indicator></status-indicator>
-              </>
-            );
-          case "syor":
-            return (
-              <>
-                <status-indicator positive></status-indicator>
-                <status-indicator positive></status-indicator>
-                <status-indicator intermediary></status-indicator>
-              </>
-            );
-          case "lulus":
-            return (
-              <>
-                <status-indicator positive></status-indicator>
-                <status-indicator positive></status-indicator>
-                <status-indicator positive></status-indicator>
-
-              </>
-            );
-          case "tolak":
-            return (
-              <>
-                <status-indicator negative></status-indicator>
-                <status-indicator></status-indicator>
-                <status-indicator></status-indicator>
-              </>
-            );
-          default:
-            return <div>No Indicator</div>;
-        }
-      };
-
-      return (
-        <div>
-          {getIndicator(status)}
-        </div>
-      );
+    {
+      field: "requestor_name",
+      headerName: "Nama Pelajar",
+      width: 150,
+      editable: false,
     },
-  },
-  {
-    field: "actions",
-    headerName: "Tindakan",
-    width: 100,
-    sortable: false,
-    renderCell: (params) => (
-      <Button
-        style={{
-          backgroundColor: "#fafafa",
-          color: "black",
-          fontWeight: "bold",
-          boxShadow: "none",
-          outlineColor: "lightgrey",
-          outlineStyle: "solid",
-          outlineWidth: "1.5px",
-          textTransform: "none",
-          display: "flex",
-        }}
-        variant="contained"
-        onClick={() => handleToEvaluation(params)}
+    {
+      field: "request_type",
+      headerName: "Jenis Permohonan",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "request_date",
+      headerName: "Tarikh Permohonan",
+      width: 150,
+      editable: false,
+      valueGetter: (params) => {
+        // Convert the ISO date string to a Date object
+        const date = new Date(params.row.request_date);
 
-      >
-        <span >{getStatusButtonText(params.row.request_status).icon}</span>
-        {getStatusButtonText(params.row.request_status).text}
-      </Button>
-    ),
-  },
-  {
-    field: "catatan",
-    headerName: "Catatan",
-    width: 100,
-    sortable: false,
-    renderCell: (params) => (
-      <Button
-        style={{
-          backgroundColor: "#fafafa",
-          color: "black",
-          fontWeight: "bold",
-          boxShadow: "none",
-          outlineColor: "lightgrey",
-          outlineStyle: "solid",
-          outlineWidth: "1.5px",
-          textTransform: "none",
-          display: "flex",
-        }}
-        variant="contained"
-        onClick={() => handleCatatanButton("later put here for remarking")}
-      >
-        <span >
-          <StickyNote2RoundedIcon> </StickyNote2RoundedIcon>
-        </span>
-      </Button>
-    ),
-  },
-];
+        // Format the date as a string in your desired format
+        return date.toISOString().split('T')[0];
+      },
+    },
+    {
+      field: "request_count_per_user",
+      headerName: "Bilangan Permohonan",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "semakan",
+      headerName: "Semakan",
+      width: 130,
+      editable: false,
+      renderCell: (params) => {
+        const status = params.row.request_status; // Access the status value for the same row
+        const getIndicator = (status) => {
+          switch (status) {
+            case "baharu":
+              return (
+                <>
+                  <status-indicator intermediary></status-indicator>
+                  <status-indicator ></status-indicator>
+                  <status-indicator ></status-indicator>
+                </>
+              );
+            case "semak":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator intermediary></status-indicator>
+                  <status-indicator></status-indicator>
+                </>
+              );
+            case "syor":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator intermediary></status-indicator>
+                </>
+              );
+            case "lulus":
+              return (
+                <>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
+                  <status-indicator positive></status-indicator>
 
-const getStatusButtonText = (status) => {
-  let buttonText = "";
-  let icon = <AssignmentTurnedInRoundedIcon />;
-  return { text: buttonText, icon: icon };
-};
+                </>
+              );
+            case "tolak":
+              return (
+                <>
+                  <status-indicator negative></status-indicator>
+                  <status-indicator></status-indicator>
+                  <status-indicator></status-indicator>
+                </>
+              );
+            default:
+              return <div>No Indicator</div>;
+          }
+        };
+
+        return (
+          <div>
+            {getIndicator(status)}
+          </div>
+        );
+      },
+    },
+    {
+      field: "actions",
+      headerName: "Tindakan",
+      width: 100,
+      sortable: false,
+      renderCell: (params) => (
+        <Button
+          style={{
+            backgroundColor: "#fafafa",
+            color: "black",
+            fontWeight: "bold",
+            boxShadow: "none",
+            outlineColor: "lightgrey",
+            outlineStyle: "solid",
+            outlineWidth: "1.5px",
+            textTransform: "none",
+            display: "flex",
+          }}
+          variant="contained"
+          onClick={() => handleToEvaluation(params)}
+
+        >
+          <span >{getStatusButtonText(params.row.request_status).icon}</span>
+          {getStatusButtonText(params.row.request_status).text}
+        </Button>
+      ),
+    },
+    {
+      field: "catatan",
+      headerName: "Catatan",
+      width: 100,
+      sortable: false,
+      renderCell: (params) => (
+        <Button
+          style={{
+            backgroundColor: "#fafafa",
+            color: "black",
+            fontWeight: "bold",
+            boxShadow: "none",
+            outlineColor: "lightgrey",
+            outlineStyle: "solid",
+            outlineWidth: "1.5px",
+            textTransform: "none",
+            display: "flex",
+          }}
+          variant="contained"
+          onClick={() => handleCatatanButton("later put here for remarking")}
+        >
+          <span >
+            <StickyNote2RoundedIcon> </StickyNote2RoundedIcon>
+          </span>
+        </Button>
+      ),
+    },
+  ];
+
+  const getStatusButtonText = (status) => {
+    let buttonText = "";
+    let icon = <AssignmentTurnedInRoundedIcon />;
+    return { text: buttonText, icon: icon };
+  };
 
 
-function handleToEvaluation(params) {
-  // <Link to={`/EvaluationPage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
-    const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
+  function handleToEvaluation(params) {
+    // <Link to={`/EvaluationPage?rowId=${params.row.request_id}&rowReqType=${params.row.request_type}&userId=${params.row.requestor_id}&userRole=${roles}`}>
+    const { request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id,
       tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc } = params.row;
     const user_role = roles;
-  
+
     // Navigate to the ArchivePage with request details and userRole
     // navigate('/EvaluationPage', { state: { request_id, request_type, requestor_id,  admin_approver_id, bhepa_approver_id, 
     //   tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role } });
 
-    navigate('/EvaluationPage', { state: {request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
-      tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id
-    },
-      });
+    navigate('/EvaluationPage', {
+      state: {
+        request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id,
+        tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id
+      },
+    });
     // if (user_role === 'admin') {
     //   navigate('/EvaluationPage', { state: {request_id, request_type, requestor_id, admin_approver_id, bhepa_approver_id, 
     //       tnc_approver_id, request_remark_admin, request_remark_bhepa, request_remark_tnc, user_role, user_id
@@ -212,17 +214,17 @@ function handleToEvaluation(params) {
     //   // Handle other roles or provide a default navigation
     //   console.error('Unsupported role:', user_role);
     // }
-}
+  }
 
   const [open, setOpen] = useState(false); // State variable to control the dialog
 
   const handleClose = () => {
     setOpen(false); // Close the dialog
   };
-  
+
   const handleButtonClick = (rowId) => {
-  // Add your logic here to handle the button click for the row with the given ID
-  alert(`Button clicked for row with ID: ${rowId}`);
+    // Add your logic here to handle the button click for the row with the given ID
+    alert(`Button clicked for row with ID: ${rowId}`);
   };
 
   const handleCatatanButton = (remark) => {
@@ -242,7 +244,7 @@ function handleToEvaluation(params) {
       statusParam = "semak";
     else if (roles == "tnc")
       statusParam = "syor";
-    const apiUrl = `https://kebajikansiswa.usm.my/api/request-status-admin?request_status=${statusParam}`;
+    const apiUrl = `http://localhost:8000/api/request-status-admin?request_status=${statusParam}`;
 
     // Fetch requests from the server
     fetch(apiUrl)
@@ -257,7 +259,7 @@ function handleToEvaluation(params) {
         console.error("Error fetching requests data:", error);
       });
   }, []);
-  
+
   // const filteredRequest = requests.filter(request => request.request_status === "baharu");
 
   const downloadDataAsCSV = () => {
@@ -335,8 +337,8 @@ function handleToEvaluation(params) {
         </DialogContent>
       </Dialog>
     </div>
-      
-  );
-  }
 
-  export default NewApplication;
+  );
+}
+
+export default NewApplication;
